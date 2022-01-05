@@ -7,13 +7,13 @@
 
     <!-- Titolo -->
     <title>Login | Website Name © </title>
-    <meta name="title" content="Login | WebsiteName" />
+    <meta name="title" content="User Profile | WebsiteName" />
 
     <!-- Meta -->
     <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola" /> 
     <meta name="language" content="english eng" />
-    <meta name="description" content="Login to find a job or look for a professionist!" />
-    <meta name="keywords" content="Login, Log in, Username, Password, Job, WebsiteName" />
+    <meta name="description" content="User Profile with all the User informations" />
+    <meta name="keywords" content="User, Profile , Username, Password, Job, WebsiteName" />
 
     <!-- Fogli di Stile -->
     <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
@@ -34,32 +34,20 @@
         <ul>
             <li><a href="Index.html">Home</a></li>
             <li><a href="FindJob.html">Search For a Job</a> </li>
-            <li class="right">
-                <a href="SignUp.html">If you don't have an account, sign up here!</a>
-            </li>
         </ul>
     </header>
 
     <div class="breadcrumb">
-        You are in : Login
+        You are in : User Profile
     </div>
     <!-- Main Content -->
     <main>
-        <form class="forInput" action="php/Login.php" method="post">
-            <fieldset  >
-                <legend>Login</legend>
-                <!-- attributo for serve per indicare l'input quando clicco sulla label -->
-                <label for="Username">Username : </label>
-                <input type="text" id="Username" required \>
-                <br><br>
-                <label for="Password">Password :</label>
-                <input type="password" id="Password" required \>
-                <br><br>
-                <input type="submit" value="Login" \>
-                <br>
-            </fieldset>
-        </form>
-
+        <ul class="user">
+            <li class="userProfile"><a href="">User Profile</a></li>
+            <li class="userProfile"><a href="">Work's History</a> </li>
+            <li class="userProfile"><a href="">Offer's History</a> </li>
+            <li class="userProfile"><a href="">User Setting</a> </li>
+        </ul>
     </main>
     <!-- Footer -->
     <footer>

@@ -1,13 +1,112 @@
-@media only screen and (max-width: 694px) {
-
-
-
-
-
-
-
-
-
-
-
+/* INIZIO CSS TEMPORANEO */
+html {
+    background-color:lightgray ;
+    width: 100%;
 }
+body {
+    font-family:Trebuchet MS,sans-serif;    
+    margin:auto;    
+    width: 80%;
+}
+main {
+    background-color:lightgray;
+}
+
+/* H E A D E R */
+/* Titolo Pagine nell'Header */
+header {
+    background-color : blanchedalmond;
+}
+
+h1 {
+    margin:auto;
+    text-align: center;
+}
+
+/* Lista elementi Header */
+ul {
+    margin:auto;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    display:inline-block;
+    padding: 0.4em;
+}
+/* li spostato a destra */
+li.right {
+    float:right;
+}
+ul.user {
+    margin:auto;
+    list-style-type: none;
+    margin: 1em;
+    padding: 0.2em;
+}
+li.userProfile {
+    display: block;
+    padding : 0.2em;
+    margin:1em;
+}
+
+/* B R E A D C R U M B */
+div.breadcrumb{
+    background-color:whitesmoke;
+    border : solid 2px black;
+}
+
+/* F O O T E R */
+footer {
+    background-color : blanchedalmond;
+}
+
+/* C O N T E N T */
+/* Form per pagina Login, Sign In, Create Job, Find Job*/ 
+form {
+    padding: 1em;
+}
+/* Form per pagina Login, Sign In, Create Job*/ 
+form.forInput{
+    margin:auto;
+    width:50%;
+}
+
+fieldset{
+    background-color: white;
+    border-radius: 5px;
+}
+legend {
+    font-weight: bold;
+    text-align: center;
+}
+fieldset p {
+    text-align: center;
+}
+textarea {
+    border-radius: 5px;
+    resize:vertical;
+    width:70%;  
+}
+input {
+    border-radius: 5px;
+}
+
+/* Pagina FIND JOB*/
+fieldset.filters{
+    background-color: lightslategrey;
+}
+fieldset.orders{
+    background-color: grey;
+}
+div.filter {
+    float:left;
+    width:15%;
+}
+div.content_order{
+    margin-left: 15%;
+    width: 80%;
+}
+
+
+/* FINE CSS TEMPORANEO */

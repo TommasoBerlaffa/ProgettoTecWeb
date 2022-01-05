@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Titolo -->
-    <title>Sign Up | WebsiteName </title>
+    <title>Sign Up | Website Name © </title>
     <meta name="title" content="Sign Up | WebsiteName" />
-    
+
     <!-- Meta -->
     <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola">
     <meta name="language" content="english eng" />
@@ -16,43 +16,33 @@
     <meta name="keywords" content="SignUp, Sign up, Username, Password, Job, WebsiteName" />
  
     <!-- Fogli di Stile -->
-    <link rel="StyleSheets" type="text/css" href="StyleSheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
     <link rel="StyleSheets" type="text/css" href="Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="Mobile.css" media="screen" />
+    <link rel="StyleSheets" type="text/css" href="Mobile.css" media="screen" /> 
     
     <!-- Icona -->
-    <link rel="icon" type="image/png" href="" />
+    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
 
-    <!-- CSS Temporaneo -->
-    <style>
-        body {
-            font-family:Trebuchet MS,sans-serif;    
-        }
-        form {
-            margin:auto;
-            width:40%;
-        }
-        fieldset{
-            border-radius: 5px;
-        }
-        legend {
-            font-weight: bold;
-            text-align: center;
-        }
-        fieldset p {
-            text-align: center;
-        }
-        
-    </style>
 </head>
 <body onload="onLoad()">
-    <!-- Header con Link per altre Pagine del Sito-->
     <header>
+        <h1>
+            Website Name ©
+        </h1>
 
+        <ul>
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="FindJob.html">Search For a Job</a> </li>
+            <li class="right"><a href="Login.html">Login</a></li>
+        </ul>
     </header>
+
+    <div class="breadcrumb">
+        You are in : Sign Up
+    </div>
     <!-- Main Content -->
     <main>
-        <form>
+        <form class="forInput" action="../PHP/SignUp.php" method="post">
             <!-- attributo for serve per indicare l'input quando clicco sulla label -->
             <fieldset id="Form_1">
 
@@ -186,7 +176,9 @@
 
     </main>
     <!-- Footer -->
-    <footer></footer>
+    <footer>
+        <h3>Website Name ©</h3>  
+    </footer>
 </body>
 </html>
 
