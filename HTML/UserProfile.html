@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="eng">
-<!-- PAGINA PER IL LOGIN (Necessita Account)-->
+<!-- PAGINA PROFILO UTENTE -->
 <head>
     <!-- Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Titolo -->
-    <title>Login | Website Name © </title>
-    <meta name="title" content="Login | WebsiteName" />
+    <title>User Profile | Website Name © </title>
+    <meta name="title" content="User Profile | WebsiteName" />
 
     <!-- Meta -->
     <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" /> 
     <meta name="language" content="english eng" />
-    <meta name="description" content="Login to find a job or look for a professionist!" />
-    <meta name="keywords" content="Login, Log in, Username, Password, Job, WebsiteName" />
+    <meta name="description" content="User Profile with all the User informations" />
+    <meta name="keywords" content="User, Profile , Username, Password, Job, WebsiteName" />
 
     <!-- Fogli di Stile -->
     <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
@@ -35,28 +35,21 @@
         <ul>
             <li><a href="Index.html">Home</a></li>
             <li><a href="FindJob.html">Search For a Job</a> </li>
-            <li class="right">
-                <a href="SignUp.html">If you don't have an account, sign up here!</a>
-            </li>
         </ul>
     </header>
 
     <nav class="breadcrumb">
-        You are in : Login 
+        You are in : User Profile
     </nav>
     <!-- Main Content -->
     <main>
-        <form class="forInput" action="../PHP/Login.php" method="post">
-            <fieldset  > 
-                <legend>Login</legend>
-                <!-- attributo for serve per indicare l'input quando clicco sulla label -->
-                <label for="Mail">Mail : </label>
-                <input type="email" id="Mail" required \>
-                <label for="Password">Password :</label>
-                <input type="password" id="Password" required \>
-                <input type="submit" value="Login" \>
-            </fieldset>
-        </form>
+        <ul class="user">
+            <li class="userProfile"><a href="#UserProfile">User Profile</a></li>
+            <li class="userProfile"><a href="#WorkHistory">Work's History</a> </li>
+            <li class="userProfile"><a href="#OfferHistory">Offer's History</a> </li>
+            <li class="userProfile"><a href="#UserSetting">User Setting</a> </li>
+        </ul>
+        DA RIEMPIRE CON PHP
     </main>
     <!-- Footer -->
     <footer>

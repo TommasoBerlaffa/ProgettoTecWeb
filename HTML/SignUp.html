@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="eng">
+<!-- PAGINA PER LA REGISTRAZIONE -->
 <head>
     <!-- Meta -->
     <meta charset="UTF-8">
@@ -10,15 +11,15 @@
     <meta name="title" content="Sign Up | WebsiteName" />
 
     <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola">
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo">
     <meta name="language" content="english eng" />
     <meta name="description" content="Sign up to find a job or look for a professionist!" />
     <meta name="keywords" content="SignUp, Sign up, Username, Password, Job, WebsiteName" />
  
     <!-- Fogli di Stile -->
     <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="StyleSheets" type="text/css" href="Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="Mobile.css" media="screen" /> 
+    <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
+    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" /> 
     
     <!-- Icona -->
     <link rel="icon" type="image/png" href="../IMG/doggo.png" />
@@ -33,13 +34,13 @@
         <ul>
             <li><a href="Index.html">Home</a></li>
             <li><a href="FindJob.html">Search For a Job</a> </li>
-            <li class="right"><a href="Login.html">Login</a></li>
+            <li class="right"><a href="Login.html">If you already have an account, you can Login here!</a></li>
         </ul>
     </header>
 
-    <div class="breadcrumb">
+    <nav class="breadcrumb">
         You are in : Sign Up
-    </div>
+    </nav>
     <!-- Main Content -->
     <main>
         <form class="forInput" action="../PHP/SignUp.php" method="post">
@@ -49,29 +50,24 @@
                 <legend> Sign Up </legend>
                 <p> Please fill this form to create a new account  1/3</p>
                 <p> Only the field with a * are required</p>
-
+                
+                <!-- Nickname -->
                 <label for="Username" class="Enter">Username* : </label>
-                <br>
                 <input type="text" id="Username" class="Enter" required \>
-                <br><br>
+                <!-- Name -->
                 <label for="Name" class="Enter">Name* :</label>
-                <br>
                 <input type="text" id="Name" class="Enter" required \>
-                <br><br>
+                <!-- Surname -->
                 <label for="Surname" class="Enter">Surname* :</label>
-                <br>
                 <input type="text" id="Surname" class="Enter" required \>
-                <br><br>
+                <!-- Password -->
                 <label for="Password" class="Enter">Password* :</label>
-                <br>
                 <input type="password" id="Password" class="Enter" required \>
-                <br><br>
+                <!-- Password ( Check ) -->
                 <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
-                <br>
                 <input type="password" id="Repeat-Password" class="Enter" required \>
-                <br><br>
-                <input type="button" value="Next" class="Next" onclick="Form2()" \>
-
+                <!-- Next Page -->
+                <input type="button" value="Next" onclick="Form2()" \>
             </fieldset>
 
             <fieldset id="Form_2">
@@ -79,98 +75,85 @@
                 <legend> Sign Up </legend>
                 <p> Please fill this form to create a new account  2/3</p>
                 <p> Only the field with a * are required</p>
-                    
-                <label for="Age" >Age* : </label>
-                <br>
-                <input type="number" value="18" min="18" max="120" id="Age" required \>
-                <br><br>
-                <label for="Email" >Email* : </label>
-                <br>
+                <!-- Birthday -->
+                <label for="Bday" >Birthday* : </label>
+                <input type="date" id="Bday" name="Bday" required>
+                <!-- Mail -->
                 <!-- Possiamo aggiungere un pattern ad Email-->
+                <label for="Email" >Email* : </label>               
                 <input type="email" id="Email" required \>
-                <br><br>
                 <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
+                <!-- Nationality -->
                 <label for="Nationality">Nationality* : </label>
-                <br>
                 <input type="text" id="Nationality" required \>
-                <br><br>
+                <!-- City -->
                 <label for="City">City* : </label>
-                <br>
                 <input type="text" id="City" required \>
-                <br><br>
+                <!-- Address -->
+                <label for="Address">Address : </label>
+                <input type="text" id="Address" \>
+                <!-- Tel -->
                 <!-- Si può fare controllo con un'espressione regolare -->
                 <label for="Tel">Telephone Number : </label>
-                <br>
                 <input type="tel" id="Tel" \>
-                <br><br>
+                <!-- Codice JS, probabilmente TO REPLACE with PHP-->       
                 <input type="button" value="Go Back" onclick="Form1()" \>
                 <input type="button" value="Next" class="Next" onclick="Form3()" \>
             
             </fieldset>
 
             <fieldset id="Form_3">
-                    <legend> Sign Up </legend>
-                    <p> Please fill this form to create a new account 3/3</p>
-                    <p> Only the field with a * are required</p>
+                <legend> Sign Up </legend>
+                <p> Please fill this form to create a new account 3/3</p>
+                <p> Only the field with a * are required</p>
 
-                    <!-- Da discutere più avanti, Temporaneo -->
-                    <label for="Skills">Skills * : </label>
-                    <br>
-                    <select name="Skills" id="Skills">
-                        <option value="HTML">HTML</option>
-                        <option value="CSS">CSS</option>
-                        <option value="PHP">PHP</option>
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="C++">C++</option>
-                        <option value="Java">Java</option>
-                        <option value="C#">C#</option>
-                        <option value="Python">Python</option>
-                        <option value="C">C</option>
-                        <option value="Visual Basic">Visual Basic</option>
-                    </select>
-                    <br><br>
-                    <label for="Curr">Link To a Curriculum : </label>
-                    <br>
-                    <input type="url" pattern="https::\\" value="https::\\" id="Curr" \>
-                    <br><br>
-                    <label for="Desc">Describe Yourself :</label>
-                    <br>
-                    <textarea id="Desc" > </textarea>
-                    <br><br>
-
-                    <input type="button" value="Go Back" onclick="Form2()"\>
-                    <input type="button" value="Next" class="Next" onclick="Form4()"\>
+                <!-- Da discutere più avanti, Temporaneo -->
+                <label for="Skills">Skills * : </label>
+                
+                <select name="Skills" id="Skills">
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="PHP">PHP</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="C++">C++</option>
+                    <option value="Java">Java</option>
+                    <option value="C#">C#</option>
+                    <option value="Python">Python</option>
+                    <option value="C">C</option>
+                    <option value="Visual Basic">Visual Basic</option>
+                </select>
+                <!-- Curriculum -->
+                <label for="Curr">Link To a Curriculum : </label>
+                <input type="url" pattern="https::\\" value="https::\\" id="Curr" \>
+                <!-- Description -->
+                <label for="Desc">Describe Yourself :</label>
+                <textarea id="Desc" > </textarea>
+                    
+                <input type="button" value="Go Back" onclick="Form2()"\>
+                <input type="button" value="Next" class="Next" onclick="Form4()"\>
             </fieldset>
+            
             <fieldset id="Form_4">
                 <legend> Sign Up </legend>
                 <p> Complete the Sign Up</p>
                 
                 <!-- Da riempire con i campi usati in precedenza tramite PHP -->
-                <label >Username : </label>
-                <br><br>
-                <label >Name : </label>
-                <br><br>
-                <label >Surname : </label>
-                <br><br>
-                <label >Age : </label>
-                <br><br>
-                <label >Email : </label>
-                <br><br>
-                <label >Nationality : </label>
-                <br><br>
-                <label >City : </label>
-                <br><br>
-                <label >Telephone Number : </label>
-                <br><br>
-                <label >Link to a Curriculum : </label>
-                <br><br>
-                <label >Skills : </label>
-                <br><br>
-                <label >Description : </label>
-                <br><br>
-                
-                <input type="button" value="Go Back" onclick="Form3()"\>
-                <input type="submit" value="Sign Up" \>
+                <label >Username : {{ Nickname }}</label>
+                <label >Name : {{ Name }}</label>
+                <label >Surname : {{ Surname }}</label>
+                <label >Birth : {{ Birth }}</label>
+                <label >Email : {{ }}</label>                
+                <label >Nationality : {{ Nationality }}</label>                
+                <label >City : {{ City }}</label>                
+                <label >Address : {{ Address }}</label>                
+                <label >Telephone Number : {{ Phone }}</label>                
+                <label >Link to a Curriculum : {{ Curriculum }}</label>                
+                <label >Skills : {{ }}</label>                
+                <label >Description : {{ Description }}</label>                
+                <div>
+                    <input type="button" value="Go Back" onclick="Form3()"\>
+                    <input type="submit" value="Sign Up" \>
+                </div>
         </fieldset>
         </form>
 

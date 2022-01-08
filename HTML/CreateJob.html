@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="eng">
+<!-- PAGINA DI CREAZIONE OFFERTA DI LAVORO -->
 <head>
     <!-- Meta -->
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
     <meta name="title" content="Create a Job Offer | WebsiteName" />
 
     <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola" /> 
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" /> 
     <meta name="language" content="english eng" />
     <meta name="description" content="Create a Job Offer and look for a professionist to work for you!" />
     <meta name="keywords" content="JobOffer, Offer, FindWork, Job, WebsiteName" />
@@ -34,35 +35,44 @@
         <ul>
             <li><a href="Index.html">Home</a></li>
             <li><a href="FindJob.html">Search For a Job</a> </li>
-        </ul>
+            <!-- Pagina accessibile solo se Loggati, quindi solo User Profile -->
+            <li class="right"><a href="UserProfile.html">User Profile </a></li>
     </header>
 
-    <div class="breadcrumb">
+    <nav class="breadcrumb">
         You are in : Create a Job Offer
-    </div>
+    </nav>
 
     <!-- Main Content -->
     <main>
-        <form class="forInput" action="../PHP/SignIn.php" method="post">
+        <form class="forInput" action="../PHP/CreateJob.php" method="post">
             <fieldset>
                 <legend>Create a Job Offer</legend>
+                <!-- Title -->
                 <label for="Title">Title</label>
-                <br>
                 <input type="text" id="Title" required> 
-                <br><br>
+                <!-- Job Description -->
                 <label for="Desc">Describe the Job :</label>
-                <br>
-                <textarea id="Desc" > </textarea>
-                <br><br>
-                <label for="Pay">Pay</label> 
-                <br>
-                <input type="number" id="Pay" min="0" > 
-                <br><br>
+                <textarea id="Desc"> </textarea>
+                <!-- Tipology -->
+                <label for="Tipology">Typology :</label>
+                <select id="Tipology" required> 
+                    <option>Fulltime</option>
+                    <option>One Time</option>
+                    <option>Urgent</option>
+                    <option>Recruiter</option>
+                </select>
+                <!-- Minimum Pay -->
+                <label for="MinPay">Min Pay</label> 
+                <input type="number" id="MinPay" min="0" value="25" required> 
+                <!-- Maximum Pay -->
+                <label for="MaxPay">Max Pay</label> 
+                <input type="number" id="MaxPay" min="50" max="5000" value="100" required> 
+                <!-- Skills -->
                 <label for="Skills">Skills Required</label> 
-                <br>
-                <!-- Boh, ci pensiamo (?)-->
-                <input type="number" id="Skills" > 
-                <br><br>
+                <select id="Skills" > 
+                    <!-- Fill with PHP -->
+                </select>
                 <input type="submit" id="Create" value="Create a new Job Offer" >
             </fieldset>
         </form>

@@ -6,10 +6,11 @@ html {
 body {
     font-family:Trebuchet MS,sans-serif;    
     margin:auto;    
-    width: 80%;
+
 }
 main {
     background-color:lightgray;
+    padding: 2em;
 }
 
 /* H E A D E R */
@@ -51,14 +52,19 @@ li.userProfile {
 }
 
 /* B R E A D C R U M B */
-div.breadcrumb{
+nav.breadcrumb{
     background-color:whitesmoke;
+    border-width: 0em;
     border : solid 2px black;
 }
 
 /* F O O T E R */
 footer {
     background-color : blanchedalmond;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 /* C O N T E N T */
@@ -70,6 +76,11 @@ form {
 form.forInput{
     margin:auto;
     width:50%;
+}
+
+form.forOutput{
+    margin:auto;
+    width:60%;
 }
 
 fieldset{
@@ -88,8 +99,13 @@ textarea {
     resize:vertical;
     width:70%;  
 }
+label {
+    display: block;
+}
 input {
     border-radius: 5px;
+    display: block;
+    margin-bottom: 1em;
 }
 
 /* Pagina FIND JOB*/
@@ -97,7 +113,7 @@ fieldset.filters{
     background-color: lightslategrey;
 }
 fieldset.orders{
-    background-color: grey;
+    background-color: lightslategrey;
 }
 div.filter {
     float:left;
@@ -107,6 +123,4 @@ div.content_order{
     margin-left: 15%;
     width: 80%;
 }
-
-
 /* FINE CSS TEMPORANEO */

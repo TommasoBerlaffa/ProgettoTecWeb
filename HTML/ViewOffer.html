@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="eng">
+<!-- PAGINA PER VISUALIZZARE LE INFO DELLA SINGOLA OFFERTA DI LAVORO -->
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Titolo -->
+    <title>{{ Title }} | Website Name © </title>
+    <meta name="title" content="{{ Title }} | WebsiteName" />
+
+    <!-- Meta -->
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo">
+    <meta name="language" content="english eng" />
+    <meta name="description" content="Sign up to find a job or look for a professionist!" />
+    <meta name="keywords" content="Offer, View, ViewOffer, WebsiteName" />
+ 
+    <!-- Fogli di Stile -->   
+    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+    <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
+    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" /> 
+    
+    <!-- Icona -->
+    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+
+</head>
+<body>
+    <header>
+        <h1>
+            Website Name ©
+        </h1>
+
+        <ul>
+            <li><a href="Index.html">Home</a></li>
+            <li><a href="FindJob.html">Search For a Job</a> </li>
+            <li class="right"><a href="UserProfile.html">User Profile</a></li>
+        </ul>
+    </header>
+    
+    <nav class="breadcrumb">
+        You are in : Offer Information {{ Title }}
+    </nav>
+    <!-- Main Content -->
+    <main>
+        <form class="forOutput">
+           <fieldset>
+                <legend>Job Offer</legend>
+                <h1> {{ Title }}</h1><br>
+                <label> {{ Description }} </label><br>
+                <label> Payment : {{ Payment }} </label> <br>
+                <label> Minimum Pay :{{ P_min }}   Maximum Pay :{{ P_max }}</label> <br>
+                <label> Current Status : {{ Status }}</label><br>
+                <label> Type : {{ Tipology }}</label><br>
+                <label> Date : {{ Date }}  Expire Date : {{ Expiring }}</label><br>
+           </fieldset>
+        </form>
+
+    </main>
+    <!-- Footer -->
+    <footer>
+        <h3>Website Name ©</h3>  
+    </footer>
+</body>
+</html> 
