@@ -11,15 +11,15 @@
     <meta name="title" content="Create a Job Offer | WebsiteName" />
 
     <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" /> 
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
     <meta name="language" content="english eng" />
     <meta name="description" content="Create a Job Offer and look for a professionist to work for you!" />
     <meta name="keywords" content="JobOffer, Offer, FindWork, Job, WebsiteName" />
 
     <!-- Fogli di Stile -->
     <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="StyleSheets" type="text/css" href="Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="Mobile.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
 
     <!-- Icona -->
     <link rel="icon" type="image/png" href="../IMG/doggo.png" />
@@ -32,12 +32,16 @@
             Website Name ©
         </h1>
 
-        <ul>
-            <li><a href="Index.html">Home</a></li>
-            <li><a href="FindJob.html">Search For a Job</a> </li>
-            <!-- Pagina accessibile solo se Loggati, quindi solo User Profile -->
-            <li class="right"><a href="UserProfile.html">User Profile </a></li>
-    </header>
+      </header>
+
+        <div class="MenuFooterLoggedDiv">
+          <ul class="MenuFooterLoggedUl">
+              <li class="MenuFooterLoggedLi"><a href="Index.html">Home</a></li>
+              <li class="MenuFooterLoggedLi"><a href="FindJob.html">Search</a> </li>
+              <li class="MenuFooterLoggedLi"><a href="CreateJob.html">New Job</a> </li>
+              <li class="MenuFooterLoggedLi right"><a href="UserProfile.html">Profile</a></li>
+          </ul>
+        </div>
 
     <nav class="breadcrumb">
         You are in : Create a Job Offer
@@ -46,34 +50,35 @@
     <!-- Main Content -->
     <main>
         <form class="forInput" action="../PHP/CreateJob.php" method="post">
-            <fieldset>
-                <legend>Create a Job Offer</legend>
+            <fieldset class="">
+                <legend>Create a Job Offer</legend><br>
                 <!-- Title -->
-                <label for="Title">Title</label>
-                <input type="text" id="Title" required> 
+                <label class="FormCreateLabel" for="Title">Title</label><br>
+                <input class="FormCreateInput" type="text" id="Title" required><br><br>
                 <!-- Job Description -->
-                <label for="Desc">Describe the Job :</label>
-                <textarea id="Desc"> </textarea>
+                <label class="FormCreateLabel" for="Desc">Describe the Job :</label><br>
+                <textarea class="FormCreateInput LargeText" id="Desc" rows="7" cols="Max"></textarea><br><br>
                 <!-- Tipology -->
-                <label for="Tipology">Typology :</label>
-                <select id="Tipology" required> 
+                <label class="FormCreateLabel" for="Tipology">Typology :</label><br>
+                <select class="FormCreateInput" id="Tipology" required>
                     <option>Fulltime</option>
                     <option>One Time</option>
                     <option>Urgent</option>
                     <option>Recruiter</option>
-                </select>
+                </select><br><br>
                 <!-- Minimum Pay -->
-                <label for="MinPay">Min Pay</label> 
-                <input type="number" id="MinPay" min="0" value="25" required> 
+                <label class="FormCreateLabel" for="MinPay">Min Pay</label><br>
+                <input class="FormCreateInput ShortInput"  type="number" id="MinPay" min="0" value="25" required><br><br>
                 <!-- Maximum Pay -->
-                <label for="MaxPay">Max Pay</label> 
-                <input type="number" id="MaxPay" min="50" max="5000" value="100" required> 
+                <label class="FormCreateLabel" for="MaxPay">Max Pay</label><br>
+                <input class="FormCreateInput ShortInput" type="number" id="MaxPay" min="50" max="5000" value="100" required><br><br>
                 <!-- Skills -->
-                <label for="Skills">Skills Required</label> 
-                <select id="Skills" > 
+                <label class="FormCreateLabel" for="Skills">Skills Required</label><br>
+                <select class="FormCreateInput ShortInput" id="Skills" >
                     <!-- Fill with PHP -->
-                </select>
-                <input type="submit" id="Create" value="Create a new Job Offer" >
+                </select><br><br>
+                <br><input type="submit" id="Create" value="Create a new Job Offer" >
+                  <a href="index.html"><button class="right" type="button" name="Cancel">Cancel</button></a>
             </fieldset>
         </form>
     </main>

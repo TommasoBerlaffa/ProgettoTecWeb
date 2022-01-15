@@ -2,27 +2,75 @@
 <html lang="eng">
 <head>
     <meta charset="UTF-8">
-    <!-- Aggiungere Meta -->
+    <!-- Meta -->
+    <meta name="title" content="Home | WebsiteName" />
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
+    <meta name="language" content="english eng" />
+    <meta name="description" content="Home page of WebsiteName, search for a job here!" />
+    <meta name="keywords" content="WebsiteName, Home, Hire, Job, WebsiteName" />
 
     <!-- Fogli di Stile -->
-    <link rel="StyleSheets" type="text/css" href="StyleSheet.css" media="screen" />
-    <link rel="StyleSheets" type="text/css" href="Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="Mobile.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
     <!-- Icona -->
+    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
 
 </head>
-<body>
+<body bgcolor="#e6ffff">
     <!-- Header con Link per altre Pagine del Sito-->
-    <header>
-        
-    </header>
+    <header></header>
     <!-- Main Content -->
     <main>
+      <div id="BottoniLogSignDiv">
+          <a href="./Login.html"> <p class="BottoniLogSignClass">Log In</p> </a>
+          <a href="./SignUp.html"> <p class="BottoniLogSignClass">Sign Up</p> </a>
+      </div>
+
+      <div id="BottoniLavoroDiv">
+        <h1 id="WebSiteName"> Website Name ©</h1>
+        <h1 class="BottoniLavoro"><a href="">Cerca Lavoro</a></h1>
+        <!-- Non riesco a centrarli .-. -->
+        <h1 class="BottoniLavoro"><a href="">Offri Lavoro</a></h1>
+      </div>
+
+      <div id="slidesDiv">
+        <p>Trova il super lavoro!</p>
+        <p>Milioni di persone usano questo sito per trovare lavoro e lavoratori!</p>
+
+        <h1 class="BottoniLavoro"><a href="">Cerca Lavoro!</a></h1>
+      </div>
+
+      <br/>
+      <div id="TopCategorieDiv">
+        <p>Trova lavoro tra le nostre migliori categorie!</p>
+        <!-- Lista de categorie -->
+          <TopCategorie/>
+      </div>
+
+      <br/><hr><br/>
+      <div id="CardsDiv">
+        <p>Come funziona?</p>
+        <ul class="CardsUl">
+
+          <li><p class="TitoloCard">Cerca</p>
+            <p class="TestoCard">Cerca l'annuncio del lavoro dei tuoi sogni! bla bla bla o pccion</li>
+
+          <li><p class="TitoloCard">Candidati</p>
+            <p class="TestoCard">Invia la tua candidatura facilmente, mostrando le tue conoscenze e <span xml:lang="en">skills</span> pubblicate sul tuo profilo, oppure caricando direttamente il tuo <abbr xml:lang="en" title="Curriculum Vitae">CV</abbr>!</li>
+
+          <li><p class="TitoloCard">Attendi</p>
+            <p class="TestoCard">Attendi che l'offerente prenda una decisione sulla tua candidatura</li>
+
+          <li><p class="TitoloCard">Lavora</p>
+            <p class="TestoCard"  >Se hai convinto l'offerente, verrai contattato da lui e inizierai a lavorare presto!</li>
+
+        </ul>
+
+      </div>
 
     </main>
     <!-- Footer -->
-    <footer>
-
-    </footer>
+    <footer></footer>
 </body>
 </html>

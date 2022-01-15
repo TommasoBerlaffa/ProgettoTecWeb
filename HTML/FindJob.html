@@ -10,19 +10,19 @@
     <meta name="title" content="Find a Job Offer | WebsiteName" />
 
     <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" /> 
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
     <meta name="language" content="english eng" />
     <meta name="description" content="Find the perfect job for you!" />
     <meta name="keywords" content="Find Job, Find, FindWork, Job, WebsiteName" />
 
     <!-- Fogli di Stile -->
     <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
 
     <!-- Icona -->
     <link rel="icon" type="image/png" href="../IMG/doggo.png" />
-    
+
 </head>
 <body>
     <!-- Header con Link per altre Pagine del Sito-->
@@ -30,14 +30,15 @@
         <h1>
             Website Name ©
         </h1>
-
-        <ul>
-            <li><a href="Index.html">Home</a></li>           
-            <!-- Aggiungere controllo se Login già effettuato -->
-            <li class="right"><a href="SignUp.html">Sign in</a></li>
-            <li class="right"><a href="Login.html">Login</a> or</li>
-        </ul>
     </header>
+    <div class="MenuFooterLoggedDiv">
+      <ul class="MenuFooterLoggedUl">
+          <li class="MenuFooterLoggedLi"><a href="Index.html">Home</a></li>
+          <li class="MenuFooterLoggedLi"><a href="FindJob.html">Search</a> </li>
+          <li class="MenuFooterLoggedLi"><a href="CreateJob.html">New Job</a> </li>
+          <li class="MenuFooterLoggedLi right"><a href="UserProfile.html">Profile</a></li>
+      </ul>
+    </div>
 
     <nav class="breadcrumb">
         You are in : Find a Job Offer
@@ -49,33 +50,24 @@
                 <fieldset class="filters" >
                     <legend>Filters</legend>
                     <!-- Paga Massima Oraria -->
-                    <label for="pph">Max Pay per Hour :</label>
-                    <input type="number" id="pph" name="pph" min="0" max="5000" value="100">
+                    <label for="pph">Max Pay per Hour :</label><br>
+                    <input type="number" id="pph" name="pph" min="0" max="5000" value="100"><br>
                     <!-- Paga Minima Oraria -->
-                    <label for="pph">Min Pay per Hour :</label>
-                    <input type="number" id="pph" name="pph" min="0" max="5000" value="100">
-                    
-                    <label for="Skills">Skill required : </label>
+                    <label for="pph">Min Pay per Hour :</label><br>
+                    <input type="number" id="pph" name="pph" min="0" max="5000" value="100"><br>
+
+                    <label for="Skills">Skill required : </label><br>
                     <!-- Da riempire con PHP -->
                     <select name="Skills" id="Skills">
-                        <option value="HTML">HTML</option>
-                        <option value="CSS">CSS</option>
-                        <option value="PHP">PHP</option>
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="C++">C++</option>
-                        <option value="Java">Java</option>
-                        <option value="C#">C#</option>
-                        <option value="Python">Python</option>
-                        <option value="C">C</option>
-                        <option value="Visual Basic">Visual Basic</option>
-                    </select>
-                    
+                        <OptionSkillsList/>
+                    </select><br>
+
                     <input type="submit" value="Filter">
-                </fieldset>    
+                </fieldset>
             </form>
-           
+
         </div>
-        
+
         <div class="content_order">
             <form action="../PHP/Order.php" method="post">
                 <fieldset class="orders" >
@@ -85,17 +77,21 @@
                         <option value="Order1">Order Type 1</option>
                         <option value="Order2">Order Type 2</option>
                         <option value="Order3">Order Type 3</option>
-                    </select>   
+                    </select>
                     <input type="submit" value="Order">
-                </fieldset>    
+                </fieldset>
             </form>
-            Da Riempire con PHP
         </div>
+
+        <div class="">
+          <content/>
+        </div>
+
     </main>
-    
+
     <!-- Footer -->
     <footer>
         <h3>Website Name ©</h3>
-    </footer>
+
 </body>
 </html>
