@@ -4,25 +4,26 @@
 /*
 Function List:
 
-createJob
-setWinner
-getJob
-getOldJob
-createReview
-*getJobReview
-*getBids
-*getJobListbyCreator
-*changeJobStatus
-getAllTags
-getTags
-*searchJob
-getUser
-getUserReview
-getUserReviewList
-getUserJobsBidded
-getUserJobsWon
-Register_new_user
-Login
+1.createJob
+2.setWinner
+3.getJob
+4.createReview
+*5.getJobReview
+6.getBids
+7.getJobListbyCreator
+8.getPastJobListbyCreator
+9.changeJobStatus 
+10.getAllTags
+11.getTags
+12.getMostPopularJobs
+*13.searchJob
+14.getUser
+15.getUserReview
+16.getUserReviewList
+17.getUserJobsBidded
+18.getUserJobsWon
+19.Register_new_user
+20.Login
 
 */
 
@@ -34,7 +35,7 @@ class DBAccess {
 	private const USERNAME="root";
 	private const PASSWORD="";
 	private const DBNAME="job_finder";
-
+	
 	private $connection;
 	
 	public class review {
@@ -82,176 +83,287 @@ class DBAccess {
   
   
   
-  /***Create New Job***
+  /***1.Create New Job***
   par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
   desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring) {
-	//create new entry on table users and then create with the relative index the credentials for the login.
-    $queryInserimento = "INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring) 
-                          VALUES (?,?,?,?,?,?,?,?)";
-	if(!($this->openDBConnection()))
-		die("\nFailed to open connection to the DB");
-    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-    mysqli_stmt_bind_param($queryCall,"isssbiis",$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-    mysqli_stmt_execute($queryCall);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	mysqli_stmt_close($queryCall);
-	$tmp=mysqli_affected_rows($this->connection);
-	$this->closeDBConnection();
-    ($tmp)? return true : return false;
+	if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
+		//create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring) 
+							VALUES (?,?,?,?,?,?,?,?)";
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"isssbiis",$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		mysqli_stmt_close($queryCall);
+		$tmp=mysqli_affected_rows($this->connection);
+		$this->closeDBConnection();
+		($tmp)? return true : return false;
+	} else
+		return false;
   }
   
   
   
   
-  /***Set the Winner of a Past Job***
+  /***2.Set the Winner of a Past Job***
   par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
   desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function setWinner($id, $job) {
-	//create new entry on table users and then create with the relative index the credentials for the login.
-    $queryInserimento = "SET @p=''; CALL Set_Winner(?,?,@p); SELECT @p;";
-	if(!($this->openDBConnection()))
-		die("\nFailed to open connection to the DB");
-    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-    mysqli_stmt_bind_param($queryCall,"ii",$id, $job);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-    mysqli_stmt_execute($queryCall);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	$queryResult = mysqli_stmt_get_result($queryCall);
-	mysqli_stmt_close($queryCall);
-	$this->closeDBConnection();
-    (mysqli_fetch_assoc($queryResult))? return true : return false;
+	if(isset($id) and isset($table)){
+		//create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SET @p=''; CALL Set_Winner(?,?,@p); SELECT @p;";
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"ii",$id, $job);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		(mysqli_fetch_assoc($queryResult))? return true : return false;
+	} else
+		return false;
   }
   
   
   
   
-  /***Get Job Info***
+  /***3.Get Job Info***
   par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
   desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function getJob($id,$old) {
-	//create new entry on table users and then create with the relative index the credentials for the login.
-    $queryInserimento = "SELECT * FROM current_jobs WHERE Code_job = ?;");
-	$queryInserimentoPast = "SELECT * FROM past_jobs WHERE Code_job = ?;");
-	if(!($this->openDBConnection()))
-		die("\nFailed to open connection to the DB");
-	$queryCall=null;
-	if($old)
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-	else
-		$queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-    mysqli_stmt_bind_param($queryCall,"i",$id);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-    mysqli_stmt_execute($queryCall);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	$queryResult = mysqli_stmt_get_result($queryCall);
-	mysqli_stmt_close($queryCall);
-	$this->closeDBConnection();
-	return mysqli_fetch_assoc($queryResult);
+	if(isset($id)){
+		//create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SELECT * FROM current_jobs WHERE Code_job = ?;");
+		$queryInserimentoPast = "SELECT * FROM past_jobs WHERE Code_job = ?;");
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=null;
+		if($old)
+			$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		else
+			$queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"i",$id);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		return mysqli_fetch_assoc($queryResult);
+	} else
+		return null;
   }
   
   
   
   
-  ///***Get Old Job Info***
-  //par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
-  //desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
-  //****************************/
-  //public function getOldJob($id) {
-	////create new entry on table users and then create with the relative index the credentials for the login.
-  //  $queryInserimento = "SELECT * FROM past_jobs WHERE Code_job = ?;");
-	//if(!($this->openDBConnection()))
-	//	die("\nFailed to open connection to the DB");
-  //  $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-	////if($queryCall==false)
-	////	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-  //  mysqli_stmt_bind_param($queryCall,"i",$id);
-	////if($queryCall==false)
-	////	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-  //  mysqli_stmt_execute($queryCall);
-	////if($queryCall==false)
-	////	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	//$queryResult = mysqli_stmt_get_result($queryCall);
-	//mysqli_stmt_close($queryCall);
-	//$this->closeDBConnection();
-	//return mysqli_fetch_assoc($queryResult);
-  //}
-  
-  
-  
-  
-  /***Create Review***
+  /***4.Create Review***
   par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
   desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function createReview($id, $job, $stars, $comments) {
-	//create new entry on table users and then create with the relative index the credentials for the login.
-    $queryInserimento = "INSERT INTO reviews(Code_user, Code_job, Stars, Comments) 
-                          VALUES (?,?,?,?)";
-	if(!($this->openDBConnection()))
-		die("\nFailed to open connection to the DB");
-    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-    mysqli_stmt_bind_param($queryCall,"iiis",$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-    mysqli_stmt_execute($queryCall);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	mysqli_stmt_close($queryCall);
-	$tmp=mysqli_affected_rows($this->connection);
-	$this->closeDBConnection();
-    ($tmp)? return true : return false;
+	if(isset($id) and isset($job) and isset($stars)){
+		//create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "INSERT INTO reviews(Code_user, Code_job, Stars, Comments) 
+							VALUES (?,?,?,?)";
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"iiis",$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		mysqli_stmt_close($queryCall);
+		$tmp=mysqli_affected_rows($this->connection);
+		$this->closeDBConnection();
+		($tmp)? return true : return false;
+	} else
+		return false;
   }
   
   
   
   
-  /***Get Job Review***
+  /***5.Get Job Review***
   par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
   desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function getJobReview($id) {
-	////create new entry on table users and then create with the relative index the credentials for the login.
-    $queryInserimento = "SELECT * FROM past_jobs WHERE Code_job = ?;");
-	//if(!($this->openDBConnection()))
-	//	die("\nFailed to open connection to the DB");
-    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-	////if($queryCall==false)
-	////	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-    mysqli_stmt_bind_param($queryCall,"i",$id);
-	////if($queryCall==false)
-	////	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-    mysqli_stmt_execute($queryCall);
-	////if($queryCall==false)
-	////	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	//$queryResult = mysqli_stmt_get_result($queryCall);
-	//mysqli_stmt_close($queryCall);
-	//$this->closeDBConnection();
-	//return mysqli_fetch_assoc($queryResult);
+	if(isset($id)){
+		//create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SELECT * FROM current_jobs WHERE Code_job = ?;");
+		$queryInserimentoPast = "SELECT * FROM past_jobs WHERE Code_job = ?;");
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=null;
+		if($old)
+			$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		else
+			$queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"i",$id);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		return mysqli_fetch_assoc($queryResult);
+	} else
+		return null;
   }
   
   
   
   
-  /***Get List of all Tags***
+  /***6.Get Bids from a Job***
+  par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
+  desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
+  ****************************/
+  public function getBids($id) {
+	if(isset($id)){
+		////create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SELECT Code_user AS Code, Nickname, User_Review(Code), User_price, Bid_selfdescription FROM bids LEFT JOIN users WHERE Code_job = ?;");
+		//if(!($this->openDBConnection()))
+		//	die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		////if($queryCall==false)
+		////	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"i",$id);
+		////if($queryCall==false)
+		////	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		////if($queryCall==false)
+		////	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		$result=array();
+		while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+		return $result;
+	} else
+		return null;
+  }
+  
+  
+  
+  
+  /***7.Get List of Jobs a User Created***
+  par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
+  desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
+  ****************************/
+  public function getJobListbyCreator($id) {
+	if(isset($id)){
+		////create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(Code_user_bid) FROM current_jobs LEFT JOIN bids ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_job = ? GROUP BY Code_job;");
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		mysqli_stmt_bind_param($queryCall,"i",$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		$result=array();
+		while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+		return $result;
+	} else
+		return null;
+  }
+  
+  
+  
+  
+  /***8.Get List of  Past Jobs a User Created***
+  par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
+  desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
+  ****************************/
+  public function getPastJobListbyCreator($id) {
+	if(isset($id)){
+		////create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM current_jobs WHERE Code_job = ?;");
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		mysqli_stmt_bind_param($queryCall,"i",$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		$result=array();
+		while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+		return $result;
+	} else
+		return null;
+  }
+  
+  
+  
+  
+  /***9.Change Job Status***
+  par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
+  desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
+  ****************************/
+  public function changeJobStatus($id,$status) {
+	$tmp=array("Deleted", "Frozen","Success","Unsucces");
+	if(isset($id) and isset($status) and in_array($status,$tmp)){
+		////create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p");
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		mysqli_stmt_bind_param($queryCall,"is",$id,$status);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		$result = mysqli_affected_rows($this->connection);
+		$this->closeDBConnection();
+		($result > 0)? return true : return false;
+	} else
+		return null;
+  }
+  
+  
+  
+  
+  /***10.Get List of all Tags***
   par: 
   desc: returns array alternating name of a tag and it's category.
   ****************************/
@@ -276,13 +388,13 @@ class DBAccess {
   
   
   
-  /***Get Tags for User/Current_Job/Past_Job***
+  
+  /***11.Get Tags for User/Current_Job/Past_Job***
   par: int id, int table (0=users, 1=current_jobs, 2=past_jobs)
   desc: returns list of tags of an ID for the choosen relative table.
   ****************************/
   public function getTags($id,$table) {
-	
-    if(isset($id)) {
+    if(isset($id) and isset($table)) {
 		if($table<0||$table>2)
 			return null;
 		$user="SELECT Name FROM tags_users LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;";
@@ -315,12 +427,37 @@ class DBAccess {
   }
   
   
-  /***Get User Info***
+  
+  
+  /***12.Get the Four Most Popular Job Tags***
+  par: int id, int table (0=users, 1=current_jobs, 2=past_jobs)
+  desc: returns list of tags of an ID for the choosen relative table.
+  ****************************/
+  public function getMostPopularJobs() {
+	$query="SELECT Name, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag=tags_current_job.Code_tag GROUP BY Code_tag ORDER BY frequency DESC LIMIT 4;";
+	if(!($this->openDBConnection()))
+		die("\nFailed to open connection to the DB");
+	$queryResult = mysqli_query($this->connection, $query);
+	$this->closeDBConnection();
+	if(mysqli_num_rows($queryResult) == 0)
+		return null;
+	else {
+		$result=array();
+		while ($tmp=mysqli_fetch_column($queryResult,0))
+			array_push($result,$tmp)
+		return $result;
+	}
+	return null;
+  }
+  
+  
+  
+  
+  /***14.Get User Info***
   par: int id
   desc: restituisce prenotazione i dati della prenotazione con id passato come parametro
   ****************************/
   public function getUser($id) {
-	
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die("\nFailed to open connection to the DB");
@@ -341,12 +478,11 @@ class DBAccess {
   
   
   
-  /***Get User Review***
+  /***15.Get User Review***
   par: int id
   desc: Return average star rating of an user
   ****************************/
   public function getUserReview($id) {
-	
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die("\nFailed to open connection to the DB");
@@ -364,12 +500,11 @@ class DBAccess {
   
   
   
-  /***Get User Review List***
+  /***16.Get User Review List***
   par: int id
   desc: Return average star rating of an user
   ****************************/
   public function getUserReviewList($id) {
-	
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die("\nFailed to open connection to the DB");
@@ -394,12 +529,11 @@ class DBAccess {
   
   
   
-  /***Get Job List whose user is bidding***
+  /***(17/18).Get Job List whose user is bidding***
   par: int id
   desc: Return average star rating of an user
   ****************************/
   public function getUserJobs($id) {
-	
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die("\nFailed to open connection to the DB");
@@ -424,42 +558,46 @@ class DBAccess {
   
   
   
-  /***New User Registration***
+  /***19.New User Registration***
   par: string nome, cognome, telefono, mail, status, note; int numP; datetime data, ora; string status;
   desc: inserisce in db un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function Register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
-	//create new entry on table users and then create with the relative index the credentials for the login.
-    $queryInserimento = "INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description) 
-                          VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-	$queryprep="CALL Register_new_user(SELECT Code_user FROM users WHERE Email=?,?,?);";
-	if(!($this->openDBConnection()))
-		die("\nFailed to open connection to the DB");
-    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-    $queryCall2=mysqli_prepare($this->connection, $queryprep);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
-    mysqli_stmt_bind_param($queryCall,"ssssssssiss",$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description);
-    mysqli_stmt_bind_param($queryCall2,"sss",$email, $email, $password);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
-    mysqli_stmt_execute($queryCall);
-	//if($queryCall==false)
-	//	die("\nsomething went wrong during execution of query inserimento prenotazione");
-	mysqli_stmt_close($queryCall);
-    $temp=mysqli_affected_rows($this->connection);
-	if($temp>0){
-		mysqli_stmt_execute($queryCall2);
+	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description)){
+		//create new entry on table users and then create with the relative index the credentials for the login.
+		$queryInserimento = "INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description) 
+							VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		$queryprep="CALL Register_new_user(SELECT Code_user FROM users WHERE Email=?,?,?);";
+		if(!($this->openDBConnection()))
+			die("\nFailed to open connection to the DB");
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		$queryCall2=mysqli_prepare($this->connection, $queryprep);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during preparation of query inserimento prenotazione");
+		mysqli_stmt_bind_param($queryCall,"ssssssssiss",$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description);
+		mysqli_stmt_bind_param($queryCall2,"sss",$email, $email, $password);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during bindinig parameters for query inserimento prenotazione");
+		mysqli_stmt_execute($queryCall);
+		//if($queryCall==false)
+		//	die("\nsomething went wrong during execution of query inserimento prenotazione");
+		mysqli_stmt_close($queryCall);
 		$temp=mysqli_affected_rows($this->connection);
-	}
-	mysqli_stmt_close($queryCall2);
-	$this->closeDBConnection();
-    ($temp > 0)? return true : return false;
+		if($temp>0){
+			mysqli_stmt_execute($queryCall2);
+			$temp=mysqli_affected_rows($this->connection);
+		}
+		mysqli_stmt_close($queryCall2);
+		$this->closeDBConnection();
+		($temp > 0)? return true : return false;
+    } else
+		return false;
   }
   
   
   
-  /***User Login***
+  
+  /***20.User Login***
   par: string user; string password;
   desc: restituisce i dati dati dell'utente corrispondenti a user e password, altrimenti ritorna null
   ****************************/
@@ -518,6 +656,5 @@ class DBAccess {
   }
   
 }
-
 
 ?>
