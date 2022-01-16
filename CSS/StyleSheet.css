@@ -1,6 +1,5 @@
 /* INIZIO CSS TEMPORANEO */
 html {
-    background-color:lightgray ;
     width: 100%;
 }
 body {
@@ -9,14 +8,13 @@ body {
 
 }
 main {
-    background-color:lightgray;
     padding: 2em;
 }
 
 /* H E A D E R */
 /* Titolo Pagine nell'Header */
-header {
-    background-color : blanchedalmond;
+header, footer  {
+    background-color : #4ed97a;
 }
 
 h1 {
@@ -39,6 +37,9 @@ li {
 li.right {
     float:right;
 }
+li a{
+    color:black;
+}
 ul.user {
     margin:auto;
     list-style-type: none;
@@ -60,7 +61,6 @@ nav.breadcrumb{
 
 /* F O O T E R */
 footer {
-    background-color : blanchedalmond;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -122,5 +122,30 @@ div.filter {
 div.content_order{
     margin-left: 15%;
     width: 80%;
+}
+/* User Profile */
+div.sidebar {
+    position:fixed;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+}
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 5px;
+    text-decoration: none;
+}
+
+div#content {
+    margin-left: 15%;
+}
+
+
+div#content table, th, td{
+    padding: 0.2em;
+    border-collapse: collapse;
+    background-color: white;
 }
 /* FINE CSS TEMPORANEO */
