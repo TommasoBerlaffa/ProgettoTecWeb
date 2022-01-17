@@ -19,7 +19,9 @@
 
     // Crea una table da aggiungere al file HTML
     $table = "<div id=\"content\">
-                <table>
+                <p>The page Work History display all the Job offer you created.
+                    Click on a job Title to display more infos! </p>
+                <table class=\"content\">
                     <tr>
                         <th> Title </th>
                         <th> Status </th>

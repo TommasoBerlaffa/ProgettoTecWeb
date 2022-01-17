@@ -24,25 +24,19 @@
     // Da sistemare con CSS, Picture deve essere un'immagine
     // <img src="..\IMG\Value" alt="Profile Picture" width="256" height="256">
     $content = "<div id=\"content\">
-                    <form class=\"forOutput\">
-                        <fieldset>
-                            <legend> User Info </legend>
-                            <label> Status : ". $QueryResult["Status"] ." </label>
-                            <label> Name : ". $QueryResult["Name"] ." </label>
-                            <label> Surname : ". $QueryResult["Surname"] ." </label>
-                            <label> Nickname : ". $QueryResult["Nickname"] ." </label>
-                            <label> Birthday : ". $QueryResult["Birth"] ." </label>
-                            <label> Email : ". $QueryResult["Email"] ." </label>
-                            <label> Nationality : ". $QueryResult["Nationality"] ." </label>
-                            <label> City : ". $QueryResult["City"] ." </label>
-                            <label> Address : ". $QueryResult["Address"] ." </label>
-                            <label> Phone Number : ". $QueryResult["Phone"] ." </label>
-                            <label> Picture : ". $QueryResult["Picture"] ." </label>
-                            <label> Curriculum : ". $QueryResult["Curriculum"] ." </label>
-                            <label> Description : ". $QueryResult["Description"] ." </label>
-                            <label> Creaction Day : ". $QueryResult["Creation"] ." </label>
-                        </fieldset>
-                    </form>
+                        <h2> User : ". $QueryResult["Nickname"] ."</h2>
+                        <p> Name & Surname : ". $QueryResult["Name"] ."  ". $QueryResult["Surname"] ." </p>
+                        <p> Status : ". $QueryResult["Status"] ." </p>
+                        <p> Birthday : ". $QueryResult["Birth"] ." </p>
+                        <p> Email : ". $QueryResult["Email"] ." </p>
+                        <p> Nationality : ". $QueryResult["Nationality"] ." </p>
+                        <p> City : ". $QueryResult["City"] ." </p>
+                        <p> Address : ". $QueryResult["Address"] ." </p>
+                        <p> Phone Number : ". $QueryResult["Phone"] ." </p>
+                        <p> Picture : ". $QueryResult["Picture"] ." </p>
+                        <p> Link to a Curriculum : ". $QueryResult["Curriculum"] ." </p>
+                        <p> Description : ". $QueryResult["Description"] ." </p>
+                        <p> Creaction Day : ". $QueryResult["Creation"] ." </p>
                 </div>";
     // 
     // Rimpiazza Valori su file html

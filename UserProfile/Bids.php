@@ -20,7 +20,9 @@
     $QueryResult = $Query;
 
     $table = "<div id=\"content\">
-                <table>
+                <p>The page Bids display all your current Bids.
+                Click on a job Title to display more infos! </p>
+                <table class=\"content\">
                     <tr>
                         <th> Title </th>
                         <th> Status </th>

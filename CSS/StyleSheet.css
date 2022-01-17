@@ -4,17 +4,19 @@ html {
 }
 body {
     font-family:Trebuchet MS,sans-serif;    
-    margin:auto;    
-
+    margin:auto;  
+    max-width: 100%;  
 }
+
 main {
     padding: 2em;
+    margin-bottom: 6%;
 }
 
 /* H E A D E R */
 /* Titolo Pagine nell'Header */
-header, footer  {
-    background-color : #4ed97a;
+header,footer {
+    background-color :  #4ed97a;
 }
 
 h1 {
@@ -37,19 +39,9 @@ li {
 li.right {
     float:right;
 }
+
 li a{
     color:black;
-}
-ul.user {
-    margin:auto;
-    list-style-type: none;
-    margin: 1em;
-    padding: 0.2em;
-}
-li.userProfile {
-    display: block;
-    padding : 0.2em;
-    margin:1em;
 }
 
 /* B R E A D C R U M B */
@@ -61,9 +53,11 @@ nav.breadcrumb{
 
 /* F O O T E R */
 footer {
+    text-align: center;
     position: fixed;
     left: 0;
     bottom: 0;
+    height: 5%;
     width: 100%;
 }
 
@@ -76,24 +70,32 @@ form {
 form.forInput{
     margin:auto;
     width:50%;
+    padding-bottom: 3em;
 }
 
 form.forOutput{
     margin:auto;
     width:60%;
+    max-width: 80%;
+}
+form.forOutput p{
+    font-family:Trebuchet MS,sans-serif;   
+    word-break: break-word; 
+}
+div#Desc {
+    width: 80%;
 }
 
 fieldset{
     background-color: white;
     border-radius: 5px;
+    
 }
 legend {
     font-weight: bold;
     text-align: center;
 }
-fieldset p {
-    text-align: center;
-}
+
 textarea {
     border-radius: 5px;
     resize:vertical;
@@ -138,14 +140,64 @@ div.sidebar {
     text-decoration: none;
 }
 
+p#Description{
+    word-break: break-all;
+}
+
 div#content {
     margin-left: 15%;
 }
+div#content table{
+    width:80%;
+}
 
+div#content th{
+    text-align: left;
+}
 
 div#content table, th, td{
     padding: 0.2em;
     border-collapse: collapse;
     background-color: white;
 }
+
+/* CSS pagina ViewJobOld.html */
+div#JobInfo{
+    margin:auto;
+    width: 90%;
+    border : 2px black solid;
+    border-radius: 5px;
+}
+
+div#JobInfo p{
+    padding-left: 1em;
+    padding-left: 1em;
+}
+
+div#feedback {
+
+    border-radius: 10px;
+    border : 1px black solid;
+    width : 60%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 3%;
+
+}
+
+div#feedback h2 {
+    padding-left : 1em;
+    padding-right : 1em;
+}
+div#feedback h3 {
+    padding-left : 1.2em;
+    padding-right : 1.2em;
+}
+div#feedback p {
+    padding-left : 1.4em;
+    padding-right : 1.4em;
+}
+
+
+
 /* FINE CSS TEMPORANEO */

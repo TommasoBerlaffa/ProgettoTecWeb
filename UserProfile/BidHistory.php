@@ -23,6 +23,8 @@
     $QueryResult = $Query;
     
     $table = "<div id=\"content\">
+                <p>The page Bid History display all your successful Bids.
+                Click on a job Title to display more infos! </p>
                 <table class=\"content\">
                     <tr>
                         <th> Title </th>

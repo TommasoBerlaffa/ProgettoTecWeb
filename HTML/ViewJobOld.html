@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<!-- PAGINA PER VISUALIZZARE LE INFO DELLA SINGOLA OFFERTA DI LAVORO -->
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Titolo -->
+    <title>{{ Title }} | Job Finder © </title>
+    <meta name="title" content="{{ Title }} | WebsiteName" />
+
+    <!-- Meta -->
+    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo">
+    <meta name="language" content="english eng" />
+    <meta name="description" content="Sign up to find a job or look for a professionist!" />
+    <meta name="keywords" content="Job, View, Old, ViewOldJob, WebsiteName" />
+ 
+    <!-- Fogli di Stile -->   
+    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+    <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
+    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" /> 
+    
+    <!-- Icona -->
+    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+
+</head>
+<body>
+    <header>
+        <h1>
+            Job Finder ©
+        </h1>
+
+        <ul>
+            <li><a href="../HTML/Index.html">Home</a></li>
+            <li><a href="../HTML/FindJob.html">Search For a Job</a> </li>
+            <li class="right"><a href="../PHP/UserProfile.php">User Profile</a></li>
+        </ul>
+    </header>
+    
+    <nav class="breadcrumb">
+        You are in : Offer Information > {{ Title }}
+    </nav>
+    <!-- Main Content -->
+    <main>
+        <div id="JobInfo">
+            <h1>Job Offer : {{ Title }}</h1>
+            <p> Status : {{ Status }} Type : {{ Tipology }}</p>
+            <p> Date : {{ Date }}  Expiration Date : {{ Expiring }}</p>
+            <p> Payment : {{ Payment }} </p>
+            <div id="Desc">
+                <p for="Description">Description : </p> 
+                <p id="Description"> {{ Description }} </p>
+            </div>
+        </div>
+        <div id="feedback"></div>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <h3>Job Finder ©</h3>  
+    </footer>
+</body>
+</html> 
