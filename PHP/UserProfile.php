@@ -1,35 +1,36 @@
-<?php
-    require_once "ConnectionToDatabase.php";
-    use _Database\Database;
+    <?php
+    require_once "DBAccess.php";
 
     // CONTROLLI SE LOGIN EFFETTUATO
-
-    
-    $index = $_GET['section'];
-    
     session_start();
-    $_SESSION['myValue']=19;
-    $_SESSION['Name']="Tommaso";
 
-    switch ($index) {
-        case 1:
-            header("Location: ../UserProfile/User.php"); 
-        break;
-        case 2:
-            header("Location: ../UserProfile/Work.php");
-        break;
-        case 3:
-            header("Location: ../UserProfile/BidHistory.php");
-        break;
-        case 4:
-            header("Location: ../UserProfile/Bids.php");
-        break;
-        case 5:
-            header("Location: ../UserProfile/Setting.php");
-        break;
-        default :
-            header("Location: ../UserProfile/Welcome.php");
-        break;
+    if(isset($_SESSION['user_Username']))
+    {
+        $index = $_GET['section'];
+    
+        switch ($index) {
+            case 1:
+                header("Location: ..".DIRECTORY_SEPARATOR."UserProfile".DIRECTORY_SEPARATOR."User.php"); 
+            break;
+            case 2:
+                header("Location: ..".DIRECTORY_SEPARATOR."UserProfile".DIRECTORY_SEPARATOR."Work.php");
+            break;
+            case 3:
+                header("Location: ..".DIRECTORY_SEPARATOR."UserProfile".DIRECTORY_SEPARATOR."BidHistory.php");
+            break;
+            case 4:
+                header("Location: ..".DIRECTORY_SEPARATOR."UserProfile".DIRECTORY_SEPARATOR."Bids.php");
+            break;
+            case 5:
+                header("Location: ..".DIRECTORY_SEPARATOR."UserProfile".DIRECTORY_SEPARATOR."Setting.php");
+            break;
+            default :
+                header("Location: ..".DIRECTORY_SEPARATOR."UserProfile".DIRECTORY_SEPARATOR."Welcome.php");
+            break;
+        }
     }
-
+    else 
+        header("Location:..".DIRECTORY_SEPARATOR."HTML".DIRECTORY_SEPARATOR."Login.html");
+    
+    
 ?>

@@ -1,50 +1,60 @@
 <?php
 
     // Bids deve contenere tutte le Bids correnti 
-    require_once "../PHP/ConnectionToDatabase.php";
-    use _Database\Database;
+    require_once '..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'DBAccess.php';
 
-    // Non servono controlli su Login perchè vengono fatti da UserProfile.php
-
-    // Ottengo Valori da Pagina Statica  
-    $url = '../HTML/UserProfile.html';
-    $HTML = file_get_contents($url);
-    // Cambio Valore BreadCrumb
-    $HTML = str_replace("{{ SubPage }}","Current Bids",$HTML);
-
-    $DbAccess = new Database();
-    $DbAccess->ConnectToDb();
-    
     session_start();
-    $Query = $DbAccess->getBids($_SESSION['myValue']);
-    $QueryResult = $Query;
 
-    $table = "<div id=\"content\">
-                <p>The page Bids display all your current Bids.
-                Click on a job Title to display more infos! </p>
-                <table class=\"content\">
-                    <tr>
-                        <th> Title </th>
-                        <th> Status </th>
-                        <th> Tipology </th>
-                        <th> Expiring Time </th>
-                    </tr>";
-    // Rimpiazza Valori su file html    
-    while($row = $QueryResult->fetch_assoc()) {
-        $table .= "<tr>";
-        $table .= "<td><a href=\"../PHP/ViewOffer.php?Code_job=\"".$row['Code_job']."\">".trim($row['Title'] )." </a></td>";
-        $table .= "<td>". trim($row['Status'] )."</td>";
-        $table .= "<td>". trim($row['Tipology'] )."</td>";
-        $table .= "<td>". trim($row['Expiring'] )."</td>";
-        $table .= "</tr>";
-    }
-                                        
-    $table .="</table></div>";
+    if(isset($_SESSION['user_Username']))
+    {
+        // Ottengo Valori da Pagina Statica  
+        $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'UserProfile.html';
+        $HTML = file_get_contents($url);
+        // Cambio Valore BreadCrumb
+        $HTML = str_replace("{{ SubPage }}","Current Bids",$HTML);
 
-    $HTML = str_replace("<div id=\"content\"></div>",$table,$HTML);
-  
-    // Stampo File Modificato
-    echo $HTML;
+        $DbAccess = new DBAccess();
+        $conn = $DbAccess->openDBConnection();
+        
+        $table = '<div id="content">
+                        <p>The page Bids display all your current Bids.
+                        Click on a job Title to display more infos! </p>
+                        <table class=\"content\">
+                            <tr>
+                                <th> Title </th>
+                                <th> Status </th>
+                                <th> Tipology </th>
+                            </tr>';
+            
+
+        if($conn)
+        {
+            $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],false);
+            if($Result) {
+                
+                // Rimpiazza Valori su file html    
+                foreach($Result as $row ) {
+                    $table .= '<tr>';
+                    $table .= '<td><a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'ViewOffer.php?Code_job="'.$row['Code_job'].'">'.trim($row['Title'] ).' </a></td>';
+                    $table .= '<td>'. trim($row['Status'] ).'</td>';
+                    $table .= '<td>'. trim($row['Tipology'] ).'</td>';
+                    $table .= '</tr>';
+                }
+                $table .='</table></div>';
+            }
+            else
+            {
+                $table .='</table><p>No Data Currently Available</p></div>';
+            }
+        }                                            
+        
+
+        $HTML = str_replace('<div id="content"></div>',$table,$HTML);
     
+        // Stampo File Modificato
+        echo $HTML;
+    }
+    else
+        header("Location:..".DIRECTORY_SEPARATOR."HTML".DIRECTORY_SEPARATOR."Login.html");
 
 ?>

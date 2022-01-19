@@ -1,11 +1,73 @@
 <!-- Setting ( COdice HTML da importare )  -->
-<form >
+<form action="../PHP/ChangeUserInfo.php" method="post">
     <fieldset>
-        <legend> Change User Settings</legend>
-        <label for="pswchange">Click here to change your password </label>
-        <input type="submit" id="pswchange" value="Change Password" />
-        <label for="infochange">Click here to change your password  </label>
+        <legend> Change User Informations</legend>
+        <label for="Username" class="Enter">Username : </label>
+        <input type="text" name="Username" id="Username" class="Enter" value="{{Username}}" \>
+        <!-- Name -->
+        <label for="Name" class="Enter">Name :</label>
+        <input type="text" name="Name" id="Name" class="Enter" value="{{Name}}" />
+        <!-- Surname -->
+        <label for="Surname" class="Enter">Surname :</label>
+        <input type="text" name="Surname" id="Surname" class="Enter"  value="{{Surname}}" />
+        <!-- Mail -->
+        <!-- Possiamo aggiungere un pattern ad Email-->
+        <label for="Email" >Email : </label>   
+        <input type="email" name="Email" id="Email"  value="{{Email}}" />
+        <!-- Birthday -->
+        <label for="Bday" >Birthday : </label>
+        <input type="date" name="Bday" id="Bday"  value="{{Bday}}" />
+        <!-- Image -->
+        <img src="{{Picture}}" alt="Profile Picture" width="32" height="32"> 
+        <label for="pfp">Choose a profile picture:</label>
+        <input type="file" id="pfp" name="pfp" accept="image/png, image/jpeg"    />
+        <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
+        <!-- Nationality -->
+        <label for="Nationality">Nationality : </label>
+        <input type="text" name="Nationality" id="Nationality"  value="{{Nationality}}" />
+        <!-- City -->
+        <label for="City">City : </label>
+        <input type="text" name="City" id="City"  value="{{City}}" />
+        <!-- Address -->
+        <label for="Address">Address : </label>
+        <input type="text" name="Address" id="Address"  value="{{Address}}" />
+        <!-- Tel -->
+        <!-- Si può fare controllo con un'espressione regolare -->
+        <label for="Tel">Telephone Number : </label>
+        <input type="tel" name="Tel" id="Tel"  value="{{Tel}}" />
+
+        <!-- Da discutere più avanti, Temporaneo -->
+        <label for="Skills">Skills  : </label>
+        <input list="Skills" name="Skill1" >
+        <input list="Skills" name="Skill2" >
+        <input list="Skills" name="Skill3" >
+        <datalist id="Skills"></datalist>
+
+        <!-- Curriculum -->
+        <label for="Curr">Link To a Curriculum : </label>
+        <input type="url" name="Curr" id="Curr"  value="{{Curr}}" />
+        <!-- Description -->
+        <label for="Description">Describe Yourself :</label>
+        <textarea name="Description" id="Description" >{{Desc}} </textarea>   
         <input type="submit" value="Change User Info" />
     </fieldset>
-    
+</form>
+<form action="../PHP/ChangePassword.php" method="post">
+    <fieldset>
+        <legend> Change Password</legend>
+        <label for="pswchange">Change your password here!</label>
+        <!-- Old Password -->
+        <label for="Passwd" class="Enter">Old Password :</label>
+        <input type="password" name="OldPasswd" id="OldPasswd" class="Enter" required />
+        <!-- Password -->
+        <label for="Passwd" class="Enter">New Password :</label>
+        <input type="password" name="Passwd" id="Passwd" class="Enter" required />
+        <!-- Password ( Check ) -->
+        <label for="Repeat-Password" class="Enter">Repeat New Password :</label>
+        <input type="password" id="Repeat-Password" name="RptPasswd" class="Enter" required />
+        
+        
+        <input type="submit" id="pswchange" value="Change Password" />
+    </fieldset>
+
 </form>

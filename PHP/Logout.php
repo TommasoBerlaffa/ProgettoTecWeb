@@ -1,7 +1,10 @@
 <?php
+    session_start();
 
-    require_once "ConnectionToDatabase.php";
-    use _Database\Database;
+    unset($_SESSION['user_ID']);
+    unset($_SESSION['user_Status']);
+    unset($_SESSION['user_Username']);
+    unset($_SESSION['user_Icon']);
 
-
+    header('Location:'. DIRECTORY_SEPARATOR .'Login.php');
 ?>
