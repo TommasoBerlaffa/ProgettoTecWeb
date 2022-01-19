@@ -282,7 +282,7 @@ class DBAccess {
   ****************************/
   public function getPastJobListbyCreator($id) {
 	if(isset($id)){
-		$queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_job = ?;';
+		$queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_user = ?;';
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
@@ -520,7 +520,7 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_column($queryResult,0))
+			while ($tmp=mysqli_fetch_assoc($queryResult))
 				array_push($result,$tmp);
 			return $result;
 		}
