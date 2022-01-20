@@ -53,21 +53,23 @@
                 
                 <!-- Nickname -->
                 <label for="Username" class="Enter">Username* : </label>
-                <input type="text" id="Username" class="Enter" required \>
+                <input type="text" id="Username" class="Enter" required />
                 <!-- Name -->
                 <label for="Name" class="Enter">Name* :</label>
-                <input type="text" id="Name" class="Enter" required \>
+                <input type="text" id="Name" class="Enter" required />
                 <!-- Surname -->
                 <label for="Surname" class="Enter">Surname* :</label>
-                <input type="text" id="Surname" class="Enter" required \>
+                <input type="text" id="Surname" class="Enter" required />
                 <!-- Password -->
-                <label for="Password" class="Enter">Password* :</label>
-                <input type="password" id="Password" class="Enter" required \>
+                <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
+                <input type="password" id="Password" class="Enter" onkeyup='passwordSecurity();' required />
+				<p id="Security" for="Password" class="Security"></p>
                 <!-- Password ( Check ) -->
                 <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
-                <input type="password" id="Repeat-Password" class="Enter" required \>
+                <input type="password" id="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
+				<p id="Match" for="Repeat-Password" class="Comparison"></p>
                 <!-- Next Page -->
-                <input type="button" value="Next" onclick="Form2()" \>
+                <input type="button" value="Next" onclick="Form1_foward()" />
             </fieldset>
 
             <fieldset id="Form_2">
@@ -75,30 +77,31 @@
                 <legend> Sign Up </legend>
                 <p> Please fill this form to create a new account  2/3</p>
                 <p> Only the field with a * are required</p>
+				<p> You are already half way there</p>
                 <!-- Birthday -->
                 <label for="Bday" >Birthday* : </label>
                 <input type="date" id="Bday" name="Bday" required>
                 <!-- Mail -->
                 <!-- Possiamo aggiungere un pattern ad Email-->
                 <label for="Email" >Email* : </label>               
-                <input type="email" id="Email" required \>
+                <input type="email" id="Email" required />
                 <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
                 <!-- Nationality -->
                 <label for="Nationality">Nationality* : </label>
-                <input type="text" id="Nationality" required \>
+                <input type="text" id="Nationality" required />
                 <!-- City -->
                 <label for="City">City* : </label>
-                <input type="text" id="City" required \>
+                <input type="text" id="City" required />
                 <!-- Address -->
                 <label for="Address">Address : </label>
-                <input type="text" id="Address" \>
+                <input type="text" id="Address" />
                 <!-- Tel -->
                 <!-- Si può fare controllo con un'espressione regolare -->
                 <label for="Tel">Telephone Number : </label>
-                <input type="tel" id="Tel" \>
+                <input type="tel" id="Tel" />
                 <!-- Codice JS, probabilmente TO REPLACE with PHP-->       
-                <input type="button" value="Go Back" onclick="Form1()" \>
-                <input type="button" value="Next" class="Next" onclick="Form3()" \>
+                <input type="button" value="Go Back" onclick="Form1()" />
+                <input type="button" value="Next" class="Next" onclick="Form2_foward()" />
             
             </fieldset>
 
@@ -106,6 +109,7 @@
                 <legend> Sign Up </legend>
                 <p> Please fill this form to create a new account 3/3</p>
                 <p> Only the field with a * are required</p>
+				<p> One last step! </p>
 
                 <!-- Da discutere più avanti, Temporaneo -->
                 <label for="Skills">Skills * : </label>
@@ -124,35 +128,36 @@
                 </select>
                 <!-- Curriculum -->
                 <label for="Curr">Link To a Curriculum : </label>
-                <input type="url" pattern="https::\\" value="https::\\" id="Curr" \>
+                <input type="url" pattern="https:://" value="https:://" id="Curr" />
                 <!-- Description -->
                 <label for="Desc">Describe Yourself :</label>
                 <textarea id="Desc" > </textarea>
                     
-                <input type="button" value="Go Back" onclick="Form2()"\>
-                <input type="button" value="Next" class="Next" onclick="Form4()"\>
+                <input type="button" value="Go Back" onclick="Form2()"/>
+                <input type="button" value="Next" class="Next" onclick="Form3_foward()"/>
             </fieldset>
             
             <fieldset id="Form_4">
                 <legend> Sign Up </legend>
                 <p> Complete the Sign Up</p>
+				<p> Check all your submitted data</p>
                 
                 <!-- Da riempire con i campi usati in precedenza tramite PHP -->
                 <label >Username : {{ Nickname }}</label>
                 <label >Name : {{ Name }}</label>
                 <label >Surname : {{ Surname }}</label>
                 <label >Birth : {{ Birth }}</label>
-                <label >Email : {{ }}</label>                
+                <label >Email : {{ Email }}</label>                
                 <label >Nationality : {{ Nationality }}</label>                
                 <label >City : {{ City }}</label>                
                 <label >Address : {{ Address }}</label>                
                 <label >Telephone Number : {{ Phone }}</label>                
                 <label >Link to a Curriculum : {{ Curriculum }}</label>                
-                <label >Skills : {{ }}</label>                
+                <label >Skills : {{ Skills }}</label>                
                 <label >Description : {{ Description }}</label>                
                 <div>
-                    <input type="button" value="Go Back" onclick="Form3()"\>
-                    <input type="submit" value="Sign Up" \>
+                    <input type="button" value="Go Back" onclick="Form3()"/>
+                    <button type="submit" value="Sign Up"></button>
                 </div>
         </fieldset>
         </form>
@@ -165,29 +170,100 @@
 </body>
 </html>
 
+
+
+
 <script>
     function onLoad() {
         document.getElementById("Form_2").style.display='none';
         document.getElementById("Form_3").style.display='none';
         document.getElementById("Form_4").style.display='none';
     }
-
-    function Form1() {
-        document.getElementById("Form_1").style.display='inherit';
-        document.getElementById("Form_2").style.display='none';
+	
+	
+	function passwordSecurity() {
+		if(document.getElementById("Password").value==''){
+			document.getElementById('Security').innerHTML = '';
+			return false;
+		}
+		let regexpPwd = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
+		if(regexpPwd.test(document.getElementById("Password").value)){
+			document.getElementById('Security').style.color = 'green';
+			document.getElementById('Security').innerHTML = 'Strong Password';
+			if(passwordMatch())
+				return true;
+			else
+				return false;
+		}
+		else {
+			document.getElementById('Security').style.color = 'red';
+			document.getElementById('Security').innerHTML = 'Weak Password';
+			return false;
+		}
+	}
+	
+	function passwordMatch() {
+	if(document.getElementById('Password').value =='' || document.getElementById('Repeat-Password').value ==''){
+		document.getElementById('Match').innerHTML = '';
+		return false;
+	}
+	if (document.getElementById('Password').value ==
+		document.getElementById('Repeat-Password').value) {
+			document.getElementById('Match').style.color = 'green';
+			document.getElementById('Match').innerHTML = 'matching';
+			return true;
+		} else {
+			document.getElementById('Match').style.color = 'red';
+			document.getElementById('Match').innerHTML = 'not matching';
+			return false;
+		}
+	}
+	
+	
+	function checkRequiredInputs(name) {
+		<!--controllare il livello di sicurezza usando un parametro per la ricerca getElementById. controllare XSS-->
+		var fieldset = document.getElementById(name);
+		for(var i=0; i < fieldset.elements.length; i++){
+			if(fieldset.elements[i].value === '' && fieldset.elements[i].hasAttribute('required')){
+				return false;
+			}
+		}
+		return true;
+	}
+    
+	function Form1() {
+		document.getElementById("Form_1").style.display='inherit';
+		document.getElementById("Form_2").style.display='none';
     }
-    function Form2() {
-        document.getElementById("Form_1").style.display='none';
-        document.getElementById("Form_2").style.display='inherit';
-        document.getElementById("Form_3").style.display='none';
+	function Form1_foward() {
+		if(checkRequiredInputs("Form_1"))
+			if(passwordSecurity())
+				Form2();
     }
-    function Form3() {
-        document.getElementById("Form_2").style.display='none';
-        document.getElementById("Form_3").style.display='inherit';
-        document.getElementById("Form_4").style.display='none';
+	
+	function Form2() {
+		document.getElementById("Form_1").style.display='none';
+		document.getElementById("Form_2").style.display='inherit';
+		document.getElementById("Form_3").style.display='none';
     }
+	function Form2_foward() {
+		if(checkRequiredInputs("Form_3"))
+			Form3();
+    }
+	
+	function Form3() {
+		document.getElementById("Form_2").style.display='none';
+		document.getElementById("Form_3").style.display='inherit';
+		document.getElementById("Form_4").style.display='none';
+		
+    }
+    function Form3_foward() {
+		if(checkRequiredInputs("Form_4"))
+			Form4();
+    }
+	
     function Form4() {
-        document.getElementById("Form_3").style.display='none';
-        document.getElementById("Form_4").style.display='inherit';
+		document.getElementById("Form_3").style.display='none';
+		document.getElementById("Form_4").style.display='inherit';
     }
 </script>
