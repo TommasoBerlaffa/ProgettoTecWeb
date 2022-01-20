@@ -1,14 +1,14 @@
 <?php
 
     // Bids deve contenere tutte le Bids correnti 
-    require_once '..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'DBAccess.php';
+    require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
 
     session_start();
 
     if(isset($_SESSION['user_Username']))
     {
         // Ottengo Valori da Pagina Statica  
-        $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'UserProfile.html';
+        $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
         $HTML = file_get_contents($url);
         // Cambio Valore BreadCrumb
         $HTML = str_replace("{{ SubPage }}","Current Bids",$HTML);
@@ -35,7 +35,7 @@
                 // Rimpiazza Valori su file html    
                 foreach($Result as $row ) {
                     $table .= '<tr>';
-                    $table .= '<td><a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'ViewOffer.php?Code_job="'.$row['Code_job'].'">'.trim($row['Title'] ).' </a></td>';
+                    $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job="'.$row['Code_job'].'">'.trim($row['Title'] ).' </a></td>';
                     $table .= '<td>'. trim($row['Status'] ).'</td>';
                     $table .= '<td>'. trim($row['Tipology'] ).'</td>';
                     $table .= '</tr>';
@@ -55,6 +55,6 @@
         echo $HTML;
     }
     else
-        header("Location:..".DIRECTORY_SEPARATOR."HTML".DIRECTORY_SEPARATOR."Login.html");
+        header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 4);
 
 ?>

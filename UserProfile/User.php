@@ -1,14 +1,14 @@
 <?php
     // User contiene dati utente
 
-    require_once '..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'DBAccess.php';
+    require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
 
     session_start();
 
     if(isset($_SESSION['user_Username']))
     {
         // Ottengo Valori da Pagina Statica 
-        $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'UserProfile.html';
+        $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
         $HTML = file_get_contents($url);
         
         // Cambio Valore BreadCrumb
@@ -23,7 +23,7 @@
             $Result = $DbAccess->getUser($_SESSION['user_ID']) ;
 
             if($Result) {
-                $content .= '<img src="..'.DIRECTORY_SEPARATOR.'IMG'.DIRECTORY_SEPARATOR. trim($Result["Picture"]) .'" alt="Profile Picture" width="32" height="32"> 
+                $content .= '<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR . trim($Result["Picture"]) .'" alt="Profile Picture" width="32" height="32"> 
                         <h2> User : '. trim($Result["Nickname"]) .'</h2>
                         <p> Name & Surname : '. trim($Result["Name"]) ."  ". trim($Result["Surname"]) .' </p>
                         <p> Status : '. trim($Result["Status"]) .' </p>
@@ -61,5 +61,5 @@
         echo $HTML;
     }
     else
-        header("Location:..".DIRECTORY_SEPARATOR."HTML".DIRECTORY_SEPARATOR."Login.html");
+        header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 1);
 ?>

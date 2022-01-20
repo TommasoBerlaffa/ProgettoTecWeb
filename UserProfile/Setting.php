@@ -1,5 +1,5 @@
 <?php
-    require_once '..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'DBAccess.php';
+    require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
 
     session_start();
 
@@ -8,12 +8,12 @@
         // Non servono controlli su Login perchè vengono fatti da UserProfile.php
 
         // Ottengo Valori da Pagina Statica 
-        $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'UserProfile.html';
+        $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
         $HTML = file_get_contents($url);
         // Cambio Valore BreadCrumb
         $HTML = str_replace("{{ SubPage }}"," User Settings",$HTML);
 
-        $urlExtra = '..'.DIRECTORY_SEPARATOR.'UserProfile'.DIRECTORY_SEPARATOR.'Settings.html';
+        $urlExtra = '..'. DIRECTORY_SEPARATOR .'UserProfile'. DIRECTORY_SEPARATOR .'Settings.html';
         // Mettere i valori dentro la Form
         $DbAccess = new DBAccess();
         $conn = $DbAccess->openDBConnection();
@@ -27,7 +27,7 @@
             $HTMLExtra = str_replace('{{Surname}}',trim($Result['Surname']),$HTMLExtra);
             $HTMLExtra = str_replace('{{Email}}',trim($Result['Email']),$HTMLExtra);
             $HTMLExtra = str_replace('{{Bday}}',trim($Result['Birth']),$HTMLExtra);
-            $HTMLExtra = str_replace('{{Picture}}','..'.DIRECTORY_SEPARATOR.'IMG'.DIRECTORY_SEPARATOR.trim($Result['Picture']),$HTMLExtra);
+            $HTMLExtra = str_replace('{{Picture}}','..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .trim($Result['Picture']),$HTMLExtra);
             $HTMLExtra = str_replace('{{Nationality}}',trim($Result['Nationality']),$HTMLExtra);
             $HTMLExtra = str_replace('{{City}}',trim($Result['City']),$HTMLExtra);
             $HTMLExtra = str_replace('{{Address}}',trim($Result['Address']),$HTMLExtra);
@@ -47,5 +47,5 @@
         echo $HTML;
     }
     else
-        header("Location:..".DIRECTORY_SEPARATOR."HTML".DIRECTORY_SEPARATOR."Login.html");
+        header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 5);
 ?>

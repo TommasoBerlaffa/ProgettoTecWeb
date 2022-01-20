@@ -505,8 +505,8 @@ class DBAccess {
 			die('\r\nFailed to open connection to the DB');
 		
 		$query='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs 
-				ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_user_bid=?;'
-		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;'
+				ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_user_bid=?;';
+		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;';
 		if(isset($old) and $old == true)
 			$queryCall=mysqli_prepare($this->connection, $queryold);
 		else

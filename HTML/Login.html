@@ -46,17 +46,18 @@
     </nav>
     <!-- Main Content -->
     <main>
-        <form class="forInput" action="../PHP/Login.php" method="post">
+        <form class="forInput" action="../PHP/Login.php<sectionRedirect />" method="post">
             <fieldset  > 
                 <legend>Login</legend>
                 <!-- attributo for serve per indicare l'input quando clicco sulla label -->
-                <label for="Nickname">Mail : </label>
-                <input type="text" name="Nickname" id="Nickname" required />
-                <label for="Passwd">Password :</label>
-                <input type="password" name="Passwd" id="Passwd" required />
-                <input type="submit" value="Login" />
+                <label for="Username">Mail : </label>
+                <input type="text" name="Username" id="Username" required />
+                <label for="Password">Password :</label>
+                <input type="password" name="Password" id="Password" required />
+                <button type="submit" name="Login">Log in</button>
             </fieldset>
         </form>
+		<messaggiForm />
     </main>
     <!-- Footer -->
     <footer>
