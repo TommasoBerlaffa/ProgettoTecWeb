@@ -18,11 +18,12 @@ Function List:
 12.getMostPopularJobs
 *13.searchJob
 14.getUser
-15.getUserReview
-16.getUserReviewList
-17.getUserJobs
-18.Register_new_user
-19.Login
+15.UsernameTaken
+16.getUserReview
+17.getUserReviewList
+18.getUserJobs
+19.Register_new_user
+20.Login
 
 */
 
@@ -444,7 +445,57 @@ class DBAccess {
   
   
   
-  /***15.Get User Review***
+  /***15.Check Username Taken***
+  par: int userID;
+  desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
+  ****************************/
+  public function UsernameTaken($name) {
+    if(isset($name)) {
+		if(!($this->openDBConnection()))
+			die('\r\nFailed to open connection to the DB');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Username = ? Limit 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return false;
+		else
+			return true;
+    } else
+		return false;
+  }
+  
+  
+  
+  
+  /***16.Check Email Taken***
+  par: int userID;
+  desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
+  ****************************/
+  public function EmailTaken($name) {
+    if(isset($name)) {
+		if(!($this->openDBConnection()))
+			die('\r\nFailed to open connection to the DB');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Email = ? Limit 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return false;
+		else
+			return true;
+    } else
+		return false;
+  }
+  
+  
+  
+  
+  /***17.Get User Review***
   par: int userID;
   desc: Return average star rating of an user
   ****************************/
@@ -466,7 +517,7 @@ class DBAccess {
   
   
   
-  /***16.Get User Review List***
+  /***18.Get User Review List***
   par: int userID;
   desc: ritorna lista delle recensioni relative ad un utente userID. altrimenti ritorna null.
   ****************************/
@@ -495,7 +546,7 @@ class DBAccess {
   
   
   
-  /***(17).Get Job List whose user is bidding or have Won***
+  /***(19).Get Job List whose user is bidding or have Won***
   par: int userID, bool old; 
   desc: ritorna lista di lavori a cui un utente userID abbia dato la sua proposta oppure abbia partecipato(bool old). altrimenti ritorna null.
   ****************************/
@@ -531,7 +582,7 @@ class DBAccess {
   
   
   
-  /***18.New User Registration***
+  /***20.New User Registration***
   par: string password, string name, string surname, string nickname, date birth, string nationality, string city, string address, int phone, string picture, string curriculum, string description;
   desc: inserisce un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
@@ -570,7 +621,7 @@ class DBAccess {
   
   
   
-  /***19.User Login***
+  /***21.User Login***
   par: string user; string password;
   desc: restituisce i dati dati dell'utente corrispondenti a user e password, altrimenti ritorna null
   ****************************/
