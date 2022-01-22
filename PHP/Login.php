@@ -49,7 +49,10 @@
         }
         
         $paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);
-        $paginaHTML =  str_replace('<sectionRedirect />', "?section=$page", $paginaHTML);
+		$redirect='';
+		if($page)
+			$redirect="?section=$page";
+		$paginaHTML =  str_replace('<sectionRedirect />', $redirect, $paginaHTML);
         echo $paginaHTML;
     }
     else
