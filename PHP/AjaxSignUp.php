@@ -6,15 +6,6 @@
 	
 	$post = json_decode(file_get_contents('php://input'),true);
 
-	$string='';
-	foreach ($post as $key => $value) {
-		$string=$string . ' ' . $key . ':' . $value;		
-	}
-	echo(($string));
-	//echo(base64_encode($string));
-	return null;
-
-
 	if(isset($post['Username'])) {
         $user = filter_var($post['Username'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         $user = filter_var($user, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
@@ -37,6 +28,4 @@
 		else
 			echo('');
 	}
-	else
-		echo('Banana');
 ?>

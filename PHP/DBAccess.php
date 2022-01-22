@@ -453,8 +453,10 @@ class DBAccess {
     if(isset($name)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Username = ? Limit 1;');
-		mysqli_stmt_bind_param($queryCall,'i',$id);
+		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Nickname = ? Limit 1;');
+		if(!$queryCall)
+			die("errore nella preparazione");
+		mysqli_stmt_bind_param($queryCall,'s',$name);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
@@ -479,7 +481,7 @@ class DBAccess {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Email = ? Limit 1;');
-		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_bind_param($queryCall,'s',$name);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
