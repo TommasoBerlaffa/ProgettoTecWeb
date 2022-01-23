@@ -7,7 +7,7 @@
   if(isset($_SESSION['user_Username']))
   {
     // Ottengo Valori da Pagina Statica
-    $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'ViewJobOld.html';
+    $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'ViewJobOld.html';
     $HTML = file_get_contents($url);
 
     $DbAccess = new DBAccess();
@@ -79,6 +79,6 @@
     echo $HTML;    
   }
   else
-    header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");    
+    header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");    
 
 ?>
