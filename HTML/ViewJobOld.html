@@ -32,28 +32,19 @@
         </h1>
 
         <ul>
-            <li><a href="../HTML/Index.html">Home</a></li>
+            <li><a href="../PHP/Index.php">Home</a></li>
             <li><a href="../HTML/FindJob.html">Search For a Job</a> </li>
             <li class="right"><a href="../PHP/UserProfile.php">User Profile</a></li>
+            <li class="right"><a href="../PHP/Logout.php">Logout</a></li>
         </ul>
     </header>
     
     <nav class="breadcrumb">
-        You are in : Offer Information > {{ Title }}
+        You are in : <a href="../PHP/UserProfile.php">User Profile</a> > View Old Job Info > {{ Title }}
     </nav>
     <!-- Main Content -->
     <main>
-        <div id="JobInfo">
-            <h1>Job Offer : {{ Title }}</h1>
-            <p> Status : {{ Status }} Type : {{ Tipology }}</p>
-            <p> Date : {{ Date }}  Expiration Date : {{ Expiring }}</p>
-            <p> Payment : {{ Payment }} </p>
-            <div id="Desc">
-                <p for="Description">Description : </p> 
-                <p id="Description"> {{ Description }} </p>
-            </div>
-        </div>
-        <div id="feedback"></div>
+        <div id="JobInfo"><h1>Job Offer : {{ Title }}</h1><p> Status : {{ Status }} Type : {{ Tipology }}</p><p> Date : {{ Date }}  Expiration Date : {{ Expiring }}</p><p> Payment : {{ Payment }} </p><div id="Desc"><p for="Description">Description : </p> <p id="Description"> {{ Description }} </p></div></div><div id="feedback"></div>
     </main>
     <!-- Footer -->
     <footer>

@@ -1,6 +1,6 @@
 /* INIZIO CSS TEMPORANEO */
 html {
-    width: 100%;
+width: 100%;
 }
 body {
     font-family:Trebuchet MS,sans-serif;    
@@ -111,20 +111,18 @@ input {
 }
 
 /* Pagina FIND JOB*/
-fieldset.filters{
-    background-color: lightslategrey;
-}
-fieldset.orders{
-    background-color: lightslategrey;
-}
+
 div.filter {
     float:left;
-    width:15%;
+    width:25%;
 }
-div.content_order{
-    margin-left: 15%;
-    width: 80%;
+div.filter label.Title{
+  display:block;
 }
+div.filter label{
+  display: inline;
+}
+
 /* User Profile */
 div.sidebar {
     position:fixed;
@@ -142,6 +140,11 @@ div.sidebar {
 
 p#Description{
     word-break: break-all;
+}
+
+div.column {
+    float: left;
+    width: 50%;
 }
 
 div#content {
@@ -198,6 +201,36 @@ div#feedback p {
     padding-right : 1.4em;
 }
 
+div#feedbacks {
+    width: 25%;
+    float: right;
+}
 
+img#icon {
+    width:32px;
+    height:32px;
+}
+
+h2#User {
+    display:inline;
+}
+
+div#changePsw{
+    border-radius: 5px;
+    border: 1px solid black;
+    padding : 1em;  
+}
+
+div#changePsw a{
+
+    padding: 1em;
+}
+input.radio{
+  display:inline;
+}
+
+input.stars{
+  display: inline;
+}
 
 /* FINE CSS TEMPORANEO */

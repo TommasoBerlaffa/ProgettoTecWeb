@@ -1,97 +1,90 @@
 <html lang="eng">
 <!-- PAGINA PER VISUALIZZARE LE OFFERTE DI LAVORO -->
 <head>
-    <!-- Meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Titolo -->
-    <title>Find a Job | Website Name © </title>
-    <meta name="title" content="Find a Job Offer | WebsiteName" />
+  <!-- Titolo -->
+  <title>Find a Job | Website Name © </title>
+  <meta name="title" content="Find a Job Offer | WebsiteName" />
 
-    <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
-    <meta name="language" content="english eng" />
-    <meta name="description" content="Find the perfect job for you!" />
-    <meta name="keywords" content="Find Job, Find, FindWork, Job, WebsiteName" />
+  <!-- Meta -->
+  <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
+  <meta name="language" content="english eng" />
+  <meta name="description" content="Find the perfect job for you!" />
+  <meta name="keywords" content="Find Job, Find, FindWork, Job, WebsiteName" />
 
-    <!-- Fogli di Stile -->
-    <!--<link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />-->
-    <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
+  <!-- Fogli di Stile -->
+  <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
 
-    <!-- Icona -->
-    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+  <!-- Icona -->
+  <link rel="icon" type="image/png" href="../IMG/doggo.png" />
 
 </head>
 <body>
-    <!-- Header con Link per altre Pagine del Sito-->
-    <header>
-        <h1>
-            Website Name ©
-        </h1>
-    </header>
-    <div class="MenuFooterLoggedDiv">
-      <ul class="MenuFooterLoggedUl">
-          <li class="MenuFooterLoggedLi"><a href="Index.html">Home</a></li>
-          <li class="MenuFooterLoggedLi"><a href="FindJob.html">Search</a> </li>
-          <li class="MenuFooterLoggedLi"><a href="CreateJob.html">New Job</a> </li>
-          <li class="MenuFooterLoggedLi right"><a href="UserProfile.html">Profile</a></li>
-      </ul>
+  <!-- Header con Link per altre Pagine del Sito-->
+  <header>
+    <h1>
+    Website Name ©
+    </h1>
+    <ul>
+      <li><a href="../PHP/Index.php">Home</a></li>
+      <li><a href="../PHP/FindJob.php">Search For a Job</a> </li>
+      <li>{{CreateJob}}</li>
+      <li class="right">{{SubPage}}</li>
+    </ul>
+  </header>
+  <nav class="breadcrumb">
+    You are in : Find a Job Offer
+  </nav>
+  <!-- Main Content -->
+  <main>
+    <div class="filter">
+      <form action="../PHP/FindJob.php" method="post">
+        <fieldset>
+          <legend>Filters</legend>
+          <!-- Filter By Tipology-->
+          <label for="Tipology" > Tipology : </label>
+          <select name="Tipology" id="Tipology" >
+            <option value="Any" default>Any</option>
+            <option value="FullTime">FullTime</option>
+            <option value="OneTime">OneTime</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Recruiter">Recruiter</option>
+          </select>
+          <!-- Filter By Pay (Min & Max)-->
+          <label for="Pay" class="title">  Pay : </label>
+          <input type="number" name="Pay" id="Pay" min="1" value="10" />
+          <!-- Filter By Date -->
+          <label for="Date" > Date : </label>
+          <select name="Date" id="Date" >
+            <option value="hour">Last Hour</option>
+            <option value="day">Last Day</option>
+            <option value="week">Last Week</option>
+            <option value="month">Last Month</option>
+          </select>
+          <!-- Order -->
+          <label for="order" class="title"> Filtering Order :</label>
+          <input type="radio"class="radio" id="descending" name="order" value="descending">
+          <label for="descending">Descending</label><br>
+          <input type="radio" class="radio" id="ascending" name="order" value="ascending" checked >
+          <label for="ascending">Ascending</label><br>
+
+
+          <button type="submit" name="filter">Filter</button>
+        </fieldset>
+      </form>
     </div>
+    <div id="content"></div>
 
-    <nav class="breadcrumb">
-        You are in : Find a Job Offer
-    </nav>
-    <!-- Main Content -->
-    <main>
-        <div class="filter">
-            <form action="/action_page.php">
-                <fieldset class="filters" >
-                    <legend>Filters</legend>
-                    <!-- Paga Massima Oraria -->
-                    <label for="pph">Max Pay per Hour :</label><br>
-                    <input type="number" id="pph" name="pph" min="0" max="5000" value="100"><br>
-                    <!-- Paga Minima Oraria -->
-                    <label for="pph">Min Pay per Hour :</label><br>
-                    <input type="number" id="pph" name="pph" min="0" max="5000" value="100"><br>
+  </main>
 
-                    <label for="Skills">Skill required : </label><br>
-                    <!-- Da riempire con PHP -->
-                    <select name="Skills" id="Skills">
-                        <OptionSkillsList/>
-                    </select><br>
-
-                    <input type="submit" value="Filter">
-                </fieldset>
-            </form>
-
-        </div>
-
-        <div class="content_order">
-            <form action="../PHP/Order.php" method="post">
-                <fieldset class="orders" >
-                    <legend>Order</legend>
-                    <label> Order By :</label>
-                    <select>
-                        <option value="Order1">Order Type 1</option>
-                        <option value="Order2">Order Type 2</option>
-                        <option value="Order3">Order Type 3</option>
-                    </select>
-                    <input type="submit" value="Order">
-                </fieldset>
-            </form>
-        </div>
-
-        <div class="">
-          <content/>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <h3>Website Name ©</h3>
-
+  <!-- Footer -->
+  <footer>
+    <h3>Website Name ©</h3>
+  </footer>
 </body>
 </html>
