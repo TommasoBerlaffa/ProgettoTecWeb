@@ -18,17 +18,17 @@
     $conn = $DbAccess->openDBConnection();
     
     $table = '<div id="content">
-          <p>The page Bid History display all your successful Bids.
-          Click on a job Title to display more infos! </p>
           <table class="content">
-            <tr>
-              <th> Title </th>
-              <th> Status </th>
-              <th> Tipology </th>
-              <th> Payment </th>
-              <th> Min Payment </th>
-              <th> Max Payment </th>
-            </tr>';
+            <caption>The page Bid History display all your successful Bids.
+            Click on a job Title to display more infos! </caption>
+            <thead><tr>
+              <th scope="col"> Title </th>
+              <th scope="col"> Status </th>
+              <th scope="col"> Tipology </th>
+              <th scope="col"> Payment </th>
+              <th scope="col"> Min Payment </th>
+              <th scope="col"> Max Payment </th>
+            </tr></thead><tbody>';
     
     if($conn) {
       $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],true);
@@ -43,16 +43,16 @@
           $table .= '<td>'.trim($row["P_max"]).'</td>';
           $table .= '</tr>';
         } 
-        $table .='</table></div>';
+        $table .='</tbody></table></div>';
       }
       else
       {
-        $table .='</table><p>No Data Currently Available</p></div>';
+        $table .='</tbody></table><p>No Data Currently Available</p></div>';
       }
     }    
     else
     {
-      $table .='</table><p>Cannot Connect Correctly</p></div>';
+      $table .='</tbody></table><p>Cannot Connect Correctly</p></div>';
     }                  
 
     // Rimpiazza Valori su file html

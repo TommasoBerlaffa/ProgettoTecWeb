@@ -18,17 +18,17 @@
 
     // Crea una table da aggiungere al file HTML
     $table = '<div id="content">
-          <p>The page Work History display all the Job offer you created.
-            Click on a job Title to display more infos! </p>
           <table class="content">
-            <tr>
+          <caption>The page Work History display all the Job offer you created.
+            Click on a job Title to display more infos! </caption>
+            <thead><tr>
               <th> Title </th>
               <th> Status </th>
               <th> Tipology </th>
               <th> Payment </th>
               <th> Min Payment </th>
               <th> Max Payment </th>
-            </tr>';
+            </tr></thead><tbody>';
 
     if($conn){
       // Ottiene Valori da Query - Past Jobs
@@ -45,16 +45,16 @@
           $table .= '<td>'.trim($row["P_max"]).'</td>';
           $table .= '</tr>';
         } 
-        $table .='</table></div>';
+        $table .='</tbody></table></div>';
       }
       else
       {
-        $table .='</table><p>No Data Currently Available</p></div>';
+        $table .='</tbody></table><p>No Data Currently Available</p></div>';
       }
     }    
     else
     {
-      $table .='</table><p>Cannot Connect Correctly</p></div>';
+      $table .='</tbody></table><p>Cannot Connect Correctly</p></div>';
     }  
 
     // Rimpiazza Valori su file html
