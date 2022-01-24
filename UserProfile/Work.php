@@ -1,67 +1,67 @@
 <?php
-    // Work deve contenere tutti I lavori creati dall'utente ( Passati )
-    require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
+  // Work deve contenere tutti I lavori creati dall'utente ( Passati )
+  require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
 
-    session_start(); 
+  session_start(); 
 
-    if(isset($_SESSION['user_Username']))
-    {
-        // Ottengo Valori da Pagina Statica 
-        $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
-        $HTML = file_get_contents($url);
+  if(isset($_SESSION['user_Username']))
+  {
+    // Ottengo Valori da Pagina Statica 
+    $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
+    $HTML = file_get_contents($url);
 
-        // Cambio Valore BreadCrumb
-        $HTML = str_replace("{{ SubPage }}","Work History",$HTML);
-        
-        $DbAccess = new DBAccess();
-        $conn = $DbAccess->openDBConnection();
+    // Cambio Valore BreadCrumb
+    $HTML = str_replace("{{ SubPage }}","Work History",$HTML);
+    
+    $DbAccess = new DBAccess();
+    $conn = $DbAccess->openDBConnection();
 
-        // Crea una table da aggiungere al file HTML
-        $table = '<div id="content">
-                    <p>The page Work History display all the Job offer you created.
-                        Click on a job Title to display more infos! </p>
-                    <table class="content">
-                        <tr>
-                            <th> Title </th>
-                            <th> Status </th>
-                            <th> Tipology </th>
-                            <th> Payment </th>
-                            <th> Min Payment </th>
-                            <th> Max Payment </th>
-                        </tr>';
+    // Crea una table da aggiungere al file HTML
+    $table = '<div id="content">
+          <p>The page Work History display all the Job offer you created.
+            Click on a job Title to display more infos! </p>
+          <table class="content">
+            <tr>
+              <th> Title </th>
+              <th> Status </th>
+              <th> Tipology </th>
+              <th> Payment </th>
+              <th> Min Payment </th>
+              <th> Max Payment </th>
+            </tr>';
 
-        if($conn){
-            // Ottiene Valori da Query - Past Jobs
-            // Query : SELECT * FROM past_jobs WHERE Code_user = $_SESSION['Code_User'];
-            $Result = $DbAccess->getPastJobListbyCreator($_SESSION['user_ID']);
-            if($Result){
-                foreach ($Result as $row) {
-                    $table .= '<tr>';
-                    $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>';
-                    $table .= '<td>'.trim($row["Status"]).'</td>';
-                    $table .= '<td>'.trim($row["Tipology"]).'</td>';
-                    $table .= '<td>'.trim($row["Payment"]).'</td>';
-                    $table .= '<td>'.trim($row["P_min"]).'</td>';
-                    $table .= '<td>'.trim($row["P_max"]).'</td>';
-                    $table .= '</tr>';
-                } 
-                $table .='</table></div>';
-            }
-            else
-            {
-                $table .='</table><p>No Data Currently Available</p></div>';
-            }
-        }        
-        else
-        {
-            $table .='</table><p>Cannot Connect Correctly</p></div>';
-        }  
-
-        // Rimpiazza Valori su file html
-        $HTML = str_replace('<div id="content"></div>',$table,$HTML);
-        // Stampo File Modificato
-        echo $HTML;
-    }
+    if($conn){
+      // Ottiene Valori da Query - Past Jobs
+      // Query : SELECT * FROM past_jobs WHERE Code_user = $_SESSION['Code_User'];
+      $Result = $DbAccess->getPastJobListbyCreator($_SESSION['user_ID']);
+      if($Result){
+        foreach ($Result as $row) {
+          $table .= '<tr>';
+          $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>';
+          $table .= '<td>'.trim($row["Status"]).'</td>';
+          $table .= '<td>'.trim($row["Tipology"]).'</td>';
+          $table .= '<td>'.trim($row["Payment"]).'</td>';
+          $table .= '<td>'.trim($row["P_min"]).'</td>';
+          $table .= '<td>'.trim($row["P_max"]).'</td>';
+          $table .= '</tr>';
+        } 
+        $table .='</table></div>';
+      }
+      else
+      {
+        $table .='</table><p>No Data Currently Available</p></div>';
+      }
+    }    
     else
-        header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 2);
+    {
+      $table .='</table><p>Cannot Connect Correctly</p></div>';
+    }  
+
+    // Rimpiazza Valori su file html
+    $HTML = str_replace('<div id="content"></div>',$table,$HTML);
+    // Stampo File Modificato
+    echo $HTML;
+  }
+  else
+    header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 2);
 ?>
