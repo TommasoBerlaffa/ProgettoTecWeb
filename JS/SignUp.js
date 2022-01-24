@@ -6,20 +6,47 @@ function onLoad() {
 }
 
 
-function AjaxUsernameTaken() {
+function Ajax_Taken(content,callback) {
 	const xhttp = new XMLHttpRequest();
-	var data = {Username:document.getElementById('Username').value};
-	xhttp.open('POST', '../PHP/AjaxSignUp.php', true);
+	var data = {};
+	if(content==='Username')
+		data = {Username:document.getElementById('Username').value};
+	else if(content==='Email')
+		data = {Email:document.getElementById('Email').value};
+	else
+		return;
+	
+	xhttp.open('POST', '../PHP/AjaxSignUp.php', false);
 	
 	xhttp.onreadystatechange = function() {
-		if (this.readyState === 4 && this.status === 200){
-			document.getElementById('UsernameTaken').innerText=this.responseText;
-			return true;
+		if (xhttp.readyState === 4 && xhttp.status === 200){
+			if(callback(content, xhttp.responseText))
+				return true;
+			return false;			
 		}
+		else if (xhttp.readyState === 4 && xhttp.status === 429){
+			document.getElementById(content + 'Taken').innerText='Too many requests, retry in 5 secs.';
+			return false;
+		}
+		return false;
 	}
+	
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.send(JSON.stringify(data));
+	return true;
+	
 }
+
+function mycallback(content, response){
+	if(response === 'OK'){
+		document.getElementById(content + 'Taken').innerText='';
+		return true;
+	}
+	else
+		document.getElementById(content + 'Taken').innerText=response;
+	return false;
+}
+
 
 
 function passwordSecurity() {
@@ -76,16 +103,14 @@ function Form1() {
 	document.getElementById("Form_2").style.display='none';
 }
 function Form1_foward() {
-	if(checkRequiredInputs("Form_1"))
-		if(!AjaxUsernameTaken()){
-			return;
-			alert("no match");
-		}
-		else
-			alert("match found");
-		return;
-			//if(passwordSecurity())
-				//Form2();
+	if(checkRequiredInputs("Form_1")){
+		document.getElementById('Missing1').innerText='';
+		if(Ajax_Taken('Username',mycallback))
+			if(passwordSecurity())
+				Form2();
+	}
+	document.getElementById('Missing1').innerText='Please fill up all fields with "*" on the name';
+		
 }
 
 function Form2() {
@@ -94,8 +119,12 @@ function Form2() {
 	document.getElementById("Form_3").style.display='none';
 }
 function Form2_foward() {
-	if(checkRequiredInputs("Form_3"))
-		Form3();
+	if(checkRequiredInputs("Form_2")){
+		document.getElementById('Missing2').innerText='';
+		if(Ajax_Taken('Email',mycallback))
+			Form3();
+	}
+	document.getElementById('Missing2').innerText='Please fill up all fields with "*" on the name';
 }
 
 function Form3() {
@@ -105,8 +134,11 @@ function Form3() {
 	
 }
 function Form3_foward() {
-	if(checkRequiredInputs("Form_4"))
+	if(checkRequiredInputs("Form_3")){
+		document.getElementById('Missing3').innerText='';
 		Form4();
+	}
+	document.getElementById('Missing3').innerText='Please fill up all fields with "*" on the name';
 }
 
 function Form4() {

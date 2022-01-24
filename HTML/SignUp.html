@@ -47,6 +47,8 @@
     <!-- Main Content -->
     <main>
         <form class="forInput" action="../PHP/SignUp.php" method="post">
+		
+			<messaggiForm />
             <!-- attributo for serve per indicare l'input quando clicco sulla label -->
             <fieldset id="Form_1">
 
@@ -56,24 +58,25 @@
                 
                 <!-- Nickname -->
                 <label for="Username" class="Enter">Username* : </label>
-                <input type="text" id="Username" class="Enter" required />
-				<p id="UsernameTaken" for="Username" class="UsernameTaken"></p>
+                <input type="text" id="Username" class="Enter" value="<Username />" required />
+				<p id="UsernameTaken" for="Username" class="Error"></p>
                 <!-- Name -->
                 <label for="Name" class="Enter">Name* :</label>
-                <input type="text" id="Name" class="Enter" required />
+                <input type="text" id="Name" class="Enter" value="<Name />" required />
                 <!-- Surname -->
                 <label for="Surname" class="Enter">Surname* :</label>
-                <input type="text" id="Surname" class="Enter" required />
+                <input type="text" id="Surname" class="Enter" value="<Surname />" required />
                 <!-- Password -->
                 <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
                 <input type="password" id="Password" class="Enter" onkeyup='passwordSecurity();' required />
-				<p id="Security" for="Password" class="Security"></p>
+				<p id="Security" for="Password" class="Error"></p>
                 <!-- Password ( Check ) -->
                 <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
                 <input type="password" id="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
-				<p id="Match" for="Repeat-Password" class="Comparison"></p>
+				<p id="Match" for="Repeat-Password" class="Error"></p>
                 <!-- Next Page -->
-                <input type="button" value="Next" onclick="Form1_foward()" />
+				<p id="Missing1" for="Next1" class="Error"></p>
+                <input type="button" id="Next1" value="Next" onclick="Form1_foward()" />
             </fieldset>
 
             <fieldset id="Form_2">
@@ -84,29 +87,30 @@
 				<p> You are already half way there</p>
                 <!-- Birthday -->
                 <label for="Bday" >Birthday* : </label>
-                <input type="date" id="Bday" name="Bday" required>
+                <input type="date" id="Bday" name="Bday" value="<Birth />" required>
                 <!-- Mail -->
                 <!-- Possiamo aggiungere un pattern ad Email-->
                 <label for="Email" >Email* : </label>               
-                <input type="email" id="Email" required />
-				<p id="EmailTaken" for="Email" class="EmailTaken"></p>
+                <input type="email" id="Email" value="<Email />" required />
+				<p id="EmailTaken" for="Email" class="Error"></p>
                 <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
                 <!-- Nationality -->
                 <label for="Nationality">Nationality* : </label>
-                <input type="text" id="Nationality" required />
+                <input type="text" id="Nationality" value="<Nationality />" required />
                 <!-- City -->
                 <label for="City">City* : </label>
-                <input type="text" id="City" required />
+                <input type="text" id="City" value="<City />" required />
                 <!-- Address -->
                 <label for="Address">Address : </label>
-                <input type="text" id="Address" />
+                <input type="text" id="Address" value="<Address />" />
                 <!-- Tel -->
                 <!-- Si può fare controllo con un'espressione regolare -->
                 <label for="Tel">Telephone Number : </label>
-                <input type="tel" id="Tel" />
+                <input type="tel" id="Tel" value="<Phone />" />
                 <!-- Codice JS, probabilmente TO REPLACE with PHP-->       
                 <input type="button" value="Go Back" onclick="Form1()" />
-                <input type="button" value="Next" class="Next" onclick="Form2_foward()" />
+				<p id="Missing2" for="Next2" class="Error"></p>
+                <input type="button" id="Next2" value="Next" class="Next" onclick="Form2_foward()" />
             
             </fieldset>
 
@@ -133,13 +137,14 @@
                 </select>
                 <!-- Curriculum -->
                 <label for="Curr">Link To a Curriculum : </label>
-                <input type="url" pattern="https:://" value="https:://" id="Curr" />
+                <input type="url" pattern="https:://" value="<Curriculum />" value= id="Curr" />
                 <!-- Description -->
                 <label for="Desc">Describe Yourself :</label>
-                <textarea id="Desc" > </textarea>
+                <textarea id="Desc" ><Description /></textarea>
                     
                 <input type="button" value="Go Back" onclick="Form2()"/>
-                <input type="button" value="Next" class="Next" onclick="Form3_foward()"/>
+				<p id="Missing3" for="Next3" class="Error"></p>
+                <input type="button" id = "Next3" value="Next" class="Next" onclick="Form3_foward()"/>
             </fieldset>
             
             <fieldset id="Form_4">

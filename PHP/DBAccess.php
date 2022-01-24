@@ -599,9 +599,11 @@ class DBAccess {
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		$queryCall2=mysqli_prepare($this->connection, $queryprep);
 		if(!isset($address))
-			$address='';
+			$address=null;
 		if(!isset($phone))
-			$phone='';
+			$phone=null;
+		if(!isset($curriculum))
+			$curriculum=null;
 		mysqli_stmt_bind_param($queryCall,'ssssssssiss',$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description);
 		mysqli_stmt_bind_param($queryCall2,'ss', $nickname, $password);
 		mysqli_stmt_execute($queryCall);

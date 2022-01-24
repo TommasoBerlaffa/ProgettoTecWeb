@@ -14,13 +14,11 @@
 
         $messaggioErrore = '';
         if(isset($_POST['Login'])) {
-            $user = filter_var($_POST['Username'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-            $user = filter_var($user, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+            $user = filter_var($_POST['Username'], FILTER_SANITIZE_STRING);
             if(strlen($user) == 0)
                 $messaggioErrore .= '<li>Username mancante</li>';
 
-            $pwd = filter_var($_POST['Password'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-            $pwd = filter_var($pwd, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+            $pwd = filter_var($_POST['Password'], FILTER_SANITIZE_STRING);
             if(strlen($pwd) == 0) 
                 $messaggioErrore .= '<li>Password mancante</li>';
 
