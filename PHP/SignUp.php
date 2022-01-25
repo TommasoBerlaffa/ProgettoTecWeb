@@ -92,32 +92,22 @@ $destination_img = 'destination .jpg';
 			}
 		}
 		
-		if(!isset($_POST['Firstname']))
-			$messaggioErrore .='<li>Firstname field must be filled.</li>';
+		if(!isset($_POST['Email']))
+			$messaggioErrore .='<li>Email field must be filled.</li>';
 		else{
-			$tmp = filter_var($_POST['Firstname'], FILTER_SANITIZE_STRING);
+			$tmp = filter_var($_POST['Email'], FILTER_SANITIZE_EMAIL);
             if(strlen($tmp) == 0)
-                $messaggioErrore .= '<li>Firstname field must be filled.</li>';
-			//questa cosa è da valutare. Quali caratteri dovrei filtrare sul nome di una persona?
-			//e nel caso che messaggio dovrei stampare?
-			else if(preg_match('/[^A-Za-z\']/', $tmp))
-				$messaggioErrore .= '<li>Firstname field contains invalid characters.</li>';
-			else
-				$Firstname = $tmp;
-		}
-		
-		if(!isset($_POST['Lastname']))
-			$messaggioErrore .='<li>Surname field must be filled.</li>';
-		else{
-			$tmp = filter_var($_POST['Lastname'], FILTER_SANITIZE_STRING);
-            if(strlen($tmp) == 0)
-                $messaggioErrore .= '<li>Surname field must be filled.</li>';
-			//questa cosa è da valutare. Quali caratteri dovrei filtrare sul nome di una persona?
-			//e nel caso che messaggio dovrei stampare?
-			else if(preg_match('/[^A-Za-z\']/', $tmp))
-				$messaggioErrore .= '<li>Surname field contains invalid characters.</li>';
-			else
-				$Lastname = $tmp;
+                $messaggioErrore .= '<li>Email field must be filled.</li>';
+			$domain=explode('@',$tmp);
+			//if( exec('grep '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
+			if( exec('findstr '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
+				$messaggioErrore .= '<li>Email domain is blacklisted as disposable.</li>';
+			else{
+				$DBAccess= new DBAccess();
+				if($DBAccess->EmailTaken($tmp))
+					$messaggioErrore .= '<li>This Email is already used.</li>';
+				$Email = $tmp;
+			}
 		}
 		
 		if(!isset($_POST['Password']))
@@ -148,6 +138,34 @@ $destination_img = 'destination .jpg';
 			}
 		}
 		
+		if(!isset($_POST['Firstname']))
+			$messaggioErrore .='<li>Firstname field must be filled.</li>';
+		else{
+			$tmp = filter_var($_POST['Firstname'], FILTER_SANITIZE_STRING);
+            if(strlen($tmp) == 0)
+                $messaggioErrore .= '<li>Firstname field must be filled.</li>';
+			//questa cosa è da valutare. Quali caratteri dovrei filtrare sul nome di una persona?
+			//e nel caso che messaggio dovrei stampare?
+			else if(preg_match('/[^A-Za-z\']/', $tmp))
+				$messaggioErrore .= '<li>Firstname field contains invalid characters.</li>';
+			else
+				$Firstname = $tmp;
+		}
+		
+		if(!isset($_POST['Lastname']))
+			$messaggioErrore .='<li>Surname field must be filled.</li>';
+		else{
+			$tmp = filter_var($_POST['Lastname'], FILTER_SANITIZE_STRING);
+            if(strlen($tmp) == 0)
+                $messaggioErrore .= '<li>Surname field must be filled.</li>';
+			//questa cosa è da valutare. Quali caratteri dovrei filtrare sul nome di una persona?
+			//e nel caso che messaggio dovrei stampare?
+			else if(preg_match('/[^A-Za-z\']/', $tmp))
+				$messaggioErrore .= '<li>Surname field contains invalid characters.</li>';
+			else
+				$Lastname = $tmp;
+		}
+		
 		if(!isset($_POST['Birthday']))
 			$messaggioErrore .='<li>Birthday field must be filled.</li>';
 		else{
@@ -166,24 +184,6 @@ $destination_img = 'destination .jpg';
 				$messaggioErrore .= '<li>Your age is less than what required by laws (18).</li>';
 			else
 				$Birthday = $tmp;
-		}
-		
-		if(!isset($_POST['Email']))
-			$messaggioErrore .='<li>Email field must be filled.</li>';
-		else{
-			$tmp = filter_var($_POST['Email'], FILTER_SANITIZE_EMAIL);
-            if(strlen($tmp) == 0)
-                $messaggioErrore .= '<li>Email field must be filled.</li>';
-			$domain=explode('@',$tmp);
-			//if( exec('grep '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
-			if( exec('findstr '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
-				$messaggioErrore .= '<li>Email domain is blacklisted as disposable.</li>';
-			else{
-				$DBAccess= new DBAccess();
-				if($DBAccess->EmailTaken($tmp))
-					$messaggioErrore .= '<li>This Email is already used.</li>';
-				$Email = $tmp;
-			}
 		}
 		
 		if(!isset($_POST['Country']))
@@ -210,18 +210,13 @@ $destination_img = 'destination .jpg';
 				$City = $tmp;
 		}
 		
-		if(isset($_POST['Address'])){
-			$tmp = filter_var($_POST['Address'], FILTER_SANITIZE_STRING);
-			$Address = $tmp;
-		}
 		
-		if(isset($_POST['Tel'])){
-			$tmp = filter_var($_POST['Tel'], FILTER_VALIDATE_INT);
-			if(!$tmp)
-				$messaggioErrore .='<li>This is not a phone number.</li>';
-			else
-				$Phone = $tmp;
-		}
+		if(isset($_POST['Address']))
+			$tmp = filter_var($_POST['Address'], FILTER_SANITIZE_STRING);
+		
+		
+		if(isset($_POST['Tel']))
+			$Phone = filter_var($_POST['Tel'], FILTER_VALIDATE_INT);
 		
 		
 		if(isset($_POST['Curr'])){
