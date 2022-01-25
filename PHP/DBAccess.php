@@ -604,14 +604,14 @@ class DBAccess {
 			$phone=null;
 		if(!isset($curriculum))
 			$curriculum=null;
-		mysqli_stmt_bind_param($queryCall,'ssssssssiss',$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description);
+		mysqli_stmt_bind_param($queryCall,'ssssssssisss',$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description);
 		mysqli_stmt_bind_param($queryCall2,'ss', $nickname, $password);
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
-		$temp=mysqli_affected_rows($this->connection);
-		if($temp>0){
+		$tmp=mysqli_affected_rows($this->connection);
+		if($tmp>0){
 			mysqli_stmt_execute($queryCall2);
-			$temp=mysqli_affected_rows($this->connection);
+			$tmp=mysqli_affected_rows($this->connection);
 		}
 		mysqli_stmt_close($queryCall2);
 		$this->closeDBConnection();

@@ -109,8 +109,7 @@ function Form1_foward() {
 			if(passwordSecurity())
 				Form2();
 	}
-	document.getElementById('Missing1').innerText='Please fill up all fields with "*" on the name';
-		
+	document.getElementById('Missing1').innerText='Please fill up all fields with "*" on the name';	
 }
 
 function Form2() {

@@ -46,7 +46,7 @@
     </nav>
     <!-- Main Content -->
     <main>
-        <form class="forInput" action="../PHP/SignUp.php" method="post">
+        <form class="forInput" action="../PHP/SignUp.php" method="post" enctype="multipart/form-data">
 		
 			<messaggiForm />
             <!-- attributo for serve per indicare l'input quando clicco sulla label -->
@@ -58,22 +58,23 @@
                 
                 <!-- Nickname -->
                 <label for="Username" class="Enter">Username* : </label>
-                <input type="text" id="Username" class="Enter" value="<Username />" required />
+                <input type="text" id="Username" name="Username" class="Enter" value="<Username />" required />
 				<p id="UsernameTaken" for="Username" class="Error"></p>
-                <!-- Name -->
-                <label for="Name" class="Enter">Name* :</label>
-                <input type="text" id="Name" class="Enter" value="<Name />" required />
-                <!-- Surname -->
-                <label for="Surname" class="Enter">Surname* :</label>
-                <input type="text" id="Surname" class="Enter" value="<Surname />" required />
+				<!-- Mail -->
+				<label for="Email" >Email* : </label>               
+                <input type="email" id="Email" name="Email" value="<Email />" required />
+				<p id="EmailTaken" for="Email" class="Error"></p>
                 <!-- Password -->
                 <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
-                <input type="password" id="Password" class="Enter" onkeyup='passwordSecurity();' required />
+                <input type="password" id="Password" name="Password" class="Enter" onkeyup='passwordSecurity();' required />
 				<p id="Security" for="Password" class="Error"></p>
                 <!-- Password ( Check ) -->
                 <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
-                <input type="password" id="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
+                <input type="password" id="Repeat-Password" name="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
 				<p id="Match" for="Repeat-Password" class="Error"></p>
+				<!-- Icon Image -->
+                <label for="Picture" class="Enter">Profile Picture* :</label>
+                <input type="file" id="Picture" name="Picture" accept="image/jpeg, image/png, image/gif" class="Enter" required />
                 <!-- Next Page -->
 				<p id="Missing1" for="Next1" class="Error"></p>
                 <input type="button" id="Next1" value="Next" onclick="Form1_foward()" />
@@ -85,28 +86,29 @@
                 <p> Please fill this form to create a new account  2/3</p>
                 <p> Only the field with a * are required</p>
 				<p> You are already half way there</p>
+				<!-- Name -->
+                <label for="Firstname" class="Enter">Name* :</label>
+                <input type="text" id="Firstname" name="Firstname" class="Enter" value="<Firstname />" required />
+                <!-- Surname -->
+                <label for="Lastname" class="Enter">Surname* :</label>
+                <input type="text" id="Lastname" name="Lastname" class="Enter" value="<Lastname />" required />
                 <!-- Birthday -->
-                <label for="Bday" >Birthday* : </label>
-                <input type="date" id="Bday" name="Bday" value="<Birth />" required>
-                <!-- Mail -->
-                <!-- Possiamo aggiungere un pattern ad Email-->
-                <label for="Email" >Email* : </label>               
-                <input type="email" id="Email" value="<Email />" required />
-				<p id="EmailTaken" for="Email" class="Error"></p>
+                <label for="Birthday" >Birthday* : </label>
+                <input type="date" id="Birthday" name="Birthday" value="<Birthday />" required>
                 <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
                 <!-- Nationality -->
-                <label for="Nationality">Nationality* : </label>
-                <input type="text" id="Nationality" value="<Nationality />" required />
+                <label for="Country">Nationality* : </label>
+                <input type="text" id="Country" name="Country" value="<Country />" required />
                 <!-- City -->
                 <label for="City">City* : </label>
-                <input type="text" id="City" value="<City />" required />
+                <input type="text" id="City" name="City" value="<City />" required />
                 <!-- Address -->
                 <label for="Address">Address : </label>
-                <input type="text" id="Address" value="<Address />" />
+                <input type="text" id="Address" name="Address" value="<Address />" />
                 <!-- Tel -->
                 <!-- Si può fare controllo con un'espressione regolare -->
                 <label for="Tel">Telephone Number : </label>
-                <input type="tel" id="Tel" value="<Phone />" />
+                <input type="tel" id="Tel" name="Tel" value="<Phone />" />
                 <!-- Codice JS, probabilmente TO REPLACE with PHP-->       
                 <input type="button" value="Go Back" onclick="Form1()" />
 				<p id="Missing2" for="Next2" class="Error"></p>
@@ -123,7 +125,7 @@
                 <!-- Da discutere più avanti, Temporaneo -->
                 <label for="Skills">Skills * : </label>
                 
-                <select name="Skills" id="Skills">
+                <select name="Skills" id="Skills" name="Skills">
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
                     <option value="PHP">PHP</option>
@@ -135,12 +137,12 @@
                     <option value="C">C</option>
                     <option value="Visual Basic">Visual Basic</option>
                 </select>
-                <!-- Curriculum -->
+                <!-- Curriculum pattern="https://*"  -->
                 <label for="Curr">Link To a Curriculum : </label>
-                <input type="url" pattern="https:://" value="<Curriculum />" value= id="Curr" />
+                <input type="url" value="<Curriculum />" id="Curr" name="Curr"/>
                 <!-- Description -->
                 <label for="Desc">Describe Yourself :</label>
-                <textarea id="Desc" ><Description /></textarea>
+                <textarea id="Desc" name="Desc"><Description /></textarea>
                     
                 <input type="button" value="Go Back" onclick="Form2()"/>
 				<p id="Missing3" for="Next3" class="Error"></p>
@@ -164,11 +166,10 @@
                 <label >Telephone Number : {{ Phone }}</label>                
                 <label >Link to a Curriculum : {{ Curriculum }}</label>                
                 <label >Skills : {{ Skills }}</label>                
-                <label >Description : {{ Description }}</label>                
-                <div>
-                    <input type="button" value="Go Back" onclick="Form3()"/>
-                    <button type="submit" value="Sign Up">Sign Up!</button>
-                </div>
+                <label >Description : {{ Description }}</label>
+				
+                <input type="button" value="Go Back" onclick="Form3()"/>
+                <button type="submit" name="Sign_Up" value="Sign_Up">Sign Up!</button>
         </fieldset>
         </form>
 
