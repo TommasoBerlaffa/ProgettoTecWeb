@@ -200,21 +200,24 @@ class DBAccess {
   ****************************/
   public function getJobReview($id) {
 	if(isset($id)){
-		$queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ?;';
-		$queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ?;';
+		$queryInserimento = 'SELECT * FROM reviews WHERE Code_job = ?;';
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=null;
-		if($old)
-			$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		else
-			$queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
 		$this->closeDBConnection();
-		return mysqli_fetch_assoc($queryResult);
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else {
+			$result=array();
+			while ($tmp=mysqli_fetch_assoc($queryResult))
+				array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
+			return $result;
+		}
 	} else
 		return null;
   }
@@ -632,7 +635,7 @@ class DBAccess {
   public function Login($user, $pwd) {
     if(isset($user) && isset($pwd)) {
 		//uso di query preparata per evitare vulnerabilità da SQL Injection e uso di procedura per evitare alterazione del codice.
-		$qprep1='SET @mess=""; SET @userID="";'; $qprep2='CALL Log_in(?,?,@mess,@userID);';	$qprep3='SELECT @mess, @userID;';
+		$qprep1='SET @mess="" AND @userID="";'; $qprep2='CALL Log_in(?,?,@mess,@userID);';	$qprep3='SELECT @mess, @userID;';
 		if(!($this->openDBConnection()))
 			die('\r\r\nFailed to open connection to the DB');
 		$queryCall = mysqli_prepare($this->connection, $qprep2);
