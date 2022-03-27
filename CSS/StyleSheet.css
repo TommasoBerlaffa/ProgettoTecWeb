@@ -1,7 +1,31 @@
-/* INIZIO CSS TEMPORANEO */
+/* 
+- 1.0 General CSS For every page              - 
+- 2.0 Header and Footer Matching Color        - 
+- 2.1 Header Elements gh1, ul, li             - 
+- 3.0 Breadcrumb                              -
+- 4.0 Footer                                  -
+- 5.0 General Usage Form                      - 
+- 5.1 Input Form                              -
+- 5.2 Output Form                             - 
+- 6.0 Filter for Page Find Job                -
+- 7.0 Sidebar for User Profile                -
+- 7.1 Content for User Profile                -
+- 7.2 User Profile Welcome Page               - 
+- 7.3 User Info and Review from User Profile  -
+- 7.4 Change Password Page                    -
+- 8.0 View Old Job Info & Feedback            -
+*/
+
+
+
+
+
+
+/* - 1.0 General CSS For every page - */
 html {
-width: 100%;
+  width: 100%;
 }
+
 body {
   font-family:Trebuchet MS,sans-serif;  
   margin:auto;  
@@ -9,86 +33,72 @@ body {
 }
 
 main {
-  padding: 2em;
   margin-bottom: 6%;
 }
 
-/* H E A D E R */
-/* Titolo Pagine nell'Header */
+/* - 2.0 Header and Footer Matching Color - */
 header,footer {
-  background-color :  #4ed97a;
+  background-color :  #69f0a5;
 }
 
-h1 {
+/* - 2.1 Header Elements gh1, ul, li - */
+header h1 {
   margin:auto;
   text-align: center;
 }
 
-/* Lista elementi Header */
-ul {
+header ul {
   margin:auto;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-li {
+
+header ul li {
   display:inline-block;
   padding: 0.4em;
 }
-/* li spostato a destra */
-li.right {
+
+header ul li.right {
   float:right;
 }
 
-li a{
+header ul li a {
   color:black;
   text-decoration: none;
 }
 
-li a:hover{
-  text-decoration: underline;
+header img#icon {
+  width:16px;
+  height:16px;
 }
 
-/* B R E A D C R U M B */
+/* - 3.0 Breadcrumb - */
 nav.breadcrumb{
+  padding: 0.3em;
   background-color:whitesmoke;
   border-width: 0em;
   border : solid 2px black;
 }
 
-/* F O O T E R */
+/* - 4.0 Footer - */
 footer {
-  text-align: center;
   position: fixed;
   left: 0;
   bottom: 0;
   height: 5%;
   width: 100%;
+  text-align: center;
 }
 
-/* C O N T E N T */
+footer h3 {
+  display: contents;
+}
+
 /* Form per pagina Login, Sign In, Create Job, Find Job*/ 
+/* - 5.0 General Usage Form - */
 form {
-  padding: 1em;
-}
-/* Form per pagina Login, Sign In, Create Job*/ 
-form.forInput{
-  margin:auto;
-  width:50%;
-  padding-bottom: 3em;
-}
-
-form.forOutput{
-  margin:auto;
-  width:60%;
-  max-width: 80%;
-}
-form.forOutput p{
-  font-family:Trebuchet MS,sans-serif;   
-  word-break: break-word; 
-}
-div#Desc {
-  width: 80%;
+  margin-top: 1em;
 }
 
 fieldset{
@@ -96,6 +106,7 @@ fieldset{
   border-radius: 5px;
   
 }
+
 legend {
   font-weight: bold;
   text-align: center;
@@ -106,17 +117,40 @@ textarea {
   resize:vertical;
   width:70%;  
 }
+
 label {
   display: block;
 }
+
 input {
   border-radius: 5px;
   display: block;
   margin-bottom: 1em;
 }
 
-/* Pagina FIND JOB*/
+div#Desc {
+  width: 80%;
+}
 
+/* - 5.1 Input Form - */ 
+form.forInput {
+  margin:auto;
+  width:50%;
+  padding-bottom: 3em;
+}
+
+/* - 5.2 Output Form - */ 
+form.forOutput {
+  margin:auto;
+  width:60%;
+  max-width: 80%;
+}
+form.forOutput p{
+  font-family:Trebuchet MS,sans-serif;   
+  word-break: break-word; 
+}
+
+/* - 6.0 Filter for Page Find Job - */
 div.filter {
   float:left;
   width:25%;
@@ -128,35 +162,38 @@ div.filter label{
   display: inline;
 }
 
-/* User Profile */
+/* - 7.0 Sidebar for User Profile - */
 div.sidebar {
-  position:fixed;
-  margin: 0;
+  background-color: #32a866;
+  position:absolute;
+  margin-top : 0px;
+  margin-bottom: 5%;
   padding: 0;
-  height: 100%;
+  width: 12%;
+  min-height : 100%;
+  height: auto;
   overflow: auto;
 }
 .sidebar a {
   display: block;
-  color: black;
-  padding: 5px;
+  color: white;
+  padding: 1em;
   text-decoration: none;
 }
 
-p#Description{
-  word-break: break-all;
-}
-
+/* - 7.1 Content for User Profile - */
 div.column {
   float: left;
   width: 50%;
 }
 
 div#content {
+  padding: 1em;
   margin-left: 15%;
 }
-div#content table{
-  width:80%;
+
+div#content table {
+  width:100%;
 }
 
 div#content th{
@@ -169,73 +206,183 @@ div#content table, th, td{
   background-color: white;
 }
 
-/* CSS pagina ViewJobOld.html */
-div#JobInfo{
-  margin:auto;
-  width: 90%;
-  border : 2px black solid;
-  border-radius: 5px;
+/* - 7.2 User Profile Welcome Page - */
+.welcome {
+  text-align: center;
 }
 
-div#JobInfo p{
-  padding-left: 1em;
-  padding-left: 1em;
-}
-
-div#feedback {
-
-  border-radius: 10px;
-  border : 1px black solid;
-  width : 60%;
-  margin-left:auto;
-  margin-right:auto;
-  margin-top: 3%;
-
-}
-
-div#feedback h2 {
-  padding-left : 1em;
-  padding-right : 1em;
-}
-div#feedback h3 {
-  padding-left : 1.2em;
-  padding-right : 1.2em;
-}
-div#feedback p {
-  padding-left : 1.4em;
-  padding-right : 1.4em;
+/* - 7.3 User Info and Review from User Profile */
+div#userinfo {
+  margin-right: 40%;
 }
 
 div#feedbacks {
-  width: 25%;
+  padding-left: 1em;
+  width: 40%;
   float: right;
 }
 
-img#icon {
-  width:32px;
-  height:32px;
+div.headchapter {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid black;
+  margin-right: 20%;
 }
 
-h2#User {
+h2.chapter {
   display:inline;
 }
 
-div#changePsw{
+div.review {
+  margin: 3%;
+}
+/* review title
+.review .title {
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  margin-right: 30%;
+  margin-top :0;
+  margin-bottom: 0;
+  align-self: flex-start;
+}*/
+
+/* review date
+.review .date {
+ 
+}*/
+
+/* review star
+.review .star {
+}*/
+
+/* review comment
+.review .comment {
+  padding : 1em;
+  background-color: white;
+}*/
+
+main img#icon {
+  width:32px;
+  height:32px;
+  float:left;
+  padding-right:  3em;
+}
+
+/* - 7.x Change Password Page - */
+form#settings {
+  margin-bottom: 2em;
+}
+
+div#changePsw {
   border-radius: 5px;
   border: 1px solid black;
   padding : 1em;  
 }
 
-div#changePsw a{
-
+div#changePsw a {
   padding: 1em;
 }
-input.radio{
+
+/* - 8.0 View Old Job Info & Feedback - */
+div#JobInfo {
+  margin:auto;
+  margin-top : 1em;
+  width: 50%;
+  border : 2px black solid;
+  border-radius: 5px;
+
+  display: grid;
+  row-gap: 1.2em;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  " t t "
+  " a b "
+  " c d "
+  " e . "
+  " f f ";
+}
+
+div#JobInfo p{
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 0%;
+}
+
+div#JobInfo h1 {
+  text-align: center;
+  grid-area: t;
+}
+
+div#JobInfo .status {
+  grid-area: a; 
+}
+
+div#JobInfo .type {
+  grid-area: b; 
+}
+
+div#JobInfo .date {
+  grid-area: c; 
+}
+
+div#JobInfo .expiration {
+  grid-area: d; 
+}
+
+div#JobInfo .pay {
+  grid-area: e; 
+}
+
+div#JobInfo .desc {
+  grid-area: f; 
+}
+
+p#description{
+  padding : 0.5em;
+  word-break: break-all;
+}
+
+div#feedback {
+  border-radius: 10px;
+  border : 2px black solid;
+  width : 50%;
+  margin : auto;
+  margin-top: 1em;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  " a b "
+  " c c ";
+}
+
+div#feedback p {
+  padding-left : 1.4em;
+}
+
+div#feedback .rating {
+  grid-area: a;
+}
+
+div#feedback .date {
+  grid-area: b;
+}
+
+div#feedback .comment {
+  grid-area: c;
+}
+
+div#feedback p#feedbackDesc{
+  background-color: aliceblue;
+  margin: 1em;
+}
+
+input.radio {
   display:inline;
 }
 
-input.stars{
+input.stars {
   display: inline;
 }
 
-/* FINE CSS TEMPORANEO */
+
