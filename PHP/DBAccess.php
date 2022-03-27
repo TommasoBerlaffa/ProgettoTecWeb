@@ -12,7 +12,7 @@ Function List:
 6.getBids
 7.getJobListbyCreator
 8.getPastJobListbyCreator
-9.changeJobStatus 
+9.changeJobStatus
 10.getAllTags
 11.getTags
 12.getMostPopularJobs
@@ -31,21 +31,21 @@ class review {
 	private const Stars=0;
 	private const Comments='';
 	private const DateTime='';
-	
+
 	public function __construct($s,$c,$d){
 		$this->Stars=$s;
 		$this->Comments=$c;
 		$this->DateTime=$d;
 	}
-	
+
 	public function getStars(){
 		return $this->Stars;
 	}
-	
+
 	public function getComments(){
 		return $this->Comments;
 	}
-	
+
 	public function getDateTime(){
 		return $this->DateTime;
 	}
@@ -57,7 +57,7 @@ class DBAccess {
 	private const USERNAME='root';
 	private const PASSWORD='';
 	private const DBNAME='job_finder';
-	
+
 	private $connection;
 
 	public function openDBConnection(){
@@ -77,21 +77,21 @@ class DBAccess {
 			return false;
 		}
 		else{
-			return mysqli_close($this->connection); 
+			return mysqli_close($this->connection);
 		}
 	}
 
 
-  
-  
-  
+
+
+
   /***1.Create New Job***
   par: int userID, string titolo, string descrizione, eunum tipo di lavoro, bool tipo di pagamento, int pagamento minimo, int pagamento massimo, int tempo di scadenza;
   desc: crea una nuova inserzione di lavoro. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring) {
 	if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
-		$queryInserimento = 'INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring) 
+		$queryInserimento = 'INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring)
 							VALUES (?,?,?,?,?,?,?,?)';
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
@@ -109,10 +109,10 @@ class DBAccess {
 	} else
 		return false;
   }
-  
-  
-  
-  
+
+
+
+
   /***2.Set the Winner of a Past Job***
   par: int userID, int jobID;
   desc: assegna ad un lavoro passato il vincitore del concorso. ritorna se la transazione ha avuto successo oppure no.
@@ -134,10 +134,10 @@ class DBAccess {
 	} else
 		return false;
   }
-  
-  
-  
-  
+
+
+
+
   /***3.Get Job Info***
   par: int jobID, bool old;
   desc: ritorna le informazioni di un lavoro corrente o passato(bool old) in base al jobID. altrimenti ritorna null.
@@ -162,17 +162,17 @@ class DBAccess {
 	} else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***4.Create Review***
   par: int userID, int jobID, int stars rating, string comments;
   desc: crea una recensione verso un utente userID per un lavoro passato compiuto jobID. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function createReview($id, $job, $stars, $comments) {
 	if(isset($id) and isset($job) and isset($stars)){
-		$queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments) 
+		$queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments)
 							VALUES (?,?,?,?)';
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
@@ -190,10 +190,10 @@ class DBAccess {
 	} else
 		return false;
   }
-  
-  
-  
-  
+
+
+
+
   /***5.Get Job Review***
   par: int jobID;
   desc: ancora non a cosa serva e se serva questa funzione. (ho dimenticato perchè ne avevo concetuallizata l'esistenza).
@@ -211,20 +211,16 @@ class DBAccess {
 		mysqli_stmt_close($queryCall);
 		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		else {
-			$result=array();
-			while ($tmp=mysqli_fetch_assoc($queryResult))
 				array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
 			return $result;
 		}
 	} else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***6.Get Bids from a Job***
   par: int jobID;
   desc: ritorna array contenente tutti gli utenti e le loro offerte al concorso di un lavoro jobID. altrimenti ritorna null.
@@ -247,10 +243,10 @@ class DBAccess {
 	} else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***7.Get List of Jobs a User Created***
   par: int userID;
   desc: ritorna lista di lavori correnti e relative informazioni che un utente userID ha creato, da mostrare nel proprio profilo. altrimenti ritorna null.
@@ -276,10 +272,10 @@ class DBAccess {
 	} else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***8.Get List of  Past Jobs a User Created***
   par: int userID;
   desc: ritorna lista di lavori passati e relative informazioni che un utente userID ha creato, da mostrare nel proprio profilo. altrimenti ritorna null.
@@ -304,10 +300,10 @@ class DBAccess {
 	} else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***9.Change Job Status***
   par: int jobID, enum status, bool old;
   desc: cambia lo stato di un lavoro jobID corrente o passato(bool old). ritorna se la transazione ha avuto successo oppure no.
@@ -330,12 +326,12 @@ class DBAccess {
 	} else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***10.Get List of all Tags***
-  par: 
+  par:
   desc: ritorna un array contenente tutti i tag e la loro posizione all'interno dell'array è alternata con la relativa categoria. altrimenti ritorna null.
   ****************************/
   public function getAllTags() {
@@ -355,10 +351,10 @@ class DBAccess {
 		return $result;
 	}
   }
-  
-  
-  
-  
+
+
+
+
   /***11.Get Tags for User/Current_Job/Past_Job***
   par: int ID, int table (0=users, 1=current_jobs, 2=past_jobs)
   desc: returns list of tags of an ID for the choosen relative table.
@@ -395,12 +391,12 @@ class DBAccess {
     } else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***12.Get the Four Most Popular Job Tags***
-  par: 
+  par:
   desc: ritorna i 4 tag più popolari al momento.
   ****************************/
   public function getMostPopularJobs() {
@@ -419,10 +415,10 @@ class DBAccess {
 	}
 	return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***14.Get User Info***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
@@ -444,10 +440,10 @@ class DBAccess {
     } else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***15.Check Username Taken***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
@@ -471,10 +467,10 @@ class DBAccess {
     } else
 		return false;
   }
-  
-  
-  
-  
+
+
+
+
   /***16.Check Email Taken***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
@@ -496,10 +492,10 @@ class DBAccess {
     } else
 		return false;
   }
-  
-  
-  
-  
+
+
+
+
   /***17.Get User Review***
   par: int userID;
   desc: Return average star rating of an user
@@ -518,10 +514,10 @@ class DBAccess {
     } else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***18.Get User Review List***
   par: int userID;
   desc: ritorna lista delle recensioni relative ad un utente userID. altrimenti ritorna null.
@@ -547,20 +543,20 @@ class DBAccess {
     } else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***(19).Get Job List whose user is bidding or have Won***
-  par: int userID, bool old; 
+  par: int userID, bool old;
   desc: ritorna lista di lavori a cui un utente userID abbia dato la sua proposta oppure abbia partecipato(bool old). altrimenti ritorna null.
   ****************************/
   public function getUserJobs($id,$old) {
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		
-		$query='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs 
+
+		$query='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
 				ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_user_bid=?;';
 		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;';
 		if(isset($old) and $old == true)
@@ -583,10 +579,10 @@ class DBAccess {
     } else
 		return null;
   }
-  
-  
-  
-  
+
+
+
+
   /***20.New User Registration***
   par: string password, string name, string surname, string nickname, date birth, string nationality, string city, string address, int phone, string picture, string curriculum, string description;
   desc: inserisce un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
@@ -594,7 +590,7 @@ class DBAccess {
   public function Register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
 	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description)){
 		//create new entry on table users and then create with the relative index the credentials for the login.
-		$queryInserimento = 'INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description) 
+		$queryInserimento = 'INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description)
 							VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
 		$queryprep='CALL Register_new_user(?,?);';
 		if(!($this->openDBConnection()))
@@ -624,10 +620,10 @@ class DBAccess {
     } else
 		return false;
   }
-  
-  
-  
-  
+
+
+
+
   /***21.User Login***
   par: string user; string password;
   desc: restituisce i dati dati dell'utente corrispondenti a user e password, altrimenti ritorna null
@@ -645,13 +641,13 @@ class DBAccess {
 		mysqli_query($this->connection, $qprep1);
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
-		
+
 		$queryResult = mysqli_query($this->connection, $qprep3);
 		$this->closeDBConnection();
 		$row= mysqli_fetch_row($queryResult);
 		$queryResult=$row[0];
 		$ID=$row[1];
-		
+
 		if($queryResult==false){
 			return null;
 		} else if($queryResult==true && isset($ID)){
@@ -676,14 +672,14 @@ class DBAccess {
 			return $datiUtente;
 		} else
 			echo '\r\r\nErrore dentro DBAccess: errore sconosciuto nella login';
-      
+
     } else {
 		echo '\r\r\nErrore dentro DBAccess: credenziali di accesso mancanti';
 		return null;
     }
-    
+
   }
-  
+
 }
 
 ?>

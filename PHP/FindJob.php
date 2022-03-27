@@ -17,7 +17,7 @@
       $HTML = str_replace('<li>{{CreateJob}}</li>','',$HTML);
       $HTMLSubpage = '<a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'Login.php"> Login </a>
                         <span> or </span>
-                        <a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'Signup.php"> Sign up </a>'; 
+                        <a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'Signup.php"> Sign up </a>';
     }
 
     $HTML = str_replace('{{SubPage}}',$HTMLSubpage,$HTML);
@@ -30,6 +30,7 @@
       $P_Min_Value = null;
 
     echo $P_Min_Value ;
+
     $result = $DBAccess->getJobs($P_Min_Value);
     $HtmlContent ='';
 
@@ -45,7 +46,7 @@
                             <th> Max Payment </th>
                         </tr>';
       foreach($result as $row)
-      {   
+      {
             $HtmlContent .='<tr>';
             $HtmlContent .='<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_Job"].'">'.$row["Title"].'</a></td>';
             $HtmlContent .= '<td>'.trim($row["Status"]).'</td>';

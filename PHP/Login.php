@@ -19,17 +19,17 @@
                 $messaggioErrore .= '<li>Username mancante</li>';
 
             $pwd = filter_var($_POST['Password'], FILTER_SANITIZE_STRING);
-            if(strlen($pwd) == 0) 
+            if(strlen($pwd) == 0)
                 $messaggioErrore .= '<li>Password mancante</li>';
 
             if($messaggioErrore == '') {
                 $DBAccess = new DBAccess();
                 $Logged=$DBAccess->Login($user, $pwd);
-                
+
                 if($Logged != null) {
-                    
+
                     $user = ''; $pwd = '';
-                    
+
                     $_SESSION['user_ID'] = $Logged['ID'];
                     $_SESSION['user_Status'] = $Logged['Status'];
                     $_SESSION['user_Username'] = $Logged['Username'];
@@ -39,13 +39,13 @@
 						header('Location:UserProfile.php?section='. $page);
 					else
 						header('Location:UserProfile.php');
-            
+
                 } else
                     $messaggioErrore = '<div id="errorMessages"><p>Username e/o Password non sono corretti.</p></div>';
             } else
                 $messaggioErrore = '<div id="errorMessages"><ul>' . $messaggioErrore . '</ul></div>';
         }
-        
+
         $paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);
 		$redirect='';
 		if($page)

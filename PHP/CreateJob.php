@@ -1,56 +1,67 @@
 <?php
-    require_once "ConnectionToDatabase.php";
-    use _Database\Database;
+    require_once "DBAccess.php";
+
     session_start();
 
-    //ID da ottenere tramite session
-    $ID=$_SESSION("ID");
-      //Trim per togliere spazi e htmlentities per assicurarci che gli utenti non inseriscano tag html
-    $Title=htmlentities(trim($_POST["Title"]));
-    $Desc=htmlentities(trim($_POST["Desc"]));
-    $Tipology=htmlentities(trim($_POST["Tipology"]));
-    $Payment;
-    filter_var(INPUT_GET,'MaxPay',FILTER_SANITIZE_NUMBER_FLOAT);
-    filter_var(INPUT_GET,'MinPay',FILTER_SANITIZE_NUMBER_FLOAT);
-    //(l'utente può aver cambiato l'html quindi potrebbero non esserci floats)
-    $MinPay=htmlentities(trim($_POST["MinPay"]));
-    $MaxPay=htmlentities(trim($_POST["MaxPay"]));
-    $Skills=htmlentities(trim($_POST["Skills"])); //Questo non così ma ok
-    $Expiring=date('Y-m-d H:i:s', strtotime('+7 days')); //Da Controllare se funzia
 
+
+    //ID da ottenere tramite session
+    //$ID=$_SESSION['user_ID']; $
+    $Title='';    $Desc="";    $Tipology="";    $MinPay="";    $MaxPay="";    $Skills="";
+
+    if(isset($_SESSION['user_ID']))
+      $ID=$_SESSION('user_ID');
+    else
+      header("location: ../PHP/Login.php");
+
+
+    if(isset($_POST['Title']))
+      $Title=htmlentities(trim($_POST["Title"]));
+    if(isset($_POST['Desc']))
+      $Desc=htmlentities(trim($_POST["Desc"]));
+
+    if(isset($_POST['Tipology']))
+      $Tipology=htmlentities(trim($_POST["Tipology"]));
+
+    $Payment="0"; //????
+
+    if( isset($_POST['MinPay']))
+      $MinPay = filter_var($_POST['MinPay'], FILTER_VALIDATE_INT);
+
+    if( isset($_POST['MinPay']))
+      $MaxPay = filter_var($_POST['MaxPay'], FILTER_VALIDATE_INT);
+
+    if( isset($_POST['Skills']))
+      $Skills = $_POST['Skills']; //non così ma ok
+    $Skills="test";
+    $Expiring=date('Y-m-d H:i:s', strtotime('+7 days'));
     $Result;
 
 
-    //Vari check che le variabili non abbiano valori strani/non validi etc
+
+    $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'CreateJob.html';
+    $HTML = file_get_contents($url);
+
     //Valutare di invertire i 2 rami then/else
-    if(!isset($ID) || !isset($Title) || !isset($Desc) || !isset($Tipology) || !isset($MinPay) || !isset($MaxPay) || !isset($Skills) || !isset($Expiring)){
-      //Qualche variabile non è settata, ritorna errore (?)
-    }else{
-      if($MaxPay<$MinPay) {
-        //Ritorna errore su questo
-        //header();
+    if(isset($ID) && isset($Title) && isset($Desc) && isset($Tipology) && isset($MinPay) && isset($MaxPay) && isset($Skills) && isset($Expiring)){
+      if($MaxPay>=$MinPay){
+        $DBAccess = new DBAccess();
+        $Result=$DBAccess->createJob($ID, $Title,$Desc,$Tipology,$Payment,$MinPay,$MaxPay,$Expiring); //Id e Payment???
+        if($Result)
+          $HTML = str_replace('<caricato/>','Job offer created!',$HTML); //Se si aggiorna la pagina dopo, si continua a caricare più volte lo stesso lavoro : Da fixare
+        else
+          $HTML = str_replace('<caricato/>','Error creating the job offer!!',$HTML);
+
+      }else{
+        $HTML = str_replace('<caricato/>','Max Pay must be greater than or equal to the Min Pay !!',$HTML);
       }
-
-
-
+    }else{
+      //Qualche variabile non è settata, ritorna errore (?)
+      //$HTML = str_replace('<caricato/>','Error creating the job offer!!',$HTML);
     }
 
 
-
-
-
-
-    //Apertura, caricamento e chiusura su db
-
-    openDBConnection();
-    $Result=createJob($ID, $Title,$Desc,$Tipology,$Payment,$MinPay,$MaxPay,$Expiring); //Id e Payment???
-    closeDBConnection();
-    if($Result) {
-      //Tutto ok, Si conferma il successo
-    }
-    else {
-      //Errore, si dice che qualcosa non è andato come doveva
-    }
+    echo $HTML;
 
 
 ?>

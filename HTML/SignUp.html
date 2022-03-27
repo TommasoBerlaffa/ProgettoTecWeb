@@ -15,15 +15,15 @@
     <meta name="language" content="english eng" />
     <meta name="description" content="Sign up to Find a Job or look for a professionist!" />
     <meta name="keywords" content="SignUp, Sign up, Username, Password, Job, Job Finder" />
-	
+
 	<!-- Javascript -->
 	<script type="text/javascript" src="../JS/SignUp.js"></script>
-	
+
     <!-- Fogli di Stile -->
     <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
     <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" /> 
-    
+    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" />
+
     <!-- Icona -->
     <link rel="icon" type="image/png" href="../IMG/doggo.png" />
 
@@ -47,7 +47,7 @@
     <!-- Main Content -->
     <main>
         <form class="forInput" action="../PHP/SignUp.php" method="post" enctype="multipart/form-data">
-		
+
 			<messaggiForm />
             <!-- attributo for serve per indicare l'input quando clicco sulla label -->
             <fieldset id="Form_1">
@@ -55,13 +55,13 @@
                 <legend> Sign Up </legend>
                 <p> Please fill this form to create a new account  1/3</p>
                 <p> Only the field with a * are required</p>
-                
+
                 <!-- Nickname -->
                 <label for="Username" class="Enter">Username* : </label>
                 <input type="text" id="Username" name="Username" class="Enter" value="<Username />" required />
 				<p id="UsernameTaken" for="Username" class="Error"></p>
 				<!-- Mail -->
-				<label for="Email" >Email* : </label>               
+				<label for="Email" >Email* : </label>
                 <input type="email" id="Email" name="Email" value="<Email />" required />
 				<p id="EmailTaken" for="Email" class="Error"></p>
                 <!-- Password -->
@@ -81,7 +81,7 @@
             </fieldset>
 
             <fieldset id="Form_2">
-            
+
                 <legend> Sign Up </legend>
                 <p> Please fill this form to create a new account  2/3</p>
                 <p> Only the field with a * are required</p>
@@ -109,11 +109,11 @@
                 <!-- Si può fare controllo con un'espressione regolare -->
                 <label for="Tel">Telephone Number : </label>
                 <input type="tel" id="Tel" name="Tel" value="<Phone />" />
-                <!-- Codice JS, probabilmente TO REPLACE with PHP-->       
+                <!-- Codice JS, probabilmente TO REPLACE with PHP-->
                 <input type="button" value="Go Back" onclick="Form1()" />
 				<p id="Missing2" for="Next2" class="Error"></p>
                 <input type="button" id="Next2" value="Next" class="Next" onclick="Form2_foward()" />
-            
+
             </fieldset>
 
             <fieldset id="Form_3">
@@ -124,7 +124,7 @@
 
                 <!-- Da discutere più avanti, Temporaneo -->
                 <label for="Skills">Skills * : </label>
-                
+
                 <select name="Skills" id="Skills" name="Skills">
                     <option value="HTML">HTML</option>
                     <option value="CSS">CSS</option>
@@ -143,31 +143,31 @@
                 <!-- Description -->
                 <label for="Desc">Describe Yourself :</label>
                 <textarea id="Desc" name="Desc"><Description /></textarea>
-                    
+
                 <input type="button" value="Go Back" onclick="Form2()"/>
 				<p id="Missing3" for="Next3" class="Error"></p>
                 <input type="button" id = "Next3" value="Next" class="Next" onclick="Form3_foward()"/>
             </fieldset>
-            
+
             <fieldset id="Form_4">
                 <legend> Sign Up </legend>
                 <p> Complete the Sign Up</p>
 				<p> Check all your submitted data</p>
-                
+
                 <!-- Da riempire con i campi usati in precedenza tramite PHP -->
                 <label >Username : {{ Nickname }}</label>
                 <label >Name : {{ Name }}</label>
                 <label >Surname : {{ Surname }}</label>
                 <label >Birth : {{ Birth }}</label>
-                <label >Email : {{ Email }}</label>                
-                <label >Nationality : {{ Nationality }}</label>                
-                <label >City : {{ City }}</label>                
-                <label >Address : {{ Address }}</label>                
-                <label >Telephone Number : {{ Phone }}</label>                
-                <label >Link to a Curriculum : {{ Curriculum }}</label>                
-                <label >Skills : {{ Skills }}</label>                
+                <label >Email : {{ Email }}</label>
+                <label >Nationality : {{ Nationality }}</label>
+                <label >City : {{ City }}</label>
+                <label >Address : {{ Address }}</label>
+                <label >Telephone Number : {{ Phone }}</label>
+                <label >Link to a Curriculum : {{ Curriculum }}</label>
+                <label >Skills : {{ Skills }}</label>
                 <label >Description : {{ Description }}</label>
-				
+
                 <input type="button" value="Go Back" onclick="Form3()"/>
                 <button type="submit" name="Sign_Up" value="Sign_Up">Sign Up!</button>
         </fieldset>
@@ -176,7 +176,7 @@
     </main>
     <!-- Footer -->
     <footer>
-        <h3>Job Finder ©</h3>  
+        <h3>Job Finder ©</h3>
     </footer>
 </body>
 </html>

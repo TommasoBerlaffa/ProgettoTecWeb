@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="eng" xml:lang="en">
+<html lang="eng">
+<!-- PAGINA PER VISUALIZZARE LE OFFERTE DI LAVORO -->
 <head>
   <!-- Meta -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Titolo -->
-  <title>Find a Job | Job Finder © </title>
+  <title>Find a Job | Website Name © </title>
   <meta name="title" content="Find a Job Offer | WebsiteName" />
 
   <!-- Meta -->
@@ -15,7 +15,7 @@
   <meta name="description" content="Find the perfect job for you!" />
   <meta name="keywords" content="Find Job, Find, FindWork, Job, WebsiteName" />
 
-  <!-- Stylesheets -->
+  <!-- Fogli di Stile -->
   <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
   <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
@@ -25,21 +25,18 @@
 
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header con Link per altre Pagine del Sito-->
   <header>
     <h1>
-      Job Finder ©
+    Website Name ©
     </h1>
-
     <ul>
       <li><a href="../PHP/Index.php">Home</a></li>
-      <li><a href="../PHP/FindJob.php">Find a Job</a> </li>
+      <li><a href="../PHP/FindJob.php">Search For a Job</a> </li>
       <li>{{CreateJob}}</li>
       <li class="right">{{SubPage}}</li>
     </ul>
   </header>
-
-  <!-- Breadcrumb -->
   <nav class="breadcrumb">
     You are in : Find a Job Offer
   </nav>
@@ -59,14 +56,11 @@
             <option value="Recruiter">Recruiter</option>
           </select>
           <!-- Filter By Pay (Min & Max)-->
-          <label for="Pay" class="title">  Max Pay : </label>
-          <input type="number" name="PayMax" id="PayMax" min="1" value="10" />
-          <label for="Pay" class="title">  Min Pay : </label>
-          <input type="number" name="PayMin" id="PayMin" min="1" value="10" />
+          <label for="Pay" class="title">  Pay : </label>
+          <input type="number" name="Pay" id="Pay" min="1" value="10" />
           <!-- Filter By Date -->
           <label for="Date" > Date : </label>
-          <select name="Date" id="Date">
-            <option value="any">Any</option>
+          <select name="Date" id="Date" >
             <option value="hour">Last Hour</option>
             <option value="day">Last Day</option>
             <option value="week">Last Week</option>
@@ -75,9 +69,9 @@
           <!-- Order -->
           <label for="order" class="title"> Filtering Order :</label>
           <input type="radio"class="radio" id="descending" name="order" value="descending">
-          <label for="descending">Descending</label>
+          <label for="descending">Descending</label><br>
           <input type="radio" class="radio" id="ascending" name="order" value="ascending" checked >
-          <label for="ascending">Ascending</label>
+          <label for="ascending">Ascending</label><br>
 
 
           <button type="submit" name="filter">Filter</button>
@@ -90,7 +84,7 @@
 
   <!-- Footer -->
   <footer>
-    <h3>Job Finder ©</h3>
+    <h3>Website Name ©</h3>
   </footer>
 </body>
 </html>
