@@ -5,8 +5,9 @@
     if(isset($_SESSION['user_Username']))
     {
         $WelcomeMessage= '<div id="content">
-                        <h1>'. $_SESSION["user_Username"] . ',  Welcome  to the User Profile page!</h1>
-                        <p style="text-align:center">Use the Lateral Navigation bar to check out different informations regarding your account!</p>
+                        <h1 class="welcome">'. $_SESSION["user_Username"] . ',  Welcome  to the User Profile page!</h1>
+                        <p class="welcome">Use the Lateral Navigation bar to check out different informations regarding your account!</p>
+                        <p class="welcome">For more infos on how this part of the website works, you can read our <a href="">HOW TO</a> guide. </p>
                         </div>';
         //".DIRECTORY_SEPARATOR."
         $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';

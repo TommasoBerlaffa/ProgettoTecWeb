@@ -1,5 +1,5 @@
 <!-- Setting ( COdice HTML da importare )  -->
-<form action="../PHP/ChangeUserInfo.php" method="post">
+<form action="../PHP/ChangeUserInfo.php" method="post" id="settings">
     <fieldset>
         <legend> Change User Informations</legend>
         <div class="column">
@@ -31,8 +31,9 @@
         </div>
         <div class="column">
             <!-- Image -->
+            <label> Old profile picture :</Picture></label>
             <img src="{{Picture}}" alt="Profile Picture" width="32" height="32"> 
-            <label for="pfp">Choose a profile picture:</label>
+            <label for="pfp">Choose a new profile picture:</label>
             <input type="file" id="pfp" name="pfp" accept="image/png, image/jpeg"    />
             
             <!-- Tel -->
