@@ -1,0 +1,76 @@
+\newcommand{\docNome}{ Relazione Progetto di Tecnologie Web }   
+\newcommand{\titoloProgetto}{ Job Finder}
+\newcommand{\Tber}{Berlaffa Tommaso } 
+\newcommand{\MatT}{1201234}
+\newcommand{\Mspa}{Milo Spadotto } 
+\newcommand{\MatM}{1122180}
+\newcommand{\Plau}{Pietro Lauriola } 
+\newcommand{\MatP}{1224820}
+\newcommand{\Amat}{Alberto Materrazzo} 
+\newcommand{\MatA}{1144597}
+
+\documentclass[12pt, a4paper,table]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+	pdfborder = {0 0 0}
+}
+\geometry{a4paper,top=3cm,bottom=3cm,left=2cm,right=2cm}
+\title{\textsc{\docNome}}
+
+\date{}
+
+\definecolor{footer-gray}{HTML}{808080}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{footer-gray}{\docNome} }
+\lhead{\textcolor{footer-gray}{Job Finder}}
+\fancyfoot{}
+\cfoot{\textcolor{footer-gray}{Pagina \thepage } }
+
+\begin{document}
+	\maketitle
+	\begin{center}
+		
+		Titolo Progetto : \huge{\titoloProgetto}
+		\\
+		\vspace{2em}
+		\normalsize Email Referente :  \href{mailto:@studenti.unipd.it}{@studenti.unipd.it}\\
+		
+		\vspace{3em}
+		\textbf{Componenti del Gruppo :}
+		\vspace{0.5em}
+		\\ \Tber : \MatT
+		\vspace{0.5em}
+		\\ \Mspa : \MatM
+		\vspace{0.5em}
+		\\ \Plau : \MatP
+		\vspace{0.5em}
+		\\ \Amat : \MatA
+	\end{center}
+	\newpage
+	\input{Capitoli/00_Introduzione.tex}
+	
+	\newpage
+	\input{Capitoli/01_Analisi.tex}
+	
+	\newpage
+	\input{Capitoli/02_Accessibilità.tex}
+	
+	\newpage
+	\input{Capitoli/03_FrontEnd.tex}
+	
+	\newpage
+	\input{Capitoli/04_BackEnd.tex}
+	
+	\newpage
+	\input{Capitoli/05_Lavoro.tex}
+	
+	\newpage
+	\input{Capitoli/06_Note.tex}
+\end{document}
