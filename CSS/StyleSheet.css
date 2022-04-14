@@ -1,7 +1,7 @@
 /* 
 - 1.0 General CSS For every page              - 
-- 2.0 Header and Footer Matching Color        - 
-- 2.1 Header Elements gh1, ul, li             - 
+- 2.0 Header and Footer                       - 
+- 2.1 Header Elements h1, ul, li              - 
 - 3.0 Breadcrumb                              -
 - 4.0 Footer                                  -
 - 5.0 General Usage Form                      - 
@@ -14,11 +14,8 @@
 - 7.3 User Info and Review from User Profile  -
 - 7.4 Change Password Page                    -
 - 8.0 View Old Job Info & Feedback            -
+- 9.0 Index                                   -
 */
-
-
-
-
 
 
 /* - 1.0 General CSS For every page - */
@@ -29,22 +26,30 @@ html {
 body {
   font-family:Trebuchet MS,sans-serif;  
   margin:auto;  
-  max-width: 100%;  
+  max-width: 100%; 
+  overflow-x: hidden;
 }
 
 main {
-  margin-bottom: 6%;
+  margin-bottom: 6%;  
 }
 
-/* - 2.0 Header and Footer Matching Color - */
-header,footer {
-  background-color :  #69f0a5;
+/* - 2.0 Header and Footer - */
+header {
+  background-color: #9ee6be;
 }
 
-/* - 2.1 Header Elements gh1, ul, li - */
-header h1 {
+footer {
+  background-color: #9ee6be;
+  opacity: 0.5;
+}
+
+/* - 2.1 Header Elements h1, ul, li - */
+header img#Logo {
+  display: block;
   margin:auto;
-  text-align: center;
+  width: 240px;
+  height: 135px;
 }
 
 header ul {
@@ -57,20 +62,36 @@ header ul {
 header ul li {
   display:inline-block;
   padding: 0.4em;
+  margin-left: 1em;
 }
 
 header ul li.right {
   float:right;
+  margin-right: 1em;
+  margin-left: 0em;
 }
 
 header ul li a {
   color:black;
   text-decoration: none;
+  margin-bottom: 0.2em;
 }
 
-header img#icon {
-  width:16px;
-  height:16px;
+header img.icons{
+  width:24px;
+  height:24px;
+  padding-right :0.15em;
+  vertical-align: text-bottom;
+}
+
+img#profilepic {
+  width: 18px;
+  height: 18px;
+  padding : 0.2em;
+  background-color: white;
+  border : solid 1px black;
+  vertical-align: text-bottom;
+  margin-right: 0.3em;
 }
 
 /* - 3.0 Breadcrumb - */
@@ -86,13 +107,20 @@ footer {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 5%;
+  height: fit-content;
   width: 100%;
-  text-align: center;
+  text-align:center;
 }
 
-footer h3 {
-  display: contents;
+footer p {
+  display: inline-block;
+  font-size: small;
+}
+
+footer img#smallLogo{
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
 }
 
 /* Form per pagina Login, Sign In, Create Job, Find Job*/ 
@@ -104,7 +132,6 @@ form {
 fieldset{
   background-color: white;
   border-radius: 5px;
-  
 }
 
 legend {
@@ -145,6 +172,7 @@ form.forOutput {
   width:60%;
   max-width: 80%;
 }
+
 form.forOutput p{
   font-family:Trebuchet MS,sans-serif;   
   word-break: break-word; 
@@ -152,33 +180,55 @@ form.forOutput p{
 
 /* - 6.0 Filter for Page Find Job - */
 div.filter {
-  float:left;
+  display: inline-block;
   width:25%;
 }
+
 div.filter label.Title{
   display:block;
 }
+
 div.filter label{
   display: inline;
 }
 
+/* - 6.1 Find Job Content - */
+div.jobList{
+  display:inline-block;
+}
+
 /* - 7.0 Sidebar for User Profile - */
-div.sidebar {
+div#sidebar { 
   background-color: #32a866;
   position:absolute;
   margin-top : 0px;
   margin-bottom: 5%;
   padding: 0;
-  width: 12%;
-  min-height : 100%;
+  width: fit-content;
+  min-height : 85%;
   height: auto;
   overflow: auto;
 }
-.sidebar a {
+
+#sidebar a {
   display: block;
   color: white;
   padding: 1em;
   text-decoration: none;
+}
+
+#sidebar img.icons{
+  width: 24px;
+  height: 24px;
+  vertical-align: text-bottom;
+}
+
+/* Icona Sidebar */
+#sidebarIcon {
+  display: block;
+  padding : 1em;
+  width: 16px;
+  height: 16px;
 }
 
 /* - 7.1 Content for User Profile - */
@@ -212,14 +262,20 @@ div#content table, th, td{
 }
 
 /* - 7.3 User Info and Review from User Profile */
-div#userinfo {
-  margin-right: 40%;
+div.flexUserInfo {
+  display: grid;
+  row-gap: 1em;
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: 
+  " b a ";
 }
 
 div#feedbacks {
-  padding-left: 1em;
-  width: 40%;
-  float: right;
+  grid-area: a;
+}
+
+div#userinfo {
+  grid-area: b;
 }
 
 div.headchapter {
@@ -235,6 +291,14 @@ h2.chapter {
 div.review {
   margin: 3%;
 }
+
+main img#icon {
+  width:32px;
+  height:32px;
+  float:left;
+  padding-right:  3em;
+}
+
 /* review title
 .review .title {
   background-color: white;
@@ -261,12 +325,6 @@ div.review {
   background-color: white;
 }*/
 
-main img#icon {
-  width:32px;
-  height:32px;
-  float:left;
-  padding-right:  3em;
-}
 
 /* - 7.x Change Password Page - */
 form#settings {
@@ -385,4 +443,40 @@ input.stars {
   display: inline;
 }
 
+/* - 9.0 Index - */
+main.Home {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 3%;
+}
 
+h2.index {
+  text-align:justify;
+  padding-left : 2em;
+  text-decoration: underline;
+}
+
+p.subIndex {
+  text-align: justify;
+  padding-left: 1.5em;
+}
+
+
+
+
+
+
+
+
+
+
+/* BreakPoint aggiuntivi per Migliorare l'esperienza */
+
+@media only screen and (max-width: 959px) {
+
+  span.sidebarText{
+  font-size: small;   
+    display: block;
+  }
+
+}
