@@ -1,29 +1,38 @@
 <!DOCTYPE html>
-<html lang="eng" xml:lang="en">
+<html lang="en" xml:lang="en">
+<!-- Homepage -->
 <head>
-  <meta charset="UTF-8">
   <!-- Meta -->
-  <meta name="title" content="Home | Job Finder" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Titolo -->
+  <title>HomePage | Job Finder © </title>
+  <meta name="title" content="Find a Job Offer | WebsiteName" />
+
+  <!-- Meta -->
   <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
   <meta name="language" content="english eng" />
   <meta name="description" content="Home page of Job Finder, Find a Job here!" />
   <meta name="keywords" content="Job Finder, Home, Hire, Job, Job Finder" />
 
-  <!-- Stylesheets -->
+  <!-- Fogli di Stile -->
   <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
   <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />  
-  <!-- Icon -->
-  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" />
+
+  <!-- Icona -->
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" alt="Job Finder Icon" />
 
 </head>
 <body>
-
-  <!-- Header -->
+  <!-- Header con Link per altre Pagine del Sito-->
   <header>
 
+    <!-- Logo Job Finder -->
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
+    <!-- Menu Hypertext (riempito da pagina Index.php ) -->
     <ul>
       <li><a href="../PHP/Index.php"><img src="../IMG/Icons/home.svg" class="icons"> Home</a></li>
       <li><a href="../PHP/FindJob.php"><img src="../IMG/Icons/search.svg" class="icons"> Find a Job</a> </li>
@@ -35,6 +44,7 @@
 
   <!-- Breadcrumb -->
   <nav class="breadcrumb">
+    <!-- Non serve aggiungere altro per la Home -->
     You are in : Home
   </nav>
 
@@ -46,16 +56,19 @@
     <p class="subIndex">
       Job Finder is the easiest way to connect skilled professionists looking for a job opportunity with people looking for someone to help them with a task or a specific job online. 
       <br>
-      Join the thousand of people that use Job Finder daily to find and create job offers quickly!</h2>
+      Join the thousand of people that use Job Finder daily to find and create job offers quickly!
     </p>
 
     <!-- hyperlink per il resto del sito -->
+
+    <!-- Login & Signup -->
     <h2 class="index"> First Step : How do I start?</h2>
     <p class="subIndex">
       You can start by <a href ="../PHP/SignUp.php">creating a new account</a> or <a href ="../PHP/Login.php">loggin in</a> to a already existing one!
       <br>
       What? You already have an account and you are already logged in!? Then move to the next step!
     </p>
+    <!-- FindJob & CreateJob-->
     <h2 id="Next_Step" class="index"> Second Step : What after that?</h2>
     <p class="subIndex">
       You can start <a href ="../PHP/FindJob.php">searching for a job offer</a> or <a href ="../PHP/CreateJob.php">create a job offer</a> yourself!
@@ -63,9 +76,10 @@
       In order to create a job offer, you will need an account. We can't let someone come here and make job offers without even saying its name, can we? I mean, that would be pretty rude...
     </p>
 
+    <!-- UserProfile-->
     <h2 class="index"> User Profile</h2>
     <p class="subIndex">
-      After logging in, you will gain access to a super secret zone : the <a href ="../PHP/SignUp.php">user profile</a>!
+      After logging in, you will gain access to a super secret zone : the <a href ="../PHP/UserProfile.php">user profile</a>!
       <br>
       You can use this amazing secret passage to check all your personal information (that we will keep safe and sound) and the history of the jobs offer you created and you worked on!
     </p>
@@ -75,16 +89,18 @@
     <p class="subIndex">
       So, let me show you some popular Jobs. Maybe you can get an idea of what you want to do after!
     </p>
-    
+    <!-- Da Riempire con Index.php -->
     <popularjobs/>
+
   </main>
   
   <!-- Footer -->
   <footer>
-    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <!-- Logo versione Small & Info Admin -->
+    <img src="../IMG/ShortLogo.png" id="smallLogo" alt="Small Logo Job Finder">
     <p> For More Info : blah blah blah</p>
+
   </footer>
 
 </body>
-
 </html>

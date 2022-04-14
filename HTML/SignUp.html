@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en" xml:lang="en">
 <!-- PAGINA PER LA REGISTRAZIONE -->
 <head>
   <!-- Meta -->
@@ -29,22 +29,27 @@
 
 </head>
 <body onload="onLoad()">
+  <!-- Header con Link per altre Pagine del Sito-->
   <header>
 
+    <!-- Logo Job Finder -->
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
+    <!-- Menu Hypertext (riempito da pagina Index.php ) -->
     <ul>
       <li><a href="../PHP/Index.php"><img src="../IMG/Icons/home.svg" class="icons"> Home</a></li>
       <li><a href="../PHP/FindJob.php"><img src="../IMG/Icons/search.svg" class="icons"> Find a Job</a> </li>
       <li class="right"><a href="../PHP/Login.php"><img src="../IMG/Icons/login.svg" class="icons">Login</a></li>
-      
     </ul>
 
   </header>
 
+  <!-- Breadcrumb -->
   <nav class="breadcrumb">
+    <!-- Non serve aggiungere altro per la pagina di Registrazione -->
     You are in : Sign Up
   </nav>
+
   <!-- Main Content -->
   <main>
     <form class="forInput" action="../PHP/SignUp.php" method="post" enctype="multipart/form-data">
@@ -126,7 +131,7 @@
         <!-- Da discutere più avanti, Temporaneo -->
         <label for="Skills">Skills * : </label>
 
-        <select name="Skills" id="Skills" name="Skills">
+        <select name="Skills" id="Skills">
           <option value="HTML">HTML</option>
           <option value="CSS">CSS</option>
           <option value="PHP">PHP</option>
@@ -175,10 +180,14 @@
     </form>
 
   </main>
+
   <!-- Footer -->
   <footer>
-    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <!-- Logo versione Small & Info Admin -->
+    <img src="../IMG/ShortLogo.png" id="smallLogo" alt="Small Logo Job Finder">
     <p> For More Info : blah blah blah</p>
+    
   </footer>
+
 </body>
 </html>
