@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Titolo -->
-  <title>Find a Job | Website Name © </title>
+  <title>Find a Job | Job Finder © </title>
   <meta name="title" content="Find a Job Offer | WebsiteName" />
 
   <!-- Meta -->
@@ -21,31 +21,35 @@
   <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
 
   <!-- Icona -->
-  <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" />
 
 </head>
 <body>
   <!-- Header con Link per altre Pagine del Sito-->
   <header>
-    <h1>
-    Website Name ©
-    </h1>
+
+    <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
+    
     <ul>
-      <li><a href="../PHP/Index.php">Home</a></li>
-      <li><a href="../PHP/FindJob.php">Search For a Job</a> </li>
-      <li>{{CreateJob}}</li>
-      <li class="right">{{SubPage}}</li>
+      <li><a href="../PHP/Index.php"><img src="../IMG/Icons/home.svg" class="icons"> Home</a></li>
+      <li><a href="../PHP/FindJob.php"><img src="../IMG/Icons/search.svg" class="icons"> Find a Job</a> </li>
+      <createjob/>
+      <subpage/>
     </ul>
+
   </header>
+
   <nav class="breadcrumb">
     You are in : Find a Job Offer
   </nav>
+
   <!-- Main Content -->
   <main>
     <div class="filter">
       <form action="../PHP/FindJob.php" method="post">
         <fieldset>
           <legend>Filters</legend>
+
           <!-- Filter By Tipology-->
           <label for="Tipology" > Tipology : </label>
           <select name="Tipology" id="Tipology" >
@@ -55,9 +59,14 @@
             <option value="Urgent">Urgent</option>
             <option value="Recruiter">Recruiter</option>
           </select>
+
           <!-- Filter By Pay (Min & Max)-->
-          <label for="Pay" class="title">  Pay : </label>
-          <input type="number" name="Pay" id="Pay" min="1" value="10" />
+          <label for="PayMin" class="title">  Minimum Pay : </label>
+          <input type="number" name="PayMin" id="PayMin" min="0" />
+
+          <label for="PayMax" class="title">  Maximum Pay : </label>
+          <input type="number" name="PayMax" id="PayMax" min="0" />
+
           <!-- Filter By Date -->
           <label for="Date" > Date : </label>
           <select name="Date" id="Date" >
@@ -66,6 +75,7 @@
             <option value="week">Last Week</option>
             <option value="month">Last Month</option>
           </select>
+
           <!-- Order -->
           <label for="order" class="title"> Filtering Order :</label>
           <input type="radio"class="radio" id="descending" name="order" value="descending">
@@ -78,13 +88,19 @@
         </fieldset>
       </form>
     </div>
-    <div id="content"></div>
+    <div id="jobList">
+      <p>
+        IVE HAD IT WITH JAZZCORP COPYPASTAS. THEY ARE UNFUNNY, STUPID, SPAM AND A WASTE OF TIME TO READ. PEOPLE HAVE GENUINE CONCERNS THEY WANT TO VOICE AND YOU ACTIVELY HARM THEM BY ABUSING THIS CHAT. FOR THE LAST TIME: STOP. POSTING. COPYPASTAS.
+      </p>
+    </div>
 
   </main>
 
   <!-- Footer -->
   <footer>
-    <h3>Website Name ©</h3>
+    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <p> For More Info : blah blah blah</p>
   </footer>
+  
 </body>
 </html>

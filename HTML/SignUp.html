@@ -2,181 +2,183 @@
 <html lang="eng">
 <!-- PAGINA PER LA REGISTRAZIONE -->
 <head>
-    <!-- Meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Titolo -->
-    <title>Sign Up | Job Finder © </title>
-    <meta name="title" content="Sign Up | Job Finder" />
+  <!-- Titolo -->
+  <title>Sign Up | Job Finder © </title>
+  <meta name="title" content="Sign Up | Job Finder" />
 
-    <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo">
-    <meta name="language" content="english eng" />
-    <meta name="description" content="Sign up to Find a Job or look for a professionist!" />
-    <meta name="keywords" content="SignUp, Sign up, Username, Password, Job, Job Finder" />
+  <!-- Meta -->
+  <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo">
+  <meta name="language" content="english eng" />
+  <meta name="description" content="Sign up to Find a Job or look for a professionist!" />
+  <meta name="keywords" content="SignUp, Sign up, Username, Password, Job, Job Finder" />
 
 	<!-- Javascript -->
 	<script type="text/javascript" src="../JS/SignUp.js"></script>
 
-    <!-- Fogli di Stile -->
-    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" />
+  <!-- Fogli di Stile -->
+  <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+  <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
+  <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" />
 
-    <!-- Icona -->
-    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+  <!-- Icona -->
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" />
 
 </head>
 <body onload="onLoad()">
-    <header>
-        <h1>
-            Job Finder ©
-        </h1>
+  <header>
 
-        <ul>
-            <li><a href="../PHP/Index.php">Home</a></li>
-            <li><a href="../PHP/FindJob.php">Find a Job</a> </li>
-            <li class="right"><a href="../PHP/Login.php">Login</a></li>
-        </ul>
-    </header>
+    <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
-    <nav class="breadcrumb">
-        You are in : Sign Up
-    </nav>
-    <!-- Main Content -->
-    <main>
-        <form class="forInput" action="../PHP/SignUp.php" method="post" enctype="multipart/form-data">
+    <ul>
+      <li><a href="../PHP/Index.php"><img src="../IMG/Icons/home.svg" class="icons"> Home</a></li>
+      <li><a href="../PHP/FindJob.php"><img src="../IMG/Icons/search.svg" class="icons"> Find a Job</a> </li>
+      <li class="right"><a href="../PHP/Login.php"><img src="../IMG/Icons/login.svg" class="icons">Login</a></li>
+      
+    </ul>
+
+  </header>
+
+  <nav class="breadcrumb">
+    You are in : Sign Up
+  </nav>
+  <!-- Main Content -->
+  <main>
+    <form class="forInput" action="../PHP/SignUp.php" method="post" enctype="multipart/form-data">
 
 			<messaggiForm />
-            <!-- attributo for serve per indicare l'input quando clicco sulla label -->
-            <fieldset id="Form_1">
+      <!-- attributo for serve per indicare l'input quando clicco sulla label -->
+      <fieldset id="Form_1">
 
-                <legend> Sign Up </legend>
-                <p> Please fill this form to create a new account  1/3</p>
-                <p> Only the field with a * are required</p>
+        <legend> Sign Up </legend>
+        <p> Please fill this form to create a new account  1/3</p>
+        <p> Only the field with a * are required</p>
 
-                <!-- Nickname -->
-                <label for="Username" class="Enter">Username* : </label>
-                <input type="text" id="Username" name="Username" class="Enter" value="<Username />" required />
+        <!-- Nickname -->
+        <label for="Username" class="Enter">Username* : </label>
+        <input type="text" id="Username" name="Username" class="Enter" value="<Username />" required />
 				<p id="UsernameTaken" for="Username" class="Error"></p>
 				<!-- Mail -->
 				<label for="Email" >Email* : </label>
-                <input type="email" id="Email" name="Email" value="<Email />" required />
+        <input type="email" id="Email" name="Email" value="<Email />" required />
 				<p id="EmailTaken" for="Email" class="Error"></p>
-                <!-- Password -->
-                <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
-                <input type="password" id="Password" name="Password" class="Enter" onkeyup='passwordSecurity();' required />
+        <!-- Password -->
+        <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
+        <input type="password" id="Password" name="Password" class="Enter" onkeyup='passwordSecurity();' required />
 				<p id="Security" for="Password" class="Error"></p>
-                <!-- Password ( Check ) -->
-                <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
-                <input type="password" id="Repeat-Password" name="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
+        <!-- Password ( Check ) -->
+        <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
+        <input type="password" id="Repeat-Password" name="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
 				<p id="Match" for="Repeat-Password" class="Error"></p>
 				<!-- Icon Image -->
-                <label for="Picture" class="Enter">Profile Picture* :</label>
-                <input type="file" id="Picture" name="Picture" accept="image/jpeg, image/png, image/gif" class="Enter" required />
-                <!-- Next Page -->
+        <label for="Picture" class="Enter">Profile Picture* :</label>
+        <input type="file" id="Picture" name="Picture" accept="image/jpeg, image/png, image/gif" class="Enter" required />
+        <!-- Next Page -->
 				<p id="Missing1" for="Next1" class="Error"></p>
-                <input type="button" id="Next1" value="Next" onclick="Form1_foward()" />
-            </fieldset>
+        <input type="button" id="Next1" value="Next" onclick="Form1_foward()" />
+      </fieldset>
 
-            <fieldset id="Form_2">
+      <fieldset id="Form_2">
 
-                <legend> Sign Up </legend>
-                <p> Please fill this form to create a new account  2/3</p>
-                <p> Only the field with a * are required</p>
+        <legend> Sign Up </legend>
+        <p> Please fill this form to create a new account  2/3</p>
+        <p> Only the field with a * are required</p>
 				<p> You are already half way there</p>
 				<!-- Name -->
-                <label for="Firstname" class="Enter">Name* :</label>
-                <input type="text" id="Firstname" name="Firstname" class="Enter" value="<Firstname />" required />
-                <!-- Surname -->
-                <label for="Lastname" class="Enter">Surname* :</label>
-                <input type="text" id="Lastname" name="Lastname" class="Enter" value="<Lastname />" required />
-                <!-- Birthday -->
-                <label for="Birthday" >Birthday* : </label>
-                <input type="date" id="Birthday" name="Birthday" value="<Birthday />" required>
-                <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
-                <!-- Nationality -->
-                <label for="Country">Nationality* : </label>
-                <input type="text" id="Country" name="Country" value="<Country />" required />
-                <!-- City -->
-                <label for="City">City* : </label>
-                <input type="text" id="City" name="City" value="<City />" required />
-                <!-- Address -->
-                <label for="Address">Address : </label>
-                <input type="text" id="Address" name="Address" value="<Address />" />
-                <!-- Tel -->
-                <!-- Si può fare controllo con un'espressione regolare -->
-                <label for="Tel">Telephone Number : </label>
-                <input type="tel" id="Tel" name="Tel" value="<Phone />" />
-                <!-- Codice JS, probabilmente TO REPLACE with PHP-->
-                <input type="button" value="Go Back" onclick="Form1()" />
+        <label for="Firstname" class="Enter">Name* :</label>
+        <input type="text" id="Firstname" name="Firstname" class="Enter" value="<Firstname />" required />
+        <!-- Surname -->
+        <label for="Lastname" class="Enter">Surname* :</label>
+        <input type="text" id="Lastname" name="Lastname" class="Enter" value="<Lastname />" required />
+        <!-- Birthday -->
+        <label for="Birthday" >Birthday* : </label>
+        <input type="date" id="Birthday" name="Birthday" value="<Birthday />" required>
+        <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
+        <!-- Nationality -->
+        <label for="Country">Nationality* : </label>
+        <input type="text" id="Country" name="Country" value="<Country />" required />
+        <!-- City -->
+        <label for="City">City* : </label>
+        <input type="text" id="City" name="City" value="<City />" required />
+        <!-- Address -->
+        <label for="Address">Address : </label>
+        <input type="text" id="Address" name="Address" value="<Address />" />
+        <!-- Tel -->
+        <!-- Si può fare controllo con un'espressione regolare -->
+        <label for="Tel">Telephone Number : </label>
+        <input type="tel" id="Tel" name="Tel" value="<Phone />" />
+        <!-- Codice JS, probabilmente TO REPLACE with PHP-->
+        <input type="button" value="Go Back" onclick="Form1()" />
 				<p id="Missing2" for="Next2" class="Error"></p>
-                <input type="button" id="Next2" value="Next" class="Next" onclick="Form2_foward()" />
+        <input type="button" id="Next2" value="Next" class="Next" onclick="Form2_foward()" />
 
-            </fieldset>
+      </fieldset>
 
-            <fieldset id="Form_3">
-                <legend> Sign Up </legend>
-                <p> Please fill this form to create a new account 3/3</p>
-                <p> Only the field with a * are required</p>
+      <fieldset id="Form_3">
+        <legend> Sign Up </legend>
+        <p> Please fill this form to create a new account 3/3</p>
+        <p> Only the field with a * are required</p>
 				<p> One last step! </p>
 
-                <!-- Da discutere più avanti, Temporaneo -->
-                <label for="Skills">Skills * : </label>
+        <!-- Da discutere più avanti, Temporaneo -->
+        <label for="Skills">Skills * : </label>
 
-                <select name="Skills" id="Skills" name="Skills">
-                    <option value="HTML">HTML</option>
-                    <option value="CSS">CSS</option>
-                    <option value="PHP">PHP</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="C++">C++</option>
-                    <option value="Java">Java</option>
-                    <option value="C#">C#</option>
-                    <option value="Python">Python</option>
-                    <option value="C">C</option>
-                    <option value="Visual Basic">Visual Basic</option>
-                </select>
-                <!-- Curriculum pattern="https://*"  -->
-                <label for="Curr">Link To a Curriculum : </label>
-                <input type="url" value="<Curriculum />" id="Curr" name="Curr"/>
-                <!-- Description -->
-                <label for="Desc">Describe Yourself :</label>
-                <textarea id="Desc" name="Desc"><Description /></textarea>
+        <select name="Skills" id="Skills" name="Skills">
+          <option value="HTML">HTML</option>
+          <option value="CSS">CSS</option>
+          <option value="PHP">PHP</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="C++">C++</option>
+          <option value="Java">Java</option>
+          <option value="C#">C#</option>
+          <option value="Python">Python</option>
+          <option value="C">C</option>
+          <option value="Visual Basic">Visual Basic</option>
+        </select>
+        <!-- Curriculum pattern="https://*"  -->
+        <label for="Curr">Link To a Curriculum : </label>
+        <input type="url" value="<Curriculum />" id="Curr" name="Curr"/>
+        <!-- Description -->
+        <label for="Desc">Describe Yourself :</label>
+        <textarea id="Desc" name="Desc"><Description /></textarea>
 
-                <input type="button" value="Go Back" onclick="Form2()"/>
+        <input type="button" value="Go Back" onclick="Form2()"/>
 				<p id="Missing3" for="Next3" class="Error"></p>
-                <input type="button" id = "Next3" value="Next" class="Next" onclick="Form3_foward()"/>
-            </fieldset>
+        <input type="button" id = "Next3" value="Next" class="Next" onclick="Form3_foward()"/>
+      </fieldset>
 
-            <fieldset id="Form_4">
-                <legend> Sign Up </legend>
-                <p> Complete the Sign Up</p>
+      <fieldset id="Form_4">
+        <legend> Sign Up </legend>
+        <p> Complete the Sign Up</p>
 				<p> Check all your submitted data</p>
 
-                <!-- Da riempire con i campi usati in precedenza tramite PHP -->
-                <label >Username : {{ Nickname }}</label>
-                <label >Name : {{ Name }}</label>
-                <label >Surname : {{ Surname }}</label>
-                <label >Birth : {{ Birth }}</label>
-                <label >Email : {{ Email }}</label>
-                <label >Nationality : {{ Nationality }}</label>
-                <label >City : {{ City }}</label>
-                <label >Address : {{ Address }}</label>
-                <label >Telephone Number : {{ Phone }}</label>
-                <label >Link to a Curriculum : {{ Curriculum }}</label>
-                <label >Skills : {{ Skills }}</label>
-                <label >Description : {{ Description }}</label>
+        <!-- Da riempire con i campi usati in precedenza tramite PHP -->
+        <label >Username : {{ Nickname }}</label>
+        <label >Name : {{ Name }}</label>
+        <label >Surname : {{ Surname }}</label>
+        <label >Birth : {{ Birth }}</label>
+        <label >Email : {{ Email }}</label>
+        <label >Nationality : {{ Nationality }}</label>
+        <label >City : {{ City }}</label>
+        <label >Address : {{ Address }}</label>
+        <label >Telephone Number : {{ Phone }}</label>
+        <label >Link to a Curriculum : {{ Curriculum }}</label>
+        <label >Skills : {{ Skills }}</label>
+        <label >Description : {{ Description }}</label>
 
-                <input type="button" value="Go Back" onclick="Form3()"/>
-                <button type="submit" name="Sign_Up" value="Sign_Up">Sign Up!</button>
-        </fieldset>
-        </form>
+        <input type="button" value="Go Back" onclick="Form3()"/>
+        <button type="submit" name="Sign_Up" value="Sign_Up">Sign Up!</button>
+    </fieldset>
+    </form>
 
-    </main>
-    <!-- Footer -->
-    <footer>
-        <h3>Job Finder ©</h3>
-    </footer>
+  </main>
+  <!-- Footer -->
+  <footer>
+    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <p> For More Info : blah blah blah</p>
+  </footer>
 </body>
 </html>

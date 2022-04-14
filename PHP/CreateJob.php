@@ -2,7 +2,20 @@
     require_once "DBAccess.php";
 
     session_start();
+    $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'CreateJob.html';
+    $HTML = file_get_contents($url);
 
+    if(isset($_SESSION['user_Username']))
+    {
+      $HTML = str_replace('<subpage/>','<li class="right"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+      <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>',$HTML);
+
+    }
+    else
+    {
+      header("location: ../PHP/Login.php");
+    }
+  /*
 
 
     //ID da ottenere tramite session
@@ -58,7 +71,7 @@
     }else{
       //Qualche variabile non è settata, ritorna errore (?)
       //$HTML = str_replace('<caricato/>','Error creating the job offer!!',$HTML);
-    }
+    }*/
 
 
     echo $HTML;

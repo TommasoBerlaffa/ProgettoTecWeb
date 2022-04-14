@@ -13,7 +13,7 @@
   
   // Cambio Valore BreadCrumb
   $HTML = str_replace("{{ SubPage }}"," User Informations",$HTML);
-  $content='<div id="content">';
+  $content='<div id="content" class="flexUserInfo">';
   // Ottiene Valori Utente da SQL
   // Query del tipo SELECT * FROM users WHERE Code_user = $_SESSION['Code_User'];
   $DbAccess = new DBAccess();
