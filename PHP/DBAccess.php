@@ -211,6 +211,10 @@ class DBAccess {
 		mysqli_stmt_close($queryCall);
 		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
+      return null;
+		else {
+			$result=array();
+			while ($tmp=mysqli_fetch_assoc($queryResult))
 				array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
 			return $result;
 		}
