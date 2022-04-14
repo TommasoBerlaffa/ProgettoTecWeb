@@ -1,77 +1,90 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="eng" xml:lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- Meta -->
-    <meta name="title" content="Home | WebsiteName" />
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
-    <meta name="language" content="english eng" />
-    <meta name="description" content="Home page of WebsiteName, search for a job here!" />
-    <meta name="keywords" content="WebsiteName, Home, Hire, Job, WebsiteName" />
+  <meta charset="UTF-8">
+  <!-- Meta -->
+  <meta name="title" content="Home | Job Finder" />
+  <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
+  <meta name="language" content="english eng" />
+  <meta name="description" content="Home page of Job Finder, Find a Job here!" />
+  <meta name="keywords" content="Job Finder, Home, Hire, Job, Job Finder" />
 
-    <!-- Fogli di Stile -->
-    <!--<link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />-->
-    <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
-    <!-- Icona -->
-    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />  
+  <!-- Icon -->
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" />
 
 </head>
-<body bgcolor="#e6ffff">
-    <!-- Header con Link per altre Pagine del Sito-->
-    <header>
-      <div id="BottoniLogSignDiv">
-          <a href="../PHP/Login.php"> <p class="BottoniLogSignClass">Log In</p> </a>
-          <a href="../PHP/SignUp.php"> <p class="BottoniLogSignClass">Sign Up</p> </a>
-      </div>
+<body>
 
-      <div id="BottoniLavoroDiv">
-        <h1 id="WebSiteName"> Website Name ©</h1>
-        <h1 class="BottoniLavoro"><a href="../PHP/FindJob.php">Find Job</a></h1>
-        <h1 class="BottoniLavoro"><a href="../PHP/CreateJob.php">Search Workers</a></h1>
-      </div>
-    </header>
-    <!-- Main Content -->
-    <main>
+  <!-- Header -->
+  <header>
 
+    <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
-      <div id="slidesDiv">
-        <p>Trova il super lavoro!</p>
-        <p>Milioni di persone usano questo sito per trovare lavoro e lavoratori!</p>
+    <ul>
+      <li><a href="../PHP/Index.php"><img src="../IMG/Icons/home.svg" class="icons"> Home</a></li>
+      <li><a href="../PHP/FindJob.php"><img src="../IMG/Icons/search.svg" class="icons"> Find a Job</a> </li>
+      <createjob/>
+      <subpage/>
+    </ul>
 
-        <h1 class="BottoniLavoro"><a href="./FindJob.php">Find Now a New Job!</a></h1>
-      </div>
+  </header>
 
-      <br/>
-      <div id="TopCategorieDiv">
-        <p>Trova lavoro tra le nostre migliori categorie!</p>
-        <!-- Lista de categorie -->
-          <TopCategorie/>
-      </div>
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    You are in : Home
+  </nav>
 
-      <br/><hr><br/>
-      <div id="CardsDiv">
-        <p>How it works? </p>
-        <ul class="CardsUl">
+  <!-- Main Content -->
+  <main class="Home">
 
-          <li><p class="TitoloCard">Search</p>
-            <p class="TestoCard">Search for your dream job! bla bla bla o pccion</li>
+    <!-- descrizione generale -->    
+    <h2 class="index"> Website Introduction : What is Job Finder? </h2>
+    <p class="subIndex">
+      Job Finder is the easiest way to connect skilled professionists looking for a job opportunity with people looking for someone to help them with a task or a specific job online. 
+      <br>
+      Join the thousand of people that use Job Finder daily to find and create job offers quickly!</h2>
+    </p>
 
-          <li><p class="TitoloCard">Candidati</p>
-            <p class="TestoCard">Submit your application easily, showing your knowledge and skills on your personal page, or by uploading yours <abbr title="Curriculum Vitae">CV</abbr> directly!</li>
+    <!-- hyperlink per il resto del sito -->
+    <h2 class="index"> First Step : How do I start?</h2>
+    <p class="subIndex">
+      You can start by <a href ="../PHP/SignUp.php">creating a new account</a> or <a href ="../PHP/Login.php">loggin in</a> to a already existing one!
+      <br>
+      What? You already have an account and you are already logged in!? Then move to the next step!
+    </p>
+    <h2 id="Next_Step" class="index"> Second Step : What after that?</h2>
+    <p class="subIndex">
+      You can start <a href ="../PHP/FindJob.php">searching for a job offer</a> or <a href ="../PHP/CreateJob.php">create a job offer</a> yourself!
+      <br>
+      In order to create a job offer, you will need an account. We can't let someone come here and make job offers without even saying its name, can we? I mean, that would be pretty rude...
+    </p>
 
-          <li><p class="TitoloCard">Wait</p>
-            <p class="TestoCard">Wait a while for the bidder to make a decision on your application!</li>
+    <h2 class="index"> User Profile</h2>
+    <p class="subIndex">
+      After logging in, you will gain access to a super secret zone : the <a href ="../PHP/SignUp.php">user profile</a>!
+      <br>
+      You can use this amazing secret passage to check all your personal information (that we will keep safe and sound) and the history of the jobs offer you created and you worked on!
+    </p>
 
-          <li><p class="TitoloCard">Start working!</p>
-            <p class="TestoCard"  >If you have convinced the bidder, you will be contacted by him and you will start working soon!</li>
+    <!-- Categorie di Offerte di Lavoro più popolari -->
+    <h2 class="index"> Now, all of this can be quite overwhelming..</h2>
+    <p class="subIndex">
+      So, let me show you some popular Jobs. Maybe you can get an idea of what you want to do after!
+    </p>
+    
+    <popularjobs/>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <p> For More Info : blah blah blah</p>
+  </footer>
 
-        </ul>
-
-      </div>
-
-    </main>
-    <!-- Footer -->
-    <footer></footer>
 </body>
+
 </html>

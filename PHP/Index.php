@@ -1,26 +1,35 @@
 <?php
 
-  // Get HTML
-  // HTML/Index.html
-  $url ='..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'Index.html';
-  $HTML = file_get_contents($url);
+  // Inizio Sessione
   session_start();
+
+  // Variabili pagina HTML e Switch
+  $url ='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Index.html';
+  $HTML = file_get_contents($url);
   $HTMLContent='';
+
+  //Controllo se variabile sessione è presente 
   if(isset($_SESSION['user_Username']))
   {
-    $HTML = str_replace('{{CreateJob}}','<a href="..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'CreateJob.html"> Create a Job Offer </a>',$HTML);
-      $HTMLContent = '<a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'UserProfile.php"> User Profile </a>
-        <img src="..'.DIRECTORY_SEPARATOR.'IMG'.DIRECTORY_SEPARATOR. $_SESSION['user_Icon'] .'" alt="Profile Picture" id="icon">';
+    // <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.svg" class="icons"> Create a Job Offer </a> </li>
+    $HTML = str_replace('<createjob/>','
+      <li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'CreateJob.php">
+                        <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'write.svg" class="icons"> Create an Offer </a></li>',$HTML);
+      $HTMLContent = '<li class="right"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
 
   }
   else
   {
-    $HTML = str_replace('<li>{{CreateJob}}</li>','',$HTML);
-      $HTMLContent = '<a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'Signup.php"> Sign up </a></li>
-                      <li class="right"><a href="..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'Login.php"> Login </a>';
+    $HTML = str_replace('<createjob/>','',$HTML);
+      $HTMLContent = '<li class="right"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Signup.php">
+                      <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'book.svg" class="icons"> Sign up </a></li>
+                      <li class="right"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php">
+                      <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'login.svg" class="icons"> Login </a></li>';
   }
 
-  $HTML = str_replace('{{SubPage}}',$HTMLContent,$HTML);
+  // Cambio Pagina
+  $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
   // Apertura Pagina
   echo $HTML;
 ?>
