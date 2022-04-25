@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="eng" xml:lang="en">
+<!-- PAGINA PER VISUALIZZARE LE INFO DEL SINGOLO UTENTE -->
+<head>
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Titolo -->
+  <title>{{ User }}'s Infos | Job Finder </title>
+  <meta name="title" content="{{ User }}'s Infos | WebsiteName" />
+
+  <!-- Meta -->
+  <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo">
+  <meta name="language" content="english eng" />
+  <meta name="description" content="Sign up to find a job or look for a professionist!" />
+  <meta name="keywords" content="User, ViewUser, WebsiteName" />
+
+  <!-- Fogli di Stile -->
+  <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />
+
+  <!-- Icona -->
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" />
+
+</head>
+<body>
+  <header>
+
+    <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
+
+    <ul>
+      <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.svg" class="icons"> Home </a> </li>
+      <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.svg" class="icons"> Find a Job </a> </li>
+      <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.svg" class="icons"> Create an Offer </a> </li>
+      <li class="right"> <a href="../PHP/Logout.php"><img src="../IMG/Icons/logout.svg" class="icons">  Log Out </a> </li>
+    </ul>
+    
+  </header>
+
+  <nav class="breadcrumb">
+    You are in : {{ User }}'s Infos
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+
+    <div id="userInfo">
+      <div class="headchapter">
+        <h2 class="chapter"> Username : {{ User }} </h2>
+        <img id="icon" src="../IMG/UsrPrfl/{{ Picture }}" alt="Profile Picture">
+      </div>
+      
+      <p> Name & Surname : {{ Name }}  {{ Surname }} </p>
+      <p> Status : {{ Status }} </p>
+      <p> Birthday : {{ Birth }} </p>
+      <p> Email : {{ Email }} </p>
+      <p> Nationality : {{ Nationality }} </p>
+      <p> City : {{ City }} </p>
+      <p> Link to a Curriculum : {{ Curriculum }} </p>
+      <p> Description : {{ Description }} </p>
+    </div>   
+    
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+
+    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <p> For More Info : blah blah blah</p>  
+
+  </footer>
+
+</body>
+</html> 

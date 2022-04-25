@@ -1,20 +1,23 @@
 /* max-width: 694px
-- 1.1.0 General CSS For every page              - 
-- 1.2.0 Header Elements h1, ul, li              - 
-- 1.3.0 Breadcrumb                              -
-- 1.4.0 Footer                                  -
-- 1.5.0 General Usage Form                      - 
-- 1.5.1 Input Form                              -
-- 1.5.2 Output Form                             - 
-- 1.6.0 Filter for Page Find Job                -
-- 1.7.0 Sidebar for User Profile                -
-- 1.7.1 Content for User Profile                -
-- 1.7.2 User Profile Welcome Page               - 
-- 1.7.3 User Info and Review from User Profile  -
-- 1.7.4 Change Password Page                    -
-- 1.8.0 View Old Job Info & Feedback            -
-- 1.9.0 Index                                   -
+- 1.1.0  General CSS For every page              - 
+- 1.2.0  Header Elements h1, ul, li              - 
+- 1.3.0  Breadcrumb                              -
+- 1.4.0  Footer                                  -
+- 1.5.0  General Usage Form                      - 
+- 1.5.1  Input Form                              -
+- 1.5.2  Output Form                             - 
+- 1.6.0  Filter for Page Find Job                -
+- 1.7.0  Sidebar for User Profile                -
+- 1.7.1  Content for User Profile                -
+- 1.7.2  User Profile Welcome Page               - 
+- 1.7.3  User Info and Review from User Profile  -
+- 1.7.4  Change Password Page                    -
+- 1.8.0  View Old Job Info & Feedback            -
+- 1.9.0  Index                                   -
+- 1.10.0 View User                               - 
+
 */
+
 
 @media only screen and (max-width: 694px) {
 
@@ -146,7 +149,12 @@
   div#userinfo {
     grid-area: b;
   }
-  
+
+  /* - 1.10.0 View User - */
+  div#userInfo{
+    width: 90%;
+    padding-top: 2em;
+  }
 }
 
 

@@ -15,6 +15,7 @@
 - 7.4 Change Password Page                    -
 - 8.0 View Old Job Info & Feedback            -
 - 9.0 Index                                   -
+-10.0 View User                               -
 */
 
 
@@ -461,10 +462,12 @@ p.subIndex {
   padding-left: 1.5em;
 }
 
-
-
-
-
+/* -10.0 View User - */
+div#userInfo{
+  margin:auto;
+  width: 40%;
+  padding-top: 1em;
+}
 
 
 
