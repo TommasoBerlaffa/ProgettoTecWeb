@@ -420,7 +420,52 @@ class DBAccess {
 	return null;
   }
 
-
+  /***13.Search Job***
+,$date,$minp,$maxp
+  ****************************/ 
+  public function searchJob($type,$min,$date)
+  {
+    
+    if(!($this->openDBConnection()))
+			die('\r\nFailed to open connection to the DB');
+      
+    if($type && $type!='Any'){
+      if($date && $date!=null)
+      {
+        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
+        mysqli_stmt_bind_param($queryCall,'sii',$type,$min,$date);  
+      }
+      else
+      {
+        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ?;');
+        mysqli_stmt_bind_param($queryCall,'si',$type,$min);  
+      }
+    }
+    else
+    {
+      if($date && $date!=null)
+      {
+        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
+        mysqli_stmt_bind_param($queryCall,'ii',$min,$date);  
+      }
+      else
+      {
+        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ?;');
+        mysqli_stmt_bind_param($queryCall,'i',$min  );  
+      }  
+    } 
+    
+    mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		$result=array();
+		while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+		return $result;
+  }
 
 
   /***14.Get User Info***

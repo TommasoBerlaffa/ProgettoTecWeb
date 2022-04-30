@@ -29,52 +29,54 @@
 
   // Cambio Pagina
   $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
-  /*
+  
   $DBAccess = new DBAccess();
-  if( isset($_POST['Min_pay']))
-  {
-    $P_Min_Value = filter_var($_POST['Min_pay'], FILTER_VALIDATE_INT);
-  }
-  else
-    $P_Min_Value = null;
+  $conn = $DBAccess->openDBConnection();
+  $HtmlContent='<div id="jobList">';
 
-  echo $P_Min_Value ;
 
-  $result = $DBAccess->getJobs($P_Min_Value);
-  
-  $HTMLJobs ='';
-  
-  if($result)
+  if($conn)
   {
-    $HtmlContent .='<div id="content"><table class="content">
-            <tr>
-              <th> Title </th>
-              <th> Status </th>
-              <th> Tipology </th>
-              <th> Payment </th>
-              <th> Min Payment </th>
-              <th> Max Payment </th>
-            </tr>';
-    foreach($result as $row)
+    isset($_POST["Tipology"]) ? $type =  $_POST["Tipology"] : $type= 'Any';
+    isset($_POST["PayMin"]) ? $min =  $_POST["PayMin"] : $min='0';
+    isset($_POST["Date"]) ? $date =  $_POST["Date"] : $date ='Any';
+    $ndate=null;
+    if($date!='Any')
     {
-      $HtmlContent .='<tr>';
-      $HtmlContent .='<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_Job"].'">'.$row["Title"].'</a></td>';
-      $HtmlContent .= '<td>'.trim($row["Status"]).'</td>';
-      $HtmlContent .= '<td>'.trim($row["Tipology"]).'</td>';
-      $HtmlContent .= '<td>'.trim($row["Payment"]).'</td>';
-      $HtmlContent .= '<td>'.trim($row["P_min"]).'</td>';
-      $HtmlContent .= '<td>'.trim($row["P_max"]).'</td>';
-      $HtmlContent .='</tr>';
+      if($date=="hour")
+        $ndate=1;
+      else if($date=="day")
+        $ndate=24;
+      else if($date=="week")
+        $ndate=168;
+      else if($date=="month")
+        $ndate=744;
     }
-    $HtmlContent .='</div>';
+    
+    $result = $DBAccess->searchJob($type,$min,$ndate);
+
+    if($result)
+    {
+      foreach($result as $row)
+      {
+        $HtmlContent .='<div class="job">
+                      <p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
+                      <p class="date">Date: '.trim($row["Date"]).'</p>
+                      <p class="type">Tipology: '.trim($row["Tipology"]).'</p>
+                      <p class="pay">Payment: '.trim($row["Payment"]).'</p>
+                      <p class="minPay">Min Pay: '.trim($row["P_min"]).'</p>
+                      <p class="maxPay">Max Pay: '.trim($row["P_max"]).'</p>
+                      </div>';
+      }
+      $HtmlContent .='</div>';
+    }
+    else
+    {
+      $HtmlContent.='<p>No Jobs Currently Available</p></div>';
+    }
+    $HTML = str_replace('<div id="jobList"></div>',$HtmlContent,$HTML);
   }
-  else
-  {
-    echo  'No Jobs Currently Available';
-  }
-  
-*/
-  //$HTML = str_replace('<div id="content"></div>',$HTMLJobs,$HTML);
+ 
   // Apertura Pagina
   echo $HTML;
 

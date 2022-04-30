@@ -25,7 +25,8 @@ html {
 }
 
 body {
-  font-family:Trebuchet MS,sans-serif;  
+  font-family:Trebuchet MS,sans-serif;
+  font-size: 18px;  
   margin:auto;  
   max-width: 100%; 
   overflow-x: hidden;
@@ -33,6 +34,7 @@ body {
 
 main {
   margin-bottom: 6%;  
+  font-size: 14px; 
 }
 
 /* - 2.0 Header and Footer - */
@@ -97,6 +99,7 @@ img#profilepic {
 
 /* - 3.0 Breadcrumb - */
 nav.breadcrumb{
+  font-size: 16px; 
   padding: 0.3em;
   background-color:whitesmoke;
   border-width: 0em;
@@ -153,7 +156,6 @@ label {
 input {
   border-radius: 5px;
   display: block;
-  margin-bottom: 1em;
 }
 
 div#Desc {
@@ -180,22 +182,98 @@ form.forOutput p{
 }
 
 /* - 6.0 Filter for Page Find Job - */
-div.filter {
-  display: inline-block;
-  width:25%;
+form#formFilter {
+  width: 20%;
+  position: absolute;
 }
 
-div.filter label.Title{
-  display:block;
+form#formFilter fieldset{
+
+  display: grid;
+  row-gap: 0.8em;
+  grid-template-areas: 
+  " a b " 
+  " c d "
+  " e f "
+  " g g ";
 }
 
-div.filter label{
-  display: inline;
+form#formFilter #labelType {
+  margin-left: 0.5em;
+  grid-area: a;
+}
+
+form#formFilter #Tipology {
+  width: 60%;
+  margin: auto;
+  grid-area: b;
+}
+
+form#formFilter #labelPay {
+  margin-left: 0.5em;
+  grid-area: c;
+}
+
+form#formFilter #PayMin {
+  width: 60%;
+  margin: auto;
+  grid-area: d;
+}
+
+form#formFilter #labelDate {
+  margin-left: 0.5em;
+  grid-area: e;
+}
+
+form#formFilter #Date {
+  width: 60%;
+  margin: auto;
+  grid-area: f;
+}
+
+form#formFilter #submit {
+  width: 80%;
+  margin: auto; 
+  grid-area: g;
 }
 
 /* - 6.1 Find Job Content - */
-div.jobList{
-  display:inline-block;
+div#jobList{
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+div.job {
+  border-bottom: 1px solid grey;
+  display: grid;
+  grid-template-areas: 
+  " a a a a"
+  " b b c c"
+  " d e f .";
+}
+
+div.job .title {
+  grid-area: a;
+}
+
+div.job .date {
+  grid-area: b;
+}
+
+div.job .type {
+  grid-area: c;
+}
+
+div.job .pay {
+  grid-area: d;
+}
+
+div.job .minpay {
+  grid-area: e;
+}
+
+div.job .maxpay {
+  grid-area: f;
 }
 
 /* - 7.0 Sidebar for User Profile - */

@@ -45,54 +45,46 @@
 
   <!-- Main Content -->
   <main>
-    <div class="filter">
-      <form action="../PHP/FindJob.php" method="post">
-        <fieldset>
-          <legend>Filters</legend>
+    <form id="formFilter" action="../PHP/FindJob.php" method="post">
+      <fieldset>
+        <legend>Filters</legend>
 
-          <!-- Filter By Tipology-->
-          <label for="Tipology" > Tipology : </label>
-          <select name="Tipology" id="Tipology" >
-            <option value="Any" default>Any</option>
-            <option value="FullTime">FullTime</option>
-            <option value="OneTime">OneTime</option>
-            <option value="Urgent">Urgent</option>
-            <option value="Recruiter">Recruiter</option>
-          </select>
+        <!-- Filter By Tipology-->
+        <label for="Tipology" id="labelType"> Tipology : </label>
+        <select name="Tipology" id="Tipology" >
+          <option value="FullTime">Fulltime</option>
+          <option value="OneTime">Onetime</option>
+          <option value="Urgent">Urgent</option>
+          <option value="Recruiter">Recruiter</option>
+          <option value="Any" selected>Any</option>
+        </select>
 
-          <!-- Filter By Pay (Min & Max)-->
-          <label for="PayMin" class="title">  Minimum Pay : </label>
-          <input type="number" name="PayMin" id="PayMin" min="0" />
+        <!-- Filter by Min Pay-->
+        <label for="PayMin" class="title" id="labelPay">  Minimum Pay : </label>
+        <input type="number" name="PayMin" id="PayMin" min="0" default="0"/>
 
-          <label for="PayMax" class="title">  Maximum Pay : </label>
-          <input type="number" name="PayMax" id="PayMax" min="0" />
+        <!-- Filter By Date -->
+        <label for="Date" id="labelDate"> Date : </label>
+        <select name="Date" id="Date">
+          <option value="hour">Last Hour</option>
+          <option value="day">Last Day</option>
+          <option value="week">Last Week</option>
+          <option value="month">Last Month</option>
+          <option value="Any" selected>Any</option>
+        </select>
 
-          <!-- Filter By Date -->
-          <label for="Date" > Date : </label>
-          <select name="Date" id="Date" >
-            <option value="hour">Last Hour</option>
-            <option value="day">Last Day</option>
-            <option value="week">Last Week</option>
-            <option value="month">Last Month</option>
-          </select>
-
-          <!-- Order -->
+          <!-- Order 
           <label for="order" class="title"> Filtering Order :</label>
           <input type="radio"class="radio" id="descending" name="order" value="descending">
           <label for="descending">Descending</label><br>
           <input type="radio" class="radio" id="ascending" name="order" value="ascending" checked >
           <label for="ascending">Ascending</label><br>
+          -->
 
-
-          <button type="submit" name="filter">Filter</button>
-        </fieldset>
-      </form>
-    </div>
-    <div id="jobList">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </div>
+        <button type="submit" name="filter" id="submit">Filter</button>
+      </fieldset>
+    </form>
+    <div id="jobList"></div>
 
   </main>
 
