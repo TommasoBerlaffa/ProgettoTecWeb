@@ -5,15 +5,19 @@
 - 3.0 Breadcrumb                              -
 - 4.0 Footer                                  -
 - 5.0 General Usage Form                      - 
-- 5.1 Input Form                              -
-- 5.2 Output Form                             - 
+- 5.1 Login Input Form                        -
+- 5.2 Sign Up Input Form Form                 - 
+- 5.3 Change Password Form                    - 
+- 5.4 Create Job Form                         - 
 - 6.0 Filter for Page Find Job                -
 - 7.0 Sidebar for User Profile                -
 - 7.1 Content for User Profile                -
 - 7.2 User Profile Welcome Page               - 
 - 7.3 User Info and Review from User Profile  -
 - 7.4 Change Password Page                    -
+- 7.5 User Profile Setting Page               -
 - 8.0 View Old Job Info & Feedback            -
+- 8.1 View Offer                              -
 - 9.0 Index                                   -
 -10.0 View User                               -
 */
@@ -26,7 +30,7 @@ html {
 
 body {
   font-family:Trebuchet MS,sans-serif;
-  font-size: 18px;  
+  font-size: 16px;  
   margin:auto;  
   max-width: 100%; 
   overflow-x: hidden;
@@ -99,7 +103,7 @@ img#profilepic {
 
 /* - 3.0 Breadcrumb - */
 nav.breadcrumb{
-  font-size: 16px; 
+  font-size: 15px; 
   padding: 0.3em;
   background-color:whitesmoke;
   border-width: 0em;
@@ -134,11 +138,12 @@ form {
 }
 
 fieldset{
-  background-color: white;
-  border-radius: 5px;
+  box-shadow:0 0 10px #999;
 }
 
 legend {
+  background-color: #9ee6be;
+  border-radius: 5px;
   font-weight: bold;
   text-align: center;
 }
@@ -162,18 +167,30 @@ div#Desc {
   width: 80%;
 }
 
-/* - 5.1 Input Form - */ 
-form.forInput {
+/* - 5.1 Login Input Form - */
+form#login {
   margin:auto;
-  width:50%;
-  padding-bottom: 3em;
+  width:30%;
+  margin-top: 1em;
+} 
+
+form#login fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  row-gap: 5px;
 }
 
-/* - 5.2 Output Form - */ 
-form.forOutput {
+/* - 5.2 Sign Up Input Form - */ 
+form#SignUp {
   margin:auto;
   width:60%;
   max-width: 80%;
+}
+
+
+form#SignUp input{
+  margin-top: 0.5em;
 }
 
 form.forOutput p{
@@ -181,14 +198,53 @@ form.forOutput p{
   word-break: break-word; 
 }
 
+/* - 5.3 Change Password Form - */
+form#changePsw {
+  margin:auto;
+  width:40%;
+  margin-top: 1em;
+}
+
+form#changePsw fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  row-gap: 5px;
+}
+
+/* - 5.4 Create Job Form - */
+form#createJob {
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
+}
+
+form#createJob fieldset{
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
+form#createJob fieldset input,
+form#createJob fieldset select,
+form#createJob fieldset textarea
+{
+  width: fit-content;
+}
+
 /* - 6.0 Filter for Page Find Job - */
+main#findJob {
+  display: flex;
+  align-items: flex-start;
+}
+
 form#formFilter {
-  width: 20%;
-  position: absolute;
+  margin-left: 1em;
+  position: sticky;
+  top: 0;
 }
 
 form#formFilter fieldset{
-
   display: grid;
   row-gap: 0.8em;
   grid-template-areas: 
@@ -239,8 +295,9 @@ form#formFilter #submit {
 
 /* - 6.1 Find Job Content - */
 div#jobList{
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: 5%;
+  margin-right: 15%;
+  flex-grow: 1;
 }
 
 div.job {
@@ -277,21 +334,24 @@ div.job .maxpay {
 }
 
 /* - 7.0 Sidebar for User Profile - */
+main#userProfile {
+  display: flex;
+  align-items: flex-start;
+}
+
 div#sidebar { 
-  background-color: #32a866;
-  position:absolute;
+  background-color: #fff;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
   margin-top : 0px;
   margin-bottom: 5%;
-  padding: 0;
-  width: fit-content;
-  min-height : 85%;
-  height: auto;
-  overflow: auto;
+  width: 15%;
 }
 
 #sidebar a {
   display: block;
-  color: white;
+  color: black;
   padding: 1em;
   text-decoration: none;
 }
@@ -311,14 +371,10 @@ div#sidebar {
 }
 
 /* - 7.1 Content for User Profile - */
-div.column {
-  float: left;
-  width: 50%;
-}
-
 div#content {
   padding: 1em;
-  margin-left: 15%;
+
+  flex-grow: 1;
 }
 
 div#content table {
@@ -406,18 +462,148 @@ main img#icon {
 
 
 /* - 7.x Change Password Page - */
-form#settings {
-  margin-bottom: 2em;
-}
-
 div#changePsw {
-  border-radius: 5px;
+  margin-left: 20%;
+  margin-right: 20%;
   border: 1px solid black;
   padding : 1em;  
+  box-shadow:0 0 10px #999;
 }
 
 div#changePsw a {
   padding: 1em;
+}
+
+/* - 7.5 User Profile Setting Page - */
+form#settings {
+  width: 60%;
+  margin: auto;
+  margin-bottom: 2em;
+}
+
+form#settings fieldset{
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr;
+  grid-template: 
+  " a b c c"
+  " d e c c"
+  " h i j k"
+  " l m n o"
+  " p q r s"
+  " t u v w" 
+  " x y y y"
+  " . z z .";
+  row-gap: 1em;
+}
+
+form#settings fieldset input,
+form#settings fieldset textarea{
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+form#settings fieldset label
+{
+  width: max-content;
+}
+
+
+form#settings #labelUsername {
+  grid-area: a;
+}
+
+form#settings #Username {
+  grid-area: b;
+}
+
+form#settings #ProfilePic {
+  grid-area: c;
+}
+
+form#settings #labelName {
+  grid-area: d;
+}
+
+form#settings #Name {
+  grid-area: e;  
+}
+
+form#settings #labelSurname {
+  grid-area: h;
+}
+
+form#settings #Surname {
+  grid-area: i;  
+}
+
+form#settings #labelEmail {
+  grid-area: j;
+}
+
+form#settings #Email {
+  grid-area: k;
+}
+
+form#settings #labelBday {
+  grid-area: l;
+}
+
+form#setting #Bday {
+  grid-area: m;
+}
+
+form#settings #labelTel {
+  grid-area: n;
+}
+
+form#settings #Tel {
+  grid-area: o;
+}
+
+form#settings #labelNationality {
+  grid-area: p;
+}
+
+form#settings #Nationality {
+  grid-area: q;
+}
+
+form#settings #labelAddress {
+  grid-area: r;
+}
+
+form#settings #Address {
+  grid-area: s;
+}
+
+form#settings #labelCity {
+  grid-area: t;
+}
+
+form#settings #City{
+  grid-area: u;
+}
+
+form#settings #labelCurr {
+  grid-area: v;
+}
+
+form#settings #Curr{
+  grid-area: w;
+}
+
+form#settings #labelDesc {
+  grid-area: \x;
+}
+
+form#settings #Description {
+  grid-area: y;
+}
+
+form#settings #submit {
+  grid-area: z;
+  margin:auto;
+  width: 50%;
 }
 
 /* - 8.0 View Old Job Info & Feedback - */
@@ -426,7 +612,7 @@ div#JobInfo {
   margin-top : 1em;
   width: 50%;
   border : 2px black solid;
-  border-radius: 5px;
+  box-shadow:0 0 10px #999;
 
   display: grid;
   row-gap: 1.2em;
@@ -522,11 +708,24 @@ input.stars {
   display: inline;
 }
 
+/* - 8.1 View Offer - */
+div#bids {
+  width: 40%;
+  margin: auto;
+  margin-top: 1em;
+  border: 2px black solid;
+  box-shadow: 0 0 10px #999;
+}
+
+div.bid {
+  padding-bottom: 1em;
+  padding-left: 1em;
+}
+
 /* - 9.0 Index - */
-main.Home {
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 3%;
+main#Home {
+  margin: auto;
+  width: 90%;
 }
 
 h2.index {
@@ -541,7 +740,7 @@ p.subIndex {
 }
 
 /* -10.0 View User - */
-div#userInfo{
+div#userInfo {
   margin:auto;
   width: 40%;
   padding-top: 1em;

@@ -37,6 +37,7 @@
   }
   
   main {  
+    margin-top: 2em;
     margin-bottom: 15%;
   }
   
@@ -95,10 +96,49 @@
     background-color: whitesmoke; 
   }
 
+  /* 1.6.0 Filter for Page Find Job */
+  main#findJob {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  form#formFilter {
+    display: block;
+    position: inherit;
+    width: 90%;
+    margin: auto;
+  }
+  
+  form#formFilter fieldset{
+    display: grid;
+    row-gap: 0.8em;
+    column-gap: 1em;
+    grid-template-areas: 
+    " a c e"
+    " b d f" 
+    " . g . ";
+  }
+
+  form#formFilter #labelType, 
+  form#formFilter #labelPay, 
+  form#formFilter #labelDate {
+    margin: auto;
+  }
+
+  form#formFilter #Tipology, 
+  form#formFilter #Date {
+    width: fit-content;
+  }
+
+  div#jobList{
+    width: 90%;
+    margin: auto;
+  }  
+
   /* 1.7.0 Sidebar for User Profile */
   div#sidebar {
-    float:left;
-    position: fixed;
+    position: sticky;
     top: 5%;
     left:0;
     height: fit-content;
@@ -124,8 +164,8 @@
 
   /* 1.7.1 Content for User Profile */
   div#content {
-    margin: 5%;
-    margin-left: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 
   /* 1.7.2 User Profile Welcome Page */
@@ -150,8 +190,42 @@
     grid-area: b;
   }
 
+  /* - 1.7.5 User Profile Setting Page - */
+  form#settings {
+    margin-bottom: 2em;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  form#settings fieldset{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template: 
+    " a b b"
+    " d e e"
+    " h i i"
+    " l m m"
+    " p q q"
+    " t u u" 
+    " c c c"
+    " c c c"
+    " j k k"
+    " n o o"
+    " r s s"
+    " v w w"
+    " x y y"
+    " . z .";
+    row-gap: 1em;
+    
+  }
+
+  /* - 1.09.0 Index - */
+  main#Home {
+    margin-top: 12%;
+  }
+
   /* - 1.10.0 View User - */
-  div#userInfo{
+  div#userInfo {
     width: 90%;
     padding-top: 2em;
   }

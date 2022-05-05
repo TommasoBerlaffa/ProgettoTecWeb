@@ -60,7 +60,7 @@
       foreach($result as $row)
       {
         $HtmlContent .='<div class="job">
-                      <p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
+                      <p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
                       <p class="date">Date: '.trim($row["Date"]).'</p>
                       <p class="type">Tipology: '.trim($row["Tipology"]).'</p>
                       <p class="pay">Payment: '.trim($row["Payment"]).'</p>
