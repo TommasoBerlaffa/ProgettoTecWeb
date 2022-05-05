@@ -231,8 +231,10 @@ class DBAccess {
   ****************************/
   public function getBids($id) {
 	if(isset($id)){
-		$queryInserimento = 'SELECT Code_user AS Code, Nickname, User_Review(Code), User_price, Bid_selfdescription FROM bids LEFT JOIN users WHERE Code_job = ?;';
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		$queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
+    if(!($this->openDBConnection()))
+      die('\r\nFailed to open connection to the DB');
+    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
