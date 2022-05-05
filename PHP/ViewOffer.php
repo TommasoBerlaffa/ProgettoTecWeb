@@ -15,17 +15,18 @@ if(isset($_SESSION['user_Username']))
   if($conn)
   {
     $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
-    $row = $DbAccess->getJob($index,false);
+    $row = $DbAccess->getJob($index,true);
     //Se trova risultato
     if($row)
     {                 
       $HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
+      $HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">Info on the Creator</a>',$HTML);
       $HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
       $HTML = str_replace('{{ Payment }}',trim($row["Payment"]),$HTML);
       $HTML = str_replace('{{ Status }}',trim($row["Status"]),$HTML);
       $HTML = str_replace('{{ Tipology }}',trim($row["Tipology"]),$HTML);
       $HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
-      $HTML = str_replace('{{ Expiring }}',trim($row["Expiring_time"]),$HTML);
+      $HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
 
       $bids =$DbAccess->getBids($index);
       if($bids)
@@ -50,8 +51,8 @@ if(isset($_SESSION['user_Username']))
     else
     {
       $HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
-      $HTML = preg_replace('/<div id="JobInfo">.*?.<\/div><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
-      //$HTML = str_replace('<div id="viewOffer">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
+      $HTML = preg_replace('/(?<=<div id="JobInfo">)((\n|.)*)(?=<\/div>)/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
+
     }
   }
   echo $HTML;    
