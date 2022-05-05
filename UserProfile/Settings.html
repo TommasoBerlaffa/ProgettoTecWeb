@@ -1,64 +1,69 @@
 <!-- Setting ( Codice HTML da importare )  -->
 <form action="../PHP/ChangeUserInfo.php" method="post" id="settings">
-    <fieldset>
-        <legend> Change User Informations</legend>
-        <div class="column">
-            <label for="Username" class="Enter">Username : </label>
-            <input type="text" name="Username" id="Username" class="Enter" value="{{Username}}" \>
-            <!-- Name -->
-            <label for="Name" class="Enter">Name :</label>
-            <input type="text" name="Name" id="Name" class="Enter" value="{{Name}}" />
-            <!-- Surname -->
-            <label for="Surname" class="Enter">Surname :</label>
-            <input type="text" name="Surname" id="Surname" class="Enter"  value="{{Surname}}" />
-            <!-- Mail -->
-            <!-- Possiamo aggiungere un pattern ad Email-->
-            <label for="Email" >Email : </label>   
-            <input type="email" name="Email" id="Email"  value="{{Email}}" />
-            <!-- Birthday -->
-            <label for="Bday" >Birthday : </label>
-            <input type="date" name="Bday" id="Bday"  value="{{Bday}}" />
-            <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
-            <!-- Nationality -->
-            <label for="Nationality">Nationality : </label>
-            <input type="text" name="Nationality" id="Nationality"  value="{{Nationality}}" />
-            <!-- City -->
-            <label for="City">City : </label>
-            <input type="text" name="City" id="City"  value="{{City}}" />
-            <!-- Address -->
-            <label for="Address">Address : </label>
-            <input type="text" name="Address" id="Address"  value="{{Address}}" />
-        </div>
-        <div class="column">
-            <!-- Image -->
-            <label> Old profile picture :</Picture></label>
-            <img src="{{Picture}}" alt="Profile Picture" width="32" height="32"> 
-            <label for="pfp">Choose a new profile picture:</label>
-            <input type="file" id="pfp" name="pfp" accept="image/png, image/jpeg"    />
-            
-            <!-- Tel -->
-            <!-- Si può fare controllo con un'espressione regolare -->
-            <label for="Tel">Telephone Number : </label>
-            <input type="tel" name="Tel" id="Tel"  value="{{Tel}}" />
+  <fieldset>
+  <legend> Change User Informations</legend>
+    <label for="Username" class="Enter" id="labelUsername">Username : </label>
+    <input type="text" name="Username" id="Username" class="Enter" value="{{Username}}" \>
+    <!-- Name -->
+    <label for="Name" class="Enter" id="labelName">Name :</label>
+    <input type="text" name="Name" id="Name" class="Enter" value="{{Name}}" />
+    <!-- Surname -->
+    <label for="Surname" class="Enter" id="labelSurname">Surname :</label>
+    <input type="text" name="Surname" id="Surname" class="Enter"  value="{{Surname}}" />
+    <!-- Mail -->
+    <label for="Email" id="labelEmail">Email : </label>   
+    <input type="email" name="Email" id="Email"  value="{{Email}}" />
+    <!-- Birthday -->
+    <label for="Bday" id="labelBday" >Birthday : </label>
+    <input type="date" name="Bday" id="Bday"  value="{{Bday}}" />
+    <!-- Nationality -->
+    <label for="Nationality" id="labelNationality">Nationality : </label>
+    <input type="text" name="Nationality" id="Nationality"  value="{{Nationality}}" />
+    <!-- City -->
+    <label for="City" id="labelCity">City : </label>
+    <input type="text" name="City" id="City"  value="{{City}}" />
+    <!-- Address -->
+    <label for="Address" id="labelAddress">Address : </label>
+    <input type="text" name="Address" id="Address"  value="{{Address}}" />
+    <!-- Image -->
+    <div id="ProfilePic">
+      <label> Old profile picture :</Picture></label>
+      <img src="{{Picture}}" alt="Profile Picture" width="32" height="32"> 
+      <label for="pfp">Choose a new profile picture:</label>
+      <input type="file" id="pfp" name="pfp" accept="image/png, image/jpeg"  />
+    </div>
+    <!-- Tel -->
+    <!-- Si può fare controllo con un'espressione regolare -->
+    <label for="Tel" id="labelTel">Telephone Number : </label>
+    <input type="tel" name="Tel" id="Tel"  value="{{Tel}}" />
 
-            <!-- Da discutere più avanti, Temporaneo -->
-            <label for="Skills">Skills  : </label>
-            <input list="Skills" name="Skill1" >
-            <input list="Skills" name="Skill2" >
-            <input list="Skills" name="Skill3" >
-            <datalist id="Skills"></datalist>
-
-            <!-- Curriculum -->
-            <label for="Curr">Link To a Curriculum : </label>
-            <input type="url" name="Curr" id="Curr"  value="{{Curr}}" />
-            <!-- Description -->
-            <label for="Description">Describe Yourself :</label>
-            <textarea name="Description" id="Description" >{{Desc}} </textarea>   
-        </div>
-        <input type="submit" value="Change User Info" />
-    </fieldset>
+    <!-- Da discutere più avanti, Temporaneo 
+    <label for="Skills">Skills  : </label>
+    <input list="Skills" name="Skill1" >
+    <input list="Skills" name="Skill2" >
+    <input list="Skills" name="Skill3" >
+    <datalist id="Skills"></datalist>
+    -->  
+    <!-- Curriculum -->
+    <label for="Curr" id="labelCurr">Link To a Curriculum : </label>
+    <input type="url" name="Curr" id="Curr"  value="{{Curr}}" />
+    <!-- Description -->
+    <label for="Description" id="labelDesc">Describe Yourself :</label>
+    <textarea name="Description" id="Description" >{{Desc}} </textarea>   
+  <input type="submit" id="submit" value="Change User Info" />
+  </fieldset>
 </form>
-<div id="changePsw" >
-    <a href="../HTML/ChangePassword.html" >Change Password</a>
-</div>
 
+<form id="changePsw" action="../PHP/ChangePassword.php" method="post">
+  <fieldset>
+    <legend>Change Password</legend>
+    <!-- attributo for serve per indicare l'input quando clicco sulla label -->
+    <label for="OldPsw">Old Password : </label>
+    <input type="password" name="OldPsw" id="OldPsw" required />
+    <label for="Password">New Password :</label>
+    <input type="password" name="Password" id="Password" required />
+    <label for="Repeat-Password">Repeat New Password :</label>
+    <input type="password" name="Repeat-Password" id="Repeat-Password" required />
+    <button type="submit" name="ChangePsw">Change Password</button>
+  </fieldset>
+</form>
