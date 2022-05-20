@@ -8,13 +8,17 @@ if(isset($_SESSION['user_Username']))
   // Ottengo Valori da Pagina Statica
   $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'ViewOffer.html';
   $HTML = file_get_contents($url);
-
+  // Replacing User Profile
+  $HTMLContent = '<li class="right"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
+  $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
+  $self=true;
   $DbAccess = new DBAccess();
   $conn = $DbAccess->openDBConnection();
 
   if($conn)
   {
-    $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
+    $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);  
     $row = $DbAccess->getJob($index,true);
     //Se trova risultato
     if($row)
@@ -32,21 +36,47 @@ if(isset($_SESSION['user_Username']))
       if($bids)
       {
         $HTMLBids ='<div id="bids">';
+        
         foreach($bids as $B){
           $HTMLBids.= '<div class="bid">
                         <p><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
                         <p>User Price: '.trim($B["Price"]).'</p>
-                        <p>Description: '.trim($B["Price"]).'</p>
-                      </div>';
+                        <p>Description: '.trim($B["Description"]).'</p>';
+          if($B["Code"]==$_SESSION['user_ID']){
+            $self=false;
+            $HTMLBids.='<a href="">delete your bid</a></div>';          
+          }
+          else
+            $HTMLBids.='</div>';            
         }
         $HTMLBids .='</div>';
         $HTML= str_replace('<div id="bids"></div>',$HTMLBids,$HTML);
       }
       else
       {
-        $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
+        $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
       }
-
+      
+      if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
+      {
+        $_SESSION['Code_Job'] = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
+        // Se non sei il creatore del lavoro, puoi aggiungere una bid
+        $HTMLFormBid='<form id="addBid" action="../PHP/AddBid.php" method="post">
+          <fieldset>
+          <legend>Add a new Bid </legend>
+          <label for="Price" id="labelPrice">  Offer\'s Price : </label>
+          <input type="number" name="Price" id="Price" min="0"/>
+          <label for="Description" id="labelDescription">  Bid Description : </label>
+          <textarea id="Description" name="Description"></textarea>
+          <button type="submit" name="addyourBid" id="addyourBid">Send your Bid</button>
+          </fieldset>
+        </form>';
+        $HTML= str_replace('<form id="addBid"></form>',$HTMLFormBid,$HTML);
+      }
+      else
+      {
+        $HTML= str_replace('<form id="addBid"></form>','',$HTML);
+      }
     } //Se non trova un risultato
     else
     {
@@ -58,6 +88,6 @@ if(isset($_SESSION['user_Username']))
   echo $HTML;    
 }
 else
-  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");    
+  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php?url=ViewOffer&job=".filter_var($_GET['Code_job'], FILTER_VALIDATE_INT));    
 
 ?>

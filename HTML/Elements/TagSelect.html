@@ -1,0 +1,13 @@
+<!-- Elementi per la Selezione dei Tag-->
+
+<!-- Button per l'aggiunta di Tag, da selectTags a selected-->
+<button type="button" id="addTag" onclick="addTag()">Add Tag</button>
+<!-- Button per la rimozione di Tag, da selected a selectTags-->
+<button type="button" id="removeTag" onclick="removeTag()">Remove Tag</button>
+<!-- Select contenente i Tag, popolata da db-->
+<select id="selectTags" size="10">
+{{ Tags }}
+</select>
+<select id="Selected">
+  <option disabled selected></option>
+</select>

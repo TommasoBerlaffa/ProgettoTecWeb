@@ -9,7 +9,7 @@
   $HTML = file_get_contents($url);
   $HTMLContent ='';
 
-  //Controllo se variabile sessione è presente 
+  // Controllo se variabile sessione è presente 
   if(isset($_SESSION['user_Username']))
   {
     $HTML = str_replace('<createjob/>','<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'CreateJob.php">
@@ -34,7 +34,6 @@
   $conn = $DBAccess->openDBConnection();
   $HtmlContent='<div id="jobList">';
 
-
   if($conn)
   {
     isset($_POST["Tipology"]) ? $type =  $_POST["Tipology"] : $type= 'Any';
@@ -53,6 +52,24 @@
         $ndate=744;
     }
     
+    $tags=$DBAccess->getAllTags();
+    $TagSelectUrl='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagSelect.html';
+    $HtmlTags=file_get_contents($TagSelectUrl);
+
+    if($tags)
+    {
+      $NewHtml='';
+      foreach($tags as $t)
+      {
+        $NewHtml.= '<option class="tag">'.trim($t["Name"]).'</p>';
+      }
+
+      $HtmlTags = str_replace('{{ Tags }}',$NewHtml,$HtmlTags);;
+      
+    }
+
+    $HTML = str_replace('<tags/>',$HtmlTags,$HTML);
+
     $result = $DBAccess->searchJob($type,$min,$ndate);
 
     if($result)
