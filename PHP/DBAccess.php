@@ -8,7 +8,7 @@ Function List:
 2.setWinner
 3.getJob
 4.createReview
-*5.getJobReview
+5.getJobReview
 6.getBids
 7.getJobListbyCreator
 8.getPastJobListbyCreator
@@ -16,15 +16,17 @@ Function List:
 10.getAllTags
 11.getTags
 12.getMostPopularJobs
-*13.searchJob
+13.searchJob
 14.getUser
-15.UsernameTaken
-16.getUserReview
-17.getUserReviewList
-18.getUserJobs
-19.Register_new_user
-20.Login
-
+15.usernameTaken
+16.emailTakens
+17.getUserReview
+18.getUserReviewList
+19.getUserJobs
+20.register_new_user
+21.login
+22.createBid
+23.changePassword
 */
 
 class review {
@@ -81,285 +83,249 @@ class DBAccess {
 		}
 	}
 
-
-
-
-
   /***1.Create New Job***
   par: int userID, string titolo, string descrizione, eunum tipo di lavoro, bool tipo di pagamento, int pagamento minimo, int pagamento massimo, int tempo di scadenza;
   desc: crea una nuova inserzione di lavoro. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring) {
-	if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
-		$queryInserimento = 'INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring)
-							VALUES (?,?,?,?,?,?,?,?)';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		if(!isset($pmax))
-			$pmax='';
-		mysqli_stmt_bind_param($queryCall,'isssbiis',$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
-		mysqli_stmt_execute($queryCall);
-		mysqli_stmt_close($queryCall);
-		$tmp=mysqli_affected_rows($this->connection);
-		$this->closeDBConnection();
-		if($tmp)
-			return true;
-		return false;
-	} else
-		return false;
+    if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
+      $queryInserimento = 'INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring)
+                VALUES (?,?,?,?,?,?,?,?)';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      if(!isset($pmax))
+        $pmax='';
+      mysqli_stmt_bind_param($queryCall,'isssbiis',$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+      mysqli_stmt_execute($queryCall);
+      mysqli_stmt_close($queryCall);
+      $tmp=mysqli_affected_rows($this->connection);
+      $this->closeDBConnection();
+      if($tmp)
+        return true;
+      return false;
+    } else
+      return false;
   }
-
-
-
 
   /***2.Set the Winner of a Past Job***
   par: int userID, int jobID;
   desc: assegna ad un lavoro passato il vincitore del concorso. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function setWinner($id, $job) {
-	if(isset($id) and isset($job)){
-		$queryInserimento = 'SET @p=""; CALL Set_Winner(?,?,@p); SELECT @p;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		mysqli_stmt_bind_param($queryCall,'ii',$id, $job);
-		mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		if(mysqli_fetch_assoc($queryResult))
-			return true;
-		return false;
-	} else
-		return false;
+    if(isset($id) and isset($job)){
+      $queryInserimento = 'SET @p=""; CALL Set_Winner(?,?,@p); SELECT @p;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'ii',$id, $job);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      $this->closeDBConnection();
+      if(mysqli_fetch_assoc($queryResult))
+        return true;
+      return false;
+    } else
+      return false;
   }
-
-
-
 
   /***3.Get Job Info***
   par: int jobID, bool old;
   desc: ritorna le informazioni di un lavoro corrente o passato(bool old) in base al jobID. altrimenti ritorna null.
   ****************************/
   public function getJob($id,$old) {
-	if(isset($id)){
-		$queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ?;';
-		$queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ?;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=null;
-		if(isset($old) and $old==true)
-			$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		else
-			$queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
-		mysqli_stmt_bind_param($queryCall,'i',$id);
-		mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		return mysqli_fetch_assoc($queryResult);
-	} else
-		return null;
+    if(isset($id)){
+      $queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ?;';
+      $queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ?;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=null;
+      if(isset($old) and $old==true)
+        $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      else
+        $queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
+      mysqli_stmt_bind_param($queryCall,'i',$id);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      $this->closeDBConnection();
+      return mysqli_fetch_assoc($queryResult);
+    } else
+      return null;
   }
-
-
-
 
   /***4.Create Review***
   par: int userID, int jobID, int stars rating, string comments;
   desc: crea una recensione verso un utente userID per un lavoro passato compiuto jobID. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function createReview($id, $job, $stars, $comments) {
-	if(isset($id) and isset($job) and isset($stars)){
-		$queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments)
-							VALUES (?,?,?,?)';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		if(!isset($comments))
-			$comments='';
-		mysqli_stmt_bind_param($queryCall,'iiis',$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
-		mysqli_stmt_execute($queryCall);
-		mysqli_stmt_close($queryCall);
-		$tmp=mysqli_affected_rows($this->connection);
-		$this->closeDBConnection();
-		if($tmp)
-			return true;
-		return false;
-	} else
-		return false;
+    if(isset($id) and isset($job) and isset($stars)){
+      $queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments)
+                VALUES (?,?,?,?)';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      if(!isset($comments))
+        $comments='';
+      mysqli_stmt_bind_param($queryCall,'iiis',$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+      mysqli_stmt_execute($queryCall);
+      mysqli_stmt_close($queryCall);
+      $tmp=mysqli_affected_rows($this->connection);
+      $this->closeDBConnection();
+      if($tmp)
+        return true;
+      return false;
+    } else
+      return false;
   }
-
-
-
 
   /***5.Get Job Review***
   par: int jobID;
   desc: ancora non a cosa serva e se serva questa funzione. (ho dimenticato perchè ne avevo concetuallizata l'esistenza).
   ****************************/
   public function getJobReview($id) {
-	if(isset($id)){
-		$queryInserimento = 'SELECT * FROM reviews WHERE Code_job = ?;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=null;
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		mysqli_stmt_bind_param($queryCall,'i',$id);
-		mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		if(mysqli_num_rows($queryResult) == 0)
+    if(isset($id)){
+      $queryInserimento = 'SELECT * FROM reviews WHERE Code_job = ?;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=null;
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'i',$id);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      $this->closeDBConnection();
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      else {
+        $result=array();
+        while ($tmp=mysqli_fetch_assoc($queryResult))
+          array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
+        return $result;
+      }
+    } else
       return null;
-		else {
-			$result=array();
-			while ($tmp=mysqli_fetch_assoc($queryResult))
-				array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
-			return $result;
-		}
-	} else
-		return null;
   }
-
-
-
 
   /***6.Get Bids from a Job***
   par: int jobID;
   desc: ritorna array contenente tutti gli utenti e le loro offerte al concorso di un lavoro jobID. altrimenti ritorna null.
   ****************************/
   public function getBids($id) {
-	if(isset($id)){
-		$queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
-    if(!($this->openDBConnection()))
-      die('\r\nFailed to open connection to the DB');
-    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		mysqli_stmt_bind_param($queryCall,'i',$id);
-		mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		$result=array();
-		while($row=mysqli_fetch_assoc($queryResult))
-			array_push($result, $row);
-		return $result;
-	} else
-		return null;
+    if(isset($id)){
+      $queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'i',$id);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      $this->closeDBConnection();
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+        array_push($result, $row);
+      return $result;
+    } else
+      return null;
   }
-
-
-
 
   /***7.Get List of Jobs a User Created***
   par: int userID;
   desc: ritorna lista di lavori correnti e relative informazioni che un utente userID ha creato, da mostrare nel proprio profilo. altrimenti ritorna null.
   ****************************/
   public function getJobListbyCreator($id) {
-	if(isset($id)){
-		$queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(Code_user_bid) FROM current_jobs LEFT JOIN bids
-							 ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_job = ? GROUP BY Code_job;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		mysqli_stmt_bind_param($queryCall,'i',$id);
-		mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		$result=array();
-		while($row=mysqli_fetch_assoc($queryResult))
-			array_push($result, $row);
-		return $result;
-	} else
-		return null;
+    if(isset($id)){
+      $queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(Code_user_bid) FROM current_jobs LEFT JOIN bids
+                ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_job = ? GROUP BY Code_job;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'i',$id);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      $this->closeDBConnection();
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+        array_push($result, $row);
+      return $result;
+    } else
+      return null;
   }
-
-
-
 
   /***8.Get List of  Past Jobs a User Created***
   par: int userID;
   desc: ritorna lista di lavori passati e relative informazioni che un utente userID ha creato, da mostrare nel proprio profilo. altrimenti ritorna null.
   ****************************/
   public function getPastJobListbyCreator($id) {
-	if(isset($id)){
-		$queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_user = ?;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		mysqli_stmt_bind_param($queryCall,'i',$id);
-		mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		$result=array();
-		while($row=mysqli_fetch_assoc($queryResult))
-			array_push($result, $row);
-		return $result;
-	} else
-		return null;
+    if(isset($id)){
+      $queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_user = ?;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'i',$id);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      $this->closeDBConnection();
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+        array_push($result, $row);
+      return $result;
+    } else
+      return null;
   }
-
-
-
 
   /***9.Change Job Status***
   par: int jobID, enum status, bool old;
   desc: cambia lo stato di un lavoro jobID corrente o passato(bool old). ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function changeJobStatus($id,$status) {
-	$tmp=array('Deleted', 'Frozen','Success','Unsucces');
-	if(isset($id) and isset($status) and in_array($status,$tmp)){
-		$queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
-		mysqli_stmt_bind_param($queryCall,'is',$id,$status);
-		mysqli_stmt_execute($queryCall);
-		mysqli_stmt_close($queryCall);
-		$result = mysqli_affected_rows($this->connection);
-		$this->closeDBConnection();
-		if($result)
-			return true;
-		return false;
-	} else
-		return null;
+    $tmp=array('Deleted', 'Frozen','Success','Unsucces');
+    if(isset($id) and isset($status) and in_array($status,$tmp)){
+      $queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'is',$id,$status);
+      mysqli_stmt_execute($queryCall);
+      mysqli_stmt_close($queryCall);
+      $result = mysqli_affected_rows($this->connection);
+      $this->closeDBConnection();
+      if($result)
+        return true;
+      return false;
+    } else
+      return null;
   }
-
-
-
 
   /***10.Get List of all Tags***
   par:
   desc: ritorna un array contenente tutti i tag e la loro posizione all'interno dell'array è alternata con la relativa categoria. altrimenti ritorna null.
   ****************************/
   public function getAllTags() {
-	if(!($this->openDBConnection()))
-		die('\r\nFailed to open connection to the DB');
-	$queryResult = mysqli_query($this->connection, 'SELECT Name, Category FROM tags;');
-	$this->closeDBConnection();
-	$riga = mysqli_fetch_assoc($queryResult);
-	if(mysqli_num_rows($queryResult) == 0)
-		return null;
-	else {
-		$result=array();
-		while ($tmp=mysqli_fetch_column($queryResult,0)){
-			array_push($result,$tmp);
-			array_push($result,mysqli_fetch_column($queryResult,1));
-		}
-		return $result;
-	}
+    if(!($this->openDBConnection()))
+      die('\r\nFailed to open connection to the DB');
+    $queryResult = mysqli_query($this->connection, 'SELECT * FROM tags;');
+    $this->closeDBConnection();
+    $riga = mysqli_fetch_assoc($queryResult);
+    if(mysqli_num_rows($queryResult) == 0)
+      return null;
+    else {
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+        array_push($result, $row);
+      return $result;
+    }
   }
-
-
-
 
   /***11.Get Tags for User/Current_Job/Past_Job***
   par: int ID, int table (0=users, 1=current_jobs, 2=past_jobs)
@@ -398,35 +364,32 @@ class DBAccess {
 		return null;
   }
 
-
-
-
   /***12.Get the Four Most Popular Job Tags***
   par:
   desc: ritorna i 4 tag più popolari al momento.
   ****************************/
   public function getMostPopularJobs() {
-	$query='SELECT Name, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag=tags_current_job.Code_tag GROUP BY Code_tag ORDER BY frequency DESC LIMIT 4;';
-	if(!($this->openDBConnection()))
-		die('\r\nFailed to open connection to the DB');
-	$queryResult = mysqli_query($this->connection, $query);
-	$this->closeDBConnection();
-	if(mysqli_num_rows($queryResult) == 0)
-		return null;
-	else {
-		$result=array();
-		while ($tmp=mysqli_fetch_column($queryResult,0))
-			array_push($result,$tmp);
-		return $result;
-	}
-	return null;
+    $query='SELECT Name, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag=tags_current_job.Code_tag GROUP BY Code_tag ORDER BY frequency DESC LIMIT 4;';
+    if(!($this->openDBConnection()))
+      die('\r\nFailed to open connection to the DB');
+    $queryResult = mysqli_query($this->connection, $query);
+    $this->closeDBConnection();
+    if(mysqli_num_rows($queryResult) == 0)
+      return null;
+    else {
+      $result=array();
+      while ($tmp=mysqli_fetch_column($queryResult,0))
+        array_push($result,$tmp);
+      return $result;
+    }
+    return null;
   }
 
   /***13.Search Job***
-,$date,$minp,$maxp
+  par: string type, int min (prezzo minimo), int date (ultimi x secondi)
+  desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($type,$min,$date)
-  {
+  public function searchJob($type,$min,$date){
     
     if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
@@ -469,7 +432,6 @@ class DBAccess {
 		return $result;
   }
 
-
   /***14.Get User Info***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
@@ -492,14 +454,11 @@ class DBAccess {
 		return null;
   }
 
-
-
-
   /***15.Check Username Taken***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
   ****************************/
-  public function UsernameTaken($name) {
+  public function usernameTaken($name) {
     if(isset($name)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
@@ -519,14 +478,11 @@ class DBAccess {
 		return false;
   }
 
-
-
-
   /***16.Check Email Taken***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
   ****************************/
-  public function EmailTaken($name) {
+  public function emailTaken($name) {
     if(isset($name)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
@@ -543,9 +499,6 @@ class DBAccess {
     } else
 		return false;
   }
-
-
-
 
   /***17.Get User Review***
   par: int userID;
@@ -565,9 +518,6 @@ class DBAccess {
     } else
 		return null;
   }
-
-
-
 
   /***18.Get User Review List***
   par: int userID;
@@ -595,9 +545,6 @@ class DBAccess {
 		return null;
   }
 
-
-
-
   /***(19).Get Job List whose user is bidding or have Won***
   par: int userID, bool old;
   desc: ritorna lista di lavori a cui un utente userID abbia dato la sua proposta oppure abbia partecipato(bool old). altrimenti ritorna null.
@@ -607,7 +554,7 @@ class DBAccess {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 
-		$query='SELECT bids.Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
+		$query='SELECT bids.Code_job AS Code , Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
 				ON current_jobs.Code_job = bids.Code_job WHERE bids.Code_user =?;';
 		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;';
 		if(isset($old) and $old == true)
@@ -631,14 +578,11 @@ class DBAccess {
 		return null;
   }
 
-
-
-
   /***20.New User Registration***
   par: string password, string name, string surname, string nickname, date birth, string nationality, string city, string address, int phone, string picture, string curriculum, string description;
   desc: inserisce un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
-  public function Register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
+  public function register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
 	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description)){
 		//create new entry on table users and then create with the relative index the credentials for the login.
 		$queryInserimento = 'INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description)
@@ -672,14 +616,11 @@ class DBAccess {
 		return false;
   }
 
-
-
-
   /***21.User Login***
   par: string user; string password;
   desc: restituisce i dati dati dell'utente corrispondenti a user e password, altrimenti ritorna null
   ****************************/
-  public function Login($user, $pwd) {
+  public function login($user, $pwd) {
     if(isset($user) && isset($pwd)) {
 		//uso di query preparata per evitare vulnerabilità da SQL Injection e uso di procedura per evitare alterazione del codice.
 		$qprep1='SET @mess="" AND @userID="";'; $qprep2='CALL Log_in(?,?,@mess,@userID);';	$qprep3='SELECT @mess, @userID;';
@@ -731,6 +672,77 @@ class DBAccess {
 
   }
 
+  /***22.create Bid***
+  par: int $id (user id), int job (job id), int price, string comment
+  desc: 
+  ****************************/
+  public function createBid($id, $job, $price, $comments) {
+    if(isset($id) and isset($job) and isset($price)){
+      $queryInserimento = 'INSERT INTO bids(Code_user, Code_job, User_Price, Bid_selfdescription)
+                VALUES (?,?,?,?)';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      if(!isset($comments))
+        $comments='';
+      mysqli_stmt_bind_param($queryCall,'iiis',$id, $job, $price, $comments);
+      mysqli_stmt_execute($queryCall);
+      mysqli_stmt_close($queryCall);
+      $tmp=mysqli_affected_rows($this->connection);
+      $this->closeDBConnection();
+      if($tmp)
+        return true;
+      return false;
+    } else
+      return false;
+  }
+
+  /***23.changePassword***
+  par: string oldPsw, string newPsw, 
+  desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
+  ****************************/
+  public function changePassword($oldPsw,$newPsw) {
+    if(isset($oldPsw) && isset($newPsw)){
+      $queryCheck = '';
+      $queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
+      if(!($this->openDBConnection()))
+        die('\r\nFailed to open connection to the DB');
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'is',$id,$status);
+      mysqli_stmt_execute($queryCall);
+      mysqli_stmt_close($queryCall);
+      $result = mysqli_affected_rows($this->connection);
+      $this->closeDBConnection();
+      if($result)
+        return true;
+      return false;
+    } else
+      return null;
+  }
+  
+  /***24.changeUserInfo***
+  par:  
+  desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
+  ****************************/
+  public function changeUserInfo($id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
+    
+    //create new entry on table users and then create with the relative index the credentials for the login.
+    $queryInserimento = 'UPDATE users 
+      SET Name=?,Surname=?,Nickname=?,Birth=?,Email=?,Nationality=?,City=?,Address=?,Phone=?,Picture=?,Curriculum=?,Description=? 
+      WHERE Code_user=?;';
+    if(!($this->openDBConnection()))
+      die('\r\nFailed to open connection to the DB');
+    $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+    mysqli_stmt_bind_param($queryCall,'ssssssssisssi',$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description,$id);
+    mysqli_stmt_execute($queryCall);
+    mysqli_stmt_close($queryCall);
+    $tmp=mysqli_affected_rows($this->connection);
+    $this->closeDBConnection();
+    if($tmp)
+      return true;
+    else
+      return false;
+  }
 }
 
 ?>

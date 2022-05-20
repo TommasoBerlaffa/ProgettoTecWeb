@@ -181,13 +181,22 @@ form#login fieldset {
   row-gap: 5px;
 }
 
+form#login fieldset button {
+  width: 20%;
+  margin:auto;
+  margin-top: 5%;
+}
+
+div#errorMessages {
+  text-align: center;
+}
+
 /* - 5.2 Sign Up Input Form - */ 
 form#SignUp {
   margin:auto;
   width:60%;
   max-width: 80%;
 }
-
 
 form#SignUp input{
   margin-top: 0.5em;
@@ -251,6 +260,8 @@ form#formFilter fieldset{
   " a b " 
   " c d "
   " e f "
+  " h i "
+  " s t "
   " g g ";
 }
 
@@ -293,6 +304,37 @@ form#formFilter #submit {
   grid-area: g;
 }
 
+form#formFilter #addTag {
+  grid-area: h;
+  width: 60%;
+  margin: auto;
+}
+
+form#formFilter #removeTag {
+  grid-area: i;
+  width: 60%;
+  margin: auto;
+  
+}
+
+select#selectTags {
+  grid-area: s;
+  width: 80%;
+  height: 200px;
+  margin: auto;
+}
+
+select#Selected {
+  grid-area: t;
+  width: 80%;
+    height: 200px;
+  margin: auto;
+}
+
+option.tag {
+  width: 100%;
+}
+
 /* - 6.1 Find Job Content - */
 div#jobList{
   margin-left: 5%;
@@ -303,14 +345,22 @@ div#jobList{
 div.job {
   border-bottom: 1px solid grey;
   display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr;
   grid-template-areas: 
-  " a a a a"
-  " b b c c"
-  " d e f .";
+  " a b c ."
+  " . d e f";
+}
+
+div.job a {
+  color:black;
 }
 
 div.job .title {
   grid-area: a;
+  border: #9ee6be 2px solid;
+  border-radius: 5px;
+  padding: 0.5em;
+  width: fit-content;
 }
 
 div.job .date {
@@ -717,9 +767,19 @@ div#bids {
   box-shadow: 0 0 10px #999;
 }
 
+div#bids p.error{
+  text-align:center;
+}
+
 div.bid {
   padding-bottom: 1em;
   padding-left: 1em;
+}
+
+form#addBid {
+  width: 40%;
+  margin: auto;
+  margin-top: 1em;
 }
 
 /* - 9.0 Index - */

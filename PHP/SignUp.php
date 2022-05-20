@@ -86,7 +86,7 @@ $destination_img = 'destination .jpg';
                 $messaggioErrore .= '<li>Username field must be filled.</li>';
 			else{
 				$DBAccess= new DBAccess();
-				if($DBAccess->UsernameTaken($tmp))
+				if($DBAccess->usernameTaken($tmp))
 					$messaggioErrore .= '<li>This Username is already taken.</li>';
 				$Username = $tmp;
 			}
@@ -104,7 +104,7 @@ $destination_img = 'destination .jpg';
 				$messaggioErrore .= '<li>Email domain is blacklisted as disposable.</li>';
 			else{
 				$DBAccess= new DBAccess();
-				if($DBAccess->EmailTaken($tmp))
+				if($DBAccess->emailTaken($tmp))
 					$messaggioErrore .= '<li>This Email is already used.</li>';
 				$Email = $tmp;
 			}
@@ -277,7 +277,7 @@ $destination_img = 'destination .jpg';
 		
 		if($messaggioErrore==''){
 			$DBAccess = new DBAccess();
-            $Success=$DBAccess->Register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description);
+            $Success=$DBAccess->register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description);
 			if(!$Success)
 				$messaggioErrore .= '<div id="errorMessages"><ul>Something went wrong while creating your new account.</ul></div>';
 			else
