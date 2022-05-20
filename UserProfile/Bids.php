@@ -34,11 +34,11 @@
         
         // Rimpiazza Valori su file html  
         foreach($Result as $row ) {
-          $table .= '<tr>';
-          $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job="'.$row['Code_job'].'">'.trim($row['Title'] ).' </a></td>';
-          $table .= '<td>'. trim($row['Status'] ).'</td>';
-          $table .= '<td>'. trim($row['Tipology'] ).'</td>';
-          $table .= '</tr>';
+          $table .= '<tr>
+          <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
+          <td>'. trim($row['Status'] ).'</td>
+          <td>'. trim($row['Tipology'] ).'</td>
+          </tr>';
         }
         $table .='</tbody></table></div>';
       }
