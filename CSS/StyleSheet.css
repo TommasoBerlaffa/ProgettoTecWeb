@@ -594,11 +594,11 @@ form#settings #Email {
   grid-area: k;
 }
 
-form#settings #labelBday {
+form#settings #labelBirth {
   grid-area: l;
 }
 
-form#setting #Bday {
+form#setting #Birth {
   grid-area: m;
 }
 
@@ -654,6 +654,16 @@ form#settings #submit {
   grid-area: z;
   margin:auto;
   width: 50%;
+}
+
+div#errorList {
+  padding: 1em;
+  width: 50%;
+  margin: auto;
+}
+
+div#errorList p {
+  padding: 0.2em;
 }
 
 /* - 8.0 View Old Job Info & Feedback - */

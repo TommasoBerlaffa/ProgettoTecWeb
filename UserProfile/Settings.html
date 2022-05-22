@@ -1,5 +1,5 @@
 <!-- Setting ( Codice HTML da importare )  -->
-<form action="../PHP/ChangeUserInfo.php" method="post" id="settings">
+<form action="../PHP/ChangeUserInfo.php" method="post" id="settings" enctype="multipart/form-data">
   <fieldset>
   <legend> Change User Informations</legend>
     <label for="Username" class="Enter" id="labelUsername">Username : </label>
@@ -14,8 +14,8 @@
     <label for="Email" id="labelEmail">Email : </label>   
     <input type="email" name="Email" id="Email"  value="{{Email}}" />
     <!-- Birthday -->
-    <label for="Bday" id="labelBday" >Birthday : </label>
-    <input type="date" name="Bday" id="Bday"  value="{{Bday}}" />
+    <label for="Birth" id="labelBirth" >Birthday : </label>
+    <input type="date" name="Birth" id="Birth"  value="{{Birth}}" />
     <!-- Nationality -->
     <label for="Nationality" id="labelNationality">Nationality : </label>
     <input type="text" name="Nationality" id="Nationality"  value="{{Nationality}}" />

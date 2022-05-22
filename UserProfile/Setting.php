@@ -17,7 +17,7 @@
     // Mettere i valori dentro la Form
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
-    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'</div>';
+    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="errorList"></div></div>';
 
     if($conn)
     {
@@ -26,8 +26,8 @@
       $HTMLExtra = str_replace('{{Name}}',trim($Result['Name']),$HTMLExtra);
       $HTMLExtra = str_replace('{{Surname}}',trim($Result['Surname']),$HTMLExtra);
       $HTMLExtra = str_replace('{{Email}}',trim($Result['Email']),$HTMLExtra);
-      $HTMLExtra = str_replace('{{Bday}}',trim($Result['Birth']),$HTMLExtra);
-      $HTMLExtra = str_replace('{{Picture}}','..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .trim($Result['Picture']),$HTMLExtra);
+      $HTMLExtra = str_replace('{{Birth}}',trim($Result['Birth']),$HTMLExtra);
+      $HTMLExtra = str_replace('{{Picture}}','..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .trim($Result['Picture']),$HTMLExtra);
       $HTMLExtra = str_replace('{{Nationality}}',trim($Result['Nationality']),$HTMLExtra);
       $HTMLExtra = str_replace('{{City}}',trim($Result['City']),$HTMLExtra);
       $HTMLExtra = str_replace('{{Address}}',trim($Result['Address']),$HTMLExtra);
@@ -37,12 +37,16 @@
     }
     else
     {
-
+      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Errors'. DIRECTORY_SEPARATOR .'Error500.html');
     }
-    // Spazione vuoto
-    
 
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
+    // Spazione vuoto
+    if(isset($_SESSION['error'])){
+      $HTML = preg_replace('/(?<=<div id=\"errorList\">)((\n|.)*)(?=<\/div>)/',$_SESSION['error'],$HTML);
+      unset($_SESSION['error']);
+    }
+    
     // Apre file html
     echo $HTML;
   }
