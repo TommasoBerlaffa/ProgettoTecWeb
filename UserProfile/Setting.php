@@ -37,7 +37,7 @@
     }
     else
     {
-      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Errors'. DIRECTORY_SEPARATOR .'Error500.html');
+      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
     }
 
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
