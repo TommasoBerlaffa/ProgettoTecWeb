@@ -743,6 +743,27 @@ class DBAccess {
     else
       return false;
   }
+
+  /***24.removeBid***
+  par:  
+  desc:
+  ****************************/
+  public function removeBid($idJob, $idUser) {
+    
+    $queryDelete = 'DELETE FROM bids WHERE Code_user=? AND Code_job=?;';
+    if(!($this->openDBConnection()))
+      die('\r\nFailed to open connection to the DB');
+    $queryCall=mysqli_prepare($this->connection, $queryDelete);
+    mysqli_stmt_bind_param($queryCall,'ii',$idUser, $idJob);
+    mysqli_stmt_execute($queryCall);
+    mysqli_stmt_close($queryCall);
+    $tmp=mysqli_affected_rows($this->connection);
+    $this->closeDBConnection();
+    if($tmp)
+      return true;
+    else
+      return false;
+  }
 }
 
 ?>

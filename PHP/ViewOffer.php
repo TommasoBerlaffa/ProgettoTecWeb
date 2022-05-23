@@ -10,7 +10,7 @@ if(isset($_SESSION['user_Username']))
   $HTML = file_get_contents($url);
   // Replacing User Profile
   $HTMLContent = '<li class="right"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
-         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
+         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
   $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
   $self=true;
   $DbAccess = new DBAccess();
@@ -44,7 +44,7 @@ if(isset($_SESSION['user_Username']))
                         <p>Description: '.trim($B["Description"]).'</p>';
           if($B["Code"]==$_SESSION['user_ID']){
             $self=false;
-            $HTMLBids.='<a href="">delete your bid</a></div>';          
+            $HTMLBids.='<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
           }
           else
             $HTMLBids.='</div>';            
