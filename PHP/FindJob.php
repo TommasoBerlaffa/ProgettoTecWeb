@@ -39,6 +39,8 @@
     isset($_POST["Tipology"]) ? $type =  $_POST["Tipology"] : $type= 'Any';
     isset($_POST["PayMin"]) ? $min =  $_POST["PayMin"] : $min='0';
     isset($_POST["Date"]) ? $date =  $_POST["Date"] : $date ='Any';
+    isset($_POST["selectorTag"]) ? $tag =  $_POST["selectorTag"] : $tag ='Any';
+    isset($_POST["selectTags"]) ? $tag2 =  $_POST["selectTags"] : $tag2 ='Any';
     $ndate=null;
     if($date!='Any')
     {
@@ -69,9 +71,7 @@
     }
 
     $HTML = str_replace('<tags/>',$HtmlTags,$HTML);
-
-    $result = $DBAccess->searchJob($type,$min,$ndate);
-
+    $result = $DBAccess->searchJob($type,$min,$ndate,$tag);
     if($result)
     {
       foreach($result as $row)

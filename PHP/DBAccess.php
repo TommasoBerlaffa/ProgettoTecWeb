@@ -27,6 +27,8 @@ Function List:
 21.login
 22.createBid
 23.changePassword
+24.changeUserInfo
+25.removeBid
 */
 
 class review {
@@ -239,8 +241,8 @@ class DBAccess {
   ****************************/
   public function getJobListbyCreator($id) {
     if(isset($id)){
-      $queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(Code_user_bid) FROM current_jobs LEFT JOIN bids
-                ON current_jobs.Code_job = bids.Code_job AND bids.Code_user AS Code_user_bid WHERE Code_job = ? GROUP BY Code_job;';
+      $queryInserimento = 'SELECT current_jobs.Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(DISTINCT bids.Code_user) AS C FROM current_jobs LEFT JOIN bids
+                ON current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ?;';
       if(!($this->openDBConnection()))
         die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
@@ -389,36 +391,75 @@ class DBAccess {
   par: string type, int min (prezzo minimo), int date (ultimi x secondi)
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($type,$min,$date){
+  public function searchJob($type,$min,$date,$tag){
     
     if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-      
-    if($type && $type!='Any'){
-      if($date && $date!=null)
-      {
-        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
-        mysqli_stmt_bind_param($queryCall,'sii',$type,$min,$date);  
+    if($tag && $tag!='Any')
+    {
+      if($type && $type!='Any'){
+        if($date && $date!=null)
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
+          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
+          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND Tipology = ? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
+          mysqli_stmt_bind_param($queryCall,'ssii',$tag,$type,$min,$date);  
+        }
+        else
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
+          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
+          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND Tipology = ? AND P_min > ?;');
+          mysqli_stmt_bind_param($queryCall,'ssi',$tag,$type,$min);  
+        }
       }
       else
       {
-        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ?;');
-        mysqli_stmt_bind_param($queryCall,'si',$type,$min);  
-      }
+        if($date && $date!=null)
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
+          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
+          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
+          mysqli_stmt_bind_param($queryCall,'sii',$tag,$min,$date);  
+        }
+        else
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
+          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
+          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND P_min > ?;');
+          mysqli_stmt_bind_param($queryCall,'si',$tag,$min  );  
+        }  
+      } 
     }
     else
     {
-      if($date && $date!=null)
-      {
-        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
-        mysqli_stmt_bind_param($queryCall,'ii',$min,$date);  
+      if($type && $type!='Any'){
+        if($date && $date!=null)
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
+          mysqli_stmt_bind_param($queryCall,'sii',$type,$min,$date);  
+        }
+        else
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ?;');
+          mysqli_stmt_bind_param($queryCall,'si',$type,$min);  
+        }
       }
       else
       {
-        $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ?;');
-        mysqli_stmt_bind_param($queryCall,'i',$min  );  
-      }  
-    } 
+        if($date && $date!=null)
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
+          mysqli_stmt_bind_param($queryCall,'ii',$min,$date);  
+        }
+        else
+        {
+          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ?;');
+          mysqli_stmt_bind_param($queryCall,'i',$min  );  
+        }  
+      } 
+    }
+    
     
     mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -450,7 +491,7 @@ class DBAccess {
 			return null;
 		else
 			return mysqli_fetch_assoc($queryResult);
-    } else
+} else
 		return null;
   }
 
@@ -721,7 +762,7 @@ class DBAccess {
   }
   
   /***24.changeUserInfo***
-  par:  
+  par:  $id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description
   desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
   ****************************/
   public function changeUserInfo($id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
@@ -744,7 +785,7 @@ class DBAccess {
       return false;
   }
 
-  /***24.removeBid***
+  /***25.removeBid***
   par:  
   desc:
   ****************************/

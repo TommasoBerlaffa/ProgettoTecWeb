@@ -1,13 +1,7 @@
 <!-- Elementi per la Selezione dei Tag-->
-
-<!-- Button per l'aggiunta di Tag, da selectTags a selected-->
-<button type="button" id="addTag" onclick="addTag()">Add Tag</button>
-<!-- Button per la rimozione di Tag, da selected a selectTags-->
-<button type="button" id="removeTag" onclick="removeTag()">Remove Tag</button>
 <!-- Select contenente i Tag, popolata da db-->
-<select id="selectTags" size="10">
+<label for="selectTags" id="labelTag">Tag : </label> 
+<input type="text" list="selectTags" id="selectorTag" name="selectorTag" />
+<datalist id="selectTags" name="selectTags">
 {{ Tags }}
-</select>
-<select id="Selected">
-  <option disabled selected></option>
-</select>
+</datalist>

@@ -260,7 +260,7 @@ form#formFilter fieldset{
   " a b " 
   " c d "
   " e f "
-  " h i "
+  " s t "
   " s t "
   " g g ";
 }
@@ -304,35 +304,14 @@ form#formFilter #submit {
   grid-area: g;
 }
 
-form#formFilter #addTag {
-  grid-area: h;
-  width: 60%;
-  margin: auto;
-}
-
-form#formFilter #removeTag {
-  grid-area: i;
-  width: 60%;
-  margin: auto;
-  
-}
-
-select#selectTags {
+form#formFilter #labelTag {
+  margin-left: 0.5em;
   grid-area: s;
-  width: 80%;
-  height: 200px;
-  margin: auto;
 }
 
-select#Selected {
+form#formFilter #selectorTag {
   grid-area: t;
   width: 80%;
-    height: 200px;
-  margin: auto;
-}
-
-option.tag {
-  width: 100%;
 }
 
 /* - 6.1 Find Job Content - */
@@ -643,7 +622,7 @@ form#settings #Curr{
 }
 
 form#settings #labelDesc {
-  grid-area: \x;
+  grid-area: x;
 }
 
 form#settings #Description {
