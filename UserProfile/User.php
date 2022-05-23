@@ -41,7 +41,7 @@
     }
     $content .= '<div id="userinfo">'; 
     $content .= '<div class="headchapter"><h2 class="chapter"> Username : '. trim($Result["Nickname"]) .'</h2>
-      <img id="icon" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR . trim($Result["Picture"]) .'" alt="Profile Picture"></div>
+      <img id="icon" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . trim($Result["Picture"]) .'" alt="Profile Picture"></div>
       <p> Name & Surname : '. trim($Result["Name"]) ." ". trim($Result["Surname"]) .' </p>
       <p> Status : '. trim($Result["Status"]) .' </p>
       <p> Birthday : '. trim($Result["Birth"]) .' </p>

@@ -40,12 +40,36 @@
           <td>'. trim($row['Tipology'] ).'</td>
           </tr>';
         }
+        $table .='</tbody></table>';
+      }
+      else
+      {
+        $table .='</tbody></table><p>No Data Currently Available</p>';
+      }
+
+      $table.='<table class="content">
+          <caption>This table shows all the your current jobs  </caption>
+            <thead><tr>
+              <th> Title </th>
+              <th> Status </th>
+              <th> Bids </th>
+            </tr></thead><tbody>';
+      $Result = $DbAccess->getJobListbyCreator($_SESSION['user_ID']);
+      if($Result){
+        foreach ($Result as $row) {
+          $table .= '<tr>';
+          $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>';
+          $table .= '<td>'.trim($row["Status"]).'</td>';
+          $table .= '<td>'.trim($row["C"]).'</td>';
+          $table .= '</tr>';
+        } 
         $table .='</tbody></table></div>';
       }
       else
       {
         $table .='</tbody></table><p>No Data Currently Available</p></div>';
       }
+
     }                      
     
 
