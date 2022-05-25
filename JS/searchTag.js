@@ -1,8 +1,12 @@
+const myTimeout = setTimeout(myGreeting, 100);
+
+function myGreetings(){return;}
+
 document.getElementById('searchTag').onkeyup = function (e, mycallback) {
   e = e || window.event;
 	const xhttp = new XMLHttpRequest();
 	var data = {};
-	if(document.getElementById('searchTag').value==="")
+	if(document.getElementById('searchTag').value.lenght<3)
     return;
 	data = {Tag:document.getElementById('searchTag').value};
 	
