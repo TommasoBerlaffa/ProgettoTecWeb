@@ -373,7 +373,7 @@ class DBAccess {
   par: int ID, int table (0=users, 1=current_jobs, 2=past_jobs)
   desc: returns list of tags of an ID for the choosen relative table.
   ****************************/
-  public function SearchTags($word) {
+  public function searchTags($word) {
     if(isset($word)) {
 		$query='SELECT Name FROM tags WHERE Name LIKE "?%" ESCAPE';
 		if(!($this->openDBConnection()))
