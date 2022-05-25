@@ -96,6 +96,13 @@
     background-color: whitesmoke; 
   }
 
+  /* 1.5 Login */
+  form#login {
+    top: 30%;
+    left: 10%;
+    width: 80%;
+  } 
+
   /* 1.6.0 Filter for Page Find Job */
   main#findJob {
     display: flex;

@@ -32,51 +32,61 @@ if(isset($_SESSION['user_Username']))
       $HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
       $HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
 
-      $bids =$DbAccess->getBids($index);
-      if($bids)
+      if(trim($row["Status"])!='Frozen' && trim($row["Status"])!='Expired')
       {
-        $HTMLBids ='<div id="bids">';
+        $bids =$DbAccess->getBids($index);
+        if($bids)
+        {
+          $HTMLBids ='<div id="bids">';
+          
+          foreach($bids as $B){
+            $HTMLBids.= '<div class="bid">
+                          <p><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
+                          <p>User Price: '.trim($B["Price"]).'</p>
+                          <p>Description: '.trim($B["Description"]).'</p>';
+            if($B["Code"]==$_SESSION['user_ID']){
+              $self=false;
+              $HTMLBids.='<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
+            }
+            else
+              $HTMLBids.='</div>';            
+          }
+          $HTMLBids .='</div>';
+          $HTML= str_replace('<div id="bids"></div>',$HTMLBids,$HTML);
+        }
+        else
+        {
+          $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
+        }
         
-        foreach($bids as $B){
-          $HTMLBids.= '<div class="bid">
-                        <p><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
-                        <p>User Price: '.trim($B["Price"]).'</p>
-                        <p>Description: '.trim($B["Description"]).'</p>';
-          if($B["Code"]==$_SESSION['user_ID']){
-            $self=false;
-            $HTMLBids.='<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
+        if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
+        {
+          $_SESSION['Code_Job'] = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
+          // Se non sei il creatore del lavoro, puoi aggiungere una bid
+          $HTMLFormBid='<form id="addBid" action="../PHP/AddBid.php" method="post">
+            <fieldset>
+            <legend>Add a new Bid </legend>
+            <label for="Price" id="labelPrice">  Offer\'s Price : </label>
+            <input type="number" name="Price" id="Price" min="0"/>
+            <label for="Description" id="labelDescription">  Bid Description : </label>
+            <textarea id="Description" name="Description"></textarea>
+            <button type="submit" name="addyourBid" id="addyourBid">Send your Bid</button>
+            </fieldset>
+          </form>';
+          $HTML= str_replace('<form id="addBid"></form>',$HTMLFormBid,$HTML);
           }
           else
-            $HTMLBids.='</div>';            
-        }
-        $HTMLBids .='</div>';
-        $HTML= str_replace('<div id="bids"></div>',$HTMLBids,$HTML);
+          {
+            $HTML= str_replace('<form id="addBid"></form>','',$HTML);
+          }
       }
       else
       {
-        $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
+        $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> This job offer is currently :'.trim($row["Status"]) .'</p></div>',$HTML);
       }
       
-      if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
-      {
-        $_SESSION['Code_Job'] = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
-        // Se non sei il creatore del lavoro, puoi aggiungere una bid
-        $HTMLFormBid='<form id="addBid" action="../PHP/AddBid.php" method="post">
-          <fieldset>
-          <legend>Add a new Bid </legend>
-          <label for="Price" id="labelPrice">  Offer\'s Price : </label>
-          <input type="number" name="Price" id="Price" min="0"/>
-          <label for="Description" id="labelDescription">  Bid Description : </label>
-          <textarea id="Description" name="Description"></textarea>
-          <button type="submit" name="addyourBid" id="addyourBid">Send your Bid</button>
-          </fieldset>
-        </form>';
-        $HTML= str_replace('<form id="addBid"></form>',$HTMLFormBid,$HTML);
-      }
-      else
-      {
-        $HTML= str_replace('<form id="addBid"></form>','',$HTML);
-      }
+      
+ 
     } //Se non trova un risultato
     else
     {

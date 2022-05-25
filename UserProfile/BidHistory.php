@@ -26,8 +26,6 @@
               <th scope="col"> Status </th>
               <th scope="col"> Tipology </th>
               <th scope="col"> Payment </th>
-              <th scope="col"> Min Payment </th>
-              <th scope="col"> Max Payment </th>
             </tr></thead><tbody>';
     
     if($conn) {
@@ -39,8 +37,6 @@
           $table .= '<td>'.trim($row["Status"]).'</td>';
           $table .= '<td>'.trim($row["Tipology"]).'</td>';
           $table .= '<td>'.trim($row["Payment"]).'</td>';
-          $table .= '<td>'.trim($row["P_min"]).'</td>';          
-          $table .= '<td>'.trim($row["P_max"]).'</td>';
           $table .= '</tr>';
         } 
         $table .='</tbody></table></div>';
