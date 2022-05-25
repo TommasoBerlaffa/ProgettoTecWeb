@@ -15,6 +15,7 @@ Function List:
 9.changeJobStatus
 10.getAllTags
 11.getTags
+11.2 searchTags
 12.getMostPopularJobs
 13.searchJob
 14.getUser
@@ -365,6 +366,38 @@ class DBAccess {
     } else
 		return null;
   }
+	
+	
+	
+  /***11.2 Search Tags for Automplition Text***
+  par: int ID, int table (0=users, 1=current_jobs, 2=past_jobs)
+  desc: returns list of tags of an ID for the choosen relative table.
+  ****************************/
+  public function SearchTags($word) {
+    if(isset($word)) {
+		$query='SELECT Name FROM tags WHERE Name LIKE "?%" ESCAPE';
+		if(!($this->openDBConnection()))
+			die('\r\nFailed to open connection to the DB');
+		$queryCall=mysqli_prepare($this->connection, $query);
+		mysqli_stmt_bind_param($queryCall,'s',$word);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else {
+			$result=array();
+			while ($tmp=mysqli_fetch_column($queryResult,0))
+				array_push($result,$tmp);
+			return $result;
+		}
+    } else
+		return null;
+  }
+	
+	
+	
 
   /***12.Get the Four Most Popular Job Tags***
   par:
