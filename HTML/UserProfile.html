@@ -29,14 +29,21 @@
   <!-- Header con Link per altre Pagine del Sito-->
   <header>
     <!-- Logo Job Finder -->    
+    <ul class="hiddenHelp">
+      <li><a href="#menu">Move to Main Menu</a></li>
+      <li><a href="#sidebar">Move to the Sidebar</a></li>
+      <li><a href="#UserProfile">Move to the Content</a></li>
+    </ul>
+
+
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
     <!-- Menu Hypertext -->
-    <ul>
+    <ul id="menu">
       <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.svg" class="icons"> Home </a> </li>
       <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.svg" class="icons"> Find a Job </a> </li>
       <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.svg" class="icons"> Create an Offer </a> </li>
-      <li class="right"> <a href="../PHP/Logout.php"><img src="../IMG/Icons/logout.svg" class="icons">  Log Out </a> </li>
+      <li> <a href="../PHP/Logout.php"><img src="../IMG/Icons/logout.svg" class="icons">  Log Out </a> </li>
     </ul>
 
   </header>
@@ -44,27 +51,29 @@
   <!-- Breadcrumb -->
   <nav class="breadcrumb">
     <!-- Link Dinamico In base alla subpage -->
-    You are in : <a href="../PHP/UserProfile.php">User Profile</a>  > {{ SubPage }}
+    ..\<a href="../PHP/Index.php">Home</a>\<a href="../PHP/UserProfile.php">User Profile</a>\{{ SubPage }}
   </nav>
 
+  <!-- Sidebar per Navigazione su Subpage -->
+  <div id="sidebar">
+    <p class="hiddenHelp"><a href="#UserProfile">Skip the sidebar</a></p>
+    <a href="../PHP/UserProfile.php?section=1"><img src="../IMG/Icons/info.svg" class="icons"><span class="sidebarText"> User Profile</span></a>
+    <a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.svg" class="icons"><span class="sidebarText"> Work's History</span></a>
+    <a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bookmark.svg" class="icons"><span class="sidebarText"> Bids History</span></a>
+    <a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/history.svg" class="icons"><span class="sidebarText"> Current Bids</span></a>
+    <a href="../PHP/UserProfile.php?section=5"><img src="../IMG/Icons/setting.svg" class="icons"><span class="sidebarText"> User Setting</span></a>
+    <a href="../PHP/UserProfile.php?section=6"><img src="../IMG/Icons/sidebar.svg" class="icons"><span class="sidebarText"> Change Password</span></a>
+  </div>
   <!-- Main Content -->
   <main id="userProfile">
-    <!-- Sidebar per Navigazione su Subpage -->
-    <div id="sidebar">
-      <a href="../PHP/UserProfile.php?section=1"><img src="../IMG/Icons/info.svg" class="icons"><span class="sidebarText"> User Profile</span></a>
-      <a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.svg" class="icons"><span class="sidebarText"> Work's History</span></a>
-      <a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bookmark.svg" class="icons"><span class="sidebarText"> Bids History</span></a>
-      <a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/history.svg" class="icons"><span class="sidebarText"> Current Bids</span></a>
-      <a href="../PHP/UserProfile.php?section=5"><img src="../IMG/Icons/setting.svg" class="icons"><span class="sidebarText"> User Setting</span></a>
-      <a href="../PHP/UserProfile.php?section=6"><img src="../IMG/Icons/sidebar.svg" class="icons"><span class="sidebarText"> Change Password</span></a>
-    </div>
+    <p class="hiddenHelp"><a href="#footer">Skip the content</a></p>
     <!-- Zona per mostrare il contenuto delle Subpage -->
     <div id="content"></div>
 
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer id="footer">
     <!-- Logo versione Small & Info Admin -->
     <img src="../IMG/ShortLogo.png" id="smallLogo" alt="Small Logo Job Finder">
     <p> For More Info : blah blah blah</p>

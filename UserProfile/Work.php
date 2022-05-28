@@ -4,8 +4,7 @@
 
   session_start(); 
 
-  if(isset($_SESSION['user_Username']))
-  {
+  if(isset($_SESSION['user_Username'])) {
     // Ottengo Valori da Pagina Statica 
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
     $HTML = file_get_contents($url);
@@ -28,11 +27,11 @@
               <th> Payment </th>
             </tr></thead><tbody>';
 
-    if($conn){
+    if($conn) {
       // Ottiene Valori da Query - Past Jobs
       // Query : SELECT * FROM past_jobs WHERE Code_user = $_SESSION['Code_User'];
       $Result = $DbAccess->getPastJobListbyCreator($_SESSION['user_ID']);
-      if($Result){
+      if($Result) {
         foreach ($Result as $row) {
           $table .= '<tr>';
           $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>';
@@ -43,15 +42,12 @@
         } 
         $table .='</tbody></table></div>';
       }
-      else
-      {
+      else {
         $table .='</tbody></table><p>No Data Currently Available</p></div>';
       }
     }    
     else
-    {
-      $table .='</tbody></table><p>Cannot Connect Correctly</p></div>';
-    }  
+      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
 
     // Rimpiazza Valori su file html
     $HTML = str_replace('<div id="content"></div>',$table,$HTML);

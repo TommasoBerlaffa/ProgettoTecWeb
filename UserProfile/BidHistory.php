@@ -17,39 +17,39 @@
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
     
-    $table = '<div id="content">
-          <table class="content">
-            <caption>The page Bid History display all your successful Bids.
-            Click on a job Title to display more infos! </caption>
-            <thead><tr>
+    if($conn) {
+    
+      $table = '<div id="content">
+        <table class="content">
+          <caption>The page Bid History display all your successful Bids.
+          Click on a job Title to display more infos! </caption>
+          <thead>
+            <tr>
               <th scope="col"> Title </th>
               <th scope="col"> Status </th>
               <th scope="col"> Tipology </th>
               <th scope="col"> Payment </th>
-            </tr></thead><tbody>';
-    
-    if($conn) {
+            </tr>
+          </thead>
+          <tbody>';  
+
       $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],true);
       if($Result) {
         foreach($Result as $row ) {
-          $table .= '<tr>';
-          $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>';
-          $table .= '<td>'.trim($row["Status"]).'</td>';
-          $table .= '<td>'.trim($row["Tipology"]).'</td>';
-          $table .= '<td>'.trim($row["Payment"]).'</td>';
-          $table .= '</tr>';
+          $table .= '<tr>
+            <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
+            <td>'.trim($row["Status"]).'</td>
+            <td>'.trim($row["Tipology"]).'</td>
+            <td>'.trim($row["Payment"]).'</td>
+            </tr>';
         } 
         $table .='</tbody></table></div>';
       }
       else
-      {
         $table .='</tbody></table><p>No Data Currently Available</p></div>';
-      }
     }    
     else
-    {
-      $table .='</tbody></table><p>Cannot Connect Correctly</p></div>';
-    }                  
+      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');               
 
     // Rimpiazza Valori su file html
     $HTML = str_replace('<div id="content"></div>',$table,$HTML);

@@ -34,16 +34,27 @@
     bottom: 0;
     width: 100%;
     position: fixed; 
+    display: block;
   }
   
   main {  
-    margin-top: 2em;
+    margin-top:15%;
     margin-bottom: 15%;
   }
   
   footer {
-    display: none; 
+    margin-left: 10%;
+    bottom: unset;
+    height: 5%;
+    top: 0;
   }
+
+  footer img#smallLogo{
+    vertical-align: top;
+    width: 16px;
+    height: 16px;
+  }
+  
   
   /* 1.2.0 Header Elements h1, ul, li */
   header img#Logo {
@@ -55,12 +66,6 @@
     width: 24%;
     padding: 0;
     margin: 0;
-  }
-
-  header ul li.right {
-    float:right;
-    margin-right: 0em;
-    margin-left: 0em;
   }
 
   header ul li a {
@@ -89,19 +94,25 @@
   nav.breadcrumb{
     position: fixed;
     left: 0;
-    top: 0;
-    height: fit-content;
+    margin-left: 10%;
+    top: 5%;
+    height: 3%;
     width: 100%;
     border: none;
     background-color: whitesmoke; 
   }
 
-  /* 1.5 Login */
+  /* 1.5.1 Login */
   form#login {
-    top: 30%;
-    left: 10%;
-    width: 80%;
+    top: 20%;
+    left: 20%;
+    width: 60%;
   } 
+
+  /* 1.5.2 Sign Up Input Form */ 
+  form#SignUp {
+    width:80%;
+  }
 
   /* 1.6.0 Filter for Page Find Job */
   main#findJob {
@@ -144,13 +155,19 @@
   }  
 
   /* 1.7.0 Sidebar for User Profile */
+  main#userProfile {  
+    margin-bottom: 20%;
+    position:unset;
+  }
+
   div#sidebar {
-    position: sticky;
-    top: 5%;
-    left:0;
+    float:left;
+    top: 0;
+    left: 0;
     height: fit-content;
     min-height: fit-content; 
     overflow: unset;
+    width: 10%;
   }
 
   #sidebar a {
@@ -171,8 +188,7 @@
 
   /* 1.7.1 Content for User Profile */
   div#content {
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 100%;
   }
 
   /* 1.7.2 User Profile Welcome Page */
@@ -181,20 +197,12 @@
   }
   
   /* 1.7.3 User Info and Review from User Profile */
-  div.flexUserInfo {
-    display: grid;
-    row-gap: 1em;
-    grid-template-areas: 
-    " b "
-    " a ";
-  }
-  
-  div#feedbacks {
-    grid-area: a;
-  }
-  
   div#userinfo {
-    grid-area: b;
+    width: fit-content;
+  }
+
+  div#feedbacks {
+    width: fit-content;
   }
 
   /* - 1.7.5 User Profile Setting Page - */

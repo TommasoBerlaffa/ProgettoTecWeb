@@ -15,20 +15,22 @@
 
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
-    
-    $table = '<div id="content">
-            <table class="content">
-            <caption>The page Bids display all your current Bids.
-            Click on a job Title to display more infos! </caption>
-              <thead><tr>
-                <th> Title </th>
-                <th> Status </th>
-                <th> Tipology </th>
-              </tr></thead><tbody>';
-      
 
     if($conn)
     {
+      $table = '<div id="content">
+      <table class="content">
+        <caption>The page Bids display all your current Bids.
+          Click on a job Title to display more infos! </caption>
+        <thead>
+          <tr>
+            <th> Title </th>
+            <th> Status </th>
+            <th> Tipology </th>
+          </tr>
+        </thead>
+        <tbody>';
+
       $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],false);
       if($Result) {
         
@@ -42,10 +44,7 @@
         }
         $table .='</tbody></table>';
       }
-      else
-      {
-        $table .='</tbody></table><p>No Data Currently Available</p>';
-      }
+      
 
       $table.='<table class="content">
           <caption>This table shows all the your current jobs  </caption>
@@ -66,11 +65,11 @@
         $table .='</tbody></table></div>';
       }
       else
-      {
         $table .='</tbody></table><p>No Data Currently Available</p></div>';
-      }
 
-    }                      
+    }           
+    else
+      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');            
     
 
     $HTML = str_replace('<div id="content"></div>',$table,$HTML);

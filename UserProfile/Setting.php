@@ -3,15 +3,14 @@
 
   session_start();
 
-  if(isset($_SESSION['user_Username']))
-  {
+  if(isset($_SESSION['user_Username'])) {
     // Non servono controlli su Login perchè vengono fatti da UserProfile.php
 
     // Ottengo Valori da Pagina Statica 
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
     $HTML = file_get_contents($url);
     // Cambio Valore BreadCrumb
-    $HTML = str_replace("{{ SubPage }}"," User Settings",$HTML);
+    $HTML = str_replace("{{ SubPage }}","User Settings",$HTML);
 
     $urlExtra = '..'. DIRECTORY_SEPARATOR .'UserProfile'. DIRECTORY_SEPARATOR .'Settings.html';
     // Mettere i valori dentro la Form
@@ -19,8 +18,7 @@
     $conn = $DbAccess->openDBConnection();
     $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="errorList"></div></div>';
 
-    if($conn)
-    {
+    if($conn) {
       $Result = $DbAccess->getUser($_SESSION['user_ID']);
       $HTMLExtra = str_replace('{{Username}}',trim($Result['Nickname']),$HTMLExtra);
       $HTMLExtra = str_replace('{{Name}}',trim($Result['Name']),$HTMLExtra);
@@ -36,13 +34,11 @@
       $HTMLExtra = str_replace('{{Desc}}',trim($Result['Description']),$HTMLExtra);
     }
     else
-    {
       header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-    }
 
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
     // Spazione vuoto
-    if(isset($_SESSION['error'])){
+    if(isset($_SESSION['error'])) {
       $HTML = preg_replace('/(?<=<div id=\"errorList\">)((\n|.)*)(?=<\/div>)/',$_SESSION['error'],$HTML);
       unset($_SESSION['error']);
     }

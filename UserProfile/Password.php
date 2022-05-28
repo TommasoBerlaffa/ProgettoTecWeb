@@ -9,7 +9,7 @@
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
     $HTML = file_get_contents($url);
     // Cambio Valore BreadCrumb
-    $HTML = str_replace("{{ SubPage }}"," Change Password",$HTML);
+    $HTML = str_replace("{{ SubPage }}","Change Password",$HTML);
     $HTMLContent='<form id="changePsw" action="../PHP/ChangePassword.php" method="post">
       <fieldset>
       <legend>Change Password</legend>
