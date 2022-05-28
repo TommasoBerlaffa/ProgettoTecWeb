@@ -141,8 +141,12 @@
     }
 
 
-    if($errorReport != '<h3>List of Errors</h3> ')
+    if($errorReport != '<h3>List of Errors</h3>')
       $_SESSION['error'] = $errorReport;
+    else
+      $_SESSION['error'] = '<p> The operation was successful. You can check your updated info in 
+        <a href="'.'..'. DIRECTORY_SEPARATOR .'UserProfile'. DIRECTORY_SEPARATOR .'User.php"> User Info</a></p>'
+        ;
 
     $DbAccess->changeUserInfo($_SESSION['user_ID'],$Name,$Surname,$Nickname,$Birth,$Email,$Nationality,$City,$Address,$Phone,$Picture,$Curriculum,$Description);
     header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php");  

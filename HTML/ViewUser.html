@@ -34,13 +34,13 @@
       <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.svg" class="icons"> Home </a> </li>
       <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.svg" class="icons"> Find a Job </a> </li>
       <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.svg" class="icons"> Create an Offer </a> </li>
-      <li class="right"> <a href="../PHP/Logout.php"><img src="../IMG/Icons/logout.svg" class="icons">  Log Out </a> </li>
+      <subpage/>
     </ul>
     
   </header>
 
   <nav class="breadcrumb">
-    You are in : {{ User }}'s Infos
+    ..\<a href="../PHP/Index.php">Home</a>\User Information\{{ User }}
   </nav>
 
   <!-- Main Content -->
@@ -61,6 +61,8 @@
       <p> Link to a Curriculum : {{ Curriculum }} </p>
       <p> Description : {{ Description }} </p>
     </div>   
+
+    <div id="feedbacks"></div>
     
   </main>
   

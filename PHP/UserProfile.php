@@ -4,12 +4,11 @@
   // CONTROLLI SE LOGIN EFFETTUATO
   session_start();
 
-  if(isset($_SESSION['user_Username']))
-  {
+  if(isset($_SESSION['user_Username'])) {
     $index = null;
     
     if(isset($_GET['section']))
-			  $index =filter_var($_GET['section'], FILTER_VALIDATE_INT);
+			$index =filter_var($_GET['section'], FILTER_VALIDATE_INT);
   
     switch ($index) {
       case 1:
