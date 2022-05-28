@@ -1,58 +1,70 @@
 <!DOCTYPE html>
-<html lang="eng">
-<!-- PAGINA ERRORE 404 -->
+<html lang="en" xml:lang="en">
+<!-- Homepage -->
 <head>
-    <!-- Meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Titolo -->
-    <title>Login | Website Name © </title>
-    <meta name="title" content="Login | WebsiteName" />
+  <!-- Titolo -->
+  <title>Error 404 | Job Finder </title>
+  <meta name="title" content="Find a Job Offer | WebsiteName" />
 
-    <!-- Meta -->
-    <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" /> 
-    <meta name="language" content="english eng" />
-    <meta name="description" content="Login to find a job or look for a professionist!" />
-    <meta name="keywords" content="Login, Log in, Username, Password, Job, WebsiteName" />
+  <!-- Meta -->
+  <meta name="author" content="Tommaso Berlaffa Milo Spadotto Pietro Lauriola Alberto Matterazzo" />
+  <meta name="language" content="english eng" />
+  <meta name="description" content="Home page of Job Finder, Find a Job here!" />
+  <meta name="keywords" content="Job Finder, Home, Hire, Job, Job Finder" />
 
-    <!-- Fogli di Stile -->
-    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Print.css" media="print" />
-    <link rel="StyleSheets" type="text/css" href="../CSS/Mobile.css" media="screen" />
+  <!-- Fogli di Stile -->
+  <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="../CSS/Mobile.css" media="screen" />  
 
-    <!-- Icona -->
-    <link rel="icon" type="image/png" href="../IMG/doggo.png" />
+  <!-- Icona -->
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico" alt="Job Finder Icon" />
 
 </head>
 <body>
-    <!-- Header con Link per altre Pagine del Sito-->
-    <header>
-        <h1>
-            Website Name ©
-        </h1>
+  <!-- Header con Link per altre Pagine del Sito-->
+  <header>
 
-        <ul>
-            <li><a href="Index.html">Home</a></li>
-            <li><a href="FindJob.html">Search For a Job</a> </li>
-            <li class="right">
-                <a href="SignUp.html">If you don't have an account, sign up here!</a>
-            </li>
-        </ul>
-    </header>
+    <!-- Logo Job Finder -->
+    <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
-    <nav class="breadcrumb">
-        You are in : Error 404?
-    </nav>
-    <!-- Main Content -->
-    <main>
-        <h1>Error 404</h1>
-        <p>The page you were looking for is not currently available</p>
-        <p><a href="Index.html" >Go back to the Home!</a></p>
-    </main>
-    <!-- Footer -->
-    <footer>
-        <h3>Website Name ©</h3>
-    </footer>
+    <!-- Menu Hypertext (riempito da pagina Index.php ) -->
+    <ul>
+      <li><a href="../PHP/Index.php"><img src="../IMG/Icons/home.svg" class="icons"> Home</a></li>
+    </ul>
+
+  </header>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <!-- Non serve aggiungere altro per la Home -->
+    ..\<a href="../PHP/Index.php">Home</a>\Error 404
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- descrizione generale -->    
+    <h2 class="index"> Error 404 : Couldn't Find Resource</h2>
+    <p class="subIndex">
+      It seems like we are having some issues with some resources, we will try our best to fix it as soon as possible!
+      <br>
+      In the meantime, you can go back to <a href="../PHP/Index.php">Home</a> and try again later
+    </p>
+
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <!-- Logo versione Small & Info Admin -->
+    <img src="../IMG/ShortLogo.png" id="smallLogo" alt="Small Logo Job Finder">
+    <p> For More Info : blah blah blah</p>
+
+  </footer>
+
 </body>
 </html>
