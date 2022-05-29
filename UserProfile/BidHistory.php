@@ -14,26 +14,20 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Bids History",$HTML);
 
+    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=3">','<a href="../PHP/UserProfile.php?section=3" class="selected">',$HTML);
+
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
     
+    $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
+    $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+    $HTMLTable = str_replace('{{ caption }}','The page Bid History display all your successful Bids.
+    Click on a job Title to display more infos!',$HTMLTable);
+
     if($conn) {
     
-      $table = '<div id="content">
-        <table class="content">
-          <caption>The page Bid History display all your successful Bids.
-          Click on a job Title to display more infos! </caption>
-          <thead>
-            <tr>
-              <th scope="col"> Title </th>
-              <th scope="col"> Status </th>
-              <th scope="col"> Tipology </th>
-              <th scope="col"> Payment </th>
-            </tr>
-          </thead>
-          <tbody>';  
-
       $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],true);
+      $table = "";
       if($Result) {
         foreach($Result as $row ) {
           $table .= '<tr>
@@ -43,16 +37,21 @@
             <td>'.trim($row["Payment"]).'</td>
             </tr>';
         } 
-        $table .='</tbody></table></div>';
+        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
       }
       else
-        $table .='</tbody></table><p>No Data Currently Available</p></div>';
+      {
+        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);  
+        $HTMLTable .= '<p>No content to show</p>';
+      }
+
     }    
     else
       header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');               
 
+    $HTMLTable .= '</div>';
     // Rimpiazza Valori su file html
-    $HTML = str_replace('<div id="content"></div>',$table,$HTML);
+    $HTML = str_replace('<div id="content"></div>',$HTMLTable,$HTML);
     // Stampo File Modificato
     echo $HTML;
   }

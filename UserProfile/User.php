@@ -11,6 +11,9 @@
     
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","User Informations",$HTML);
+    
+    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=1">','<a href="../PHP/UserProfile.php?section=1" class="selected">',$HTML);
+    
     $content='<div id="content">';
     // Ottiene Valori Utente da SQL
     // Query del tipo SELECT * FROM users WHERE Code_user = $_SESSION['Code_User'];

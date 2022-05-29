@@ -12,6 +12,8 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","User Settings",$HTML);
 
+    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=5">','<a href="../PHP/UserProfile.php?section=5" class="selected">',$HTML);
+
     $urlExtra = '..'. DIRECTORY_SEPARATOR .'UserProfile'. DIRECTORY_SEPARATOR .'Settings.html';
     // Mettere i valori dentro la Form
     $DbAccess = new DBAccess();

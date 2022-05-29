@@ -38,7 +38,7 @@ if(isset($_SESSION['user_Username']))
         $Review = $DbAccess->getUserReviewList($_SESSION['user_ID']);
         
         if($Review) {
-          $content = '<div id="feedbacks"><div class="headchapter"><h2 class="chapter"> Your Reviews : </h2></div>';
+          $content = '<div id="userFeedback"><div class="headchapter"><h2 class="chapter"> Your Reviews : </h2></div>';
           foreach($Review as $R)
           {
             // Replace Review with link to the job info
@@ -50,7 +50,7 @@ if(isset($_SESSION['user_Username']))
           }
           $content .= '</div>';
 
-          $HTML = str_replace('<div id="feedbacks"></div>',$content,$HTML);
+          $HTML = str_replace('<div id="userFeedback"></div>',$content,$HTML);
         } //Se non trova un risultato
       }
       else
@@ -58,9 +58,9 @@ if(isset($_SESSION['user_Username']))
         $HTML = str_replace( '{{ User }}', 'Unknown User' ,$HTML);
         // (?<=<div id="userInfo">)((\n|.)*)(?=<\/div>)
         $HTML = preg_replace('/(?<=<div id="userInfo">)((\n|.)*)(?=<\/div>)/',
-            ' <div id="content">
-                <p> No Info are currently available about this specific User</p>
-              </div>',$HTML);
+            '<div id="content">
+              <p> No Info are currently available about this specific User</p>
+            </div>',$HTML);
         //$HTML = str_replace('<div id="JobInfo">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
       }
     }

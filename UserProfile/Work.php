@@ -11,46 +11,47 @@
 
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Work History",$HTML);
-    
+
+    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=2">','<a href="../PHP/UserProfile.php?section=2" class="selected">',$HTML);
+
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
 
     // Crea una table da aggiungere al file HTML
-    $table = '<div id="content">
-          <table class="content">
-          <caption>The page Work History display all the Job offer you created.
-            Click on a job Title to display more infos! </caption>
-            <thead><tr>
-              <th> Title </th>
-              <th> Status </th>
-              <th> Tipology </th>
-              <th> Payment </th>
-            </tr></thead><tbody>';
 
+    $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
+    $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+    $HTMLTable = str_replace('{{ caption }}','The page work history displays all the job offer you created.
+    Click on a job title to display more informations!',$HTMLTable);
+    
     if($conn) {
       // Ottiene Valori da Query - Past Jobs
-      // Query : SELECT * FROM past_jobs WHERE Code_user = $_SESSION['Code_User'];
       $Result = $DbAccess->getPastJobListbyCreator($_SESSION['user_ID']);
+      $table = "";
       if($Result) {
         foreach ($Result as $row) {
-          $table .= '<tr>';
-          $table .= '<td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>';
-          $table .= '<td>'.trim($row["Status"]).'</td>';
-          $table .= '<td>'.trim($row["Tipology"]).'</td>';
-          $table .= '<td>'.trim($row["Payment"]).'</td>';
-          $table .= '</tr>';
+          $table .= '<tr>
+            <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
+            <td>'.trim($row["Status"]).'</td>
+            <td>'.trim($row["Tipology"]).'</td>
+            <td>'.trim($row["Payment"]).'</td>
+            </tr>';
         } 
-        $table .='</tbody></table></div>';
+        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
       }
-      else {
-        $table .='</tbody></table><p>No Data Currently Available</p></div>';
+      else 
+      {        
+        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
+        $HTMLTable .= '<p>No content to show</p>';
       }
+
     }    
     else
       header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
 
+    $HTMLTable .= '</div>';
     // Rimpiazza Valori su file html
-    $HTML = str_replace('<div id="content"></div>',$table,$HTML);
+    $HTML = str_replace('<div id="content"></div>',$HTMLTable,$HTML);
     // Stampo File Modificato
     echo $HTML;
   }

@@ -10,6 +10,9 @@
     $HTML = file_get_contents($url);
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Change Password",$HTML);
+
+    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=6">','<a href="../PHP/UserProfile.php?section=6" class="selected">',$HTML);
+
     $HTMLContent='<form id="changePsw" action="../PHP/ChangePassword.php" method="post">
       <fieldset>
       <legend>Change Password</legend>
