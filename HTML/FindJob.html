@@ -16,8 +16,7 @@
   <meta name="description" content="Find the perfect job for you!" />
   <meta name="keywords" content="Find Job, Find, FindWork, Job, WebsiteName" />
   
-  <!-- Javascript -->
-	<script type="text/javascript" src="../JS/searchTag.js"></script>
+  
 
   <!-- Fogli di Stile -->
   <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen" />
@@ -79,9 +78,12 @@
           </select>
         
           <!-- Filled with Entries from DB -->
-          <label for="searchTag" id="labelTags">Search Tags: </label>
-          <input type="text" id="searchTag" placeholder="Tag Name" />
-          <tags/>
+          <label for="searchTag" id="labelsearchTag">Search Tags: </label>
+          <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
+		  <label for="searchTag" id="helpLabelsearchTag"></label>
+		  <div id="tagsList">
+		  </div>
+          <!--<tags/>-->
 
           <button type="submit" name="filter" id="submit">Filter</button>
         </fieldset>
@@ -97,5 +99,7 @@
     <p> For More Info : blah blah blah</p>
   </footer>
   
+  <!-- Javascript -->
+	<script type="text/javascript" src="../JS/searchTag.js"></script>
 </body>
 </html>

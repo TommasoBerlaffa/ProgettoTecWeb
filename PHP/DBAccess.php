@@ -374,11 +374,15 @@ class DBAccess {
   desc: returns list of tags of an ID for the choosen relative table.
   ****************************/
   public function searchTags($word) {
+	//echo(gettype($word));
+	//echo($word);
     if(isset($word)) {
-		$query='SELECT Name FROM tags WHERE Name LIKE "?%" ESCAPE';
+		$word.='%';
+		$query="SELECT Code_tag, Name FROM tags WHERE Name LIKE ?";
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $query);
+		//echo($queryCall===false);
 		mysqli_stmt_bind_param($queryCall,'s',$word);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -388,7 +392,7 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_column($queryResult,0))
+			while ($tmp=mysqli_fetch_row($queryResult))
 				array_push($result,$tmp);
 			return $result;
 		}

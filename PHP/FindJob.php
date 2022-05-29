@@ -54,23 +54,24 @@
         $ndate=744;
     }
     
-    $tags=$DBAccess->getAllTags();
-    $TagSelectUrl='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagSelect.html';
-    $HtmlTags=file_get_contents($TagSelectUrl);
-
-    if($tags)
-    {
-      $NewHtml='';
-      foreach($tags as $t)
-      {
-        $NewHtml.= '<option class="tag">'.trim($t["Name"]).'</p>';
-      }
-
-      $HtmlTags = str_replace('{{ Tags }}',$NewHtml,$HtmlTags);;
-      
-    }
-
-    $HTML = str_replace('<tags/>',$HtmlTags,$HTML);
+	$tag='';
+    //$tags=$DBAccess->getAllTags();
+    //$TagSelectUrl='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagSelect.html';
+    //$HtmlTags=file_get_contents($TagSelectUrl);
+	//
+    //if($tags)
+    //{
+    //  $NewHtml='';
+    //  foreach($tags as $t)
+    //  {
+    //    $NewHtml.= '<option class="tag">'.trim($t["Name"]).'</p>';
+    //  }
+	//
+    //  $HtmlTags = str_replace('{{ Tags }}',$NewHtml,$HtmlTags);;
+    //  
+    //}
+	//
+    //$HTML = str_replace('<tags/>',$HtmlTags,$HTML);
     $result = $DBAccess->searchJob($type,$min,$ndate,$tag);
     if($result)
     {
