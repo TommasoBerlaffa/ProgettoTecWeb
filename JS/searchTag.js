@@ -19,6 +19,7 @@ function mycallback(response){
 		var bt=document.createElement('button');
 		bt.innerHTML=list[i][1];
 		bt.value=list[i][0];
+    bt.className="btnTag";
 		div.appendChild(bt);
 	}
 	//document.appendChild(div);
