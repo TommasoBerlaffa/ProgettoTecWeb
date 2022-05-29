@@ -26,19 +26,31 @@
 :root {
   --color: #a6ed80;
   --subcolor: #a2eb94;
+  --background: #b2d6a7;
+  --content: white;
+  --blackgreen: #336600;
+  --selected: #36d660;
 }
 
 /* - 1.0 General CSS For every page - */
 html {
   width: 100%;
+  background-color: var(--background);
+}
+
+html, 
+body {
+    min-height: 100vh;
 }
 
 body {
+  background-color: var(--content);
   font-family:Trebuchet MS,sans-serif;
   font-size: 16px;  
   margin:auto;  
   max-width: 1024px;
   overflow-x: hidden;
+
 }
 
 main {
@@ -107,7 +119,7 @@ nav.breadcrumb{
 footer {
   position: fixed;
   bottom: 0;
-  height: fit-content;
+  height: 5%;
   width: 100%;
   text-align:center;
   background-color: var(--color);
@@ -200,8 +212,8 @@ div#errorMessages {
 form#SignUp {
   position: absolute;
   top: 20%;
-  left: 20%;
-  width:60%;
+  left: 25%;
+  width: 50%;
   max-width: 80%;
 }
 
@@ -268,7 +280,7 @@ form#formFilter fieldset{
   " c d "
   " e f "
   " s t "
-  " s t "
+  " h h "
   " g g ";
 }
 
@@ -305,26 +317,36 @@ form#formFilter #Date {
   grid-area: f;
 }
 
+form#formFilter #labelsearchTag {
+  margin-left: 0.5em;
+  grid-area: s;
+}
+
+form#formFilter #searchTag {
+  grid-area: t;
+  width: 80%;
+}
+
+form#formFilter div#tagsList {
+  grid-area: h;
+}
+
+.btnTag{
+  border: 1px solid var(--blackgreen);
+  margin: 0.3em;
+  background-color: #fff;
+}
+
 form#formFilter #submit {
   width: 80%;
   margin: auto; 
   grid-area: g;
 }
 
-form#formFilter #labelTag {
-  margin-left: 0.5em;
-  grid-area: s;
-}
-
-form#formFilter #selectorTag {
-  grid-area: t;
-  width: 80%;
-}
-
 /* - 6.1 Find Job Content - */
-div#jobList{
+div#jobList {
   margin-left: 5%;
-  margin-right: 15%;
+  margin-right: 5%;
   flex-grow: 1;
 }
 
@@ -384,6 +406,10 @@ div#sidebar {
   color: black;
   padding: 1em;
   text-decoration: none;
+}
+
+#sidebar a.selected {
+  background-color: var(--selected);
 }
 
 #sidebar img.icons{
@@ -447,7 +473,9 @@ div#userinfo {
 
 div.headchapter {
   padding-bottom: 0.5em;
-  border-bottom: 2px solid black;
+  border-right: 2px solid var(--blackgreen);
+  border-bottom: 2px solid var(--blackgreen);
+  border-radius: 0 0 10px 0;
   margin-right: 20%;
 }
 
@@ -653,7 +681,9 @@ div#JobInfo {
   margin:auto;
   margin-top : 1em;
   width: 50%;
+  overflow:hidden;
   border : 2px black solid;
+  border-radius: 10px 10px 0 0;
   box-shadow:0 0 10px #999;
 
   display: grid;
@@ -674,6 +704,9 @@ div#JobInfo p{
 }
 
 div#JobInfo h1 {
+  background-color: var(--color);
+  margin-block-start: auto;
+  margin-block-end: auto;
   text-align: center;
   grid-area: t;
 }
@@ -708,7 +741,7 @@ p#description{
 }
 
 div#feedback {
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
   border : 2px black solid;
   width : 50%;
   margin : auto;
@@ -751,9 +784,10 @@ input.stars {
 
 /* - 8.1 View Offer - */
 div#bids {
-  width: 40%;
+  width: 50%;
   margin: auto;
   margin-top: 1em;
+  border-radius: 0 0 10px 10px;
   border: 2px black solid;
   box-shadow: 0 0 10px #999;
 }
@@ -776,13 +810,54 @@ form#addBid {
 /* - 9.0 Index - */
 main#Home {
   margin: auto;
+  margin-bottom: 3%;
+  padding-bottom: 1em;
   width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  " a b "
+  " a s "
+  " c d "
+  " t d "
+  " e e ";
 }
 
-h2.index {
+img#firstImg {
+  grid-area: a;
+  width: inherit;
+}
+
+div#Intro {
+  grid-area: b;
+}
+
+div#Account {
+  grid-area: s;
+}
+
+div#Function {
+  grid-area: c;
+}
+
+div#UserProf {
+  grid-area: t;
+}
+
+img#secondImg {
+  grid-area: d;
+  width: inherit;
+}
+
+div#popularJobs {
+  grid-area: e;
+}
+
+h1.index {
   text-align:justify;
   padding-left : 2em;
   text-decoration: underline;
+  font-size: 150%;
 }
 
 p.subIndex {
@@ -792,6 +867,12 @@ p.subIndex {
 
 /* -10.0 View User - */
 div#userInfo {
+  margin:auto;
+  width: 40%;
+  padding-top: 1em;
+}
+
+div#userFeedback {
   margin:auto;
   width: 40%;
   padding-top: 1em;

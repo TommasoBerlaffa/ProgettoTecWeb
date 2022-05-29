@@ -23,9 +23,9 @@
     $HTML = str_replace('<createjob/>','',$HTML);
       $HTMLContent = '
         <li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php">
-        <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'login.svg" class="icons"> Login </a></li>
+        <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'login.svg" class="icons" alt="icon login"> Login </a></li>
         <li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Signup.php">
-        <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'book.svg" class="icons"> Sign up </a></li>';
+        <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'book.svg" class="icons" alt="icon signup"> Sign up </a></li>';
   }
 
   // Cambio Pagina

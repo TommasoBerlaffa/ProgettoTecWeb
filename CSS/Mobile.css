@@ -43,7 +43,6 @@
   }
   
   footer {
-    margin-left: 10%;
     bottom: unset;
     height: 5%;
     top: 0;
@@ -94,7 +93,6 @@
   nav.breadcrumb{
     position: fixed;
     left: 0;
-    margin-left: 10%;
     top: 5%;
     height: 3%;
     width: 100%;
@@ -167,7 +165,7 @@
     height: fit-content;
     min-height: fit-content; 
     overflow: unset;
-    width: 10%;
+    width: 12%;
   }
 
   #sidebar a {
@@ -243,6 +241,10 @@
   div#userInfo {
     width: 90%;
     padding-top: 2em;
+  }
+
+  .UPMargin {
+    margin-left: 12%;
   }
 }
 
