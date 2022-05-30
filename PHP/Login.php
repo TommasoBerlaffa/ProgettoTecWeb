@@ -39,6 +39,14 @@
           $_SESSION['user_Status'] = $Logged['Status'];
           $_SESSION['user_Username'] = $Logged['Username'];
           $_SESSION['user_Icon'] = $Logged['Icon'];
+		  $taglist = $DBAccess->getTags($Logged['ID'],0);
+		  unset($_SESSION['TagList']);
+		  $_SESSION['TagList']=array();
+		  foreach($taglist as $tag){
+			echo "<script>console.log('Tag: " . $tag . "' );</script>";
+			$_SESSION['TagList'][$tag] = $tag;
+			echo "<script>console.log('Inserted: " . $_SESSION['TagList'][$tag] . "' );</script>";
+		  }
 
           if(isset($page))
             $id=filter_var($_GET['section'], FILTER_VALIDATE_INT);
