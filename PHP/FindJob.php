@@ -39,6 +39,8 @@
     isset($_POST["Tipology"]) ? $type =  $_POST["Tipology"] : $type= 'Any';
     isset($_POST["PayMin"]) ? $min =  $_POST["PayMin"] : $min='0';
     isset($_POST["Date"]) ? $date =  $_POST["Date"] : $date ='Any';
+    isset($_POST["selectorTag"]) ? $tag =  $_POST["selectorTag"] : $tag ='Any';
+    isset($_POST["selectTags"]) ? $tag2 =  $_POST["selectTags"] : $tag2 ='Any';
     $ndate=null;
     if($date!='Any')
     {
@@ -52,7 +54,7 @@
         $ndate=744;
     }
     
-	  $tag='';
+	$tag='';
     //$tags=$DBAccess->getAllTags();
     //$TagSelectUrl='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagSelect.html';
     //$HtmlTags=file_get_contents($TagSelectUrl);

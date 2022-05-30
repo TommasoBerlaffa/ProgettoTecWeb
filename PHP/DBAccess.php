@@ -359,7 +359,7 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_column($queryResult,0))
+			while ($tmp=mysqli_fetch_assoc($queryResult,0))
 				array_push($result,$tmp);
 			return $result;
 		}
@@ -378,7 +378,7 @@ class DBAccess {
 	//echo($word);
     if(isset($word)) {
 		$word.='%';
-		$query="SELECT Code_tag, Name FROM tags WHERE Name LIKE ?";
+		$query="SELECT Name FROM tags WHERE Name LIKE ?";
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $query);
@@ -392,7 +392,7 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_row($queryResult))
+			while ($tmp=mysqli_fetch_assoc($queryResult))
 				array_push($result,$tmp);
 			return $result;
 		}
