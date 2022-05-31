@@ -108,7 +108,9 @@
 
   /* 1.5.2 Sign Up Input Form */ 
   form#SignUp {
-    width:80%;
+    top: 15%;
+    left: 10%;
+    width: 80%;
   }
 
   /* 1.6.0 Filter for Page Find Job */
