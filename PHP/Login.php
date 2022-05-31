@@ -43,9 +43,7 @@
 		  unset($_SESSION['TagList']);
 		  $_SESSION['TagList']=array();
 		  foreach($taglist as $tag){
-			echo "<script>console.log('Tag: " . $tag . "' );</script>";
-			$_SESSION['TagList'][$tag] = $tag;
-			echo "<script>console.log('Inserted: " . $_SESSION['TagList'][$tag] . "' );</script>";
+			$_SESSION['TagList'][$tag['Name'] ] = $tag['Name'] ;
 		  }
 
           if(isset($page))

@@ -359,7 +359,7 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_assoc($queryResult,0))
+			while ($tmp=mysqli_fetch_assoc($queryResult))
 				array_push($result,$tmp);
 			return $result;
 		}
