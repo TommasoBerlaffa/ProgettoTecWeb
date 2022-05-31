@@ -18,17 +18,15 @@
 
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
-    
-    $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
-    $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
-    $HTMLTable = str_replace('{{ caption }}','The page Bid History display all your successful Bids.
-    Click on a job Title to display more infos!',$HTMLTable);
 
     if($conn) {
-    
       $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],true);
-      $table = "";
       if($Result) {
+        $table = "";
+        $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
+        $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+        $HTMLTable = str_replace('{{ caption }}','The table in page Bid History display all your past bids.
+        You can click on a job title to display more information!',$HTMLTable);
         foreach($Result as $row ) {
           $table .= '<tr>
             <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
@@ -40,10 +38,8 @@
         $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
       }
       else
-      {
-        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);  
-        $HTMLTable .= '<p>No content to show</p>';
-      }
+        $HTMLTable = '<div id="content"><p class="tableEmpty">You currently have no past bids. If you want to start making your bid history, you should check <a href="">Find a Job Offer</a> and try your first bid</p>';
+
 
     }    
     else

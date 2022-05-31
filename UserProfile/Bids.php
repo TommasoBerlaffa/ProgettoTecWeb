@@ -18,21 +18,16 @@
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
 
-    // Crea una table da aggiungere al file HTML
-
-    $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableBid.html';
-    $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
-    $HTMLTable = str_replace('{{ caption }}','The page Bids display all your current Bids.
-    Click on a job Title to display more infos!',$HTMLTable);
-
-    $HTMLTable2 = file_get_contents($urlTable);
-    $HTMLTable2 = str_replace('{{ caption }}','This table shows all the your current bid to jobs  ',$HTMLTable2);
-
     if($conn)
     {
       $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],false);
-      $table = "";
+      
       if($Result) {
+        $table = "";
+        $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableBid.html';
+        $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+        $HTMLTable = str_replace('{{ caption }}','This table in page Bids displays all your current Bids.
+        You can check all the job and bid info by clicking on the job title.',$HTMLTable);
         foreach($Result as $row ) {
           $table .= '<tr>
           <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
@@ -43,15 +38,16 @@
         $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
       }
       else
-      {
-        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
-        $HTMLTable .= '<p>No content to show</p>';
-      }
-
+        $HTMLTable = '<div id="content"><p class="tableEmpty">You currently have no active bids. If you want to make a bid for a Job, check <a href="">Find a Job Offer</a> to find a Job Offer</p>';
 
       $Result2 = $DbAccess->getJobListbyCreator($_SESSION['user_ID']);
-      $table2 = "";
+     
       if($Result2){
+        $table2 = "";
+        $urlTable2 = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJobWBid.html';
+        $HTMLTable2 = file_get_contents($urlTable2);
+        $HTMLTable2 = str_replace('{{ caption }}','This table shows all your current jobs with the number of bids that are placed on them. 
+        You can click on the job title to show more informations.',$HTMLTable2);
         foreach ($Result2 as $row) {
           $table2 .= '<tr>
             <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
@@ -60,18 +56,16 @@
           </tr>';
         } 
         $HTMLTable2 = str_replace('{{ value }}',$table2,$HTMLTable2);
+        $HTMLTable .= $HTMLTable2;
       }
       else
-      {
-        $HTMLTable2 = str_replace('{{ value }}',$table2,$HTMLTable2);
-        $HTMLTable2 .= '<p>No content to show</p>';
-      }
+        $HTMLTable .= '<div id="content"><p>You currently have no active job. If you want to make a new job offer, feel free to check <a href="">Create a Job Offer</a></p>';
 
     }           
     else
       header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');            
     
-    $HTMLTable .= $HTMLTable2;
+    
     $HTMLTable .= '</div>';
     // Rimpiazza Valori su file html
     $HTML = str_replace('<div id="content"></div>',$HTMLTable,$HTML);

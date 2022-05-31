@@ -26,7 +26,7 @@
       if($Result) {
         
         $content .= '<div id="userinfo">
-          <div class="headchapter"><h2 class="chapter"> Username : '. trim($Result["Nickname"]) .'</h2>
+          <div class="headchapter"><h1 class="chapter"> Username : '. trim($Result["Nickname"]) .'</h1>
           <img id="icon" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . trim($Result["Picture"]) .'" alt="Profile Picture"></div>
           <p> Name & Surname : '. trim($Result["Name"]) ." ". trim($Result["Surname"]) .' </p>
           <p> Status : '. trim($Result["Status"]) .' </p>
@@ -44,7 +44,7 @@
         $Review = $DbAccess->getUserReviewList($_SESSION['user_ID']);
         
         if($Review) {
-          $content .= '<div id="feedbacks"><div class="headchapter"><h2 class="chapter"> Your Reviews : </h2></div>';
+          $content .= '<div id="feedbacks"><div class="headchapter"><h1 class="chapter"> Your Reviews : </h1></div>';
           foreach($Review as $R)
           {
             // Replace Review with link to the job info

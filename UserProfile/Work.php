@@ -15,20 +15,18 @@
     $HTML = str_replace('<a href="../PHP/UserProfile.php?section=2">','<a href="../PHP/UserProfile.php?section=2" class="selected">',$HTML);
 
     $DbAccess = new DBAccess();
-    $conn = $DbAccess->openDBConnection();
-
-    // Crea una table da aggiungere al file HTML
-
-    $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
-    $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
-    $HTMLTable = str_replace('{{ caption }}','The page work history displays all the job offer you created.
-    Click on a job title to display more informations!',$HTMLTable);
+    $conn = $DbAccess->openDBConnection();    
     
     if($conn) {
       // Ottiene Valori da Query - Past Jobs
       $Result = $DbAccess->getPastJobListbyCreator($_SESSION['user_ID']);
-      $table = "";
+
       if($Result) {
+        $table = "";
+        $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
+        $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+        $HTMLTable = str_replace('{{ caption }}','The table in page work history displays all the job offer you created and are already terminated.
+        You can click on a job title to display more informations',$HTMLTable);
         foreach ($Result as $row) {
           $table .= '<tr>
             <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
@@ -40,10 +38,8 @@
         $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
       }
       else 
-      {        
-        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
-        $HTMLTable .= '<p>No content to show</p>';
-      }
+        $HTMLTable = '<div id="content"><p class="tableEmpty">You currently have no past job offer that are terminated. If you want to create a job offering history, you should start by creating some jobs offer.
+        Feel free to check out <a href="">create a job offer</a></p></div>';
 
     }    
     else

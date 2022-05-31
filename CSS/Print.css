@@ -1,0 +1,27 @@
+html {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.hiddenHelp {
+  display: none;
+}
+
+header, header > img {
+  display: none;
+}
+
+ul#menu, ul#menu img{
+  display: none;
+}
+
+nav.breadcrumb {
+  display: none;
+}
+
+div#sidebar, div#sidebar img{
+  display: none;
+}
+
+footer#footer, footer#footer img {
+  display: none;
+}
