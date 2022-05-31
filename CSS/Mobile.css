@@ -37,21 +37,20 @@
     display: block;
   }
   
-  main {  
-    margin-top:15%;
+  main { 
+    padding-top: 2em;
+    margin-top:20%;
     margin-bottom: 15%;
   }
   
-  footer {
+  footer#footer {
     bottom: unset;
-    height: 5%;
+    height: 8%;
     top: 0;
   }
 
-  footer img#smallLogo{
-    vertical-align: top;
-    width: 16px;
-    height: 16px;
+  footer#footer img#smallLogo{
+    display: none ;
   }
   
   
@@ -93,7 +92,7 @@
   nav.breadcrumb{
     position: fixed;
     left: 0;
-    top: 5%;
+    top: 8%;
     height: 3%;
     width: 100%;
     border: none;
@@ -235,6 +234,15 @@
   /* - 1.09.0 Index - */
   main#Home {
     margin-top: 12%;
+    grid-template-areas:
+        " b b "
+        " a a "
+        " s s "
+        " c c "
+        " d d "
+        " t t "
+        " e e ";
+    margin-bottom: 10%;
   }
 
   /* - 1.10.0 View User - */

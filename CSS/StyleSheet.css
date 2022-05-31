@@ -22,14 +22,16 @@
 -10.0 View User                               -
 -11.0 Hidden Help                             -
 */
-
+/*  CAMBIA BLACKGREEN 
+    
+    
+    
+    */
 :root {
-  --color: #a6ed80;
-  --subcolor: #a2eb94;
-  --background: #b2d6a7;
-  --content: white;
-  --blackgreen: #336600;
-  --selected: #36d660;
+  --background: #dad7cd;
+  --color: #588157;
+  --subcolor: #A3B18A;
+  --content: #fff;
 }
 
 /* - 1.0 General CSS For every page - */
@@ -46,7 +48,7 @@ body {
 body {
   background-color: var(--content);
   font-family:Trebuchet MS,sans-serif;
-  font-size: 16px;  
+  font-size: 1em;  
   margin:auto;  
   max-width: 1024px;
   overflow-x: hidden;
@@ -54,8 +56,9 @@ body {
 }
 
 main {
-  margin-bottom: 6%;  
-  font-size: 14px; 
+  padding-bottom: 1em;
+  margin-bottom: 3%; 
+  font-size: 0.875em; 
 }
 
 /* - 2.0 Header - */
@@ -84,7 +87,7 @@ header ul li {
 }
 
 header ul li a {
-  color:black;
+  color: var(--background);
   text-decoration: none;
   margin-bottom: 0.2em;
 }
@@ -108,7 +111,7 @@ img#profilepic {
 
 /* - 3.0 Breadcrumb - */
 nav.breadcrumb{
-  font-size: 15px; 
+  font-size: 0.9375em; 
   padding: 0.3em;
   background-color:whitesmoke;
   border-width: 0em;
@@ -116,7 +119,7 @@ nav.breadcrumb{
 }
 
 /* - 4.0 Footer - */
-footer {
+footer{
   position: fixed;
   bottom: 0;
   height: 5%;
@@ -127,15 +130,19 @@ footer {
   margin: auto;
 }
 
-footer p {
+footer#footer p {
   display: inline-block;
-  font-size: small;
+  font-size: 0.875em;
+  color: var(--background);
 }
 
-footer img#smallLogo{
+footer#footer a {
+  color: var(--background);
+}
+
+footer#footer img#smallLogo{
   vertical-align: middle;
-  width: 40px;
-  height: 40px;
+  width: 1.5em;
 }
 
 /* Form per pagina Login, Sign In, Create Job, Find Job*/ 
@@ -149,7 +156,8 @@ fieldset{
 }
 
 legend {
-  background-color: var(--color);
+  background-color: var(--subcolor);
+  padding: 0.3em;
   border-radius: 5px;
   font-weight: bold;
   text-align: center;
@@ -332,7 +340,7 @@ form#formFilter div#tagsList {
 }
 
 .btnTag{
-  border: 1px solid var(--blackgreen);
+  border: 3px solid var(--color);
   margin: 0.3em;
   background-color: #fff;
 }
@@ -409,7 +417,7 @@ div#sidebar {
 }
 
 #sidebar a.selected {
-  background-color: var(--selected);
+  background-color: var(--color);
 }
 
 #sidebar img.icons{
@@ -440,12 +448,38 @@ div#content table {
   width: 100%;
 }
 
+div#content table caption#description{
+  padding: 1em;
+  text-align: center;
+}
+
 div#content table thead{
   background-color: var(--color);
+  color: var(--background);
 }
 
 div#content th{
   text-align: left;
+}
+
+div#content th.jobLongTh{
+  width: 35%;
+}
+
+div#content th.jobMidTh{
+  width: 25%;
+}
+
+div#content th.jobShortTg{
+  width: 15%;
+}
+
+div#content th.bidLongTh{
+  width: 40%;
+}
+
+div#content th.bidShortTg{
+  width: 30%;
 }
 
 div#content table, 
@@ -453,6 +487,10 @@ div#content th,
 div#content td {
   padding: 0.2em;
   border-collapse: collapse;
+}
+
+div#content p.tableEmpty {
+  text-align: center;
 }
 
 /* - 7.2 User Profile Welcome Page - */
@@ -473,13 +511,14 @@ div#userinfo {
 
 div.headchapter {
   padding-bottom: 0.5em;
-  border-right: 2px solid var(--blackgreen);
-  border-bottom: 2px solid var(--blackgreen);
+  border-right: 2px solid var(--color);
+  border-bottom: 2px solid var(--color);
+  background-color: var(--subcolor);
   border-radius: 0 0 10px 0;
   margin-right: 20%;
 }
 
-h2.chapter {
+h1.chapter {
   display:inline;
 }
 
@@ -694,17 +733,21 @@ div#JobInfo {
   " a b "
   " c d "
   " e . "
-  " f f ";
+  " f f "
+  " g h ";
 }
 
-div#JobInfo p{
+div#JobInfo p,
+div#JobInfo a{
   padding-left: 1em;
   padding-right: 1em;
+  padding-bottom: 1em;
   margin: 0%;
 }
 
 div#JobInfo h1 {
   background-color: var(--color);
+  color: var(--background);
   margin-block-start: auto;
   margin-block-end: auto;
   text-align: center;
@@ -733,6 +776,14 @@ div#JobInfo .pay {
 
 div#JobInfo .desc {
   grid-area: f; 
+}
+
+div#JobInfo .cancel {
+  grid-area: g; 
+}
+
+div#JobInfo .terminate {
+  grid-area: h; 
 }
 
 p#description{
@@ -857,7 +908,7 @@ h1.index {
   text-align:justify;
   padding-left : 2em;
   text-decoration: underline;
-  font-size: 150%;
+  font-size: 1.375em;
 }
 
 p.subIndex {
@@ -901,6 +952,11 @@ div#userFeedback {
     height: 20%;  
   }
 
+  /* - 4.0 Footer - */
+  footer#footer {    
+    height: 8%;
+  }
+
   /* - 5.1 Login Input Form - */
   form#login {
     position: absolute;
@@ -911,11 +967,11 @@ div#userFeedback {
 
   /* - 7.0 Sidebar for User Profile - */
   div#sidebar { 
-    width: 25%;
+    width: 15%;
   }
 
   span.sidebarText{
-    font-size: small;   
+    font-size: 0.875em;   
     display: block;
   }
   
