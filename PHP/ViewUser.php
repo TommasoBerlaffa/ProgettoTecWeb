@@ -23,34 +23,36 @@ if(isset($_SESSION['user_Username']))
       $row = $DbAccess->getUser($index);
       //Se trova risultato
       if($row) {                
-        $HTML = str_replace("{{ User }}",trim($row["Nickname"]),$HTML);
+        $HTML = str_replace("{{ Nickname }}",trim($row["Nickname"]),$HTML);
         $HTML = str_replace("{{ Name }}",trim($row["Name"]),$HTML); 
         $HTML = str_replace("{{ Surname }}",trim($row["Surname"]),$HTML);
         $HTML = str_replace("{{ Picture }}",trim($row["Picture"]),$HTML);
         $HTML = str_replace("{{ Status }}",trim($row["Status"]),$HTML);
-        $HTML = str_replace("{{ Birth }}",trim($row["Birth"]),$HTML);
+        $HTML = str_replace("{{ Phone }}",($row["Phone"] ? trim($row["Phone"]) : 'Not Available'),$HTML);
         $HTML = str_replace("{{ Email }}",trim($row["Email"]),$HTML);
-        $HTML = str_replace("{{ Nationality }}",trim($row["Nationality"]),$HTML);
-        $HTML = str_replace("{{ City }}",trim($row["City"]),$HTML);
         $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
         $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
         
         $Review = $DbAccess->getUserReviewList($_SESSION['user_ID']);
         
         if($Review) {
-          $content = '<div id="userFeedback"><div class="headchapter"><h2 class="chapter"> Your Reviews : </h2></div>';
+          $content = '<div id="viewUserFeedBack"><div class="headchapter">
+                    <h1 class="chapter">'.trim($row["Nickname"]). '\'s Reviews : </h1></div>';
+          $average = $DbAccess->getUserReview($index);
+          $content .= '<p>'.trim($row["Nickname"]).' average rating :'.trim($average["AvgStar"]) .'</p>';
           foreach($Review as $R)
           {
+            $User = $DbAccess->getUser(trim($R["C_Rew"]));
             // Replace Review with link to the job info
             $content .= '<div class="review">
-              <p class="comment">' .$R->getComments() .' </p>
-              <p class="star">Rating :'.$R->getStars() .'/5</p>
-              <p class="date">Date : '.$R->getDateTime().' </p> 
-              </div>';
+              <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
+              <p class="star">Date :'.trim($R["Date"]) .'</p>
+              <p class="date">Rating : '.trim($R["Stars"]).'/5 </p> 
+            </div>';
           }
           $content .= '</div>';
 
-          $HTML = str_replace('<div id="userFeedback"></div>',$content,$HTML);
+          $HTML = str_replace('<div id="viewUserFeedBack"></div>',$content,$HTML);
         } //Se non trova un risultato
       }
       else

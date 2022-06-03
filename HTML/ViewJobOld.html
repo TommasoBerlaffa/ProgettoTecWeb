@@ -22,7 +22,7 @@
   <link rel="styleSheet" type="text/css" href="../CSS/Mobile.css" media="screen"> 
   
   <!-- Icona -->
-  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico"/>
 
   <!-- Add icon library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -34,9 +34,9 @@
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
     <ul>
-      <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.png" class="icons"> Home </a> </li>
-      <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.png" class="icons"> Find a Job </a> </li>
-      <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.png" class="icons"> Create an Offer </a> </li>
+      <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.png" class="icons" alt="icon home"> Home </a> </li>
+      <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.png" class="icons" alt="icon find job"> Find a Job </a> </li>
+      <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.png" class="icons" alt="icon create job offer page"> Create an Offer </a> </li>
       <subpage/>
     </ul>
     
@@ -49,13 +49,14 @@
   <main>
     <div id="JobInfo">
       <h1>Job Offer : {{ Title }}</h1>
+      <p>{{ Creator }}</p>
       <p class="status" > Status : {{ Status }} </p>  
       <p class="type" > Type : {{ Tipology }} </p>
       <p class="date" > Date : {{ Date }} </p>
       <p class="expiration" > Expiration Date : {{ Expiring }} </p>
       <p class="pay" > Payment : {{ Payment }} </p>
       <div id="desc" class="desc">
-        <p for="description">Description : </p> 
+        <p>Description : </p> 
         <p id="description"> {{ Description }} </p>
       </div> 
     </div>
@@ -63,7 +64,7 @@
   </main>
   <!-- Footer -->
   <footer  id="footer">
-    <img src="../IMG/ShortLogo.png" id="smallLogo">
+    <img src="../IMG/ShortLogo.png" id="smallLogo" alt="Small Logo Job Finder">
     <p> For more informations check out the <a href="">FAQ</a> - To report a bug or a issue, contant our Admin at admin@JobFinder.mail.com</p>
   </footer>
 </body>

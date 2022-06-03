@@ -32,30 +32,6 @@ Function List:
 25.removeBid
 */
 
-class review {
-	private const Stars=0;
-	private const Comments='';
-	private const DateTime='';
-
-	public function __construct($s,$c,$d){
-		$this->Stars=$s;
-		$this->Comments=$c;
-		$this->DateTime=$d;
-	}
-
-	public function getStars(){
-		return $this->Stars;
-	}
-
-	public function getComments(){
-		return $this->Comments;
-	}
-
-	public function getDateTime(){
-		return $this->DateTime;
-	}
-}
-
 class DBAccess {
 	//completare
 	private const HOST_DB='localhost';
@@ -189,7 +165,8 @@ class DBAccess {
   ****************************/
   public function getJobReview($id) {
     if(isset($id)){
-      $queryInserimento = 'SELECT * FROM reviews WHERE Code_job = ?;';
+      $queryInserimento = 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
+        FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_job = ?;';
       if(!($this->openDBConnection()))
         die('\r\nFailed to open connection to the DB');
       $queryCall=null;
@@ -202,10 +179,10 @@ class DBAccess {
       if(mysqli_num_rows($queryResult) == 0)
         return null;
       else {
-        $result=array();
-        while ($tmp=mysqli_fetch_assoc($queryResult))
-          array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
-        return $result;
+        if(mysqli_num_rows($queryResult) > 1)
+          return null;
+        else
+          return mysqli_fetch_assoc($queryResult);
       }
     } else
       return null;
@@ -586,7 +563,8 @@ class DBAccess {
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT User_Review(?);');
+    // $queryCall=mysqli_prepare($this->connection, 'SELECT User_Review(?);');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT AVG(Stars) AS AvgStar FROM reviews WHERE Code_user =?;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -605,7 +583,8 @@ class DBAccess {
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT Stars, Comments, Date FROM reviews WHERE Code_user=?;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
+    FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -616,7 +595,7 @@ class DBAccess {
 		else {
 			$result=array();
 			while ($tmp=mysqli_fetch_assoc($queryResult))
-				array_push($result, new review($tmp['Stars'],$tmp['Comments'],$tmp['Date']));
+				array_push($result, $tmp);
 			return $result;
 		}
     } else
