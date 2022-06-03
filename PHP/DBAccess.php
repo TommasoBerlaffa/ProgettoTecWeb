@@ -291,23 +291,36 @@ class DBAccess {
   par: int jobID, enum status, bool old;
   desc: cambia lo stato di un lavoro jobID corrente o passato(bool old). ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function changeJobStatus($id,$status) {
-    $tmp=array('Deleted', 'Frozen','Success','Unsucces');
-    if(isset($id) and isset($status) and in_array($status,$tmp)){
-      $queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
-      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      mysqli_stmt_bind_param($queryCall,'is',$id,$status);
-      mysqli_stmt_execute($queryCall);
-      mysqli_stmt_close($queryCall);
-      $result = mysqli_affected_rows($this->connection);
-      $this->closeDBConnection();
-      if($result)
-        return true;
-      return false;
-    } else
-      return null;
+  public function changeJobStatus($id,$status,$old) {
+	if(isset($old))
+		echo("1");
+	$queryInserimento = '';
+    if(isset($id) and isset($status)){
+		if(isset($old) and $old==true and in_array($status,array('Deleted', 'Frozen','Success','Unsucces')))
+			$queryInserimento = 'UPDATE `past_jobs` SET `Status` = ? WHERE `past_jobs`.`Code_job` = ?;';
+		else if(in_array($status,array('Active', 'Frozen','Expired')))
+			$queryInserimento = 'UPDATE `current_jobs` SET `Status` = ? WHERE `current_jobs`.`Code_job` = ?;';
+		else
+			return null;
+		if(isset($old))
+			echo("2");
+		if(!($this->openDBConnection()))
+			die('\r\nFailed to open connection to the DB');
+		
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		mysqli_stmt_bind_param($queryCall,'si',$status,$id);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		$result = mysqli_affected_rows($this->connection);
+		$this->closeDBConnection();
+		if(isset($old))
+			echo("3");
+		if($result)
+			return true;
+		return false;
+	}
+    else
+		return null;
   }
 
   /***10.Get List of all Tags***
