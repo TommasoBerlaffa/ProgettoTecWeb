@@ -10,7 +10,7 @@
     $HTML = file_get_contents($url);
 
     // Cambio Valore BreadCrumb
-    $HTML = str_replace("{{ SubPage }}","Work History",$HTML);
+    $HTML = str_replace("{{ SubPage }}","Your Job Offers",$HTML);
 
     $HTML = str_replace('<a href="../PHP/UserProfile.php?section=2">','<a href="../PHP/UserProfile.php?section=2" class="selected">',$HTML);
 
@@ -25,7 +25,7 @@
         $table = "";
         $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
         $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
-        $HTMLTable = str_replace('{{ caption }}','The table in page work history displays all the job offer you created and are already terminated.
+        $HTMLTable = str_replace('{{ caption }}','The table in page Your Job Offer displays all the job offer you created and are already terminated.
         You can click on a job title to display more informations',$HTMLTable);
         foreach ($Result as $row) {
           $table .= '<tr>

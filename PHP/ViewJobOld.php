@@ -28,45 +28,33 @@ if(isset($_SESSION['user_Username'])) {
       $HTML = str_replace("{{ Tipology }}",trim($row["Tipology"]),$HTML);
       $HTML = str_replace("{{ Date }}",trim($row["Date"]),$HTML);
       $HTML = str_replace("{{ Expiring }}",trim($row["Expiring_time"]),$HTML);
-          
+      $HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'"><abbr title="Information">Info</abbr> on the Creator</a>',$HTML);
+      
       $feedback = $DbAccess->getJobReview($index);
       if(!$feedback) {
         if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
-          $form = '<form class="forInput" action="../PHP/AddFeedback.php" method="post">
-            <fieldset>
-            <legend> Feedback </legend>
-              <label for="star"> Stars :</label>
-              <span class="forstars">
-                <input type="radio" id="star1" class="stars" name="star" value="1" indeterminate>
-                <input type="radio" id="star2" class="stars" name="star" value="2">
-                <input type="radio" id="star3" class="stars" name="star" value="3">
-                <input type="radio" id="star4" class="stars" name="star" value="4">
-                <input type="radio" id="star5" class="stars" name="star" value="5">
-              </span>
-              <label for="comment"> Comment :  </label>
-              <textarea id="comment" name="comment"> </textarea>
-              <button type="submit">Add Feedback </button>
-            </fieldset>
-          </form>';
+          $urlForm = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormFeedback.html';
+          $HTMLForm = file_get_contents($urlForm);
 
-          $HTML = str_replace( '<div id="feedback"></div>', $form ,$HTML);
+          $HTML = str_replace( '<div id="feedback"></div>', $HTMLForm ,$HTML);
           // Aggiungo form per aggiungere feedback
         }
         else // Caso in cui non c'è feedback e non ho l'autorità per aggiungerlo (non sono creatore dell'offerta di lavoro)
           $HTML = preg_replace('/<div id="feedback"><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
       }
       else {
-        $tableFeedback = '<div id="feedback">';
-        foreach($feedback as $F) {
-          $tableFeedback.= '<p class="rating">Rating : '. $F->getStars() .' /5</p>
-            <p class="date"> Date :'.$F->getDateTime(). '</p>
-            <div class="comment">
-            <p for="feedbackDesc"> Comment :</p>
-            <p id="feedbackDesc">'.$F->getComments().'</p>
+        $User = $DbAccess->getUser(trim($feedback["C_Rew"]));
+        $HTMLFeedback = '<div id="feedback">
+          <h1 class="reviewUser">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h1>
+          <p class="rating">Rating : '. trim($feedback["Stars"]) .' /5</p>
+          <p class="date"> Date :'.trim($feedback["Date"]). '</p>
+          <div class="comment">
+          <p> Comment :</p>
+          <p id="feedbackDesc">'.trim($feedback["Comments"]).'</p>
           </div>';
-        }
-        $tableFeedback.='</div>';
-        $HTML = str_replace('<div id="feedback"></div>',$tableFeedback,$HTML);
+        
+        $HTMLFeedback.='</div>';
+        $HTML = str_replace('<div id="feedback"></div>',$HTMLFeedback,$HTML);
       }
     } //Se non trova un risultato
     else {

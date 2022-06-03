@@ -18,7 +18,8 @@ if(isset($_SESSION['user_Username']))
 
   if($conn)
   {
-    $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);  
+    $_SESSION['Code_job'] = $_GET['Code_job'];
+    $index = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);  
     $row = $DbAccess->getJob($index,true);
     //Se trova risultato
     if($row)
@@ -61,14 +62,14 @@ if(isset($_SESSION['user_Username']))
 
         if($_SESSION['user_ID']==trim($row["Code_user"]))
         {
-          $OwnerActions = '<a href="" class="cancel">Cancel this Job Offer</a>
-            <a href="" class="terminate">Terminate this Job Offer</a>';
+          $OwnerActions = '<a href="OfferCancel.php" class="cancel">Cancel this Job Offer</a>
+            <a href="OfferTerminate.php" class="terminate">Terminate this Job Offer</a>';
           $HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
         }
         
         if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
         {
-          $_SESSION['Code_Job'] = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
+          $_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
           // Se non sei il creatore del lavoro, puoi aggiungere una bid
           $HTMLFormBid='<form id="addBid" action="../PHP/AddBid.php" method="post">
             <fieldset>
@@ -103,6 +104,6 @@ if(isset($_SESSION['user_Username']))
   echo $HTML;    
 }
 else
-  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php?url=ViewOffer&job=".filter_var($_GET['Code_job'], FILTER_VALIDATE_INT));    
+  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php?url=ViewOffer&job=".filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT));    
 
 ?>
