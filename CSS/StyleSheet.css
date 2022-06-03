@@ -22,15 +22,27 @@
 -10.0 View User                               -
 -11.0 Hidden Help                             -
 */
-/*  CAMBIA BLACKGREEN 
-    
-    
-    
-    */
-:root {
+/*  
+  GREEN AND BROWN
   --background: #dad7cd;
   --color: #588157;
   --subcolor: #A3B18A;
+  --content: #fff; 
+  BLUE (lul)
+  --background: #dbe9ee;
+  --color: #166088;
+  --subcolor: #4a6fa5;
+  --content: #fff;
+  BLUE AND BROWN
+  --background: #ECE5C7;
+  --color: #354259;
+  --subcolor: #C2DED1;
+  --content: #fff;
+    */
+:root {
+  --background: #ECE5C7;
+  --color: #00679e;
+  --subcolor: #4a6fa5;
   --content: #fff;
 }
 
@@ -52,12 +64,11 @@ body {
   margin:auto;  
   max-width: 1024px;
   overflow-x: hidden;
-
 }
 
 main {
-  padding-bottom: 1em;
-  margin-bottom: 3%; 
+  padding-bottom: 2em;
+  margin-bottom: 10%; 
   font-size: 0.875em; 
 }
 
@@ -122,16 +133,12 @@ nav.breadcrumb{
 footer{
   position: fixed;
   bottom: 0;
-  height: 5%;
+  min-height: 5%;
   width: 100%;
   text-align:center;
   background-color: var(--color);
   max-width: 1024px;
   margin: auto;
-}
-
-footer ul {
-  list-style: none;
 }
 
 footer#footer p {
@@ -161,6 +168,7 @@ fieldset{
 
 legend {
   background-color: var(--subcolor);
+  color: var(--background);
   padding: 0.3em;
   border-radius: 5px;
   font-weight: bold;
@@ -222,9 +230,9 @@ div#errorMessages {
 
 /* - 5.2 Sign Up Input Form - */ 
 form#SignUp {
-  position: absolute;
-  top: 20%;
-  left: 25%;
+  position: inherit;
+  margin: auto;
+  margin-top: 5%;
   width: 50%;
   max-width: 80%;
 }
@@ -232,12 +240,7 @@ form#SignUp {
 form#SignUp input{
   margin-top: 0.5em;
 }
-
-form.forOutput p{
-  font-family:Trebuchet MS,sans-serif;   
-  word-break: break-word; 
-}
-
+  
 /* - 5.3 Change Password Form - */
 form#changePsw {
   margin:auto;
@@ -514,6 +517,7 @@ div#userinfo {
 }
 
 div.headchapter {
+  width: 80%;
   padding-bottom: 0.5em;
   border-right: 2px solid var(--color);
   border-bottom: 2px solid var(--color);
@@ -524,45 +528,37 @@ div.headchapter {
 
 h1.chapter {
   display:inline;
+  font-size: 1.5em;
 }
 
 div.review {
   margin: 3%;
+  display: flex;
+  flex-direction: column;
+}
+
+h2.reviewTitle {
+  font-size: 1.1em;
 }
 
 main img#icon {
   width:32px;
   height:32px;
   float:left;
-  padding-right:  3em;
+  padding-right: 1.5em;
 }
 
-/* review title
-.review .title {
-  background-color: white;
-  border-radius: 10px;
-  text-align: center;
-  margin-right: 30%;
-  margin-top :0;
-  margin-bottom: 0;
-  align-self: flex-start;
-}*/
-
-/* review date
+.review .star,
 .review .date {
- 
-}*/
+  margin-block-start: 0.4em;
+  margin-block-end: 0.4em;
+}
 
-/* review star
-.review .star {
-}*/
-
-/* review comment
 .review .comment {
-  padding : 1em;
-  background-color: white;
-}*/
-
+  width: 60%;
+  padding: 0.5em;
+  border-bottom: 1px solid;
+}
 
 /* - 7.x Change Password Page - */
 div#changePsw {
@@ -651,7 +647,7 @@ form#settings #labelBirth {
   grid-area: l;
 }
 
-form#setting #Birth {
+form#settings #Birth {
   grid-area: m;
 }
 
@@ -723,7 +719,7 @@ div#errorList p {
 div#JobInfo {
   margin:auto;
   margin-top : 1em;
-  width: 50%;
+  width: 60%;
   overflow:hidden;
   border : 2px black solid;
   border-radius: 10px 10px 0 0;
@@ -798,19 +794,29 @@ p#description{
 div#feedback {
   border-radius: 0 0 10px 10px;
   border : 2px black solid;
-  width : 50%;
+  width : 60%;
   margin : auto;
   margin-top: 1em;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
+  " u u "
   " a b "
   " c c ";
 }
 
 div#feedback p {
   padding-left : 1.4em;
+}
+
+div#feedback h1 {
+  padding-left: 2em;
+  font-size: 1.2em;
+}
+
+div#feedback .reviewUser {
+  grid-area: u;
 }
 
 div#feedback .rating {
@@ -829,6 +835,26 @@ div#feedback p#feedbackDesc{
   margin: 1em;
 }
 
+form#AddFeedback {
+  margin: auto;
+  margin-top: 1em;
+  width: 60%;
+}
+
+form#AddFeedback fieldset {
+  border-radius: 0 0 10px 10px;
+  border: 2px solid;
+}
+
+
+form#AddFeedback button {
+  display: block;
+}
+
+label.labelStar {
+  display: inline-block;
+}
+
 input.radio {
   display:inline;
 }
@@ -839,7 +865,7 @@ input.stars {
 
 /* - 8.1 View Offer - */
 div#bids {
-  width: 50%;
+  width: 60%;
   margin: auto;
   margin-top: 1em;
   border-radius: 0 0 10px 10px;
@@ -852,8 +878,8 @@ div#bids p.error{
 }
 
 div.bid {
-  padding-bottom: 1em;
-  padding-left: 1em;
+  margin: 1em;
+  border-bottom: 1px solid var(--subcolor)
 }
 
 form#addBid {
@@ -865,7 +891,7 @@ form#addBid {
 /* - 9.0 Index - */
 main#Home {
   margin: auto;
-  margin-bottom: 3%;
+  margin-bottom: 5%;
   padding-bottom: 1em;
   width: 90%;
   display: grid;
@@ -921,16 +947,23 @@ p.subIndex {
 }
 
 /* -10.0 View User - */
-div#userInfo {
-  margin:auto;
-  width: 40%;
-  padding-top: 1em;
+main#viewUser {
+  display: flex;
+  align-items: flex-start;
 }
 
-div#userFeedback {
-  margin:auto;
+div#viewUserInfo {
+  width: 55%;
+  padding: 1em;
+}
+
+div#viewUserFeedBack {
   width: 40%;
-  padding-top: 1em;
+  padding: 1em;
+}
+
+main#viewUser h2{
+  font-size: 1.2em;
 }
 
 /* -11.0 Hidden Help - */
@@ -947,18 +980,20 @@ div#userFeedback {
 /* BreakPoint aggiuntivi per Migliorare l'esperienza */
 
 @media only screen and (max-width: 959px) {
-
+  body {
+    font-size: 0.75em;
+  }
   /* - 2.1 Header Elements h1, ul, li - */
   header img#Logo {
     display: block;
-    margin:auto;
     width: 20%;
     height: 20%;  
   }
 
   /* - 4.0 Footer - */
   footer#footer {    
-    height: 8%;
+    min-height: fit-content;
+    height: 5%;
   }
 
   /* - 5.1 Login Input Form - */
@@ -979,5 +1014,13 @@ div#userFeedback {
     display: block;
   }
   
-
+  /* temp userinfo */
+  div#userInfo {
+    padding-top: 1em;
+  }
+  
+  div#userFeedback {
+    width: 30%;
+    padding-top: 1em;
+  }
 }

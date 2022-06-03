@@ -23,7 +23,7 @@
 
   /* 1.1.0 General CSS For every page */
   body {
-    font-family:Trebuchet MS,sans-serif;  
+    font-family:Tahoma,sans-serif;  
     font-size: 14px;
     margin:auto;  
     max-width: 100%;
@@ -52,6 +52,11 @@
   footer#footer img#smallLogo{
     display: none ;
   }
+
+  footer#footer p{
+    position: fixed;
+    display: block;
+  }
   
   
   /* 1.2.0 Header Elements h1, ul, li */
@@ -69,9 +74,15 @@
   header ul li a {
     color:black;
     text-decoration: none;
-    font-size: smaller; 
+    font-size: 0.675em; 
     text-align: center;
     display: block
+  }
+
+  header ul li span {
+    font-size: 0.675em; 
+    text-align: center;
+    display: block;
   }
 
   header img.icons{
@@ -155,18 +166,19 @@
 
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
-    margin-bottom: 20%;
+    margin-bottom: 12%;
+    margin-top: 12%;
     position:unset;
   }
 
   div#sidebar {
     float:left;
-    top: 0;
+    top: 12%;
     left: 0;
     height: fit-content;
     min-height: fit-content; 
     overflow: unset;
-    width: 12%;
+    width: 10%;
   }
 
   #sidebar a {
@@ -206,6 +218,7 @@
 
   /* - 1.7.5 User Profile Setting Page - */
   form#settings {
+    width: 100%;
     margin-bottom: 2em;
     margin-left: 5%;
     margin-right: 5%;
@@ -254,7 +267,7 @@
   }
 
   .UPMargin {
-    margin-left: 12%;
+    margin-left: 0%;
   }
 }
 

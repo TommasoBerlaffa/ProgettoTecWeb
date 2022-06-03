@@ -1,5 +1,9 @@
+/* generali */
 html {
   font-family: Georgia, 'Times New Roman', serif;
+  width: 100%; 
+  margin: 0; 
+  float: none;
 }
 
 .hiddenHelp {
@@ -24,4 +28,20 @@ div#sidebar, div#sidebar img{
 
 footer#footer, footer#footer img {
   display: none;
+}
+
+/* index */
+main#index img {
+  width: 50%;
+}
+
+/* user icon*/
+main img#icon {
+  width: 64px;
+  height: 64px;
+}
+
+/* tables */
+table {
+  width: 100%;
 }
