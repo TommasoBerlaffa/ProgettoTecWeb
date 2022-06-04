@@ -1014,8 +1014,9 @@ main#viewUser h2{
 
   /* - 4.0 Footer - */
   footer#footer {    
-    min-height: fit-content;
+
     height: 5%;
+    min-height: fit-content;
   }
 
   /* - 5.1 Login Input Form - */
@@ -1026,7 +1027,7 @@ main#viewUser h2{
 
   /* - 7.0 Sidebar for User Profile - */
   div#sidebar { 
-    width: 15%;
+    width: 18%;
   }
 
   span.sidebarText{
