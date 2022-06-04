@@ -755,7 +755,7 @@ div#JobInfo {
   " t t "
   " a b "
   " c d "
-  " e . "
+  " e l "
   " f f "
   " g h ";
 }
@@ -801,11 +801,24 @@ div#JobInfo .desc {
   grid-area: f; 
 }
 
-div#JobInfo .cancel {
+div#JobInfo #offerCreator {
+  grid-area: l;
+}
+
+/* winner e creator per oldJob, cancel e terminate per Offer */
+div#JobInfo #cancel {
   grid-area: g; 
 }
 
-div#JobInfo .terminate {
+div#JobInfo #creator {
+  grid-area: g; 
+}
+
+div#JobInfo #terminate {
+  grid-area: h; 
+}
+
+div#JobInfo #winner {
   grid-area: h; 
 }
 
@@ -817,16 +830,9 @@ p#description{
 div#feedback {
   border-radius: 0 0 10px 10px;
   border : 2px black solid;
+  border-top: 0px;
   width : 60%;
   margin : auto;
-  margin-top: 1em;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: 
-  " u u "
-  " a b "
-  " c c ";
 }
 
 div#feedback p {
@@ -838,22 +844,35 @@ div#feedback h1 {
   font-size: 1.2em;
 }
 
+div#feedback .reviewUser,
+div#feedback .rating,
+div#feedback .date
+{
+  padding-top: 0.2em;
+  display: inline-block;
+  margin-block-start: auto;
+  margin-block-end: auto;
+}
+
 div#feedback .reviewUser {
-  grid-area: u;
+  background-color: var(--color);
+  color: var(--background);
+  padding-right: 1.5em;
+  border-radius: 0 0 10px 0;
 }
 
 div#feedback .rating {
-  grid-area: a;
+  margin-right: 10%;
 }
 
 div#feedback .date {
-  grid-area: b;
+  margin-right: 10%;
 }
-
-div#feedback .comment {
-  grid-area: c;
+/*
+div#feedback .comment p{
+  
 }
-
+*/
 div#feedback p#feedbackDesc{
   margin: 1em;
 }

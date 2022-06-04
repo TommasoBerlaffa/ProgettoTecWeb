@@ -24,9 +24,6 @@
   <!-- Icona -->
   <link rel="icon" type="image/png" href="../IMG/favicon_io/favicon.ico"/>
 
-  <!-- Add icon library -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 </head>
 <body>
   <header>
@@ -49,7 +46,6 @@
   <main>
     <div id="JobInfo">
       <h1>Job Offer : {{ Title }}</h1>
-      <p>{{ Creator }}</p>
       <p class="status" > Status : {{ Status }} </p>  
       <p class="type" > Type : {{ Tipology }} </p>
       <p class="date" > Date : {{ Date }} </p>
@@ -58,7 +54,9 @@
       <div id="desc" class="desc">
         <p>Description : </p> 
         <p id="description"> {{ Description }} </p>
-      </div> 
+      </div>
+      <p id="creator">{{ Creator }}</p>
+      <p id="winner">{{ Winner }}</p> 
     </div>
     <div id="feedback"></div>
   </main>

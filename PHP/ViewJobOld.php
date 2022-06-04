@@ -29,7 +29,9 @@ if(isset($_SESSION['user_Username'])) {
       $HTML = str_replace("{{ Date }}",trim($row["Date"]),$HTML);
       $HTML = str_replace("{{ Expiring }}",trim($row["Expiring_time"]),$HTML);
       $HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'"><abbr title="Information">Info</abbr> on the Creator</a>',$HTML);
+      $HTML = str_replace('{{ Winner }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_winner"]).'"><abbr title="Information">Info</abbr> on the Winner</a>',$HTML);
       
+
       $feedback = $DbAccess->getJobReview($index);
       if(!$feedback) {
         if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
@@ -45,17 +47,14 @@ if(isset($_SESSION['user_Username'])) {
       }
       else {
         $User = $DbAccess->getUser(trim($feedback["C_Rew"]));
-        $HTMLFeedback = '<div id="feedback">
-          <h1 class="reviewUser">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h1>
-          <p class="rating">Rating : '. trim($feedback["Stars"]) .' /5</p>
-          <p class="date"> Date :'.trim($feedback["Date"]). '</p>
-          <div class="comment">
-          <p> Comment :</p>
-          <p id="feedbackDesc">'.trim($feedback["Comments"]).'</p>
-          </div>';
+        $urlFeed = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Feedback.html';
+        $HTMLFeed = file_get_contents($urlFeed);
+        $HTMLFeed = str_replace("{{Nickname}}",$User["Nickname"],$HTMLFeed);
+        $HTMLFeed = str_replace("{{Stars}}",trim($feedback["Stars"]),$HTMLFeed);
+        $HTMLFeed = str_replace("{{Date}}",trim($feedback["Date"]),$HTMLFeed);
+        $HTMLFeed = str_replace("{{Comments}}",trim($feedback["Comments"]),$HTMLFeed);
         
-        $HTMLFeedback.='</div>';
-        $HTML = str_replace('<div id="feedback"></div>',$HTMLFeedback,$HTML);
+        $HTML = str_replace('<div id="feedback"></div>',$HTMLFeed,$HTML);
       }
     } //Se non trova un risultato
     else {

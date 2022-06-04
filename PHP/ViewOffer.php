@@ -62,8 +62,8 @@ if(isset($_SESSION['user_Username']))
 
         if($_SESSION['user_ID']==trim($row["Code_user"]))
         {
-          $OwnerActions = '<a href="OfferCancel.php" class="cancel">Cancel this Job Offer</a>
-            <a href="OfferTerminate.php" class="terminate">Terminate this Job Offer</a>';
+          $OwnerActions = '<p id="cancel"> <a href="OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>
+          <p id="terminate"><a href="OfferTerminate.php" class="terminate">Terminate this Job Offer</a></p>';
           $HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
         }
         

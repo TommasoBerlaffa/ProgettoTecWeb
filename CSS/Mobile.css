@@ -39,8 +39,8 @@
   
   main { 
     padding-top: 2em;
-    margin-top:20%;
-    margin-bottom: 15%;
+    margin-top:15%;
+    margin-bottom: 5%;
   }
   
   footer#footer {
@@ -72,7 +72,6 @@
   }
 
   header ul li a {
-    color:black;
     text-decoration: none;
     font-size: 0.675em; 
     text-align: center;
@@ -246,6 +245,24 @@
     
   }
 
+  /* - 1.08.0 View Old Job Info & Feedback - */
+  div#JobInfo {
+    width: 90%;
+  }
+
+  div#feedback {
+    width : 90%;
+  }
+
+  form#AddFeedback {
+    width: 90%;
+  }
+
+  /* - 1.08.1 View Offer - */
+  div#bids {
+    width: 90%;
+  }
+  
   /* - 1.09.0 Index - */
   main#Home {
     margin-top: 12%;
@@ -261,14 +278,25 @@
   }
 
   /* - 1.10.0 View User - */
+  main#viewUser {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
   div#userInfo {
     width: 90%;
     padding-top: 2em;
   }
 
-  .UPMargin {
-    margin-left: 0%;
+  div#viewUserInfo,
+  div#viewUserFeedBack {
+    width: 70%;
+    margin: auto;
   }
+ 
+  /* -10.0 View User - */
+
+
 }
 
 
