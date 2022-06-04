@@ -98,7 +98,6 @@ if(isset($_SESSION['user_Username']))
     {
       $HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
       $HTML = preg_replace('/(?<=<div id="JobInfo">)((\n|.)*)(?=<\/div>)/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
-
     }
   }
   echo $HTML;    

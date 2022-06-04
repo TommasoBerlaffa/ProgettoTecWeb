@@ -19,13 +19,13 @@ if(isset($_SESSION['user_Username'])) {
           if( trim($job['Code_user']) == $_SESSION['user_ID'])
           {
             // Cambio Status al Lavoro
-            if($DBAccess->changeJobStatus($_SESSION['Code_job'],'Deleted'))
+            if($DBAccess->changeJobStatus($_SESSION['Code_job'],'Deleted',false))
             {
               // Mando l'utente a UserProfile->Work
               header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Work.php");
             }
             else
-              header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+              header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error404.html');
           }
         }
         else 

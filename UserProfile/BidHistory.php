@@ -24,7 +24,7 @@
       if($Result) {
         $table = "";
         $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
-        $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+        $HTMLTable ='<div id="content"><div id="intro"><h1><em>Bid History</em> is the place where you can check out all the old bids you placed on job offers</h1></div>' . file_get_contents($urlTable);
         $HTMLTable = str_replace('{{ caption }}','The table in page Bid History display all your past bids.
         You can click on a job title to display more information!',$HTMLTable);
         foreach($Result as $row ) {

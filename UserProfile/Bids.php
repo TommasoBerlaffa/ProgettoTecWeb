@@ -25,7 +25,7 @@
       if($Result) {
         $table = "";
         $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableBid.html';
-        $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+        $HTMLTable ='<div id="content"><div id="intro"><h1><em>Current Bids</em> is the place where you can check out both your current bids and the bids on your job offers</h1></div>' . file_get_contents($urlTable);
         $HTMLTable = str_replace('{{ caption }}','This table in page Bids displays all your current Bids.
         You can check all the job and bid info by clicking on the job title.',$HTMLTable);
         foreach($Result as $row ) {
@@ -38,7 +38,7 @@
         $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
       }
       else
-        $HTMLTable = '<div id="content"><p class="tableEmpty">You currently have no active bids. If you want to make a bid for a Job, check <a href="">Find a Job Offer</a> to find a Job Offer</p>';
+        $HTMLTable = '<div id="content"><div id="intro"><h1><em>Current Bids</em> is the place where you can check out both your current bids and the bids on your job offers</h1></div><p class="tableEmpty">You currently have no active bids. If you want to make a bid for a Job, check <a href="">Find a Job Offer</a> to find a Job Offer</p>';
 
       $Result2 = $DbAccess->getJobListbyCreator($_SESSION['user_ID']);
      

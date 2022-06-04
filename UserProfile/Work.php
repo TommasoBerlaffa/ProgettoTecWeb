@@ -24,7 +24,7 @@
       if($Result) {
         $table = "";
         $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
-        $HTMLTable ='<div id="content">' . file_get_contents($urlTable);
+        $HTMLTable ='<div id="content"><div id="intro"><h1><em>Your Job Offer</em> is the place where you can check out all the Job Offer you created</h1></div>' . file_get_contents($urlTable);
         $HTMLTable = str_replace('{{ caption }}','The table in page Your Job Offer displays all the job offer you created and are already terminated.
         You can click on a job title to display more informations',$HTMLTable);
         foreach ($Result as $row) {
