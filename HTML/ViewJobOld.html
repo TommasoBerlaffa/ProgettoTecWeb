@@ -26,11 +26,14 @@
 
 </head>
 <body>
-  <header>
-
+  <header id="header">
+    <ul class="hiddenHelp">
+      <li><a href="#menu">Move to Main Menu</a></li>
+      <li><a href="#main">Move to the Content</a></li>
+    </ul>
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
-    <ul>
+    <ul id="menu">
       <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.png" class="icons" alt="icon home"> Home </a> </li>
       <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.png" class="icons" alt="icon find job"> Find a Job </a> </li>
       <li> <a href="../PHP/CreateJob.php"> <img src="../IMG/Icons/write.png" class="icons" alt="icon create job offer page"> Create an Offer </a> </li>
@@ -43,7 +46,8 @@
     ..\<a href="../PHP/Index.php">Home</a>\<a href="../PHP/UserProfile.php">User Profile</a>\View Old Job Info\{{ Title }}
   </nav>
   <!-- Main Content -->
-  <main>
+  <main id="main">
+    <p class="hiddenHelp"><a href="#footer">Skip the content and go to footer</a></p>
     <div id="JobInfo">
       <h1>Job Offer : {{ Title }}</h1>
       <p class="status" > Status : {{ Status }} </p>  
