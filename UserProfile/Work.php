@@ -12,7 +12,11 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Your Job Offers",$HTML);
 
-    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=2">','<a href="../PHP/UserProfile.php?section=2" class="selected">',$HTML);
+    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>',
+    '<li class="selected">
+      <img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span>
+    </li>',$HTML);
+  
 
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();    
@@ -24,7 +28,7 @@
       if($Result) {
         $table = "";
         $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
-        $HTMLTable ='<div id="content"><div id="intro"><h1><em>Your Job Offer</em> is the place where you can check out all the Job Offer you created</h1></div>' . file_get_contents($urlTable);
+        $HTMLTable ='<div id="content"><div id="intro"><p><em>Your Job Offer</em> is the place where you can check out all the Job Offer you created</p></div>' . file_get_contents($urlTable);
         $HTMLTable = str_replace('{{ caption }}','The table in page Your Job Offer displays all the job offer you created and are already terminated.
         You can click on a job title to display more informations',$HTMLTable);
         foreach ($Result as $row) {

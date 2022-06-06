@@ -49,7 +49,7 @@
   <!-- Breadcrumb -->
   <nav class="breadcrumb UPMargin">
     <!-- Link Dinamico In base alla subpage -->
-    ..\<a href="../PHP/Index.php">Home</a>\User Profile\{{ SubPage }}
+    ..\ <a href="../PHP/Index.php">Home</a>\ User Profile\ {{ SubPage }}
   </nav>
 
   <!-- Sidebar per Navigazione su Subpage -->
@@ -58,12 +58,14 @@
       <li><a href="#userProfile">Move to the Content</a></li>
       <li><a href="#footer">Move to Footer</a></li>
     </ul>
-    <a href="../PHP/UserProfile.php?section=1"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a>
-    <a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a>
-    <a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Bids History</span></a>
-    <a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/history.png" class="icons" alt=""><span class="sidebarText"> Current Bids</span></a>
-    <a href="../PHP/UserProfile.php?section=5"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a>
-    <a href="../PHP/UserProfile.php?section=6"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a>
+    <ul>
+      <li><a href="../PHP/UserProfile.php?section=1"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a></li>
+      <li><a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>
+      <li><a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Bids History</span></a></li>
+      <li><a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/history.png" class="icons" alt=""><span class="sidebarText"> Current Bids</span></a></li>
+      <li><a href="../PHP/UserProfile.php?section=5"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a></li>
+      <li><a href="../PHP/UserProfile.php?section=6"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a></li>
+    </ul>
   </div>
   <!-- Main Content -->
   <main id="userProfile">
@@ -77,7 +79,7 @@
   <footer id="footer" class="UPMargin">
     <!-- Info Admin -->
     <p class="hiddenHelp"><a href="#header">Go back to the header</a></p>
-    <p> Check out the <a href="FAQ.php">FAQ</a> for any question - To report any issue contact our Admin at admin@JobFinder.mail.com</p>
+    <p> Check out the <a href="../PHP/FAQ.php">FAQ</a> for any question - To report any issue contact our Admin at admin@JobFinder.mail.com</p>
   </footer>
 
 </body>

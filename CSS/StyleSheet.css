@@ -236,7 +236,7 @@ div#errorMessages {
 form#SignUp {
   position: inherit;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 1em;
   width: 50%;
   max-width: 80%;
 }
@@ -247,6 +247,7 @@ form#SignUp input{
   
 /* - 5.3 Change Password Form - */
 form#changePsw {
+  padding: 1em;
   margin:auto;
   width:40%;
   margin-top: 5%;
@@ -430,6 +431,16 @@ div#sidebar {
   width: 20%;
 }
 
+div#sidebar ul {
+  padding-inline-start: 0px;
+  margin-block-end: 0em;
+  margin-block-start: 0em;
+}
+
+div#sidebar ul li{
+  list-style-type: none;
+}
+
 #sidebar a {
   display: block;
   color: var(--content);
@@ -437,8 +448,13 @@ div#sidebar {
   text-decoration: none;
 }
 
-#sidebar a.selected {
+#sidebar span {
+  color: var(--content);
+}
+
+#sidebar .selected {
   background-color: var(--color);
+  padding: 1em;
 }
 
 #sidebar img.icons{
@@ -471,8 +487,8 @@ div#content div#intro {
   border-bottom: 2px solid var(--color);
 }
 
-div#content div#intro h1 {
-  text-align: left;
+div#content div#intro p {
+  text-align: center;
   font-size: 1.2em;
 }
 
@@ -580,19 +596,6 @@ main img#icon {
   width: 60%;
   padding: 0.5em;
   border-bottom: 1px solid;
-}
-
-/* - 7.x Change Password Page - */
-div#changePsw {
-  margin-left: 20%;
-  margin-right: 20%;
-  border: 1px solid black;
-  padding : 1em;  
-  box-shadow:0 0 10px #999;
-}
-
-div#changePsw a {
-  padding: 1em;
 }
 
 /* - 7.5 User Profile Setting Page - */
@@ -945,9 +948,13 @@ main#Home {
   " e e ";
 }
 
+main#Home img{
+  width: 90%;
+  padding: 5%;
+}
+
 img#firstImg {
   grid-area: a;
-  width: inherit;
 }
 
 div#Intro {
@@ -968,7 +975,6 @@ div#UserProf {
 
 img#secondImg {
   grid-area: d;
-  width: inherit;
 }
 
 div#popularJobs {
@@ -1032,9 +1038,7 @@ main#viewUser h2{
   }
 
   /* - 4.0 Footer - */
-  footer#footer {    
-
-    height: 5%;
+  footer#footer {   
     min-height: fit-content;
   }
 

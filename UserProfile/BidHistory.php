@@ -14,8 +14,11 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Bids History",$HTML);
 
-    $HTML = str_replace('<a href="../PHP/UserProfile.php?section=3">','<a href="../PHP/UserProfile.php?section=3" class="selected">',$HTML);
-
+    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Bids History</span></a></li>',
+    '<li class="selected">
+      <img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Bids History</span>
+    </li>',$HTML);
+  
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
 
@@ -24,7 +27,7 @@
       if($Result) {
         $table = "";
         $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
-        $HTMLTable ='<div id="content"><div id="intro"><h1><em>Bid History</em> is the place where you can check out all the old bids you placed on job offers</h1></div>' . file_get_contents($urlTable);
+        $HTMLTable ='<div id="content"><div id="intro"><p><em>Bid History</em> is the place where you can check out all the old bids you placed on job offers</p></div>' . file_get_contents($urlTable);
         $HTMLTable = str_replace('{{ caption }}','The table in page Bid History display all your past bids.
         You can click on a job title to display more information!',$HTMLTable);
         foreach($Result as $row ) {

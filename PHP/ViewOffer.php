@@ -32,6 +32,15 @@ if(isset($_SESSION['user_Username']))
       $HTML = str_replace('{{ Tipology }}',trim($row["Tipology"]),$HTML);
       $HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
       $HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
+      
+      if($_SESSION['user_ID']==trim($row["Code_user"]))
+      {
+        $OwnerActions = '<p id="cancel"> <a href="OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>
+        <p id="terminate"><a href="OfferTerminate.php" class="terminate">Terminate this Job Offer</a></p>';
+        $HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
+      }
+      else 
+      $HTML = str_replace('{{ owner options }}','',$HTML); 
 
       if(trim($row["Status"])!='Frozen' && trim($row["Status"])!='Expired')
       {
@@ -60,13 +69,6 @@ if(isset($_SESSION['user_Username']))
           $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
         }
 
-        if($_SESSION['user_ID']==trim($row["Code_user"]))
-        {
-          $OwnerActions = '<p id="cancel"> <a href="OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>
-          <p id="terminate"><a href="OfferTerminate.php" class="terminate">Terminate this Job Offer</a></p>';
-          $HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
-        }
-        
         if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
         {
           $_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
