@@ -13,8 +13,8 @@ if(isset($_SESSION['user_Username'])) {
       $id=$_SESSION['user_ID'];
       isset($_POST["Price"]) ? $price =  $_POST["Price"] : $price=0;
       isset($_POST["Description"]) ? $description =  $_POST["Description"] : $description='';
-      $DBAccess->createBid($id,$_SESSION["Code_Job"],$price,$description);
-      header('Location:..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'ViewOffer.php?Code_job='.$_SESSION["Code_Job"]);    
+      $DBAccess->createBid($id,$_SESSION["Code_job"],$price,$description);
+      header('Location:..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'ViewOffer.php?Code_job='.$_SESSION["Code_job"]);    
     }
     else
       header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");

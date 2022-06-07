@@ -69,6 +69,9 @@ if(isset($_SESSION['user_Username'])) {
   echo $HTML;    
 }
 else
+{
+  $_SESSION['Url'] = 'ViewJobOld';
+  $_SESSION['Code'] = $_GET['Code_job'];
   header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");    
-
+}
 ?>

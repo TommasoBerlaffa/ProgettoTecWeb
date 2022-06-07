@@ -13,6 +13,7 @@
     }
     else
     {
+      $_SESSION['Url'] = 'CreateJob';
       header("location: ../PHP/Login.php");
     }
   /*

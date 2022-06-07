@@ -75,6 +75,9 @@ if(isset($_SESSION['user_Username']))
   echo $HTML;    
 }
 else
+{
+  $_SESSION['Url'] = 'ViewUser';
+  $_SESSION['Code'] = $_GET['Code_User'];
   header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");    
-
+}
 ?>

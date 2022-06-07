@@ -3,8 +3,8 @@
   require_once 'DBAccess.php';
 
   session_start();
-  //Controllo se Login è già stato effettuato
-	$section=null;
+  
+  $section=null;
 	if(isset($_GET['section'])){
 		$section=filter_var($_GET['section'], FILTER_VALIDATE_INT);
 	}
@@ -12,7 +12,8 @@
   if(isset($_GET['url'])){
 		$page=filter_var($_GET['url'], FILTER_VALIDATE_INT);
 	}
-
+  //Controllo se Login è già stato effettuato
+  
   if(!isset($_SESSION['user_Username']))
   {
     $paginaHTML = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Login.html');
@@ -39,26 +40,41 @@
           $_SESSION['user_Status'] = $Logged['Status'];
           $_SESSION['user_Username'] = $Logged['Username'];
           $_SESSION['user_Icon'] = $Logged['Icon'];
-		  $taglist = $DBAccess->getTags($Logged['ID'],0);
-		  unset($_SESSION['TagList']);
-		  $_SESSION['TagList']=array();
-		  foreach($taglist as $tag){
-			$_SESSION['TagList'][$tag['Name'] ] = $tag['Name'] ;
-		  }
+    
+          $taglist = $DBAccess->getTags($Logged['ID'],0);
+          unset($_SESSION['TagList']);
+          $_SESSION['TagList']=array();
+          foreach($taglist as $tag){
+            $_SESSION['TagList'][$tag['Name'] ] = $tag['Name'] ;
+          }
 
-          if(isset($page))
-            $id=filter_var($_GET['section'], FILTER_VALIDATE_INT);
-            // PHP/ViewOffer.php?Code_job=1
-            header('Location:..'. DIRECTORY_SEPARATOR .'php'. DIRECTORY_SEPARATOR . $page.'?Code_job='.$id);
-					if(isset($section))
-						header('Location:UserProfile.php?section='. $section);
-					else
+          // Controllo se la Session URL è salvata
+          if(isset( $_SESSION['Url'])) {
+            // Salvo il valore della sessione e rimuovo la _SESSION
+            $sessionUrl = $_SESSION['Url'];
+            unset($_SESSION['Url']);
+            // Controllo se la Session Code esiste
+            if(isset($_SESSION['Code']))
+            {
+              // Salvo il valore della sessione e rimuovo la _SESSION
+              $Code = $_SESSION['Code'];
+              unset($_SESSION['Code']);
+              // Controllo il tipo di Pagina
+              ($sessionUrl == 'ViewUser') ? $var_code = 'Code_User' : $var_code = 'Code_job';
+              header('Location:..'. DIRECTORY_SEPARATOR .'php'. DIRECTORY_SEPARATOR . $sessionUrl.'.php?'.$var_code.'='.$Code);
+            }
+            else
+              header('Location:..'. DIRECTORY_SEPARATOR .'php'. DIRECTORY_SEPARATOR . $sessionUrl.'.php');
+          }
+          else if(isset($section))
+            header('Location:UserProfile.php?section='. $section);
+          else
 						header('Location:UserProfile.php');
-
+          
         } else
-          $messaggioErrore = '<div id="errorMessages"><p>Username e/o Password non sono corretti.</p></div>';
+          $messaggioErrore = '<div id="errorList"><p>Username e/o Password non sono corretti.</p></div>';
       } else
-        $messaggioErrore = '<div id="errorMessages"><ul>' . $messaggioErrore . '</ul></div>';
+        $messaggioErrore = '<div id="errorList"><ul>' . $messaggioErrore . '</ul></div>';
     }
 
     $paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);

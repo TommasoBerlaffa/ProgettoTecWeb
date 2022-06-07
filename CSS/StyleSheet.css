@@ -204,6 +204,7 @@ form#login {
   width: 25%;
   margin: auto;
   margin-top: 10%;
+  margin-bottom: 2em;
 } 
 
 form#login fieldset {
@@ -250,7 +251,7 @@ form#changePsw {
   padding: 1em;
   margin:auto;
   width:40%;
-  margin-top: 5%;
+  margin-top: 2em;
   margin-bottom: 2em;
 }
 
@@ -291,6 +292,7 @@ form#formFilter {
   margin-left: 1em;
   position: sticky;
   top: 0;
+  flex-basis: 35%;
 }
 
 form#formFilter fieldset{
@@ -603,7 +605,7 @@ form#settings {
   width: 80%;
   margin: auto;
   margin-bottom: 2em;
-  margin-top: 5%;
+  margin-top: 2em;
 }
 
 form#settings fieldset{
@@ -735,6 +737,12 @@ div#errorList {
   padding: 1em;
   width: 50%;
   margin: auto;
+  border: 1px solid;
+  box-shadow:0 0 10px #999;
+}
+
+div#errorList h1{
+  font-size: 1.2em;
 }
 
 div#errorList p {
@@ -1048,6 +1056,32 @@ main#viewUser h2{
     margin-top: 15%;
   } 
 
+  /* - 6.0 Filter for Page Find Job - */
+  form#formFilter {
+    flex-basis: 45%;
+  }
+  
+  form#formFilter fieldset {
+    grid-template-areas:
+        " a "
+        " b "
+        " c "
+        " d "
+        " e "
+        " f "
+        " s "
+        " t "
+        " h "
+        " i "
+        " g ";
+  }
+
+  form#formFilter #Tipology,
+  form#formFilter #Date,
+  form#formFilter #PayMin {
+    margin:0%;
+  }
+  
   /* - 7.0 Sidebar for User Profile - */
   div#sidebar { 
     width: 18%;

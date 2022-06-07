@@ -22,7 +22,7 @@
     // Mettere i valori dentro la Form
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
-    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="errorList"></div></div>';
+    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="emptyErrorList"></div></div>';
 
     if($conn) {
       $Result = $DbAccess->getUser($_SESSION['user_ID']);
@@ -45,7 +45,7 @@
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
     // Spazione vuoto
     if(isset($_SESSION['error'])) {
-      $HTML = preg_replace('/(?<=<div id=\"errorList\">)((\n|.)*)(?=<\/div>)/',$_SESSION['error'],$HTML);
+      $HTML = str_replace('<div id="emptyErrorList"></div>','<div id="errorList">'.$_SESSION['error'].'</div>',$HTML);
       unset($_SESSION['error']);
     }
     

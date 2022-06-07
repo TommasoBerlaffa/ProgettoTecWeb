@@ -71,18 +71,10 @@ if(isset($_SESSION['user_Username']))
 
         if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
         {
-          $_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
           // Se non sei il creatore del lavoro, puoi aggiungere una bid
-          $HTMLFormBid='<form id="addBid" action="../PHP/AddBid.php" method="post">
-            <fieldset>
-            <legend>Add a new Bid </legend>
-            <label for="Price" id="labelPrice">  Offer\'s Price : </label>
-            <input type="number" name="Price" id="Price" min="0"/>
-            <label for="Description" id="labelDescription">  Bid Description : </label>
-            <textarea id="Description" name="Description"></textarea>
-            <button type="submit" name="addyourBid" id="addyourBid">Send your Bid</button>
-            </fieldset>
-          </form>';
+          $urlFormBid = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'Elements'.DIRECTORY_SEPARATOR.'AddBid.html';
+          $HTMLFormBid=file_get_contents($urlFormBid);
+
           $HTML= str_replace('<form id="addBid"></form>',$HTMLFormBid,$HTML);
         }
         else
@@ -105,6 +97,10 @@ if(isset($_SESSION['user_Username']))
   echo $HTML;    
 }
 else
-  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php?url=ViewOffer&job=".filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT));    
+{
+  $_SESSION['Url'] = 'ViewOffer';
+  $_SESSION['Code'] = $_GET['Code_job'];
+  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");    
+}
 
 ?>
