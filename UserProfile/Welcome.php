@@ -3,11 +3,12 @@
   session_start();
   
   if(isset($_SESSION['user_Username'])) {
-    $WelcomeMessage= '<div id="content">
-      <h1 class="welcome">'. $_SESSION["user_Username"] . ',  Welcome  to the User Profile page!</h1>
-      <p class="welcome">Use the Lateral Navigation bar to check out different informations regarding your account!</p>
-      <p class="welcome">For more infos on how this part of the website works, you can read our <a href="..' .DIRECTORY_SEPARATOR. 'PHP' .DIRECTORY_SEPARATOR. 'FAQ.php">HOW TO</a> guide. </p>
-    </div>';
+
+    $urlWelcome= '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Welcome.html';;
+    $WelcomeMessage = file_get_contents($urlWelcome);
+    $WelcomeMessage = str_replace('{{link}}','..' .DIRECTORY_SEPARATOR. 'PHP' .DIRECTORY_SEPARATOR. 'FAQ.php',$WelcomeMessage);
+    $WelcomeMessage = str_replace('{{user}}',$_SESSION["user_Username"],$WelcomeMessage);  
+    
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
     $HTML = file_get_contents($url);
 

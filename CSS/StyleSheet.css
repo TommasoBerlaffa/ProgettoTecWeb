@@ -44,6 +44,8 @@
   --color: #00679e;
   --subcolor: #4a6fa5;
   --content: #fff;
+  --black: #000;
+  --shadow: #999;
 }
 
 /* - 1.0 General CSS For every page - */
@@ -67,9 +69,15 @@ body {
 }
 
 main {
+  padding: 1em;
   padding-bottom: 2.5em;
   margin-bottom: 3%;
   font-size: 0.875em; 
+}
+
+.box {
+  box-shadow:0 0 10px var(--shadow);
+  border: 2px solid var(--black);
 }
 
 /* - 2.0 Header - */
@@ -169,6 +177,7 @@ form {
 
 fieldset{
   box-shadow:0 0 10px #999;
+  border: 2px solid var(--black);
 }
 
 legend {
@@ -483,13 +492,15 @@ div#content table {
   vertical-align: top;
 }
 
-div#content div#intro {
-  width: 100%;
+/* This 2 elements are used on view pages too */
+div#intro {
+  width: 80%;
+  margin: auto;
   padding-bottom: 0.2em;
   border-bottom: 2px solid var(--color);
 }
 
-div#content div#intro p {
+div#intro p {
   text-align: center;
   font-size: 1.2em;
 }
@@ -737,8 +748,6 @@ div#errorList {
   padding: 1em;
   width: 50%;
   margin: auto;
-  border: 1px solid;
-  box-shadow:0 0 10px #999;
 }
 
 div#errorList h1{
@@ -755,9 +764,7 @@ div#JobInfo {
   margin-top : 1em;
   width: 60%;
   overflow:hidden;
-  border : 2px black solid;
   border-radius: 10px 10px 0 0;
-  box-shadow:0 0 10px #999;
 
   display: grid;
   row-gap: 1.2em;
@@ -840,7 +847,6 @@ p#description{
 
 div#feedback {
   border-radius: 0 0 10px 10px;
-  border : 2px black solid;
   border-top: 0px;
   width : 60%;
   margin : auto;
@@ -898,7 +904,6 @@ form#AddFeedback fieldset {
   border-radius: 0 0 10px 10px;
   border: 2px solid;
 }
-
 
 form#AddFeedback button {
   display: block;
@@ -1003,18 +1008,25 @@ p.subIndex {
 
 /* -10.0 View User - */
 main#viewUser {
-  display: flex;
-  align-items: flex-start;
+  vertical-align: top;
+  padding: 1em;
+}
+
+div#viewUserInfo,
+div#viewUserFeedBack {
+  display: inline-block;
+  vertical-align: top;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 10px;
 }
 
 div#viewUserInfo {
-  width: 55%;
-  padding: 1em;
+  width: 40%;
 }
 
 div#viewUserFeedBack {
-  width: 40%;
-  padding: 1em;
+  width: 30%;
 }
 
 main#viewUser h2{

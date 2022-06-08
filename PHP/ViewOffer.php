@@ -50,7 +50,7 @@ if(isset($_SESSION['user_Username']))
           $HTMLBids ='<div id="bids">';
           
           foreach($bids as $B){
-            $HTMLBids.= '<div class="bid">
+            $HTMLBids.= '<div class="bid" class="box">
                           <p><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
                           <p>User Price: '.trim($B["Price"]).'</p>
                           <p>Description: '.trim($B["Description"]).'</p>';
@@ -62,11 +62,11 @@ if(isset($_SESSION['user_Username']))
               $HTMLBids.='</div>';            
           }
           $HTMLBids .='</div>';
-          $HTML = str_replace('<div id="bids"></div>',$HTMLBids,$HTML);
+          $HTML = str_replace('<div id="bids" class="box"></div>',$HTMLBids,$HTML);
         }
         else
         {
-          $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
+          $HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
         }
 
         if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
@@ -82,7 +82,7 @@ if(isset($_SESSION['user_Username']))
       }
       else
       {
-        $HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> This job offer is currently :'.trim($row["Status"]) .'</p></div>',$HTML);
+        $HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> This job offer is currently :'.trim($row["Status"]) .'</p></div>',$HTML);
       }
       
       
@@ -91,7 +91,7 @@ if(isset($_SESSION['user_Username']))
     else
     {
       $HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
-      $HTML = preg_replace('/(?<=<div id="JobInfo">)((\n|.)*)(?=<\/div>)/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
+      $HTML = preg_replace('/(?<=<div id="JobInfo" class="box">)((\n|.)*)(?=<\/div>)/','<div id="content" class="box"><p> No Info are currently available about this specific Job</p></div>',$HTML);
     }
   }
   echo $HTML;    

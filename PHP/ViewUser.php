@@ -36,7 +36,7 @@ if(isset($_SESSION['user_Username']))
         $Review = $DbAccess->getUserReviewList($_SESSION['user_ID']);
         
         if($Review) {
-          $content = '<div id="viewUserFeedBack"><div class="headchapter">
+          $content = '<div id="viewUserFeedBack" class="box"><div class="headchapter">
                     <h1 class="chapter">'.trim($row["Nickname"]). '\'s Reviews : </h1></div>';
           $average = $DbAccess->getUserReview($index);
           $content .= '<p>'.trim($row["Nickname"]).' average rating :'.trim($average["AvgStar"]) .'</p>';
@@ -52,7 +52,7 @@ if(isset($_SESSION['user_Username']))
           }
           $content .= '</div>';
 
-          $HTML = str_replace('<div id="viewUserFeedBack"></div>',$content,$HTML);
+          $HTML = str_replace('<div id="viewUserFeedBack" class="box"></div>',$content,$HTML);
         } //Se non trova un risultato
       }
       else
