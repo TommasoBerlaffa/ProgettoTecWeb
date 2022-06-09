@@ -69,7 +69,7 @@ body {
 }
 
 main {
-  padding: 1em;
+  padding: 0em;
   padding-bottom: 2.5em;
   margin-bottom: 3%;
   font-size: 0.875em; 
@@ -507,6 +507,7 @@ div#intro p {
 
 div#content table {
   width: 100%;
+  margin-bottom: 2em;
 }
 
 div#content table caption#description{
@@ -1001,9 +1002,16 @@ h1.index {
   font-size: 1.375em;
 }
 
+h2.index {
+  text-align:justify;
+  padding-left: 1.75em;
+  font-size: 1em;
+}
+
 p.subIndex {
   text-align:left;
   padding-left: 1.5em;
+  width: 90%;
 }
 
 /* -10.0 View User - */

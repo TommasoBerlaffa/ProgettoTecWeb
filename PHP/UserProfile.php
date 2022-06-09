@@ -18,15 +18,12 @@
         header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Work.php");
       break;
       case 3:
-        header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."BidHistory.php");
-      break;
-      case 4:
         header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Bids.php");
       break;
-      case 5:
+      case 4:
         header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php");
       break;
-      case 6:
+      case 5:
         header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Password.php");
       break;
       default :

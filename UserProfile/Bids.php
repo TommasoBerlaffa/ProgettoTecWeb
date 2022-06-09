@@ -1,9 +1,10 @@
 <?php
-  // Bids deve contenere tutte le Bids correnti 
+
+  // BidHistory deve contenere tutte le Bids dell'utente ( Passate che hanno avuto successo )
   require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
 
   session_start();
-
+  
   if(isset($_SESSION['user_Username']))
   {
     // Ottengo Valori da Pagina Statica  
@@ -11,66 +12,75 @@
     $HTML = file_get_contents($url);
 
     // Cambio Valore BreadCrumb
-    $HTML = str_replace("{{ SubPage }}","Current Bids",$HTML);
+    $HTML = str_replace("{{ SubPage }}","Your Bids",$HTML);
 
-    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/history.png" class="icons" alt=""><span class="sidebarText"> Current Bids</span></a></li>',
+    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span></a></li>',
     '<li class="selected">
-      <img src="../IMG/Icons/history.png" class="icons" alt=""><span class="sidebarText"> Current Bids</span>
+      <img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span>
     </li>',$HTML);
   
-
     $DbAccess = new DBAccess();
     $conn = $DbAccess->openDBConnection();
 
-    if($conn)
-    {
-      $Result = $DbAccess->getUserJobs($_SESSION['user_ID'],false);
+    if($conn) {
+
+      $HTMLTable ='
+      <div id="content">
+        <div id="intro">
+          <p><em>Your Bids</em> is the place where you can check out all your bids, both past bids on succesfull jobs and current bids.</p>
+        </div>';
       
-      if($Result) {
-        $table = "";
-        $urlTable = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableBid.html';
-        $HTMLTable ='<div id="content">
-        <div id="intro"><p><em>Current Bids</em> is the place where you can check out both your current bids and the bids on your job offers</p></div>' . file_get_contents($urlTable);
-        $HTMLTable = str_replace('{{ caption }}','This table in page Bids displays all your current Bids.
-        You can check all the job and bid info by clicking on the job title.',$HTMLTable);
-        foreach($Result as $row ) {
-          $table .= '<tr>
+      $NewBid = $DbAccess->getUserJobs($_SESSION['user_ID'],false);
+      
+      if($NewBid) {
+        $tableNewBid = "";
+        $urltableNewBid = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableBid.html';
+        $HTMLtableNewBid = file_get_contents($urltableNewBid);
+        $HTMLtableNewBid = str_replace('{{ caption }}','This table in page Bids displays all your current Bids.
+        You can check all the job and bid info by clicking on the job title.',$HTMLtableNewBid);
+        foreach($NewBid as $row ) {
+          $tableNewBid .= '<tr>
           <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
           <td>'. trim($row['Status'] ).'</td>
           <td>'. trim($row['Tipology'] ).'</td>
           </tr>';
         }
-        $HTMLTable = str_replace('{{ value }}',$table,$HTMLTable);
+        $HTMLtableNewBid = str_replace('{{ value }}',$tableNewBid,$HTMLtableNewBid);
+
       }
       else
-        $HTMLTable = '<div id="content"><div id="intro"><p><em>Current Bids</em> is the place where you can check out both your current bids and the bids on your job offers</p></div><p class="tableEmpty">You currently have no active bids. If you want to make a bid for a Job, check <a href="">Find a Job Offer</a> to find a Job Offer</p>';
+        $HTMLtableNewBid = '<p class="tableEmpty">You currently have no active bids. You can check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'FindJob.php">Find a Job Offer</a> and start bidding now</p>';
+    
+      $HTMLTable .= $HTMLtableNewBid;
 
-      $Result2 = $DbAccess->getJobListbyCreator($_SESSION['user_ID']);
-     
-      if($Result2){
-        $table2 = "";
-        $urlTable2 = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJobWBid.html';
-        $HTMLTable2 = file_get_contents($urlTable2);
-        $HTMLTable2 = str_replace('{{ caption }}','This table shows all your current jobs with the number of bids that are placed on them. 
-        You can click on the job title to show more informations.',$HTMLTable2);
-        foreach ($Result2 as $row) {
-          $table2 .= '<tr>
-            <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
+      $OldBid = $DbAccess->getUserJobs($_SESSION['user_ID'],true);
+      if($OldBid) {
+        $TableOldBid = "";
+        $urlTableOldBid = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
+        $HTMLTableOldBid =file_get_contents($urlTableOldBid);
+        $HTMLTableOldBid = str_replace('{{ caption }}','This table displays all your past bids.
+        You can click on a job title to display more information!',$HTMLTableOldBid);
+        foreach($OldBid as $row ) {
+          $TableOldBid .= '<tr>
+            <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
             <td>'.trim($row["Status"]).'</td>
-            <td>'.trim($row["C"]).'</td>
-          </tr>';
+            <td>'.trim($row["Tipology"]).'</td>
+            <td>'.trim($row["Payment"]).'</td>
+            </tr>';
         } 
-        $HTMLTable2 = str_replace('{{ value }}',$table2,$HTMLTable2);
-        $HTMLTable .= $HTMLTable2;
+        $HTMLTableOldBid = str_replace('{{ value }}',$TableOldBid,$HTMLTableOldBid);
       }
       else
-        $HTMLTable .= '<div id="content"><p>You currently have no active job. If you want to make a new job offer, feel free to check <a href="">Create a Job Offer</a></p>';
+        $HTMLTableOldBid = '<p class="tableEmpty">You currently have no past bids. If you want to start making your bid history, you should check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'FindJob.php">Find a Job Offer</a> and try your first bid</p>';
 
-    }           
+      $HTMLTable .= $HTMLTableOldBid;
+      
+      
+        
+    }    
     else
-      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');            
-    
-    
+      header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');               
+
     $HTMLTable .= '</div>';
     // Rimpiazza Valori su file html
     $HTML = str_replace('<div id="content"></div>',$HTMLTable,$HTML);
@@ -78,5 +88,5 @@
     echo $HTML;
   }
   else
-    header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 4);
+    header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 3);
 ?>
