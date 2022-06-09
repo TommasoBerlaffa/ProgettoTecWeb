@@ -305,6 +305,7 @@ form#formFilter {
 }
 
 form#formFilter fieldset{
+  min-width: 15em;
   display: grid;
   row-gap: 0.8em;
   grid-template-areas: 
@@ -396,8 +397,11 @@ div.job {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
   grid-template-areas: 
-  " a . b c d"
-  " e f g h i";
+  " a . . . b"
+  " c c c c d"
+  " c c c c e"
+  " c c c c f"
+  " g g g g .";
 }
 
 div.job a {
@@ -416,12 +420,24 @@ div.job .date {
   grid-area: b;
 }
 
-div.job .type {
+div.job .description {
   grid-area: c;
 }
 
-div.job .minPay {
+div.job .type {
   grid-area: d;
+}
+
+div.job .minPay {
+  grid-area: e;
+}
+
+div.job .bids {
+  grid-area: f;
+}
+
+div.job li {
+  grid-area: g;
 }
 
 /* - 7.0 Sidebar for User Profile - */
