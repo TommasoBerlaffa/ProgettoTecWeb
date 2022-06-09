@@ -8,12 +8,13 @@ function updateUserTagList(response){
 	var div=document.getElementById('selectedTagsList');
 	div.innerHTML="<h4>Selected Tags:</h4>";
 	var list=JSON.parse(response);
-	for(const tagname in list){
+	var keys = Object.keys(list);
+	for(i=0; i<keys.length; i++){
 		var bt=document.createElement('button');
-		bt.innerHTML=tagname;
-		bt.value=tagname;
+		bt.innerHTML=keys[i];
+		bt.value=list[keys[i]];
 		bt.setAttribute('type','button');
-		bt.setAttribute('onclick',"AjaxRemoveTag('"+tagname+"')");
+		bt.setAttribute('onclick',"AjaxRemoveTag('"+keys[i]+"')");
 		div.appendChild(bt);
 	}
 }
@@ -42,7 +43,7 @@ window.onload=function(){
 
 function AjaxRemoveTag(name){
 	const xhttp = new XMLHttpRequest();
-	var data = {'Sub':true,Name:name};
+	var data = {'Sub':true,'Name':name};
 	xhttp.open('POST', '../PHP/Util.php', false);
 	
 	xhttp.onreadystatechange = function() {
@@ -58,9 +59,9 @@ function AjaxRemoveTag(name){
 	return;
 }
 
-function AjaxAddTag(name){
+function AjaxAddTag(name,val){
 	const xhttp = new XMLHttpRequest();
-	var data = {'Add':true,Name:name};
+	var data = {'Add':true,'Name':name,'Value':val};
 	xhttp.open('POST', '../PHP/Util.php', false);
 	
 	xhttp.onreadystatechange = function() {
@@ -80,12 +81,13 @@ function mycallback(response){
 	var div=document.getElementById('tagsList');
 	div.innerHTML="";
 	var list=JSON.parse(response);
-	for (i=0; i<list.length;i++){
+	var keys = Object.keys(list);
+	for (i=0; i<keys.length;i++){
 		var bt=document.createElement('button');
-		bt.innerHTML=list[i].Name;
-		bt.value=list[i].Name;
+		bt.innerHTML=keys[i];
+		bt.value=list[keys[i]];
 		bt.setAttribute('type','button');
-		bt.setAttribute('onclick',"AjaxAddTag('"+list[i].Name+"')");
+		bt.setAttribute('onclick',"AjaxAddTag('"+keys[i]+"','"+list[keys[i]]+"')");
 		div.appendChild(bt);
 	}
 }

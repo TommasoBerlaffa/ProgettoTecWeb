@@ -16,6 +16,7 @@ Function List:
 10.getAllTags
 11.getTags
 11.2 searchTags
+11.3 searchTagName
 12.getMostPopularJobs
 13.searchJob
 14.getUser
@@ -41,7 +42,7 @@ class DBAccess {
 
 	private $connection;
 
-	public function openDBConnection(){
+	private function openDBConnection(){
 		$this->connection = mysqli_connect(DBAccess::HOST_DB, DBAccess::USERNAME, DBAccess::PASSWORD, DBAccess::DBNAME);
 
 		if(!$this->connection){
@@ -53,7 +54,7 @@ class DBAccess {
 		}
 	}
 
-	public function closeDBConnection(){
+	private function closeDBConnection(){
 		if(!$this->connection){
 			return false;
 		}
@@ -269,8 +270,6 @@ class DBAccess {
   desc: cambia lo stato di un lavoro jobID corrente o passato(bool old). ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function changeJobStatus($id,$status,$old) {
-	if(isset($old))
-		echo("1");
 	$queryInserimento = '';
     if(isset($id) and isset($status)){
 		if(isset($old) and $old==true and in_array($status,array('Deleted', 'Frozen','Success','Unsucces')))
@@ -279,8 +278,6 @@ class DBAccess {
 			$queryInserimento = 'UPDATE `current_jobs` SET `Status` = ? WHERE `current_jobs`.`Code_job` = ?;';
 		else
 			return null;
-		if(isset($old))
-			echo("2");
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		
@@ -290,8 +287,6 @@ class DBAccess {
 		mysqli_stmt_close($queryCall);
 		$result = mysqli_affected_rows($this->connection);
 		$this->closeDBConnection();
-		if(isset($old))
-			echo("3");
 		if($result)
 			return true;
 		return false;
@@ -328,9 +323,9 @@ class DBAccess {
     if(isset($id) and isset($table)) {
 		if($table<0||$table>2)
 			return null;
-		$user='SELECT Name FROM tags_users LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
-		$current='SELECT Name FROM tags_current_jobs LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
-		$past='SELECT Name FROM tags_past_jobs LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
+		$user='SELECT tags_users.Code_tag, Name FROM tags_users LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
+		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
+		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs LEFT JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=null;
@@ -349,8 +344,8 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_assoc($queryResult))
-				array_push($result,$tmp);
+			while ($tmp=mysqli_fetch_row($queryResult))
+				$result[$tmp[1]]=$tmp[0];
 			return $result;
 		}
     } else
@@ -368,7 +363,7 @@ class DBAccess {
 	//echo($word);
     if(isset($word)) {
 		$word.='%';
-		$query="SELECT Name FROM tags WHERE Name LIKE ?";
+		$query="SELECT Code_tag, Name FROM tags WHERE Name LIKE ?";
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $query);
@@ -382,8 +377,8 @@ class DBAccess {
 			return null;
 		else {
 			$result=array();
-			while ($tmp=mysqli_fetch_assoc($queryResult))
-				array_push($result,$tmp);
+			while ($tmp=mysqli_fetch_row($queryResult))
+				$result[$tmp[1]]=$tmp[0];
 			return $result;
 		}
     } else
@@ -392,7 +387,36 @@ class DBAccess {
 	
 	
 	
-
+  /***11.3 Search Tags Name from Code_tag***
+  par: int ID, int table (0=users, 1=current_jobs, 2=past_jobs)
+  desc: returns list of tags of an ID for the choosen relative table.
+  ****************************/
+  public function searchTagName($id) {
+    if(isset($id)) {
+		$query="SELECT Name FROM tags WHERE Code_tag = ?";
+		if(!($this->openDBConnection()))
+			die('\r\nFailed to open connection to the DB');
+		$queryCall=mysqli_prepare($this->connection, $query);
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$this->closeDBConnection();
+		if(mysqli_num_rows($queryResult) == 0){
+			echo('qualcosa non funzia');
+			print_r(array('qualcosa non funzia'));
+			return null;
+		}
+		else
+			return mysqli_fetch_assoc($queryResult)['Name'];
+    } else
+		return null;
+  }
+  
+  
+  
+  
+  
   /***12.Get the Four Most Popular Job Tags***
   par:
   desc: ritorna i 4 tag più popolari al momento.
@@ -418,86 +442,145 @@ class DBAccess {
   par: string type, int min (prezzo minimo), int date (ultimi x secondi)
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($type,$min,$date,$tag){
-    
-    if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
-    if($tag && $tag!='Any')
-    {
-      if($type && $type!='Any'){
-        if($date && $date!=null)
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
-          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
-          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND Tipology = ? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
-          mysqli_stmt_bind_param($queryCall,'ssii',$tag,$type,$min,$date);  
-        }
-        else
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
-          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
-          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND Tipology = ? AND P_min > ?;');
-          mysqli_stmt_bind_param($queryCall,'ssi',$tag,$type,$min);  
-        }
-      }
-      else
-      {
-        if($date && $date!=null)
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
-          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
-          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
-          mysqli_stmt_bind_param($queryCall,'sii',$tag,$min,$date);  
-        }
-        else
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs AS Cur
-          INNER JOIN tags_current_jobs AS TagC ON TagC.Code_job=Cur.Code_job
-          INNER JOIN tags AS T ON TagC.Code_tag=T.Code_tag WHERE T.Name=? AND P_min > ?;');
-          mysqli_stmt_bind_param($queryCall,'si',$tag,$min  );  
-        }  
-      } 
-    }
-    else
-    {
-      if($type && $type!='Any'){
-        if($date && $date!=null)
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
-          mysqli_stmt_bind_param($queryCall,'sii',$type,$min,$date);  
-        }
-        else
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE Tipology = ? AND P_min > ?;');
-          mysqli_stmt_bind_param($queryCall,'si',$type,$min);  
-        }
-      }
-      else
-      {
-        if($date && $date!=null)
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ? AND TIMESTAMPDIFF(HOUR,Date,CURDATE())<?;');
-          mysqli_stmt_bind_param($queryCall,'ii',$min,$date);  
-        }
-        else
-        {
-          $queryCall=mysqli_prepare($this->connection,'SELECT * FROM current_jobs WHERE P_min > ?;');
-          mysqli_stmt_bind_param($queryCall,'i',$min  );  
-        }  
-      } 
-    }
-    
-    
+  public function searchJob($tipology='Any',$min=0,$date=9999999,$tags=null){
+	
+	if(!is_numeric($min) OR !is_numeric($date))
+		return null;
+	  
+	//'SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs
+	//	 JOIN(
+	//		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
+	//			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
+	//			WHERE
+	//				tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//				OR tags_current_jobs.Code_tag=?
+	//			GROUP BY Code_job
+	//		) res ON res.Code_job=current_jobs.Code_job
+	//	WHERE
+	//	 	TIMESTAMPDIFF(HOUR,Date,CURDATE())<? AND
+	//	 	P_min > ? AND
+	//		(Status = "Active" OR
+	//		Status = "Expired") AND
+	//	 	Tipology = ?
+	//	 ORDER BY 
+	//	 	counted 		DESC,
+	//	 	Date 		   	DESC,
+	//	 	Tipology			
+	//'
+
+	//tag parts
+	$tagsStart='
+	JOIN(
+		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
+			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
+			WHERE
+				tags_current_jobs.Code_tag=?
+				';
+	$tagsOR='OR tags_current_jobs.Code_tag=?
+				';
+	$tagsEnd='GROUP BY Code_job
+		) res ON res.Code_job=current_jobs.Code_job
+	';
+	
+	//query parts
+	$begin='
+	SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs';
+	$middle='
+		WHERE
+		 	TIMESTAMPDIFF(HOUR,Date,CURDATE()) < ? AND
+			P_min > ?   AND
+			(Status = "Active" OR
+			Status = "Expired")
+			';
+	$tip='	AND
+			Tipology = ?
+	';
+	$middle2='
+		ORDER BY 
+	';
+	$count='counted 	DESC,
+	';
+	$end='
+		 	Date 		   	DESC,
+		 	Tipology;			
+	';
+	
+	//constrution of modular query with optional parameters
+	//creation of $type and $param arrays to bind
+	$type='';
+	$param=array();
+	$query=$begin;
+	$i=0;
+	if(!empty($tags)){
+		$query.=$tagsStart;
+		$type.='i';
+		$param[$i]=array_values($tags)[0];
+		$i++;
+		foreach(array_slice($tags,1) as $name=>$value){	//append an Or other condition for number of tags selected
+			$query.=$tagsOR;
+			$type.='i';
+			$param[$i]=$value;
+			$i++;
+		}
+		$query.=$tagsEnd;
+	}
+	$query.=$middle;
+	$type.='ii';
+	$param[$i]=$date;
+	$param[$i+1]=$min;
+	if(in_array($tipology,array('Fulltime','Onetime','Urgent','Recruiter'))){
+		$query.=$tip;
+		$type.='s';
+		$param[$i+2]=$tipology;
+	}
+	$query.=$middle2;
+	if(!empty($tags))
+		$query.=$count;
+	$query.=$end;
+	
+	//echo $query;
+	
+	if(!($this->openDBConnection()))
+		die('\r\nFailed to open connection to the DB');
+	
+	$queryCall=mysqli_prepare($this->connection,$query);
+	if(!$queryCall)
+		die('Errore preparazione query');
+	//single bind for the entire modular statement
+	$queryCall->bind_param($type, ...$param); 
+	if(!$queryCall)
+		die('Errore binding parametry query');
     mysqli_stmt_execute($queryCall);
-		$queryResult = mysqli_stmt_get_result($queryCall);
-		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
-		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		$result=array();
-		while($row=mysqli_fetch_assoc($queryResult))
-			array_push($result, $row);
-		return $result;
+	if(!$queryCall)
+		die('Errore esecuzione query');
+	
+	$queryResult = mysqli_stmt_get_result($queryCall);
+	mysqli_stmt_close($queryCall);
+	$this->closeDBConnection();
+	if(mysqli_num_rows($queryResult) == 0)
+		return null;
+	$result=array();
+	while($row=mysqli_fetch_assoc($queryResult))
+		array_push($result, $row);
+	return $result;
   }
 
   /***14.Get User Info***
