@@ -6,9 +6,9 @@ function delay(){
 
 function updateUserTagList(response){
 	var div=document.getElementById('selectedTagsList');
-	div.innerHTML="<h4>Selected Tags:</h4>";
 	var list=JSON.parse(response);
 	var keys = Object.keys(list);
+	div.innerHTML="<p>Selected Tags: ("+ keys.length +" / 20)</p>";
 	for(i=0; i<keys.length; i++){
 		var bt=document.createElement('button');
 		bt.innerHTML=keys[i];
