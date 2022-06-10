@@ -64,7 +64,7 @@ if(isset($_SESSION['user_Username']))
 				$HTML = str_replace('<div id="bids" class="box"></div>',$HTMLBids,$HTML);
 			}
 			else
-				$HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
+				$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
 		
 			if($_SESSION['user_ID']==trim($row["Code_user"]))
 			{
@@ -72,6 +72,8 @@ if(isset($_SESSION['user_Username']))
 				<p id="terminate"><a href="OfferTerminate.php" class="terminate">Terminate this Job Offer</a></p>';
 				$HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
 			}
+      else
+        $HTML = str_replace('{{ owner options }}','',$HTML); 
 			
 			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
 			{
@@ -93,7 +95,7 @@ if(isset($_SESSION['user_Username']))
 				$HTML= str_replace('<form id="addBid"></form>','',$HTML);
 		}
 		else
-			$HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> This job offer is currently :'.trim($row["Status"]) .'</p></div>',$HTML);
+			$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> This job offer is currently :'.trim($row["Status"]) .'</p></div>',$HTML);
     } //Se non trova un risultato
     else
     {
@@ -102,7 +104,10 @@ if(isset($_SESSION['user_Username']))
     }
 	echo $HTML;    
 }
-else
-  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php?url=ViewOffer&job=".filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT));    
+else {
+  $value = filter_var($_GET['Code_job'],FILTER_SANITIZE_NUMBER_INT);
+  header("Location:Login.php?view=ViewOffer&code=".$value);    
+}
+ 
 
 ?>

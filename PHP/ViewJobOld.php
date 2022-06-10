@@ -79,6 +79,10 @@ if(isset($_SESSION['user_Username'])) {
 	echo $HTML;    
 }
 else
-  header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");    
+{
+  $value = filter_var($_GET['Code_job'],FILTER_SANITIZE_NUMBER_INT);
+  header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php?view=ViewJobOld&code=".$value);    
+}
+
 
 ?>

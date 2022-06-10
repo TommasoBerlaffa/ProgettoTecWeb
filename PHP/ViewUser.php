@@ -71,8 +71,7 @@ if(isset($_SESSION['user_Username']))
 }
 else
 {
-  $_SESSION['Url'] = 'ViewUser';
-  $_SESSION['Code'] = $_GET['Code_User'];
-  header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");  
+  $value = filter_var($_GET['Code_User'],FILTER_SANITIZE_NUMBER_INT);
+  header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php?view=ViewUser&code=".$value);  
 }
 ?>
