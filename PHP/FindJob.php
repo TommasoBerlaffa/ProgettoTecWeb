@@ -107,7 +107,7 @@
 						<p class="type">Tipology: '.trim($row["Tipology"]).'</p>
 						<p class="minPay">Minimum Pay: $'.trim($row["P_min"]).'</p>
 						<p class="bids">Bids: '.$bids.'</p>
-						<p class="description">Description: '.$desc.'</p>
+						<p class="description">Description:<br>'.$desc.'</p>
 						<li>';
 						
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);

@@ -31,20 +31,10 @@
         //header();
       }
 
-
-
     }
-
-
-
-
-
-
     //Apertura, caricamento e chiusura su db
 
-    openDBConnection();
     $Result=createJob($ID, $Title,$Desc,$Tipology,$Payment,$MinPay,$MaxPay,$Expiring); //Id e Payment???
-    closeDBConnection();
     if($Result) {
       //Tutto ok, Si conferma il successo
     }

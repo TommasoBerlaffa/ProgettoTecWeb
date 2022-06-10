@@ -11,13 +11,11 @@ if(isset($_SESSION['user_Username']))
   $HTML = file_get_contents($url);
 
   $DbAccess = new DBAccess();
-  $conn = $DbAccess->openDBConnection();
   
   $HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
     <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
   $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
-  
-  if($conn) {
+
     if($_GET['Code_User']) {
       $index = filter_var($_GET['Code_User'], FILTER_VALIDATE_INT);
       $row = $DbAccess->getUser($index);
@@ -69,9 +67,6 @@ if(isset($_SESSION['user_Username']))
     else {
       header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Index.php");
     }
-  }
-  else
-    header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
   echo $HTML;    
 }
 else

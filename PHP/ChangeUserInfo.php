@@ -2,38 +2,7 @@
 
   require_once "DBAccess.php";
 
-  function generateRandomString($length = 25) {
-		$char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$randomString = '';
-		for ($i = 0; $i < $length; $i++)
-			$randomString .= $char[rand(0, strlen($char) - 1)];
-		return $randomString;
-	}
-
-  function compressImage($source, $destination, $quality) {
-		$info = getimagesize($source);
-		if ($info['mime'] == 'image/jpeg') 
-			$image = imagecreatefromjpeg($source);
-		elseif ($info['mime'] == 'image/gif') 
-			$image = imagecreatefromgif($source);
-		elseif ($info['mime'] == 'image/png') 
-			$image = imagecreatefrompng($source);
-			
-		$old_x=imageSX($image);
-		$old_y=imageSY($image);
-		$res=0;
-		if($old_x>$old_y)
-			$res=450/$old_x;
-		else
-			$res=450/$old_y;
-	
-		$thumb=ImageCreateTrueColor($old_x*$res, $old_y*$res);
-		imagecopyresized($thumb,$image, 0,0,0,0, $old_x*$res,$old_y*$res, $old_x,$old_y);
-
-		imagejpeg($thumb, $destination, $quality);
-		imagedestroy($thumb);
-		return $destination;
-	}
+  require_once "Util.php";
 	
   session_start();
 
@@ -41,7 +10,6 @@
   {
     // Apro Connessione a DB
     $DbAccess = new DBAccess();
-    $conn = $DbAccess->openDBConnection();
     // Ottengo i valori dello User
     $Result = $DbAccess->getUser($_SESSION['user_ID']);
     // Da riempire e riportare in caso di errori

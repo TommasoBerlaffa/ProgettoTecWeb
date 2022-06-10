@@ -20,7 +20,6 @@
           $User = $_SESSION['user_Username'];
           $User = $_SESSION['user_ID'];
           $DbAccess = new DBAccess();
-          $conn = $DbAccess->openDBConnection();
           $DbAccess->changePassword();
         }
         else //Errore password non coincidono 
