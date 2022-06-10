@@ -1,5 +1,5 @@
 <?php
-
+  require_once 'DBAccess.php';
   // Inizio Sessione
   session_start();
 
@@ -26,6 +26,25 @@
         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'login.png" class="icons" alt=""> Login </a></li>
         <li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Signup.php">
         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'book.png" class="icons" alt=""> Sign up </a></li>';
+  }
+
+  $DbAccess = new DBAccess();
+  $tags = $DbAccess->getMostPopularJobs();
+
+  if($tags)
+  {
+    $HTMLTags = '<ul id="popularJobs">';
+    foreach( $tags as $T)
+    {
+      $HTMLTags .= '<li>'.$T["frequency"] .' <a href="findjob.php?tag='.$T["Code_tag"].'">'. $T["Name"] .'</a> offers</li>';
+    }
+    $HTMLTags .= '</ul>';
+
+    $HTML = str_replace('<popularjobs/>',$HTMLTags,$HTML);
+  }
+  else
+  {
+    $HTML = str_replace('<popularjobs/>','There are currently no popular tags available, please check again later',$HTML);
   }
 
   // Cambio Pagina

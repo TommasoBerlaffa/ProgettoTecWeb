@@ -422,7 +422,7 @@ class DBAccess {
   desc: ritorna i 4 tag più popolari al momento.
   ****************************/
   public function getMostPopularJobs() {
-    $query='SELECT Name, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag=tags_current_job.Code_tag GROUP BY Code_tag ORDER BY frequency DESC LIMIT 4;';
+    $query='SELECT Name,tags.Code_tag, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag= tags_current_jobs.Code_tag GROUP BY tags.Code_tag ORDER BY frequency DESC LIMIT 4;';
     if(!($this->openDBConnection()))
       die('\r\nFailed to open connection to the DB');
     $queryResult = mysqli_query($this->connection, $query);
@@ -431,7 +431,7 @@ class DBAccess {
       return null;
     else {
       $result=array();
-      while ($tmp=mysqli_fetch_column($queryResult,0))
+      while ($tmp=mysqli_fetch_array($queryResult))
         array_push($result,$tmp);
       return $result;
     }

@@ -56,7 +56,7 @@
 								header('Location:UserProfile.php');
 	
 			} else
-			$messaggioErrore = '<div id="errorMessages"><p>Username e/o Password non sono corretti.</p></div>';
+			$messaggioErrore =  '<div id="errorList" class="box"><p>Username and/or Password are not correct. Please <a href="#Username">try again</a>.</p></div>';
 		} else
 			$messaggioErrore = '<div id="errorMessages"><ul>' . $messaggioErrore . '</ul></div>';
 		}
