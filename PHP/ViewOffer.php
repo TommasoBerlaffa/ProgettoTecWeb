@@ -17,7 +17,7 @@ if(isset($_SESSION['user_Username']))
 	$index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
     $_SESSION['Code_job'] = $index;
     $row = $DBAccess->getJob($index,true);
-	$tags = $DBAccess->getTags($index,1);
+	  $tags = $DBAccess->getTags($index,1);
     //Se trova risultato
     if($row)
     {                 
@@ -30,16 +30,17 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
 		$HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
 		
-		$HTMltags='<li>';
-		foreach($tags as $name=>$value)
-			$HTMltags.='
-						<a href="FindJob.php?tag='.$value.'">'.$name.'</a>';
-		$HTMltags.='
-					</li>';
-		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
-	
-	
-	
+    $HTMltags ='';
+    if($tags) {
+      $HTMltags.='<ul>';
+      foreach($tags as $name=>$value) {
+        $HTMltags.='<li><a href="FindJob.php?tag='.$value.'">'.$name.'</a></li>';
+      }
+      $HTMltags.='
+        </ul>';
+    }
+    $HTML = str_replace('<tags/>',$HTMltags,$HTML);
+
 		if(trim($row["Status"])!='Frozen' && trim($row["Status"])!='Expired')
 		{
 			$bids =$DBAccess->getBids($index);
@@ -60,7 +61,7 @@ if(isset($_SESSION['user_Username']))
 					$HTMLBids.='</div>';            
 				}
 				$HTMLBids .='</div>';
-				$HTML = str_replace('<div id="bids"></div>',$HTMLBids,$HTML);
+				$HTML = str_replace('<div id="bids" class="box"></div>',$HTMLBids,$HTML);
 			}
 			else
 				$HTML = preg_replace('/<div id="bids"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);

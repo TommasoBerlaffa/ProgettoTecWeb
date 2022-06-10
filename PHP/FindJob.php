@@ -30,7 +30,7 @@
 	// Cambio Pagina
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
 	
-	$HtmlContent='<div id="jobList">';
+	$HtmlContent='<div id="jobList"><h1>List of job offers<Title_complete/></h1>';
 
 
 	$type= 'Any';
@@ -66,8 +66,8 @@
 	
 	$HtmlTypologySelect='
 		<option value="Any" '.($type=='Any'? 'selected':'').'>Any</option>
-		<option value="FullTime" '.($type=='FullTime'? 'selected':'').'>Fulltime</option>
-		<option value="OneTime" '.($type=='OneTime'? 'selected':'').'>Onetime</option>
+		<option value="Fulltime" '.($type=='Fulltime'? 'selected':'').'>Fulltime</option>
+		<option value="Onetime" '.($type=='Onetime'? 'selected':'').'>Onetime</option>
 		<option value="Urgent" '.($type=='Urgent'? 'selected':'').'>Urgent</option>
 		<option value="Recruiter" '.($type=='Recruiter'? 'selected':'').'>Recruiter</option>
 		';
@@ -86,7 +86,7 @@
 		$result = $DBAccess->searchJob($type,$min,$date,array($tag));
 	}
 	else
-	$result = $DBAccess->searchJob($type,$min,$date,$tag);
+	  $result = $DBAccess->searchJob($type,$min,$date,$tag);
 	
 	if($result){
 		foreach($result as $row)
@@ -107,17 +107,19 @@
 						<p class="type">Tipology: '.trim($row["Tipology"]).'</p>
 						<p class="minPay">Minimum Pay: $'.trim($row["P_min"]).'</p>
 						<p class="bids">Bids: '.$bids.'</p>
-						<p class="description">Description:<br>'.$desc.'</p>
-						<li>';
-						
+						<p class="description">Description: '.$desc.'</p>';
+
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
-			foreach($jobTags as $name=>$value){
-				$HtmlContent .='
-							<a href="?tag='.$value.'">'.$name.'</a>';
+      if($jobTags) {
+        $HtmlContent .='<ul>';
+        foreach($jobTags as $name=>$value){
+          $HtmlContent .='
+                <li><a href="?tag='.$value.'">'.$name.'</a></li>';
+        }
+        $HtmlContent .='</ul>';
 			}
-			$HtmlContent .='
-						</li>
-						</div>';
+      $HtmlContent .='</div>';
+
 		}
 		$HtmlContent .='</div>';
 	}
@@ -125,7 +127,7 @@
 		$HtmlContent.='<p>No Jobs Currently Available</p></div>';
 	
 	
-	$HTML = str_replace('<div id="jobList"></div>',$HtmlContent,$HTML);
+	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1></div>',$HtmlContent,$HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
 	$HTML = str_replace('<DateSelect/>',$HtmlDateSelect,$HTML);
@@ -134,6 +136,11 @@
 		$HTML = str_replace('<GETsearch/>','?tag='.$tag,$HTML);
 		$HTML = str_replace('<Title_complete/>',' matching '. $tagName .' tag',$HTML);
 	}
+  else
+  {
+    $HTML = str_replace('<GETsearch/>','',$HTML);
+		$HTML = str_replace('<Title_complete/>','',$HTML);
+  }
  
   // Apertura Pagina
   echo $HTML;

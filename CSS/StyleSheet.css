@@ -298,6 +298,7 @@ main#findJob {
 }
 
 form#formFilter {
+  min-width: 30%;
   margin-left: 1em;
   position: sticky;
   top: 0;
@@ -1009,6 +1010,18 @@ img#secondImg {
 
 div#popularJobs {
   grid-area: e;
+}
+
+ul#popularJobs {
+  width: 100%;
+  padding: 2em;
+}
+
+ul#popularJobs li {
+  display: inline-block;
+  list-style-type: none;
+  width: 20%;
+  text-align: center;
 }
 
 h1.index {
