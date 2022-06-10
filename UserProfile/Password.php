@@ -11,7 +11,7 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Change Password",$HTML);
 
-    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=6"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a></li>',
+    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=5"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a></li>',
     '<li class="selected">
       <img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span>
     </li>',$HTML);
