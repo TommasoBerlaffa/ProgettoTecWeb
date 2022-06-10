@@ -44,7 +44,7 @@
       $content = str_replace("{{Description}}",trim($Result["Description"]),$content);
       $content = str_replace("{{Creation}}",trim($Result["Creation"]),$content);
       
-      $Review = $DbAccess->getUserReviewList($_SESSION['user_ID']);
+      $Review = $DbAccess->getUserReviewList($_SESSION['user_ID'],3);
       
       if($Review) {
         $content .= '<div id="feedbacks"><div class="headchapter"><h1 class="chapter"> Your Latest Reviews : </h1></div>';

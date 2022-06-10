@@ -675,13 +675,13 @@ class DBAccess {
   par: int userID;
   desc: ritorna lista delle recensioni relative ad un utente userID. altrimenti ritorna null.
   ****************************/
-  public function getUserReviewList($id) {
+  public function getUserReviewList($id,$number) {
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
-    FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?;');
-		mysqli_stmt_bind_param($queryCall,'i',$id);
+    FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?  ORDER BY R.Date DESC LIMIT ?;');
+		mysqli_stmt_bind_param($queryCall,'ii',$id,$number);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);

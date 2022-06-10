@@ -88,6 +88,7 @@
 	else
 	  $result = $DBAccess->searchJob($type,$min,$date,$tag);
 	
+  $divider=0;
 	if($result){
 		foreach($result as $row)
 		{
@@ -119,7 +120,11 @@
         $HtmlContent .='</ul>';
 			}
       $HtmlContent .='</div>';
-
+      $divider++;
+      if($divider%5 == 0)
+      {
+        $HtmlContent .='<a href="#header">Go back to top</a>';
+      }
 		}
 		$HtmlContent .='</div>';
 	}

@@ -31,7 +31,7 @@ if(isset($_SESSION['user_Username']))
     $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
     $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
     
-    $Review = $DbAccess->getUserReviewList($_SESSION['user_ID']);
+    $Review = $DbAccess->getUserReviewList($_SESSION['user_ID'],5);
     
     if($Review) {
       $content = '<div id="viewUserFeedBack" class="box"><div class="headchapter">
