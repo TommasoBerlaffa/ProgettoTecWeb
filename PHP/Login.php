@@ -55,7 +55,7 @@
           $_SESSION['user_Status'] = $Logged['Status'];
           $_SESSION['user_Username'] = $Logged['Username'];
           $_SESSION['user_Icon'] = $Logged['Icon'];
-        
+
           $taglist = $DBAccess->getTags($Logged['ID'],0);
           unset($_SESSION['TagList']);
         

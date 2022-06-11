@@ -1019,13 +1019,15 @@ div#popularJobs {
 ul#popularJobs {
   background: var(--subcolor);
   padding: 0.2em;
+  display: flex;
+  flex-direction: row;
   border: 2px solid var(--background);
 }
 
 ul#popularJobs li {
-  display: inline-block;
   list-style-type: none;
   text-align: center;
+  flex-basis: 20%;
   margin: 1em;
   padding: 1em;
   background: var(--background);

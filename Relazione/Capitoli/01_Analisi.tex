@@ -2,19 +2,19 @@
 	
   \subsection{Analisi di Utenza}	
 	  Il sito Job finder si rivolge ad un tipo di pubblico esperto, già introdotto al mondo dell’informatica. Viene fatto in modo che anche un utente non esperto e alle prime 
-    armi riesca a trovare tutte le informazioni di cui è alla ricerca senza troppe difficoltà.\\	
-    L’utenza di questo sito si quindi può dividere in 3 macrocategorie :
+    armi riesca a trovare tutte le informazioni di cui è alla ricerca, senza troppe difficoltà.\\	
+    L’utenza di questo sito si quindi può dividere in 3 tipologie:
 	  \begin{itemize}
-      \item Utente nuovo ed inesperto : arriva al sito per la prima volta, senza conoscerne alcun dettaglio. Per questo tipo di utente, la pagina di Home deve contenere tutte 
+      \item \textbf{Utente nuovo ed inesperto}: arriva sul sito per la prima volta, senza conoscerne alcun dettaglio. Per questo tipo di utente, la pagina di Home deve contenere tutte 
       le informazione necessarie a risolvere qualsiasi dubbio riguardo allo scopo e alle funzionalità del sito. È inoltre necessario fare in modo che questo nuovo utente non si
       senta soverchiato dalle informazioni del sito, per questo motivo viene utilizzato un linguaggio di facile comprensione e vengono mostrare a schermo solamente le 
-      informazioni necessarie
-      \item Utente in cerca di Lavoro : utente che conosce il sito e vuole sfruttare le proprie skills per ottenere un lavoro. Le zone di ricerca di lavoro e di UserProfile 
-      sono quelle dove questo tipo di utente passerà la maggior parte di tempo della navigazione del sito
-      \item Utente in cerca di Lavoratori : utente che conosce il sito e necessita di un Lavoratore in grado di svolgere un compito ben specifico. Le zone di creazione lavoro 
-      e UserProfile sono quelle dove questo tipo di utente svolgerà la maggior parte delle proprie azioni
+      informazioni necessarie;
+      \item \textbf{Utente in cerca di Lavoro}: utente che conosce il sito e vuole sfruttare le proprie conoscenze ed abilità per ottenere un lavoro. Le zone di ricerca di lavoro e di profilo utente 
+      sono quelle dove questo tipo di utente passerà la maggior parte di tempo della navigazione del sito;
+      \item \textbf{Utente in cerca di Lavoratori}: utente che conosce il sito e necessita di un lavoratore in grado di svolgere un compito ben specifico. Le zone di creazione lavoro 
+      e profilo utente sono quelle dove questo tipo di utente svolgerà la maggior parte delle proprie azioni.
     \end{itemize}
-    Il tipo di utente, indipendentemente dal motivo per cui si trova sul sito, viene diviso in 3 categorie :
+    Il tipo di utente, indipendentemente dal motivo per cui si trova sul sito, viene inoltre diviso in 3 categorie:
     \begin{itemize} 
       \item l’user che non ha ancora fatto il Log In o la Registrazione (\textit{User Non Loggato})
       \item l’user che ha effettuato il Log In (\textit{User Generico}) 
@@ -24,24 +24,24 @@
   \subsection{Casi d'Uso}
     Alle 3 tipologie di utenza precedente elencate saranno accessibili diverse pagine:
     \begin{itemize}
-      \item a tutti e 3 le tipologie di utenti, saranno visibili le pagine Home, FindJob, Login e SignUp
-      \item a tutti gli utenti che hanno effettuato il login, saranno visibili tutte le pagine (comprendono CreateJob, UserProfile e ViewJob/ViewUser)
-      \item a gli utenti Amministratori, saranno visualizzabili ulteriori elementi nelle pagine che permettono modifiche a dati/informazioni di altri utenti
+      \item a tutti gli utenti saranno visibili le pagine Home, FindJob, Login, SignUp e FAQ;
+      \item a tutti gli utenti che hanno effettuato il login saranno visibili tutte le pagine (comprendono CreateJob, UserProfile e ViewJob/ViewUser);
+      \item agli utenti Amministratori saranno visualizzabili ulteriori elementi nelle pagine che permettono modifiche a dati/informazioni di altri utenti, in aggiunta ad una pagina per cercare specifici utenti e lavori.
     \end{itemize}
 
   \subsection{Analisi Requisiti} 
     Il sito si occupa principalmente di soddisfare 2 richieste:
     \begin{itemize}
-      \item Ricerca di un lavoro, tramite le pagine di visualizzazione dei lavori disponibili, a cui un utente interessato può fare una proposta
-      \item Ricerca di un lavoratore, tramite la creazione di un’offerta di lavoro, al quale il possibile candidato dovrà proporsi
+      \item \textbf{Ricerca di un lavoro}, tramite le pagine di visualizzazione dei lavori disponibili, a cui un utente interessato può fare una proposta;
+      \item \textbf{Ricerca di un lavoratore}, tramite la creazione di un’offerta di lavoro, al quale il possibile candidato potrà proporsi.
     \end{itemize}
     Oltre a questi due requisiti, su cui si basa l’intero sito, sono presenti altre funzionalità di interesse, quali :
     \begin{itemize}
-      \item Descrizione delle funzionalità del sito
+      \item Descrizione delle funzionalità del sito;
       \item Sign Up, Log In, Log Out. La visualizzazione di alcune pagine, come lo User Profile o la Creazione di una Offerta di Lavoro, non sono visibili agli utenti non 
-      attualmente Loggati.
-      \item Cronologia dei Lavori Svolti (sia da parte del creatore dell’Offerta, sia da parte del Lavoratore), Cronologia delle Offerte e Offerte attualmente in atto.
-      \item Possibilità di filtrare le varie offerte di Lavoro
-      \item Possibilità di Visualizzare informazioni su Utenti che si propongono per un offerta di lavoro
-      \item Lettura e Scrittura di Feedback sul Lavoro svolto
+      attualmente loggati;
+      \item Cronologia dei Lavori Svolti (sia da parte del creatore dell’Offerta, sia da parte del Lavoratore), Cronologia delle Offerte e Offerte attualmente in atto;
+      \item Possibilità di filtrare le varie offerte di Lavoro;
+      \item Possibilità di Visualizzare informazioni su Utenti che si propongono per un offerta di lavoro:
+      \item Lettura e Scrittura di Feedback sul Lavoro svolto.
     \end{itemize}

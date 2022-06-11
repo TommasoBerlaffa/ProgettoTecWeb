@@ -38,8 +38,8 @@
   }
   
   main { 
-    padding-top: 2em;
-    margin-top:15%;
+    padding-top: 4em;
+    margin-top:10%;
     margin-bottom: 5%;
   }
   
@@ -164,6 +164,7 @@
 
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
+    width: 85%;
     margin-bottom: 12%;
     margin-top: 12%;
     position:unset;
@@ -176,7 +177,7 @@
     height: fit-content;
     min-height: fit-content; 
     overflow: unset;
-    width: 10%;
+    width: fit-content;
   }
 
   #sidebar a {
@@ -197,7 +198,7 @@
 
   /* 1.7.1 Content for User Profile */
   div#content {
-    width: 100%;
+    margin: auto;
   }
 
   /* 1.7.2 User Profile Welcome Page */
@@ -206,12 +207,15 @@
   }
   
   /* 1.7.3 User Info and Review from User Profile */
-  div#userinfo {
+  div#userinfo,
+  div#feedbacks {
     width: 100%;
+    margin: auto;
   }
 
-  div#feedbacks {
-    width: 100%;;
+  div#userInfo {
+    width: 90%;
+    padding-top: 2em;
   }
 
   /* - 1.7.5 User Profile Setting Page - */
@@ -244,6 +248,12 @@
     
   }
 
+  /* - 1.7.6 Change Password Page - */
+
+  form#changePsw {
+    width: 70%;
+  }
+
   /* - 1.08.0 View Old Job Info & Feedback - */
   div#JobInfo {
     width: 90%;
@@ -264,7 +274,8 @@
   
   /* - 1.09.0 Index - */
   main#Home {
-    margin-top: 12%;
+    margin-top: 10%;
+    padding-top: 4em;
     grid-template-areas:
         " b b "
         " a a "
@@ -273,228 +284,34 @@
         " d d "
         " t t "
         " e e ";
-    margin-bottom: 10%;
+    margin-bottom: 5%;
+  }
+
+  ul#popularJobs {
+    display: flex;
+    flex-direction: column;
   }
 
   /* - 1.10.0 View User - */
   main#viewUser {
-    flex-wrap: wrap;
+    display: flex;
     align-items: center;
-  }
-
-  div#userInfo {
-    width: 90%;
-    padding-top: 2em;
+    flex-direction: column;
+    margin-top: 10%;
+    padding-top: 3em;
+    margin-bottom: 5%;
+    padding-bottom: 3em;
   }
 
   div#viewUserInfo,
   div#viewUserFeedBack {
     width: 70%;
-    margin: auto;
-  }
- 
-  /* -10.0 View User - */
-
-
-}
-
-
-
-
-
-
-
-
-
-/*
-body{
-  font-size: 1.1em;
-}
-
-p{
-  font-size: 2em;
-}
-
-a{
-  text-decoration: none;
-}
-
-.BottoniLogSignClass{
-display: inline;
-color:#000099;
-padding: 15px;
-}
-
-#BottoniLogSignDiv{
-  text-align: right;
-  background-color: white;
-  margin : -10px;
-  height: 3em;
-  padding :5px;
-}
-
-#WebSiteName{
-  font-weight: bolder;
-  text-align : center;
-  font-style: italic;
-  font-size: 3.2em;
-  margin: 15px;
-}
-
-#BottoniLavoroDiv{
-  background-color:#004d99;
-  margin: -10px;
-  padding : 15px 15px 30px 15px;
-  text-align : center;
-
-}
-
-.BottoniLavoro{
-  display: inline-block;
-  border-radius: 5px;
-  background-color: #D9F3F9;
-  border: 1px solid #5F99A6;
-  margin: 10px 50px 0px 50px;
-  padding: 10px;
-  width : auto;
-}
-
-#slidesDiv{
-  background-image: url("../IMG/Slide1.jpg");
-  background-size: cover;
-
-  /*opacity: 0.8;
-  filter: alpha(opacity=20);  For IE8 and earlier * /
-
-  height: 350px;
-  margin: -10px;
-  padding: 100px;
-  word-wrap: break-word;
-  color: black;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-
-#slidesDiv p{
-
-  font-weight: bold;
-  font-size: 2.5em;
-  /*background-color: #e6ffff;
-  border: 2px solid #5F99A6;
-  * /border-radius: 5px;
-  padding: 0px 20px 0px 10px;
-  color: #000000;
-  word-wrap: break-word;
-
-}
-
-#CardsDiv{
-  background-color:white;
-  margin : -10px;
-  padding-left: 1em;
-  font-weight: bold;
-  text-align: center;
-}
-
-.CardsUl{
-  margin: 10px;
-  padding: 0em 1em 0em 0em;
-  padding-bottom: 50px;
-  list-style: none;
-}
-
-.CardsUl li {
-  font-size: 0.7em;
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - 20px);
-  border: 1px solid grey;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.TitoloCard{
-  font-size: 3em;
-  padding:0;
-  margin:0;
-}
-
-.TestoCard{
-  margin:0.5em;
-  padding-left: 1em;
-  font-weight: normal;
-
-}
-
-.MenuFooterLoggedDiv {
-  width:100%;
-  margin: -8px;
-  bottom: 0px;
-  position: fixed;
-
-}
-
-.MenuFooterLoggedUl {
-    bottom: 0px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #0523FC;
-  }
-
-.MenuFooterLoggedLi {
-    padding: 0  px;
-    margin : 0px;
-    float: left;
-    border : 1px solid black;
-  }
-
-.MenuFooterLoggedLi a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-.right{
-    float: right;
-}
-
-.FormCreateLabel{
-  text-align: center;
-  display: block;
-  float: left;
-  width: 150px;
-  text-align: left;
-}
-
-.FormCreateInput{
-  /*margin: 0px 0px 20px 0px;
-  * /
-  background: grey;
-  border: 1px solid black;
-  color: white; /* Colore del testo * /
-  height: 30px;
-  line-height: 30px;
-  width: 300px;
-  padding: 0 10px;
+    padding-top: 2em;
+    margin-top: 2em;
   }
 
 
-.FormCreateInput.LargeText { /* Stili specifici per la teaxtarea * /
-font-size: 12px;
-height: 200px;
-width: 95%;
-overflow: hidden; /* disabilitare la scrollbar in IE * /
+
 }
 
-#MinPay, #MaxPay{
-  width: 5em;
-}
-
-#Tipology, #Skills{
-  width: 12em;
-}*/
 
