@@ -16,19 +16,8 @@
       <img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span>
     </li>',$HTML);
   
-
-    $HTMLContent='<form id="changePsw" action="../PHP/ChangePassword.php" method="post">
-      <fieldset>
-      <legend>Change Password</legend>
-      <label for="OldPsw">Old Password : </label>
-      <input type="password" name="OldPsw" id="OldPsw" required />
-      <label for="Password">New Password :</label>
-      <input type="password" name="Password" id="Password" required />
-      <label for="Repeat-Password">Repeat New Password :</label>
-      <input type="password" name="Repeat-Password" id="Repeat-Password" required />
-      <button type="submit" name="ChangePsw">Change Password</button>
-      </fieldset>
-    </form>';
+    $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangePassword.html';
+    $HTMLContent=file_get_contents($urlContent);
     $HTML = str_replace('<div id="content"></div>',$HTMLContent,$HTML);
     // Apre file html
     echo $HTML;

@@ -15,8 +15,7 @@
     $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a></li>',
     '<li class="selected"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></li>',$HTML);
   
-
-    $urlExtra = '..'. DIRECTORY_SEPARATOR .'UserProfile'. DIRECTORY_SEPARATOR .'Settings.html';
+    $urlExtra = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Settings.html';
     // Mettere i valori dentro la Form
     $DbAccess = new DBAccess();
 

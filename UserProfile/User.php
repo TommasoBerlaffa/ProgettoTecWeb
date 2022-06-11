@@ -17,7 +17,9 @@
       <img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span>
       </li>',$HTML);
     
-    $content='<div id="content">';
+    $content='<div id="content"><div id="intro">
+      <p><em>User Profile</em> is the place where you can see your own informations and your 3 latest reviews.</p>
+    </div>';
     // Ottiene Valori Utente da SQL
     // Query del tipo SELECT * FROM users WHERE Code_user = $_SESSION['Code_User'];
     $DbAccess = new DBAccess();

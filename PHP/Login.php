@@ -2,8 +2,12 @@
 
 	require_once 'DBAccess.php';
 	
-	session_start();
-	
+
+  if(!isset($_SESSION)) 
+  { 
+    session_start(); 
+  } 
+
 	$section=null;
 	if(isset($_GET['section'])){
     $section=filter_var($_GET['section'], FILTER_VALIDATE_INT);
@@ -22,6 +26,7 @@
     $_SESSION['code'] = $_GET['code'];
   }
     
+
 	//Controllo se Login è già stato effettuato
 	if(!isset($_SESSION['user_Username']))
 	{
@@ -68,22 +73,22 @@
             if(isset($_SESSION['code'])){
               $code = $_SESSION['code'];
               unset($_SESSION['code']);
-              if($view == 'ViewOffer' || $view == 'ViewJobOld')
+              if($view == "ViewOffer" || $view == "ViewJobOld")
                 header('Location:'. $view .'.php?Code_job='.$code);
               if($view == 'ViewUser')
                 header('Location:'. $view .'.php?Code_user='.$code);
             }
+
           }   
-          //else
-            //header('Location:Index.php');
 
           if(isset($page)) {
             $id=filter_var($_GET['section'], FILTER_VALIDATE_INT);
             if(isset($section))
               header('Location:UserProfile.php?section='. $section);
           }
-          //header('Location:UserProfile.php');
-            
+
+          if(!isset($view) && !isset($page) )
+            header('Location:UserProfile.php');
         } 
         else
           $messaggioErrore =  '<div id="errorList" class="box"><p>Username and/or Password are not correct. Please <a href="#Username">try again</a>.</p></div>';

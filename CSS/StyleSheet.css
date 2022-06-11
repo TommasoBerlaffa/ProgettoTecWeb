@@ -578,13 +578,17 @@ div#content p.tableEmpty {
 }
 
 /* - 7.3 User Info and Review from User Profile */
+div#userinfo,
 div#feedbacks {
   display: inline-block;
+  padding-top: 1em;
+}
+
+div#feedbacks {
   width: 40%;
 }
 
 div#userinfo {
-  display: inline-block;
   width: 55%;
 }
 
@@ -1013,15 +1017,18 @@ div#popularJobs {
 }
 
 ul#popularJobs {
-  width: 100%;
-  padding: 2em;
+  background: var(--subcolor);
+  padding: 0.2em;
+  border: 2px solid var(--background);
 }
 
 ul#popularJobs li {
   display: inline-block;
   list-style-type: none;
-  width: 20%;
   text-align: center;
+  margin: 1em;
+  padding: 1em;
+  background: var(--background);
 }
 
 h1.index {

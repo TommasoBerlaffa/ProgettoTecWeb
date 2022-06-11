@@ -1,15 +1,17 @@
 <?php
 
-    require_once 'DBAccess.php';
+  require_once 'DBAccess.php';
 	
 	require_once "Util.php";
 
-$source_img = 'source.jpg';
-$destination_img = 'destination .jpg';
+  $source_img = 'source.jpg';
+  $destination_img = 'destination .jpg';
 	
-
-    session_start();
-    //Controllo se Login è già stato effettuato
+  if(!isset($_SESSION)) 
+  { 
+    session_start(); 
+  } 
+  //Controllo se Login è già stato effettuato
 	$page=null;
 	if(isset($_GET['section'])){
 		$page=filter_var($_GET['section'], FILTER_VALIDATE_INT);
@@ -19,15 +21,15 @@ $destination_img = 'destination .jpg';
 	$messaggioErrore = '';
 	
 	$Username = '';
-    $Firstname = '';
-    $Lastname = '';
-    $Password = '';
+  $Firstname = '';
+  $Lastname = '';
+  $Password = '';
 	$Birthday = '';
-    $Email = '';
-    $Country = '';
-    $City = '';
-    $Address = '';
-    $Phone = '';
+  $Email = '';
+  $Country = '';
+  $City = '';
+  $Address = '';
+  $Phone = '';
 	$Picture = '';
 	$Curriculum = '';
 	$Description = '';
