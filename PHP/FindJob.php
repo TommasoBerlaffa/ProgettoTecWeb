@@ -1,8 +1,10 @@
 <?php
-	require_once 'DBAccess.php';
-	
 	// Inizio Sessione 
 	session_start();
+	require_once 'Util.php';
+	prof_flag("start");
+	require_once 'DBAccess.php';
+	prof_flag("prep page logged user or anonimus");
 	
 	// Variabili pagina HTML e Switch
 	$url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'FindJob.html';
@@ -32,6 +34,7 @@
 	
 	$HtmlContent='<div id="jobList"><h1>List of job offers<Title_complete/></h1>';
 
+	prof_flag("filtering input");
 
 	$type= 'Any';
 	$min=0;
@@ -64,6 +67,8 @@
 			$date =  intval(filter_var ( $_POST["Date"], FILTER_SANITIZE_STRING));
 	}
 	
+	prof_flag("refill form fields");
+	
 	$HtmlTypologySelect='
 		<option value="Any" '.($type=='Any'? 'selected':'').'>Any</option>
 		<option value="Fulltime" '.($type=='Fulltime'? 'selected':'').'>Fulltime</option>
@@ -80,28 +85,39 @@
 		';
 	
 	$DBAccess = new DBAccess();
+	
+	
 
 	if(isset($_GET['tag'])){
+		prof_flag("search Tag Name");
 		$tagName = $DBAccess->searchTagName($tag);
+		prof_flag("search Job algor");
 		$result = $DBAccess->searchJob($type,$min,$date,array($tag));
 	}
-	else
-	  $result = $DBAccess->searchJob($type,$min,$date,$tag);
+	else{
+		prof_flag("search Job algor");
+		$result = $DBAccess->searchJob($type,$min,$date,$tag);
+	}
 	
-  $divider=0;
+	$divider=0;
 	if($result){
+		$int=1;
 		foreach($result as $row)
 		{
+			prof_flag($int."° result start");
+			$start=microtime(true);
 			$desc=$row["Description"];
 			if(strlen($desc)>512){
 				$desc=substr($desc,0,511);
 				$desc=substr($desc,0,strrpos($desc, ' ') + 1).'...';
 			}
+			prof_flag($int."° result getBids");
 			$bids= $DBAccess->getBids($row['Code_job']);
 			if($bids)
 				$bids=count($bids);
 			else
 				$bids=0;
+			prof_flag($int."° result fillHTML");
 			$HtmlContent .='<div class="job">
 						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
 						<p class="date">Date: '.trim($row["Date"]).'</p>
@@ -109,29 +125,31 @@
 						<p class="minPay">Minimum Pay: $'.trim($row["P_min"]).'</p>
 						<p class="bids">Bids: '.$bids.'</p>
 						<p class="description">Description: '.$desc.'</p>';
-
+			
+			prof_flag($int."° result getTags");
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
-      if($jobTags) {
-        $HtmlContent .='<ul>';
-        foreach($jobTags as $name=>$value){
-          $HtmlContent .='
-                <li><a href="?tag='.$value.'">'.$name.'</a></li>';
-        }
-        $HtmlContent .='</ul>';
+			prof_flag($int."° result completing last pass");
+			if($jobTags) {
+				$HtmlContent .='<ul>';
+				foreach($jobTags as $name=>$value){
+					$HtmlContent .='
+					<li><a href="?tag='.$value.'">'.$name.'</a></li>';
+				}
+				$HtmlContent .='</ul>';
 			}
-      $HtmlContent .='</div>';
-      $divider++;
-      if($divider%5 == 0)
-      {
-        $HtmlContent .='<a href="#header">Go back to top</a>';
-      }
+			$HtmlContent .='</div>';
+			$divider++;
+			if($divider%5 == 0)
+				$HtmlContent .='<a href="#header">Go back to top</a>';
+			echo("completed ".$int."° result in: ".(microtime(true)-$start)."<br>");
+			$int++;
 		}
 		$HtmlContent .='</div>';
 	}
 	else
 		$HtmlContent.='<p>No Jobs Currently Available</p></div>';
 	
-	
+	prof_flag("filling HTML page with PHP prepared content");
 	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1></div>',$HtmlContent,$HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
@@ -141,11 +159,13 @@
 		$HTML = str_replace('<GETsearch/>','?tag='.$tag,$HTML);
 		$HTML = str_replace('<Title_complete/>',' matching '. $tagName .' tag',$HTML);
 	}
-  else
-  {
-    $HTML = str_replace('<GETsearch/>','',$HTML);
-		$HTML = str_replace('<Title_complete/>','',$HTML);
-  }
+	else
+	{
+		$HTML = str_replace('<GETsearch/>','',$HTML);
+			$HTML = str_replace('<Title_complete/>','',$HTML);
+	}
+	prof_flag("completed");
+	prof_print();
  
   // Apertura Pagina
   echo $HTML;
