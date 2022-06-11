@@ -116,8 +116,8 @@ class DBAccess {
   ****************************/
   public function getJob($id,$old) {
     if(isset($id)){
-      $queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ?;';
-      $queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ?;';
+      $queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ? LIMIT 1;';
+      $queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ? LIMIT 1;';
       if(!($this->openDBConnection()))
         die('\r\nFailed to open connection to the DB');
       $queryCall=null;
@@ -195,7 +195,8 @@ class DBAccess {
   ****************************/
   public function getBids($id) {
     if(isset($id)){
-      $queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
+      $queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
+							FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
       if(!($this->openDBConnection()))
         die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
@@ -393,7 +394,7 @@ class DBAccess {
   ****************************/
   public function searchTagName($id) {
     if(isset($id)) {
-		$query="SELECT Name FROM tags WHERE Code_tag = ?";
+		$query="SELECT Name FROM tags WHERE Code_tag = ? LIMIT 1";
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $query);
@@ -403,8 +404,6 @@ class DBAccess {
 		mysqli_stmt_close($queryCall);
 		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0){
-			echo('qualcosa non funzia');
-			print_r(array('qualcosa non funzia'));
 			return null;
 		}
 		else
@@ -591,7 +590,7 @@ class DBAccess {
     if(isset($id)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Code_user = ?;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Code_user = ? LIMIT 1;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -613,7 +612,7 @@ class DBAccess {
     if(isset($name)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Nickname = ? Limit 1;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT Code_user FROM users WHERE Nickname = ? Limit 1;');
 		if(!$queryCall)
 			die("errore nella preparazione");
 		mysqli_stmt_bind_param($queryCall,'s',$name);
@@ -637,7 +636,7 @@ class DBAccess {
     if(isset($name)) {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Email = ? Limit 1;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT Code_user FROM users WHERE Email = ? Limit 1;');
 		mysqli_stmt_bind_param($queryCall,'s',$name);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -680,7 +679,7 @@ class DBAccess {
 		if(!($this->openDBConnection()))
 			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
-    FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?  ORDER BY R.Date DESC LIMIT ?;');
+						FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?  ORDER BY R.Date DESC LIMIT ?;');
 		mysqli_stmt_bind_param($queryCall,'ii',$id,$number);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -796,8 +795,8 @@ class DBAccess {
 		if($queryResult==false){
 			return null;
 		} else if($queryResult==true && isset($ID)){
-			$querySelect = 'SELECT * FROM users WHERE Code_user = "' . $ID . '" LIMIT 1;';
-			$queryAdmin = 'SELECT * FROM admin WHERE Code_user = "' . $ID . '" LIMIT 1;';
+			$querySelect = 'SELECT Code_user, Status, Nickname, Picture  FROM users WHERE Code_user = "' . $ID . '" LIMIT 1;';
+			$queryAdmin = 'SELECT Code_user, Status, Nickname, Picture FROM admin WHERE Code_user = "' . $ID . '" LIMIT 1;';
 			if(!($this->openDBConnection()))
 				die('\r\r\nFailed to open connection to the DB');
 			$queryResult = mysqli_query($this->connection, $querySelect);
