@@ -1,10 +1,10 @@
 <?php
+	$globalstart=microtime(true);
 	// Inizio Sessione 
 	session_start();
 	require_once 'Util.php';
 	prof_flag("start");
 	require_once 'DBAccess.php';
-	prof_flag("prep page logged user or anonimus");
 	
 	// Variabili pagina HTML e Switch
 	$url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'FindJob.html';
@@ -168,6 +168,7 @@
 	prof_print();
  
   // Apertura Pagina
+  echo("<br>"."Page created in: ".(microtime(true)-$globalstart)."<br>");
   echo $HTML;
 
 ?>

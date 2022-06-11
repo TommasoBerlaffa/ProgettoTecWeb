@@ -53,7 +53,7 @@
 		for($i=0;$i<$size - 1; $i++)
 		{
 			echo "<b>{$prof_names[$i]}</b><br>";
-			echo sprintf("&nbsp;&nbsp;&nbsp;%f<br>", $prof_timing[$i+1]-$prof_timing[$i]);
+			echo sprintf("&nbsp;&nbsp;%f&nbsp;&nbsp;%.3f%%<br>",$prof_timing[$i+1]-$prof_timing[$i],($prof_timing[$i+1]-$prof_timing[$i])/($prof_timing[$size-2]-$prof_timing[0])*100);
 		}
 		echo "<b>{$prof_names[$size-1]}</b><br>";
 	}
