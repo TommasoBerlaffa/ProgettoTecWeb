@@ -120,17 +120,17 @@
 			prof_flag($int."° result fillHTML");
 			$HtmlContent .='<div class="job">
 						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
-						<p class="date">Date: '.trim($row["Date"]).'</p>
-						<p class="type">Tipology: '.trim($row["Tipology"]).'</p>
-						<p class="minPay">Minimum Pay: $'.trim($row["P_min"]).'</p>
-						<p class="bids">Bids: '.$bids.'</p>
-						<p class="description">Description: '.$desc.'</p>';
+						<p class="date"><span>Date</span> : '.trim($row["Date"]).'</p>
+						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
+						<p class="minPay"><span>Minimum Pay</span> : $'.trim($row["P_min"]).'</p>
+						<p class="bids"><span>Bids</span> : '.$bids.'</p>
+						<p class="description"><span>Description</span> : <br>'.$desc.'</p>';
 			
 			prof_flag($int."° result getTags");
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
 			prof_flag($int."° result completing last pass");
 			if($jobTags) {
-				$HtmlContent .='<ul>';
+				$HtmlContent .='<ul class="tags">';
 				foreach($jobTags as $name=>$value){
 					$HtmlContent .='
 					<li><a href="?tag='.$value.'">'.$name.'</a></li>';

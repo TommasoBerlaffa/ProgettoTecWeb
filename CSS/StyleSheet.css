@@ -402,13 +402,18 @@ div#jobList {
 div.job {
   border-bottom: 1px solid grey;
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: 
-  " a . . . b"
-  " c c c c d"
-  " c c c c e"
-  " c c c c f"
-  " g g g g .";
+  " a a . . b b"
+  " c c c . d d"
+  " c c c . e e"
+  " c c c . f f"
+  " g g g g . ."
+}
+
+div.job span {
+  font-style: italic;
+  padding-right: 0.2em;
 }
 
 div.job a {
@@ -443,9 +448,18 @@ div.job .bids {
   grid-area: f;
 }
 
-div.job li {
+div.job .tags {
   grid-area: g;
+  list-style-type: none;
 }
+
+div.job .tags li {
+  display: inline-block;
+  padding-right: 0.2em;
+  padding-left: 0.2em;
+}
+
+
 
 /* - 7.0 Sidebar for User Profile - */
 main#userProfile {  
