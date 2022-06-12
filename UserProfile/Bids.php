@@ -19,7 +19,11 @@
     <img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span>
     </li>',$HTML);
   
-    $DbAccess = new DBAccess();
+    $DBAccess = new DBAccess();
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
 
     $HTMLTable ='
     <div id="content">
@@ -27,7 +31,7 @@
         <p><em>Your Bids</em> is the place where you can check out all your bids, both past bids on succesfull jobs and current bids.</p>
       </div>';
     
-    $NewBid = $DbAccess->getUserJobs($_SESSION['user_ID'],false);
+    $NewBid = $DBAccess->getUserJobs($_SESSION['user_ID'],false);
     
     if($NewBid) {
       $tableNewBid = "";
@@ -50,7 +54,7 @@
     
     $HTMLTable .= $HTMLtableNewBid;
 
-    $OldBid = $DbAccess->getUserJobs($_SESSION['user_ID'],true);
+    $OldBid = $DBAccess->getUserJobs($_SESSION['user_ID'],true);
     if($OldBid) {
       $TableOldBid = "";
       $urlTableOldBid = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
@@ -70,6 +74,8 @@
     else
       $HTMLTableOldBid = '<p class="tableEmpty">You currently have no past bids. If you want to start making your bid history, you should check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'FindJob.php">Find a Job Offer</a> and try your first bid</p>';
 
+	$DBAccess->closeDBConnection();
+	
     $HTMLTable .= $HTMLTableOldBid;
 
     $HTMLTable .= '</div><a href="#header" class="goTop">Go back to the top</a>';

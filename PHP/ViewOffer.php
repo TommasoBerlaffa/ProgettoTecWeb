@@ -14,6 +14,10 @@ if(isset($_SESSION['user_Username']))
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
 	$self=true;
 	$DBAccess = new DBAccess();
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
 	$index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
     $_SESSION['Code_job'] = $index;
     $row = $DBAccess->getJob($index,true);
@@ -102,6 +106,7 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
 		$HTML = preg_replace('/(?<=<div id="JobInfo">)((\n|.)*)(?=<\/div>)/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
     }
+	$DBAccess->closeDBConnection();
 	echo $HTML;    
 }
 else {

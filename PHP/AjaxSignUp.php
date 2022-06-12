@@ -37,19 +37,29 @@
         if(strlen($user) == 0)
             echo("Empty field");
 		$DBAccess= new DBAccess();
+		if(!($DBAccess->openDBConnection())){
+			header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+			exit;
+		}
 		if($DBAccess->UsernameTaken($user))
 			echo("Username already taken.");
 		else
 			echo('OK');
+		$DBAccess->closeDBConnection();
 	}
 	else if(isset($post['Email'])) {
         $user = filter_var($post['Email'], FILTER_SANITIZE_STRING);
         if(strlen($user) == 0)
             echo("Empty field");
 		$DBAccess= new DBAccess();
+		if(!($DBAccess->openDBConnection())){
+			header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+			exit;
+		}
 		if($DBAccess->EmailTaken($user))
 			echo("Email already taken.");
 		else
 			echo('OK');
+		$DBAccess->closeDBConnection();
 	}
 ?>

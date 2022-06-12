@@ -21,15 +21,15 @@
 	$messaggioErrore = '';
 	
 	$Username = '';
-  $Firstname = '';
-  $Lastname = '';
-  $Password = '';
+	$Firstname = '';
+	$Lastname = '';
+	$Password = '';
 	$Birthday = '';
-  $Email = '';
-  $Country = '';
-  $City = '';
-  $Address = '';
-  $Phone = '';
+	$Email = '';
+	$Country = '';
+	$City = '';
+	$Address = '';
+	$Phone = '';
 	$Picture = '';
 	$Curriculum = '';
 	$Description = '';
@@ -40,7 +40,14 @@
 	$Skill5 = '';
 	
 	
+	
     if(isset($_POST['Sign_Up'])) {
+		$DBAccess= new DBAccess();
+		if(!($DBAccess->openDBConnection())){
+			header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+			exit;
+		}
+		
 		if(!isset($_POST['Username']))
 			$messaggioErrore .='<li>Username field must be filled.</li>';
 		else{
@@ -48,7 +55,6 @@
             if(strlen($tmp) == 0)
                 $messaggioErrore .= '<li>Username field must be filled.</li>';
 			else{
-				$DBAccess= new DBAccess();
 				if($DBAccess->usernameTaken($tmp))
 					$messaggioErrore .= '<li>This Username is already taken.</li>';
 				$Username = $tmp;
@@ -66,7 +72,6 @@
 			if( exec('findstr '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
 				$messaggioErrore .= '<li>Email domain is blacklisted as disposable.</li>';
 			else{
-				$DBAccess= new DBAccess();
 				if($DBAccess->emailTaken($tmp))
 					$messaggioErrore .= '<li>This Email is already used.</li>';
 				$Email = $tmp;
@@ -239,7 +244,6 @@
 		
 		
 		if($messaggioErrore==''){
-			$DBAccess = new DBAccess();
             $Success=$DBAccess->register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description);
 			if(!$Success)
 				$messaggioErrore .= '<div id="errorMessages"><ul>Something went wrong while creating your new account.</ul></div>';
@@ -249,6 +253,7 @@
 		}
 		else
 			$messaggioErrore = '<div id="errorMessages"><ul>' . $messaggioErrore . '</ul></div>';
+		$DBAccess->closeDBConnection();
 		
 	}
 

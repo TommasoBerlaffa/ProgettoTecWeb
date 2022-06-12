@@ -37,7 +37,12 @@
 		if(strlen($word) == 0)
 			exit();
 	$DBAccess= new DBAccess();
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
 	$result=$DBAccess->searchTags($word);
+	$DBAccess->closeDBConnection();
 	echo(json_encode($result));
 	}
 ?>

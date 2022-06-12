@@ -84,8 +84,12 @@
         <option value="744" '.($date==744? 'selected':'').'>Last Month</option>
 		';
 	
+	prof_flag("opening DB connection");
 	$DBAccess = new DBAccess();
-	
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
 	
 
 	if(isset($_GET['tag'])){
@@ -148,6 +152,8 @@
 	}
 	else
 		$HtmlContent.='<p>No Jobs Currently Available</p></div>';
+	
+	$DBAccess->closeDBConnection();
 	
 	prof_flag("filling HTML page with PHP prepared content");
 	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1></div>',$HtmlContent,$HTML);

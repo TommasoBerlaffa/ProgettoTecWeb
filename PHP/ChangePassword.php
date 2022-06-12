@@ -20,7 +20,12 @@
           $User = $_SESSION['user_Username'];
           $User = $_SESSION['user_ID'];
           $DbAccess = new DBAccess();
+		  if(!($DBAccess->openDBConnection())){
+			header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+			exit;
+		  }
           $DbAccess->changePassword();
+		  $DBAccess->closeDBConnection();
         }
         else //Errore password non coincidono 
         {

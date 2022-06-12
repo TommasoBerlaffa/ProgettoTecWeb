@@ -60,8 +60,13 @@
     if(isset($ID) && isset($Title) && isset($Desc) && isset($Tipology) && isset($MinPay) && isset($MaxPay) && isset($Skills) && isset($Expiring)){
       if($MaxPay>=$MinPay){
         $DBAccess = new DBAccess();
+			if(!($DBAccess->openDBConnection())){
+			header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+			exit;
+		}
         $Result=$DBAccess->createJob($ID, $Title,$Desc,$Tipology,$Payment,$MinPay,$MaxPay,$Expiring); //Id e Payment???
-        if($Result)
+        $DBAccess->closeDBConnection();
+		if($Result)
           $HTML = str_replace('<caricato/>','Job offer created!',$HTML); //Se si aggiorna la pagina dopo, si continua a caricare più volte lo stesso lavoro : Da fixare
         else
           $HTML = str_replace('<caricato/>','Error creating the job offer!!',$HTML);

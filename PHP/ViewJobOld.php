@@ -13,10 +13,14 @@ if(isset($_SESSION['user_Username'])) {
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
 	
-  $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
+    $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
 	
 	$DbAccess = new DBAccess();
-  $row = $DbAccess->getJob($index,false);
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
+    $row = $DbAccess->getJob($index,false);
 	$tags = $DbAccess->getTags($index,2);
 
   //Se trova risultato
@@ -74,7 +78,7 @@ if(isset($_SESSION['user_Username'])) {
       $HTML = preg_replace('/<div id="JobInfo">.*?.<\/div><\/div><div id="feedback"><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
       //$HTML = str_replace('<div id="JobInfo">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
     }
-
+	$DBAccess->closeDBConnection();
 	
 	echo $HTML;    
 }

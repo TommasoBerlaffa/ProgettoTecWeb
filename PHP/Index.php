@@ -28,9 +28,13 @@
         <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'book.png" class="icons" alt=""> Sign up </a></li>';
   }
 
-  $DbAccess = new DBAccess();
-  $tags = $DbAccess->getMostPopularJobs();
-
+  $DBAccess = new DBAccess();
+  if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
+  $tags = $DBAccess->getMostPopularJobs();
+  $DBAccess->closeDBConnection();
   if($tags)
   {
     $HTMLTags = '<ul id="popularJobs">';

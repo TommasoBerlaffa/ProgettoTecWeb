@@ -10,15 +10,19 @@ if(isset($_SESSION['user_Username']))
   $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'ViewUser.html';
   $HTML = file_get_contents($url);
 
-  $DbAccess = new DBAccess();
-  
+  $DBAccess = new DBAccess();
+  if(!($DBAccess->openDBConnection())){
+  	header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+  	exit;
+  }
+	
   $HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
   <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
   $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
   
   if($_GET['Code_User']) {
     $index = filter_var($_GET['Code_User'], FILTER_VALIDATE_INT);
-    $row = $DbAccess->getUser($index);
+    $row = $DBAccess->getUser($index);
     //Se trova risultato
     if($row) {        
     $HTML = str_replace("{{ Nickname }}",trim($row["Nickname"]),$HTML);
@@ -31,16 +35,16 @@ if(isset($_SESSION['user_Username']))
     $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
     $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
     
-    $Review = $DbAccess->getUserReviewList($_SESSION['user_ID'],5);
+    $Review = $DBAccess->getUserReviewList($_SESSION['user_ID'],5);
     
     if($Review) {
       $content = '<div id="viewUserFeedBack" class="box"><div class="headchapter">
           <h1 class="chapter">'.trim($row["Nickname"]). '\'s Reviews : </h1></div>';
-      $average = $DbAccess->getUserReview($index);
+      $average = $DBAccess->getUserReview($index);
       $content .= '<p>'.trim($row["Nickname"]).' average rating :'.trim($average["AvgStar"]) .'</p>';
       foreach($Review as $R)
       {
-      $User = $DbAccess->getUser(trim($R["C_Rew"]));
+      $User = $DBAccess->getUser(trim($R["C_Rew"]));
       // Replace Review with link to the job info
       $content .= '<div class="review">
         <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
@@ -68,6 +72,7 @@ if(isset($_SESSION['user_Username']))
   else {
     header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Index.php");
   }
+  $DBAccess->closeDBConnection();
 }
 else
 {

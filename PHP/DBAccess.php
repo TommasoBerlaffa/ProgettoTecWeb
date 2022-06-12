@@ -35,32 +35,29 @@ Function List:
 
 class DBAccess {
 	//completare
-	private const HOST_DB='localhost';
+	//private const HOST_DB='localhost';
+	private const HOST_DB='127.0.0.1';
 	private const USERNAME='root';
 	private const PASSWORD='';
 	private const DBNAME='job_finder';
 
 	private $connection;
 
-	private function openDBConnection(){
+	public function openDBConnection(){
 		$this->connection = mysqli_connect(DBAccess::HOST_DB, DBAccess::USERNAME, DBAccess::PASSWORD, DBAccess::DBNAME);
-
-		if(!$this->connection){
+		if(mysqli_connect_errno($this->connection)){
 			echo("connessione al DB fallita");
 			return false;
 		}
-		else{
+		else
 			return true;
-		}
 	}
 
-	private function closeDBConnection(){
-		if(!$this->connection){
-			return false;
-		}
-		else{
+	public function closeDBConnection(){
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			return mysqli_close($this->connection);
-		}
+		else
+			return false;
 	}
 
   /***1.Create New Job***
@@ -68,11 +65,11 @@ class DBAccess {
   desc: crea una nuova inserzione di lavoro. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring) {
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+        die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
       $queryInserimento = 'INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring)
                 VALUES (?,?,?,?,?,?,?,?)';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       if(!isset($pmax))
         $pmax='';
@@ -80,7 +77,6 @@ class DBAccess {
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $tmp=mysqli_affected_rows($this->connection);
-      $this->closeDBConnection();
       if($tmp)
         return true;
       return false;
@@ -93,16 +89,15 @@ class DBAccess {
   desc: assegna ad un lavoro passato il vincitore del concorso. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function setWinner($id, $job) {
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job)){
       $queryInserimento = 'SET @p=""; CALL Set_Winner(?,?,@p); SELECT @p;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'ii',$id, $job);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
       if(mysqli_fetch_assoc($queryResult))
         return true;
       return false;
@@ -115,11 +110,11 @@ class DBAccess {
   desc: ritorna le informazioni di un lavoro corrente o passato(bool old) in base al jobID. altrimenti ritorna null.
   ****************************/
   public function getJob($id,$old) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ? LIMIT 1;';
       $queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ? LIMIT 1;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=null;
       if(isset($old) and $old==true)
         $queryCall=mysqli_prepare($this->connection, $queryInserimento);
@@ -129,7 +124,6 @@ class DBAccess {
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
       return mysqli_fetch_assoc($queryResult);
     } else
       return null;
@@ -140,11 +134,11 @@ class DBAccess {
   desc: crea una recensione verso un utente userID per un lavoro passato compiuto jobID. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function createReview($id, $job, $stars, $comments,$date) {
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+    die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job) and isset($stars)){
       $queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments, Date)
                 VALUES (?,?,?,?,?)';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       if(!isset($comments))
         $comments='';
@@ -152,7 +146,6 @@ class DBAccess {
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $tmp=mysqli_affected_rows($this->connection);
-      $this->closeDBConnection();
       if($tmp)
         return true;
       return false;
@@ -165,18 +158,17 @@ class DBAccess {
   desc: ancora non a cosa serva e se serva questa funzione. (ho dimenticato perchè ne avevo concetuallizata l'esistenza).
   ****************************/
   public function getJobReview($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
         FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_job = ?;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=null;
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
       if(mysqli_num_rows($queryResult) == 0)
         return null;
       else {
@@ -194,11 +186,11 @@ class DBAccess {
   desc: ritorna array contenente tutti gli utenti e le loro offerte al concorso di un lavoro jobID. altrimenti ritorna null.
   ****************************/
   public function getBids($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
 							FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
@@ -220,17 +212,16 @@ class DBAccess {
   desc: ritorna lista di lavori correnti e relative informazioni che un utente userID ha creato, da mostrare nel proprio profilo. altrimenti ritorna null.
   ****************************/
   public function getJobListbyCreator($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT current_jobs.Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(DISTINCT bids.Code_user) AS C FROM current_jobs LEFT JOIN bids
                 ON current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ?;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
       if(mysqli_num_rows($queryResult) == 0)
         return null;
       $result=array();
@@ -246,16 +237,15 @@ class DBAccess {
   desc: ritorna lista di lavori passati e relative informazioni che un utente userID ha creato, da mostrare nel proprio profilo. altrimenti ritorna null.
   ****************************/
   public function getPastJobListbyCreator($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_user = ?;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
       if(mysqli_num_rows($queryResult) == 0)
         return null;
       $result=array();
@@ -271,6 +261,8 @@ class DBAccess {
   desc: cambia lo stato di un lavoro jobID corrente o passato(bool old). ritorna se la transazione ha avuto successo oppure no.
   ****************************/
   public function changeJobStatus($id,$status,$old) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 	$queryInserimento = '';
     if(isset($id) and isset($status)){
 		if(isset($old) and $old==true and in_array($status,array('Deleted', 'Frozen','Success','Unsucces')))
@@ -279,15 +271,12 @@ class DBAccess {
 			$queryInserimento = 'UPDATE `current_jobs` SET `Status` = ? WHERE `current_jobs`.`Code_job` = ?;';
 		else
 			return null;
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		mysqli_stmt_bind_param($queryCall,'si',$status,$id);
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
 		$result = mysqli_affected_rows($this->connection);
-		$this->closeDBConnection();
 		if($result)
 			return true;
 		return false;
@@ -301,10 +290,9 @@ class DBAccess {
   desc: ritorna un array contenente tutti i tag e la loro posizione all'interno dell'array è alternata con la relativa categoria. altrimenti ritorna null.
   ****************************/
   public function getAllTags() {
-    if(!($this->openDBConnection()))
-      die('\r\nFailed to open connection to the DB');
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     $queryResult = mysqli_query($this->connection, 'SELECT * FROM tags;');
-    $this->closeDBConnection();
     $riga = mysqli_fetch_assoc($queryResult);
     if(mysqli_num_rows($queryResult) == 0)
       return null;
@@ -321,14 +309,15 @@ class DBAccess {
   desc: returns list of tags of an ID for the choosen relative table.
   ****************************/
   public function getTags($id,$table) {
+	if(!(mysqli_ping($this->connection)))
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($table)) {
 		if($table<0||$table>2)
 			return null;
 		$user='SELECT tags_users.Code_tag, Name FROM tags_users LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
 		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
 		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs LEFT JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
+		
 		$queryCall=null;
 		if(!$table)
 			$queryCall=mysqli_prepare($this->connection, $user);
@@ -340,7 +329,6 @@ class DBAccess {
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {
@@ -360,20 +348,17 @@ class DBAccess {
   desc: returns list of tags of an ID for the choosen relative table.
   ****************************/
   public function searchTags($word) {
-	//echo(gettype($word));
-	//echo($word);
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($word)) {
 		$word.='%';
 		$query="SELECT Code_tag, Name FROM tags WHERE Name LIKE ?";
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $query);
 		//echo($queryCall===false);
 		mysqli_stmt_bind_param($queryCall,'s',$word);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {
@@ -393,16 +378,15 @@ class DBAccess {
   desc: returns list of tags of an ID for the choosen relative table.
   ****************************/
   public function searchTagName($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
 		$query="SELECT Name FROM tags WHERE Code_tag = ? LIMIT 1";
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $query);
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0){
 			return null;
 		}
@@ -421,11 +405,10 @@ class DBAccess {
   desc: ritorna i 4 tag più popolari al momento.
   ****************************/
   public function getMostPopularJobs() {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     $query='SELECT Name,tags.Code_tag, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag= tags_current_jobs.Code_tag GROUP BY tags.Code_tag ORDER BY frequency DESC LIMIT 4;';
-    if(!($this->openDBConnection()))
-      die('\r\nFailed to open connection to the DB');
     $queryResult = mysqli_query($this->connection, $query);
-    $this->closeDBConnection();
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
@@ -442,7 +425,9 @@ class DBAccess {
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
   public function searchJob($tipology='Any',$min=0,$date=9999999,$tags=null){
-	
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+
 	if(!is_numeric($min) OR !is_numeric($date))
 		return null;
 	  
@@ -555,11 +540,6 @@ class DBAccess {
 		$query.=$count;
 	$query.=$end;
 	
-	//echo $query;
-	
-	if(!($this->openDBConnection()))
-		die('\r\nFailed to open connection to the DB');
-	
 	$queryCall=mysqli_prepare($this->connection,$query);
 	if(!$queryCall)
 		die('Errore preparazione query');
@@ -573,7 +553,6 @@ class DBAccess {
 	
 	$queryResult = mysqli_stmt_get_result($queryCall);
 	mysqli_stmt_close($queryCall);
-	$this->closeDBConnection();
 	if(mysqli_num_rows($queryResult) == 0)
 		return null;
 	$result=array();
@@ -587,15 +566,14 @@ class DBAccess {
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
   ****************************/
   public function getUser($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Code_user = ? LIMIT 1;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else
@@ -609,9 +587,9 @@ class DBAccess {
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
   ****************************/
   public function usernameTaken($name) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($name)) {
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT Code_user FROM users WHERE Nickname = ? Limit 1;');
 		if(!$queryCall)
 			die("errore nella preparazione");
@@ -619,7 +597,6 @@ class DBAccess {
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return false;
 		else
@@ -633,15 +610,14 @@ class DBAccess {
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
   ****************************/
   public function emailTaken($name) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($name)) {
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT Code_user FROM users WHERE Email = ? Limit 1;');
 		mysqli_stmt_bind_param($queryCall,'s',$name);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return false;
 		else
@@ -655,16 +631,15 @@ class DBAccess {
   desc: Return average star rating of an user
   ****************************/
   public function getUserReview($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
     // $queryCall=mysqli_prepare($this->connection, 'SELECT User_Review(?);');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT AVG(Stars) AS AvgStar FROM reviews WHERE Code_user =?;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		return mysqli_fetch_assoc($queryResult);
     } else
 		return null;
@@ -675,16 +650,15 @@ class DBAccess {
   desc: ritorna lista delle recensioni relative ad un utente userID. altrimenti ritorna null.
   ****************************/
   public function getUserReviewList($id,$number) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
 						FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?  ORDER BY R.Date DESC LIMIT ?;');
 		mysqli_stmt_bind_param($queryCall,'ii',$id,$number);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {
@@ -702,9 +676,9 @@ class DBAccess {
   desc: ritorna lista di lavori a cui un utente userID abbia dato la sua proposta oppure abbia partecipato(bool old). altrimenti ritorna null.
   ****************************/
   public function getUserJobs($id,$old) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 
 		$query='SELECT bids.Code_job AS Code , Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
 				ON current_jobs.Code_job = bids.Code_job WHERE bids.Code_user =?;';
@@ -717,7 +691,6 @@ class DBAccess {
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
-		$this->closeDBConnection();
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {
@@ -735,13 +708,13 @@ class DBAccess {
   desc: inserisce un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
   public function register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description)){
 		//create new entry on table users and then create with the relative index the credentials for the login.
 		$queryInserimento = 'INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description)
 							VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
 		$queryprep='CALL Register_new_user(?,?);';
-		if(!($this->openDBConnection()))
-			die('\r\nFailed to open connection to the DB');
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		$queryCall2=mysqli_prepare($this->connection, $queryprep);
 		if(!isset($address))
@@ -760,7 +733,6 @@ class DBAccess {
 			$tmp=mysqli_affected_rows($this->connection);
 		}
 		mysqli_stmt_close($queryCall2);
-		$this->closeDBConnection();
 		if($tmp)
 			return true;
 		return false;
@@ -773,21 +745,20 @@ class DBAccess {
   desc: restituisce i dati dati dell'utente corrispondenti a user e password, altrimenti ritorna null
   ****************************/
   public function login($user, $pwd) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($user) && isset($pwd)) {
 		//uso di query preparata per evitare vulnerabilità da SQL Injection e uso di procedura per evitare alterazione del codice.
 		$qprep1='SET @mess="" AND @userID="";'; $qprep2='CALL Log_in(?,?,@mess,@userID);';	$qprep3='SELECT @mess, @userID;';
-		if(!($this->openDBConnection()))
-			die('\r\r\nFailed to open connection to the DB');
 		$queryCall = mysqli_prepare($this->connection, $qprep2);
 		//if($queryCall==false)
-		//	die('\r\nsomething went wrong during preparation of query for procedure Log_in');
+		//	die('<br>something went wrong during preparation of query for procedure Log_in');
 		mysqli_stmt_bind_param($queryCall,'ss', $user, $pwd);
 		mysqli_query($this->connection, $qprep1);
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
 
 		$queryResult = mysqli_query($this->connection, $qprep3);
-		$this->closeDBConnection();
 		$row= mysqli_fetch_row($queryResult);
 		$queryResult=$row[0];
 		$ID=$row[1];
@@ -797,11 +768,8 @@ class DBAccess {
 		} else if($queryResult==true && isset($ID)){
 			$querySelect = 'SELECT Code_user, Status, Nickname, Picture  FROM users WHERE Code_user = "' . $ID . '" LIMIT 1;';
 			$queryAdmin = 'SELECT Code_user, Status, Nickname, Picture FROM admin WHERE Code_user = "' . $ID . '" LIMIT 1;';
-			if(!($this->openDBConnection()))
-				die('\r\r\nFailed to open connection to the DB');
 			$queryResult = mysqli_query($this->connection, $querySelect);
 			$Admin = mysqli_query($this->connection, $queryAdmin);
-			$this->closeDBConnection();
 			$riga = mysqli_fetch_assoc($queryResult);
 			//if($queryResult==false)
 			//	die("  something bad happened!   can't find user by ID even if Login was susccessful!");
@@ -815,10 +783,10 @@ class DBAccess {
 				$datiUtente['Admin']=1;
 			return $datiUtente;
 		} else
-			echo '\r\r\nErrore dentro DBAccess: errore sconosciuto nella login';
+			echo '\r<br>Errore dentro DBAccess: errore sconosciuto nella login';
 
     } else {
-		echo '\r\r\nErrore dentro DBAccess: credenziali di accesso mancanti';
+		echo '\r<br>Errore dentro DBAccess: credenziali di accesso mancanti';
 		return null;
     }
 
@@ -829,11 +797,11 @@ class DBAccess {
   desc: 
   ****************************/
   public function createBid($id, $job, $price, $comments) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job) and isset($price)){
       $queryInserimento = 'INSERT INTO bids(Code_user, Code_job, User_Price, Bid_selfdescription)
                 VALUES (?,?,?,?)';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       if(!isset($comments))
         $comments='';
@@ -841,7 +809,6 @@ class DBAccess {
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $tmp=mysqli_affected_rows($this->connection);
-      $this->closeDBConnection();
       if($tmp)
         return true;
       return false;
@@ -854,17 +821,16 @@ class DBAccess {
   desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
   ****************************/
   public function changePassword($oldPsw,$newPsw) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($oldPsw) && isset($newPsw)){
       $queryCheck = '';
       $queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
-      if(!($this->openDBConnection()))
-        die('\r\nFailed to open connection to the DB');
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'is',$id,$status);
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $result = mysqli_affected_rows($this->connection);
-      $this->closeDBConnection();
       if($result)
         return true;
       return false;
@@ -882,14 +848,11 @@ class DBAccess {
     $queryInserimento = 'UPDATE users 
       SET Name=?,Surname=?,Nickname=?,Birth=?,Email=?,Nationality=?,City=?,Address=?,Phone=?,Picture=?,Curriculum=?,Description=? 
       WHERE Code_user=?;';
-    if(!($this->openDBConnection()))
-      die('\r\nFailed to open connection to the DB');
     $queryCall=mysqli_prepare($this->connection, $queryInserimento);
     mysqli_stmt_bind_param($queryCall,'ssssssssisssi',$name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description,$id);
     mysqli_stmt_execute($queryCall);
     mysqli_stmt_close($queryCall);
     $tmp=mysqli_affected_rows($this->connection);
-    $this->closeDBConnection();
     if($tmp)
       return true;
     else
@@ -901,16 +864,14 @@ class DBAccess {
   desc:
   ****************************/
   public function removeBid($idJob, $idUser) {
-    
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     $queryDelete = 'DELETE FROM bids WHERE Code_user=? AND Code_job=?;';
-    if(!($this->openDBConnection()))
-      die('\r\nFailed to open connection to the DB');
     $queryCall=mysqli_prepare($this->connection, $queryDelete);
     mysqli_stmt_bind_param($queryCall,'ii',$idUser, $idJob);
     mysqli_stmt_execute($queryCall);
     mysqli_stmt_close($queryCall);
     $tmp=mysqli_affected_rows($this->connection);
-    $this->closeDBConnection();
     if($tmp)
       return true;
     else

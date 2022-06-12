@@ -18,8 +18,11 @@
     </li>',$HTML);
   
 
-    $DbAccess = new DBAccess();
-
+    $DBAccess = new DBAccess();
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
     
     
     $HTMLTable ='
@@ -29,7 +32,7 @@
       </div>';
     
     // Ottiene Valori da Query - Current Jobs
-    $CurrentJob = $DbAccess->getJobListbyCreator($_SESSION['user_ID']);
+    $CurrentJob = $DBAccess->getJobListbyCreator($_SESSION['user_ID']);
 
     if($CurrentJob){
 
@@ -52,7 +55,8 @@
       $HTMLTable .= '<p>You currently have no active job. If you want to make a new job offer, feel free to check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'Createjob.php">Create a Job Offer</a></p>';
 
     // Ottiene Valori da Query - Past Jobs
-    $PastJob = $DbAccess->getPastJobListbyCreator($_SESSION['user_ID']);
+    $PastJob = $DBAccess->getPastJobListbyCreator($_SESSION['user_ID']);
+	$DBAccess->closeDBConnection();
 
     if($PastJob) {
       $tablePastJob= "";

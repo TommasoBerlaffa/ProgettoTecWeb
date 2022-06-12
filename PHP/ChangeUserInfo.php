@@ -10,6 +10,10 @@
   {
     // Apro Connessione a DB
     $DbAccess = new DBAccess();
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
     // Ottengo i valori dello User
     $Result = $DbAccess->getUser($_SESSION['user_ID']);
     // Da riempire e riportare in caso di errori
@@ -120,7 +124,8 @@
         ;
 
     $DbAccess->changeUserInfo($_SESSION['user_ID'],$Name,$Surname,$Username,$Birth,$Email,$Nationality,$City,$Address,$Phone,$Picture,$Curriculum,$Description);
-    header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php");  
+    $DBAccess->closeDBConnection();
+	header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php");  
   }
   else
   {
