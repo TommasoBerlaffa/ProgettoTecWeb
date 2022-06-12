@@ -45,8 +45,8 @@ class DBAccess {
 
 	public function openDBConnection(){
 		$this->connection = mysqli_connect(DBAccess::HOST_DB, DBAccess::USERNAME, DBAccess::PASSWORD, DBAccess::DBNAME);
-		if(mysqli_connect_errno($this->connection)){
-			echo("connessione al DB fallita");
+		if(!$this->connection){
+			echo("connessione al DB fallita: ".mysqli_connect_errno());
 			return false;
 		}
 		else
