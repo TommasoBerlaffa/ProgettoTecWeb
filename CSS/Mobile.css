@@ -105,7 +105,8 @@
     top: 8%;
     height: 4%;
     width: 100%;
-    background-color: whitesmoke; 
+    border: 0px;
+    border-bottom: 2px solid;
   }
 
   /* 1.5.1 Login */

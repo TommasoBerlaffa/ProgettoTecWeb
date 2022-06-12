@@ -76,7 +76,7 @@
               if($view == "ViewOffer" || $view == "ViewJobOld")
                 header('Location:'. $view .'.php?Code_job='.$code);
               if($view == 'ViewUser')
-                header('Location:'. $view .'.php?Code_user='.$code);
+                header('Location:'. $view .'.php?Code_User='.$code);
             }
 
           }   

@@ -52,21 +52,25 @@
       If you feel like you can do this job, try and make a bid for it.</p></div>
     <div id="JobInfo" class="box">
       <h1>Job Offer : {{ Title }}</h1>
-      <p class="status" > Status : {{ Status }} </p>  
-      <p class="type" > Type : {{ Tipology }} </p>
-      <p class="date" > Date : {{ Date }} </p>
-      <p class="expiration" > Expiration Date : {{ Expiring }} </p>
-      <p class="pay" > Payment : {{ Payment }} </p>
+      <p class="status"><span>Status</span> : {{ Status }} </p>  
+      <p class="type"><span>Type</span> : {{ Tipology }} </p>
+      <p class="date"><span>Date</span> : {{ Date }} </p>
+      <p class="expiration"><span>Expiration Date</span> : {{ Expiring }} </p>
+      <p class="pay"><span>Payment</span> : {{ Payment }} </p>
       <p id="offerCreator">{{ Creator }}</p>
       <div id="desc" class="desc">
-        <p>Description : </p> 
+        <p><span>Description</span> : </p> 
         <p id="description"> {{ Description }} </p>
       </div> 
-	  <tags/>
       {{ owner options }}
+      <div id="tags">
+        <p><span>Job Tags :</span></p>
+        <tags/>
+      </div>
     </div>
     <div id="bids" class="box"></div>
     <form id="addBid"></form>
+    <a href="#header" class="goTop">Go back to the top</a>
   </main>
   <!-- Footer -->
   <footer  id="footer">

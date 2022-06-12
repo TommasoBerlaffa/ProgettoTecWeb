@@ -44,8 +44,8 @@ if(isset($_SESSION['user_Username']))
       // Replace Review with link to the job info
       $content .= '<div class="review">
         <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
-        <p class="star">Date :'.trim($R["Date"]) .'</p>
-        <p class="date">Rating : '.trim($R["Stars"]).'/5 </p> 
+        <p class="star"><span>Date</span> : '.trim($R["Date"]) .'</p>
+        <p class="date"><span>Rating</span> : '.trim($R["Stars"]).'/5 </p> 
       </div>';
       }
       $content .= '</div>';

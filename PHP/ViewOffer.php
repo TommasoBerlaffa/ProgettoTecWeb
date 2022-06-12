@@ -51,8 +51,8 @@ if(isset($_SESSION['user_Username']))
 				foreach($bids as $B){
 				$HTMLBids.= '<div class="bid">
 								<p><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
-								<p>User Price: '.trim($B["Price"]).'</p>
-								<p>Description: '.trim($B["Description"]).'</p>';
+								<p><span>User Price</span> : '.trim($B["Price"]).'</p>
+								<p><span>Description</span> : '.trim($B["Description"]).'</p>';
 				if($B["Code"]==$_SESSION['user_ID']){
 					$self=false;
 					$HTMLBids.='<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          

@@ -28,8 +28,8 @@ if(isset($_SESSION['user_Username'])) {
 		$HTML = str_replace("{{ Tipology }}",trim($row["Tipology"]),$HTML);
 		$HTML = str_replace("{{ Date }}",trim($row["Date"]),$HTML);
 		$HTML = str_replace("{{ Expiring }}",trim($row["Expiring_time"]),$HTML);
-		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'"><abbr title="Information">Info</abbr> on the Creator</a>',$HTML);
-		$HTML = str_replace('{{ Winner }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_winner"]).'"><abbr title="Information">Info</abbr> on the Winner</a>',$HTML);
+		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">More informations on the Creator</a>',$HTML);
+		$HTML = str_replace('{{ Winner }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_winner"]).'">More informations on the Winner</a>',$HTML);
 		
     $HTMltags='';
     if($tags){

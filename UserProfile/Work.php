@@ -75,7 +75,7 @@
       $HTMLTable .= '<p class="tableEmpty">You currently have no past job offer that are terminated. If you want to create a job offering history, you should start by creating some jobs offer.
       Feel free to check out <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'Createjob.php">create a job offer</a></p>';
 
-    $HTMLTable .= '</div>';
+    $HTMLTable .= '</div><a class="goTop" href="#header">Go back to the top</a>';
     // Rimpiazza Valori su file html
     $HTML = str_replace('<div id="content"></div>',$HTMLTable,$HTML);
     // Stampo File Modificato

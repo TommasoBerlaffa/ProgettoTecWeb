@@ -80,6 +80,12 @@ main {
   border: 2px solid var(--black);
 }
 
+a.goTop {
+  display: block;
+  float: right;
+  margin-right: 10%;
+}
+
 /* - 2.0 Header - */
 header {
   background-color: var(--color);
@@ -128,7 +134,7 @@ img#profilepic {
   height: 18px;
   padding : 0.2em;
   background-color: white;
-  border : solid 1px black;
+  border : solid 1px var(--black);
   vertical-align: text-bottom;
   margin-right: 0.3em;
 }
@@ -139,7 +145,7 @@ nav.breadcrumb{
   padding: 0.3em;
   background-color:whitesmoke;
   border-width: 0em;
-  border : solid 2px black;
+  border : solid 2px var(--black);
 }
 
 /* - 4.0 Footer - */
@@ -406,7 +412,7 @@ div.job {
 }
 
 div.job a {
-  color:black;
+  color: var(--black);
 }
 
 div.job .title {
@@ -797,7 +803,8 @@ div#JobInfo {
   " c d "
   " e l "
   " f f "
-  " g h ";
+  " g h "
+  " i i ";
 }
 
 div#JobInfo p,
@@ -815,6 +822,11 @@ div#JobInfo h1 {
   margin-block-end: auto;
   text-align: center;
   grid-area: t;
+}
+
+div#JobInfo span {
+  font-style: italic;
+  padding-right: 0.3em;
 }
 
 div#JobInfo .status {
@@ -862,6 +874,14 @@ div#JobInfo #winner {
   grid-area: h; 
 }
 
+div#JobInfo #tags {
+  grid-area: i; 
+}
+
+div#JobInfo #tags ul{
+  list-style-type: none;
+}
+
 p#description{
   padding : 0.5em;
   word-break: break-all;
@@ -891,6 +911,11 @@ div#feedback .date
   display: inline-block;
   margin-block-start: auto;
   margin-block-end: auto;
+}
+
+div#feedback span {
+  font-style: italic;
+  padding-right: 0.3em;
 }
 
 div#feedback .reviewUser {
@@ -949,7 +974,7 @@ div#bids {
   margin: auto;
   margin-top: 1em;
   border-radius: 0 0 10px 10px;
-  border: 2px black solid;
+  border: 2px var(--black) solid;
   box-shadow: 0 0 10px #999;
 }
 
@@ -960,6 +985,11 @@ div#bids p.error{
 div.bid {
   margin: 1em;
   border-bottom: 1px solid var(--subcolor)
+}
+
+div.bid span {
+  font-style: italic;
+  padding-right: 0.3em;
 }
 
 form#addBid {
@@ -1069,6 +1099,12 @@ div#viewUserFeedBack {
 
 div#viewUserInfo {
   width: 45%;
+}
+
+div#viewUserInfo span,
+div#viewUserFeedBack span{
+  font-style: italic;
+  padding-right: 0.3em;
 }
 
 div#viewUserFeedBack {

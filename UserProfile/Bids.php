@@ -72,7 +72,7 @@
 
     $HTMLTable .= $HTMLTableOldBid;
 
-    $HTMLTable .= '</div>';
+    $HTMLTable .= '</div><a href="#header" class="goTop">Go back to the top</a>';
     // Rimpiazza Valori su file html
     $HTML = str_replace('<div id="content"></div>',$HTMLTable,$HTML);
     // Stampo File Modificato
