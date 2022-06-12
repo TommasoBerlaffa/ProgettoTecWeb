@@ -22,11 +22,14 @@
     </div>';
     // Ottiene Valori Utente da SQL
     // Query del tipo SELECT * FROM users WHERE Code_user = $_SESSION['Code_User'];
-    $DbAccess = new DBAccess();
-   
+    $DBAccess = new DBAccess();
+    if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
 
 
-    $Result = $DbAccess->getUser($_SESSION['user_ID']) ;
+    $Result = $DBAccess->getUser($_SESSION['user_ID']) ;
 
     if($Result) {
       $urlElement =  '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'User.html';
@@ -46,14 +49,14 @@
       $content = str_replace("{{Description}}",trim($Result["Description"]),$content);
       $content = str_replace("{{Creation}}",trim($Result["Creation"]),$content);
       
-      $Review = $DbAccess->getUserReviewList($_SESSION['user_ID'],3);
+      $Review = $DBAccess->getUserReviewList($_SESSION['user_ID'],3);
       
       if($Review) {
         $content .= '<div id="feedbacks"><div class="headchapter"><h1 class="chapter"> Your Latest Reviews : </h1></div>';
         
         foreach($Review as $R)
         {
-          $User = $DbAccess->getUser(trim($R["C_Rew"]));
+          $User = $DBAccess->getUser(trim($R["C_Rew"]));
           // Replace Review with link to the job info
           $content .= '<div class="review">
             <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
@@ -71,6 +74,7 @@
     }
     else 
       $content .= '<div><p>There is no content to be shown. </p></div>';
+    $DBAccess->closeDBConnection();
   }
   else  
     header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');

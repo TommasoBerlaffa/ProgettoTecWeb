@@ -17,12 +17,17 @@
   
     $urlExtra = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Settings.html';
     // Mettere i valori dentro la Form
-    $DbAccess = new DBAccess();
-
+    $DBAccess = new DBAccess();
+	if(!($DBAccess->openDBConnection())){
+		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		exit;
+	}
+	
     $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="emptyErrorList"></div></div>';
 
 
-    $Result = $DbAccess->getUser($_SESSION['user_ID']);
+    $Result = $DBAccess->getUser($_SESSION['user_ID']);
+	$DBAccess->closeDBConnection();
     $HTMLExtra = str_replace('{{Username}}',trim($Result['Nickname']),$HTMLExtra);
     $HTMLExtra = str_replace('{{Name}}',trim($Result['Name']),$HTMLExtra);
     $HTMLExtra = str_replace('{{Surname}}',trim($Result['Surname']),$HTMLExtra);

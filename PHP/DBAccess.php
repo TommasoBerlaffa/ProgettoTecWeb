@@ -567,7 +567,7 @@ class DBAccess {
   ****************************/
   public function getUser($id) {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
 		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM users WHERE Code_user = ? LIMIT 1;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
