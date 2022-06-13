@@ -21,6 +21,7 @@
 - 9.0 Index                                   -
 -10.0 View User                               -
 -11.0 Hidden Help                             -
+-12.0 Admin                                   -
 */
 /*  
   GREEN AND BROWN
@@ -1137,6 +1138,19 @@ main#viewUser h2{
   overflow: hidden;
 }
 
+/* -12.0 Admin - */
+table#AdminTable {
+  border: 1px solid var(--black);
+  border-collapse: separate;
+  width: 50%;
+
+  margin: auto;
+}
+
+table#AdminTable th,
+table#AdminTable td {
+  text-align: start;
+}
 
 
 

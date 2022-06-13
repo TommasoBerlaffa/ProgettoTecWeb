@@ -31,6 +31,7 @@ Function List:
 23.changePassword
 24.changeUserInfo
 25.removeBid
+26.AdminFunctions ( GetUsers, GetOffers, GetJobs)
 */
 
 class DBAccess {
@@ -582,6 +583,7 @@ class DBAccess {
 		return null;
   }
 
+
   /***15.Check Username Taken***
   par: int userID;
   desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
@@ -767,7 +769,7 @@ class DBAccess {
 			return null;
 		} else if($queryResult==true && isset($ID)){
 			$querySelect = 'SELECT Code_user, Status, Nickname, Picture  FROM users WHERE Code_user = "' . $ID . '" LIMIT 1;';
-			$queryAdmin = 'SELECT Code_user, Status, Nickname, Picture FROM admin WHERE Code_user = "' . $ID . '" LIMIT 1;';
+			$queryAdmin = 'SELECT Code_user FROM admin WHERE Code_user = "' . $ID . '" LIMIT 1;';
 			$queryResult = mysqli_query($this->connection, $querySelect);
 			$Admin = mysqli_query($this->connection, $queryAdmin);
 			$riga = mysqli_fetch_assoc($queryResult);
@@ -779,7 +781,7 @@ class DBAccess {
 				"Username" => $riga['Nickname'],
 				"Icon" => $riga['Picture']
 			);
-			if($Admin!=false)
+			if($Admin!=false && mysqli_num_rows($Admin)==1)
 				$datiUtente['Admin']=1;
 			return $datiUtente;
 		} else
@@ -876,6 +878,50 @@ class DBAccess {
       return true;
     else
       return false;
+  }
+
+  /*********26.AdminFunctions */
+  /* Get all Users */
+  public function getUsers() {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $queryResult = mysqli_query($this->connection, 'SELECT Nickname, Code_User, Status FROM users;');
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      else {
+        $result=array();
+        while($row=mysqli_fetch_assoc($queryResult))
+          array_push($result, $row);
+        return $result;
+    }
+  }
+  /* Get all Past Jobs */
+  public function getPastJobs() {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM past_jobs;');
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      else {
+        $result=array();
+        while($row=mysqli_fetch_assoc($queryResult))
+          array_push($result, $row);
+        return $result;
+    }
+  }
+  /* Get all Offers */
+  public function getOffers() {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM current_jobs;');
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      else {
+        $result=array();
+        while($row=mysqli_fetch_assoc($queryResult))
+          array_push($result, $row);
+        return $result;
+    }
   }
 }
 

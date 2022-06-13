@@ -25,37 +25,52 @@ if(isset($_SESSION['user_Username']))
     $row = $DBAccess->getUser($index);
     //Se trova risultato
     if($row) {        
-    $HTML = str_replace("{{ Nickname }}",trim($row["Nickname"]),$HTML);
-    $HTML = str_replace("{{ Name }}",trim($row["Name"]),$HTML); 
-    $HTML = str_replace("{{ Surname }}",trim($row["Surname"]),$HTML);
-    $HTML = str_replace("{{ Picture }}",trim($row["Picture"]),$HTML);
-    $HTML = str_replace("{{ Status }}",trim($row["Status"]),$HTML);
-    $HTML = str_replace("{{ Phone }}",($row["Phone"] ? trim($row["Phone"]) : 'Not Available'),$HTML);
-    $HTML = str_replace("{{ Email }}",trim($row["Email"]),$HTML);
-    $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
-    $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
+      $HTML = str_replace("{{ Nickname }}",trim($row["Nickname"]),$HTML);
+      $HTML = str_replace("{{ Name }}",trim($row["Name"]),$HTML); 
+      $HTML = str_replace("{{ Surname }}",trim($row["Surname"]),$HTML);
+      $HTML = str_replace("{{ Picture }}",trim($row["Picture"]),$HTML);
+      $HTML = str_replace("{{ Status }}",trim($row["Status"]),$HTML);
+      $HTML = str_replace("{{ Phone }}",($row["Phone"] ? trim($row["Phone"]) : 'Not Available'),$HTML);
+      $HTML = str_replace("{{ Email }}",trim($row["Email"]),$HTML);
+      $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
+      $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
     
-    $Review = $DBAccess->getUserReviewList($_SESSION['user_ID'],5);
-    
-    if($Review) {
-      $content = '<div id="viewUserFeedBack" class="box"><div class="headchapter">
-          <h1 class="chapter">'.trim($row["Nickname"]). '\'s Reviews : </h1></div>';
-      $average = $DBAccess->getUserReview($index);
-      $content .= '<p>'.trim($row["Nickname"]).' average rating :'.trim($average["AvgStar"]) .'</p>';
-      foreach($Review as $R)
-      {
-      $User = $DBAccess->getUser(trim($R["C_Rew"]));
-      // Replace Review with link to the job info
-      $content .= '<div class="review">
-        <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
-        <p class="star"><span>Date</span> : '.trim($R["Date"]) .'</p>
-        <p class="date"><span>Rating</span> : '.trim($R["Stars"]).'/5 </p> 
-      </div>';
-      }
+      $Review = $DBAccess->getUserReviewList($_SESSION['user_ID'],5);
+      
+      if($Review) {
+        $content = '<div id="viewUserFeedBack" class="box"><div class="headchapter">
+            <h1 class="chapter">'.trim($row["Nickname"]). '\'s Reviews : </h1></div>';
+        $average = $DBAccess->getUserReview($index);
+        $content .= '<p>'.trim($row["Nickname"]).' average rating :'.trim($average["AvgStar"]) .'</p>';
+        foreach($Review as $R) {
+          $User = $DBAccess->getUser(trim($R["C_Rew"]));
+          // Replace Review with link to the job info
+          $content .= '<div class="review">
+            <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
+            <p class="star"><span>Date</span> : '.trim($R["Date"]) .'</p>
+            <p class="date"><span>Rating</span> : '.trim($R["Stars"]).'/5 </p> 
+          </div>';
+        }
       $content .= '</div>';
 
       $HTML = str_replace('<div id="viewUserFeedBack" class="box"></div>',$content,$HTML);
-    } //Se non trova un risultato
+      }
+      else {
+        $content = '<div id="viewUserFeedBack" class="box">This user has no reviews.</div>';
+        $HTML = str_replace('<div id="viewUserFeedBack" class="box"></div>',$content,$HTML);
+      } 
+
+      $adminActions = '';
+      if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+      {
+        $adminActions .= '<a href="">Ban this user</a>';  
+      }
+      else {
+        $adminActions .= '';
+      }
+        
+      $HTML = str_replace('<admin/>',$adminActions,$HTML);
+      
     }
     else
     {

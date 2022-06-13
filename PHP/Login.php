@@ -54,12 +54,17 @@
 			if($Logged != null) {
 		
 			$user = ''; $pwd = '';
-		
+      
+      if(isset($Logged['Admin']) && $Logged['Admin']==1){
+        $_SESSION['Admin'] = $Logged['Admin'];
+      }
+        
 			$_SESSION['user_ID'] = $Logged['ID'];
 			$_SESSION['user_Status'] = $Logged['Status'];
 			$_SESSION['user_Username'] = $Logged['Username'];
 			$_SESSION['user_Icon'] = $Logged['Icon'];
-	
+        
+
 			$taglist = $DBAccess->getTags($Logged['ID'],0);
 			$DBAccess->closeDBConnection();
 			unset($_SESSION['TagList']);

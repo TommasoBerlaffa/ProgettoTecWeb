@@ -33,7 +33,18 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace('{{ Tipology }}',trim($row["Tipology"]),$HTML);
 		$HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
 		$HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
-		
+    /// Admin Actions
+    $adminActions = '';
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+    {
+      $adminActions .= '<a href="">Freeze this Offer</a>';  
+    }
+    else {
+      $adminActions .= '';
+    }
+      
+    $HTML = str_replace('<admin/>',$adminActions,$HTML);
+
     $HTMltags ='';
     if($tags) {
       $HTMltags.='<ul>';

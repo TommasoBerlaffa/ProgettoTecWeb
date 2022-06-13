@@ -16,7 +16,7 @@ if(isset($_SESSION['user_Username'])) {
     $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
 	
 	$DbAccess = new DBAccess();
-	if(!($DBAccess->openDBConnection())){
+	if(!($DbAccess->openDBConnection())){
 		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
 		exit;
 	}
@@ -48,6 +48,16 @@ if(isset($_SESSION['user_Username'])) {
 		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
 		
 	
+    $adminActions = '';
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+    {
+      $adminActions .= '<a href="">Delete this job</a>';  
+    }
+    else {
+      $adminActions .= '';
+    }
+      
+    $HTML = str_replace('<admin/>',$adminActions,$HTML);
 		$feedback = $DbAccess->getJobReview($index);
 		if(!$feedback) {
 			if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
@@ -78,7 +88,7 @@ if(isset($_SESSION['user_Username'])) {
       $HTML = preg_replace('/<div id="JobInfo">.*?.<\/div><\/div><div id="feedback"><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
       //$HTML = str_replace('<div id="JobInfo">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
     }
-	$DBAccess->closeDBConnection();
+	$DbAccess->closeDBConnection();
 	
 	echo $HTML;    
 }

@@ -12,6 +12,17 @@
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
     $HTML = file_get_contents($url);
 
+    $adminActions = '';
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+    {
+      $adminActions .= '<a href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminUser.php">Go to the secret admin page</a>';  
+    }
+    else {
+      $adminActions .= '';
+    }
+
+    $WelcomeMessage = str_replace('<admin/>',$adminActions,$WelcomeMessage);
+
     $HTML = str_replace('{{ SubPage }}','Welcome Page ',$HTML);
 
     $HTML = str_replace('<div id="content"></div>',$WelcomeMessage,$HTML);
