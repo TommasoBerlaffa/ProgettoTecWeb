@@ -1152,6 +1152,13 @@ table#AdminTable td {
   text-align: start;
 }
 
+input#search {
+  width: 30%; 
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 
 
 /* BreakPoint aggiuntivi per Migliorare l'esperienza */
