@@ -30,9 +30,8 @@ footer#footer, footer#footer img {
   display: none;
 }
 
-/* index */
-main#index img {
-  width: 50%;
+form {
+  display: none;
 }
 
 /* user icon*/
@@ -44,4 +43,25 @@ main img#icon {
 /* tables */
 table {
   width: 100%;
+}
+
+/* HomePage */
+img#firstImg,
+img#secondImg {
+  width: 50%;
+  margin: auto;
+}
+
+h1#index {
+  font-size: 1.2em;
+}
+
+/* tables */
+table {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.goTop {
+  display: none;
 }

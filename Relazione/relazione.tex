@@ -17,6 +17,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage[export]{adjustbox}
 \hypersetup{
 	pdfborder = {0 0 0}
 }
@@ -36,13 +37,16 @@
 \begin{document}
 	\maketitle
 	\begin{center}
-		
-		Titolo Progetto : \huge{\titoloProgetto}
+    \begin{figure}[h]
+      \includegraphics[scale=0.1]{Images/Logo_Università_Padova.svg.png}
+      \includegraphics[scale=0.1,right]{Images/JF_1200.png}
+    \end{figure}
+    Titolo Progetto : \huge{\titoloProgetto}
 		\\
-		\vspace{2em}
-		\normalsize Email Referente :  \href{mailto:@studenti.unipd.it}{@studenti.unipd.it}\\
+		\vspace{1em}
+		\normalsize Email Referente :  \href{mailto:tommaso.berlaffa@studenti.unipd.it}{tommaso.berlaffa@studenti.unipd.it}\\
 		
-		\vspace{3em}
+		\vspace{2em}
 		\textbf{Componenti del Gruppo :}
 		\vspace{0.5em}
 		\\ \Tber : \MatT
@@ -52,7 +56,23 @@
 		\\ \Plau : \MatP
 		\vspace{0.5em}
 		\\ \Amat : \MatA
+    \vspace{0.5em}
+		\\ Credenziali :
+    \\ Nickname : User \&
+     Password : User
+    \vspace{0.5em}
+    \\ Credenziali Admin :
+    \\ Nickname : Admin \&
+     Password : Admin
+    \vspace{0.5em}
+    \\ Link al progetto : 
+
+    
 	\end{center}
+
+  \newpage
+  \tableofcontents
+
 	\newpage
 	\input{Capitoli/00_Introduzione.tex}
 	
