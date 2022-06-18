@@ -10,7 +10,7 @@ if(isset($_SESSION['Admin'])) {
 		exit;
 	}
   // Controllo se nella sessione c'é User ID (dovrebbe esserci per il controllo di User Username ma è meglio fare 2 controlli)
-  $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'AdminJobs.html';
+  $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Admin.html';
   $pagina = file_get_contents($url);
 	$listaJobs = $DBAccess->getPastJobs();
 	
@@ -33,7 +33,9 @@ if(isset($_SESSION['Admin'])) {
   }
   $contenuto .= '</tbody></table>';
   $DBAccess->closeDBConnection();
-  $pagina = str_replace('<jobs>',$contenuto,$pagina);
+  $pagina = str_replace('{{Page}}','List of Jobs',$pagina);
+  $pagina = str_replace('{{element}}','Job Title',$pagina);
+  $pagina = str_replace('<admin>',$contenuto,$pagina);
   echo $pagina;
 }
 else

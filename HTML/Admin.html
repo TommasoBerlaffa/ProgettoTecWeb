@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Titolo -->
-  <title>Admin's List of Jobs | Job Finder </title>
+  <title>Admin {{Page}} | Job Finder </title>
   <meta name="title" content="{{ Nickname }}'s Informations | Job Finder">
 
   <!-- Meta -->
@@ -34,22 +34,22 @@
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo"/>
 
     <ul>
-      <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.png" class="icons" alt="icon home"> Home </a> </li>
-      <li> <a href="../PHP/AdminUser.php"> <img src="../IMG/Icons/search.png" class="icons" alt="icon admin"> Admin Users </a> </li>
-      <li> <a href="../PHP/AdminJobs.php"> <img src="../IMG/Icons/book.png" class="icons" alt="icon admin"> Admin Jobs </a> </li>
-      <li> <a href="../PHP/AdminOffers.php"> <img src="../IMG/Icons/bid.png" class="icons" alt="icon admin"> Admin Offers </a> </li>
+      <li> <a href="../PHP/AdminHistory.php"> <img src="../IMG/Icons/home.png" class="icons" alt="icon admin history"> Home </a> </li>
+      <li> <a href="../PHP/AdminUser.php"> <img src="../IMG/Icons/search.png" class="icons" alt="icon admin User"> Admin Users </a> </li>
+      <li> <a href="../PHP/AdminJobs.php"> <img src="../IMG/Icons/book.png" class="icons" alt="icon admin Jobs"> Admin Jobs </a> </li>
+      <li> <a href="../PHP/AdminOffers.php"> <img src="../IMG/Icons/bid.png" class="icons" alt="icon admin Offers"> Admin Offers </a> </li>
     </ul>
     
   </header>
 
   <nav class="breadcrumb">
-    ..\ <a href="../PHP/Index.php">Home</a>\ List of Jobs For Admin
+    ..\ <a href="../PHP/Index.php">Home</a>\ Admin {{Page}}
   </nav>
 
   <!-- Main Content -->
   <main id="main">
-    <input type="text" id="search" onkeyup="AdminSearch()" placeholder="Search for jobs title..">
-    <jobs>
+    <input type="text" id="search" onkeyup="AdminSearch()" placeholder="Search for {{element}}..">
+    <admin>
   </main>
   
   <!-- Footer -->
