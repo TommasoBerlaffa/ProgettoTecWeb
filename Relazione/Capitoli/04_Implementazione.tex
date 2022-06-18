@@ -2,15 +2,52 @@
 	
 
   \subsection{HTML}
+  Per questo progetto è stato deciso di utilizzare HTML5 per gestire la struttura. \\
+  In ogni pagina HTML saranno presenti i tag meta, che andranno ad indicare diverse informazioni come:
+  \begin{itemize}
+    \item autori del file;
+    \item titolo e descrizione della pagina;
+    \item keyword utilizzate per la ricerca della pagina sul web.
+  \end{itemize}
+  Nel nostro caso, le parole utilizzate come keyword sono il titolo del sito e delle parole che hanno a che fare con lo scopo della pagina, come nel caso di findJob in cui le parole utilizzate saranno "Find a Job Offer".
 
 
+  
   \subsection{CSS}
-
+  Per la parte di presentazione, sono presenti 3 file:
+  \begin{itemize}
+    \item style.css: per i dispositivi desktop;
+    \item mobile.css: per i dispositivi mobile;
+    \item print.css: per le funzioni di stampa.
+  \end{itemize}
+  Viene garantita la separazione tra struttura e presentazione. Per questo motivo non vengono dichiarati tag <style> nei file html e si utilizzano file esterni piuttosto che css inline o embeded.
+  In alcune parti del sito sono state utilizzate le flex invece delle grid poiché supportato maggiormente.\\
+  Per la definizione di dimensioni all'intero del sito, si è optato nella maggior parte dei casi per unità misura gli em o la percentuale. Alcuni elementi invece, come le icone, utilizzano px.\\
+  Viene fatto largo uso di display flex per allieare elementi orizzontalmente o verticalmente in modo da migliorare l'impaginazione di elementi su diverse tipologie di schermi. \\
+  Vengono inoltre utilizzati display grid per diversi elementi, come le form di cambio dati utente e le informazioni relative all'offerta di lavoro su FindJob.
 
   \subsection{JavaScript}
-
+  Javascript è uno dei linguaggio utilizzati per il comportamento ed è stato utilizzato per 3 funzionalità:
+  \begin{itemize}
+    \item controlli su form, per fare in modo che la pagina non dovesse venire ricaricata nel caso ci fossero errori facilmente risolvibili;
+    \item filtraggio tramite tag, \dots
+    \item ricerca tramite input testuale per la zona riservata agli admin.
+  \end{itemize}
 
   \subsection{PHP}
+  Ogni pagina nel nostro sito viene caricata tramite pagina PHP, questo perché alcuni elementi presenti nell'header verranno visualizzati in maniera diversa in base allo stato di login del'utente. \\
+  I file PHP saranno quindi di 3 tipologie:
+  \begin{itemize}
+    \item file PHP che caricano le pagine HTML e modificheranno alcuni valori, mantenendo così la divisione tra comporamento e struttura poiché quest'ultima sarà descritta nel file .html;
+    \item file PHP DBAccess.php, utilizzato per l'interazione con il database;
+    \item file PHP che effettuano azione alla fine delle quali reindirizzano ad un'altra pagina.
+  \end{itemize}
 
+  Vengono eseguiti controlli sull'input, quali:
+  \begin{itemize}
+    \item filter\textunderscore var, data una variabile ed il tipo di filter effettua delle operazioni per ottenere una stringa filtrata;
+    \item trim, data una variabile restituisce la stessa senza spazi prima e dopo.
+  \end{itemize}
 
   \subsection{MySql}
+  Per la gestione ed il mantenimento dei dati si é scelto di utilizzare MySql. Viene utilizzata l'estensione misqli per tutte le funzioni che usano MySql.
