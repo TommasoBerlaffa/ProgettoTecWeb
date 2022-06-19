@@ -42,9 +42,12 @@
       $HTMLtableJob = str_replace('{{ caption }}','This table shows all your current jobs with the number of bids that are placed on them. 
       You can click on the job title to display more informations.',$HTMLtableJob);
       foreach ($CurrentJob as $row) {
+        $date1 = date_create();
+        $date2 = date_create($row['Expiring']);
         $tableJob .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'.trim($row["Status"]).'</td>
+        <td>'. date_diff($date2,$date1)->format('%a days %h hours %i minutes')  .'</td>
         <td>'.trim($row["C"]).'</td>
         </tr>';
       } 

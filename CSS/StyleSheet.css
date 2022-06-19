@@ -578,8 +578,12 @@ div#content th.bidLongTh{
   width: 40%;
 }
 
-div#content th.bidShortTg{
+div#content th.bidMidTh{
   width: 30%;
+}
+
+div#content th.bidShortTg{
+  width: 15%;
 }
 
 div#content table, 
