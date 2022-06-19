@@ -216,8 +216,8 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
-      $queryInserimento = 'SELECT current_jobs.Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring, COUNT(DISTINCT bids.Code_user) AS C FROM current_jobs LEFT JOIN bids
-                ON current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ?;';
+      $queryInserimento = 'SELECT COUNT(DISTINCT bids.Code_user) AS C,current_jobs.Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring 
+      FROM current_jobs join bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
