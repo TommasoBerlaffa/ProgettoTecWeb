@@ -659,7 +659,8 @@ main img#icon {
 }
 
 /* - 7.5 User Profile Setting Page - */
-form#settings {
+form#settings,
+form#changeTags {
   width: 80%;
   margin: auto;
   margin-bottom: 2em;

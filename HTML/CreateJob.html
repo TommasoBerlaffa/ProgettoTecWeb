@@ -27,10 +27,16 @@
 </head>
 <body>
   <!-- Header con Link per altre Pagine del Sito-->
-  <header>
-    
+  <header id="header">
+    <!-- Hidden Help per Screen Readers -->
+    <ul class="hiddenHelp">
+      <li><a href="#menu">Move to Main Menu</a></li>
+      <li><a href="#main">Move to the Login</a></li>
+    </ul>
+    <!-- Logo Job Finder --> 
     <img src="../IMG/TempLogo.png" id="Logo" alt="Job Finder Logo">
 
+    <!-- Menu Hypertext (riempito da pagina createjob.php ) -->
     <ul>
       <li> <a href="../PHP/Index.php"> <img src="../IMG/Icons/home.png" class="icons"> Home </a> </li>
       <li> <a href="../PHP/FindJob.php"> <img src="../IMG/Icons/search.png" class="icons"> Find a Job </a> </li>
@@ -46,37 +52,44 @@
   </nav>
 
   <!-- Main Content -->
-  <main>
-    <form id="createJob" action="../PHP/CreateJob.php" method="post">
+  <main id="main">
+    <form id="createJob" action="../PHP/NewJob.php" method="post">
       <fieldset >
         <legend>Create a Job Offer</legend>
         <!-- Title -->
-        <label class="FormCreateLabel" for="Title">Title</label>
-        <input class="FormCreateInput" type="text" id="Title" required>
+        <label for="Title">Title</label>
+        <input type="text" id="Title" name="Title" required>
         <!-- Job Description -->
-        <label class="FormCreateLabel" for="Desc">Describe the Job :</label>
-        <textarea class="FormCreateInput LargeText" id="Desc" rows="7" cols="Max"></textarea>
+        <label for="Desc">Describe the Job :</label>
+        <textarea id="Desc" name="Description" required></textarea>
         <!-- Tipology -->
-        <label class="FormCreateLabel" for="Tipology">Typology :</label>
-        <select class="FormCreateInput" id="Tipology" required>
+        <label for="Tipology">Typology :</label>
+        <select id="Tipology" name="Type" required>
           <option>Fulltime</option>
           <option>One Time</option>
           <option>Urgent</option>
           <option>Recruiter</option>
         </select>
         <!-- Minimum Pay -->
-        <label class="FormCreateLabel" for="MinPay">Min Pay</label>
-        <input class="FormCreateInput ShortInput"  type="number" id="MinPay" min="0" value="25" required>
+        <label for="MinPay">Min Payment :</label>
+        <input type="number" id="MinPay" min="0" name="Min" required>
         <!-- Maximum Pay -->
-        <label class="FormCreateLabel" for="MaxPay">Max Pay</label>
-        <input class="FormCreateInput ShortInput" type="number" id="MaxPay" min="50" max="5000" value="100" required>
+        <label for="MaxPay">Max Payment :</label>
+        <input type="number" id="MaxPay" min="0" name="Max" required>
+        <!-- Payment -->
+        <label for="Pay">Payment :</label>
+        <input type="number" id="MaxPay" min="0" name="Pay" required>
         <!-- Skills -->
-        <label class="FormCreateLabel" for="Skills">Skills Required</label>
-        <select class="FormCreateInput ShortInput" id="Skills" >
-          <!-- Fill with PHP -->
-        </select>
-        <input type="submit" id="Create" value="Create a new Job Offer" >
-          <a href="index.html"><button class="right" type="button" name="Cancel">Cancel</button></a>
+        <!-- Filled with Entries from DB -->
+          <div id="selectedTagsList">
+            <p class="SelectedTags">Selected Tags:</p>
+          </div>
+          <label for="searchTag" id="labelsearchTag">Search Tags: </label>
+          <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
+          <label for="searchTag" id="helpLabelsearchTag"></label>
+          <div id="tagsList">
+          </div>
+        <input type="submit" id="Create" value="Create a new Job Offer">
       </fieldset>
     </form>
   </main>
@@ -86,5 +99,6 @@
     <p class="hiddenHelp"><a href="#header">Go back to the header</a></p>
     <p> Check out the <a href="FAQ.php">FAQ</a> for any question - To report any issue contact our Admin at admin@JobFinder.mail.com</p>
   </footer>
+  <script type="text/javascript" src="../JS/searchTag.js"></script>
 </body>
 </html>
