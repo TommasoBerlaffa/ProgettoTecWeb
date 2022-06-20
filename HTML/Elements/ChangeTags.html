@@ -1,0 +1,19 @@
+<!-- Setting ( Codice HTML da importare )  -->
+<form action="../PHP/ChangeTags.php" method="post" id="changeTags" enctype="multipart/form-data">
+  <fieldset>
+  <legend> Change User Tags</legend>
+    <label> Your Old Tags</label>
+    <select id="oldTagsList" size="{{num}}">{{yourTags}}</select>
+      <!-- Filled with Entries from DB -->
+      <div id="selectedTagsList">
+        <p class="SelectedTags">Selected Tags:</p>
+      </div>
+      <label for="searchTag" id="labelsearchTag">Search Tags: </label>
+      <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
+      <label for="searchTag" id="helpLabelsearchTag"></label>
+      <div id="tagsList">
+      </div>
+      <!--<tags/>-->    
+    <input type="submit" id="submit" value="Change User Info">
+  </fieldset>
+</form> 

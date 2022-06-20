@@ -41,6 +41,24 @@
     $HTMLExtra = str_replace('{{Curr}}',trim($Result['Curriculum']),$HTMLExtra);
     $HTMLExtra = str_replace('{{Desc}}',trim($Result['Description']),$HTMLExtra);
 
+    
+    $urlTags = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangeTags.html';
+    $HTMLExtra .= file_get_contents($urlTags);
+    
+    $tags = $DBAccess->getTags($_SESSION['user_ID'],0);
+    $HTMLTags = '';
+    $num = 0;
+    if(isset($tags)){
+      $num=count($tags);
+      foreach($tags as $name=>$value)
+      {
+        $HTMLTags .= '<option>'.$name.'</option>';
+      }  
+    }
+    $HTMLExtra = str_replace('{{num}}',$num,$HTMLExtra);
+    $HTMLExtra = str_replace('{{yourTags}}',$HTMLTags,$HTMLExtra);
+
+    
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
     // Spazione vuoto
     if(isset($_SESSION['error'])) {
