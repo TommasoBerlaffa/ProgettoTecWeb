@@ -143,4 +143,36 @@ function Form3_foward() {
 function Form4() {
 	document.getElementById("Form_3").style.display='none';
 	document.getElementById("Form_4").style.display='inherit';
+  //      <label id="Fpfp">Profile Picture : </label>
+
+  var oFReader = new FileReader();
+  oFReader.readAsDataURL(document.getElementById("Picture").files[0]);
+  oFReader.onload = function (oFREvent) {
+    document.getElementById("newpfp").src = oFREvent.target.result;
+  };
+  
+  document.getElementById('FNickname').innerHTML = 'Username : ' + document.getElementById('Username').value;  
+
+  document.getElementById('FName').innerHTML = 'Name : ' + document.getElementById('Firstname').value;
+  
+  document.getElementById('FSurname').innerHTML = 'Surname : ' + document.getElementById('Lastname').value;
+
+  document.getElementById('FEmail').innerHTML = 'Email : ' + document.getElementById('Email').value;
+  
+  document.getElementById('FBirth').innerHTML = 'Birthday : ' + document.getElementById('Birthday').value;
+  
+  document.getElementById('FNationality').innerHTML = 'Nationality : ' + document.getElementById('Country').value;
+  
+  document.getElementById('FCity').innerHTML = 'City : ' + document.getElementById('City').value;
+  
+  document.getElementById('FAddress').innerHTML = 'Address : ' + document.getElementById('Address').value;
+  
+  document.getElementById('FTel').innerHTML = 'Telephone Number : ' + document.getElementById('Tel').value;
+  
+  document.getElementById('FLink').innerHTML = 'Link to a Curriculum : ' + document.getElementById('Curr').value;
+  
+  document.getElementById('FSkill').innerHTML = 'Skills : ' + document.getElementById('Username').value;
+  
+  document.getElementById('FDesc').innerHTML = 'Description : ' + document.getElementById('Desc').value;
+  
 }
