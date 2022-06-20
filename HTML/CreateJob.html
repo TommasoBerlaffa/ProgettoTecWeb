@@ -48,7 +48,7 @@
       
 
   <nav class="breadcrumb">
-    ..\ <a href="../PHP/Index.php">Home</a>\ Create a Job Offer
+    ..\ <a href="../PHP/Index.php">Home</a> \ Create a Job Offer
   </nav>
 
   <!-- Main Content -->
@@ -57,13 +57,10 @@
       <fieldset >
         <legend>Create a Job Offer</legend>
         <!-- Title -->
-        <label for="Title">Title</label>
+        <label for="Title" id="labelTitle">Title</label>
         <input type="text" id="Title" name="Title" required>
-        <!-- Job Description -->
-        <label for="Desc">Describe the Job :</label>
-        <textarea id="Desc" name="Description" required></textarea>
         <!-- Tipology -->
-        <label for="Tipology">Typology :</label>
+        <label for="Tipology" id="labelType">Typology :</label>
         <select id="Tipology" name="Type" required>
           <option>Fulltime</option>
           <option>One Time</option>
@@ -71,14 +68,17 @@
           <option>Recruiter</option>
         </select>
         <!-- Minimum Pay -->
-        <label for="MinPay">Min Payment :</label>
+        <label for="MinPay" id="labelMin">Min Payment :</label>
         <input type="number" id="MinPay" min="0" name="Min" required>
         <!-- Maximum Pay -->
-        <label for="MaxPay">Max Payment :</label>
+        <label for="MaxPay" id="labelMax">Max Payment :</label>
         <input type="number" id="MaxPay" min="0" name="Max" required>
         <!-- Payment -->
-        <label for="Pay">Payment :</label>
-        <input type="number" id="MaxPay" min="0" name="Pay" required>
+        <label for="Pay" id="labelPay">Payment :</label>
+        <input type="number" id="Pay" min="0" name="Pay" required>
+        <!-- Job Description -->
+        <label for="Desc" id="labelDesc">Describe the Job :</label>
+        <textarea id="Desc" name="Description" required></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
           <div id="selectedTagsList">

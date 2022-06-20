@@ -280,15 +280,25 @@ form#changePsw fieldset {
 
 /* - 5.4 Create Job Form - */
 form#createJob {
-  width: 50%;
+  width: 60%;
   margin: auto;
   margin-top: 1em;
 }
 
 form#createJob fieldset{
-  display: flex;
-  flex-direction: column;
-  row-gap: 0.5em;
+  display: grid;
+  row-gap: 1.5em;
+  grid-template-areas: 
+  " a b b "
+  " c d d " 
+  " e f f "
+  " g h h "
+  " i j j "
+  " l . . "
+  " m m m "
+  " n p q "
+  " o p . "
+  " . z . ";
 }
 
 form#createJob fieldset input,
@@ -297,6 +307,76 @@ form#createJob fieldset textarea
 {
   width: fit-content;
 }
+
+form#createJob fieldset label#labelTitle {
+  grid-area: a;
+}
+
+form#createJob fieldset input#Title {
+  grid-area: b;
+}
+
+form#createJob fieldset label#labelType {
+  grid-area: c;
+}
+
+form#createJob fieldset select#Tipology {
+  grid-area: d;
+}
+
+form#createJob fieldset label#labelMin {
+  grid-area: e;
+}
+
+form#createJob fieldset input#MinPay {
+  grid-area: f;
+}
+
+form#createJob fieldset label#labelMax {
+  grid-area: g;
+}
+
+form#createJob fieldset input#MaxPay {
+  grid-area: h;
+}
+
+form#createJob fieldset label#labelPay {
+  grid-area: i;
+}
+
+form#createJob fieldset input#Pay {
+  grid-area: j;
+}
+
+form#createJob fieldset label#labelDesc {
+  grid-area: l;
+}
+
+form#createJob fieldset textarea#Desc {
+  grid-area: m;
+  resize: both;
+}
+
+form#createJob fieldset label#labelsearchTag {
+  grid-area: n;
+}
+
+form#createJob fieldset input#searchTag {
+  grid-area: o;
+}
+
+form#createJob fieldset div#selectedTagsList {
+  grid-area: p;
+}
+
+form#createJob fieldset div#tagsList {
+  grid-area: q;
+}
+
+form#createJob fieldset input#Create{
+  grid-area: z;
+}
+
 
 /* - 6.0 Filter for Page Find Job - */
 main#findJob {
