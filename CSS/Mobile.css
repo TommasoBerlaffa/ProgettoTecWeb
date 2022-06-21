@@ -141,11 +141,11 @@
     row-gap: 0.8em;
     column-gap: 1em;
     grid-template-areas: 
-    " a c e"
-    " b d f"
-    " s h i"
-    " t h i"
-    " . g .";
+    " a c e ."
+    " b d f ."
+    " s h i i"
+    " t h i i"
+    " . . g g ";
   }
 
   form#formFilter #labelType, 
@@ -200,6 +200,15 @@
 
   /* 1.7.1 Content for User Profile */
   div#content {
+    margin: auto;
+  }
+
+  div#content div{
+    margin: auto;
+  }
+
+  div#content div.chapter {
+    width: 80%;
     margin: auto;
   }
 
