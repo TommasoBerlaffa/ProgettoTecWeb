@@ -151,7 +151,7 @@ function Form4() {
     document.getElementById("newpfp").src = oFREvent.target.result;
   };
   
-  document.getElementById('FNickname').innerHTML = 'Username : ' + document.getElementById('Username').value;  
+  document.getElementById('FNickname').innerHTML = 'Username : ' + document.getElementById('Username').value ;  
 
   document.getElementById('FName').innerHTML = 'Name : ' + document.getElementById('Firstname').value;
   
@@ -171,7 +171,7 @@ function Form4() {
   
   document.getElementById('FLink').innerHTML = 'Link to a Curriculum : ' + document.getElementById('Curr').value;
   
-  document.getElementById('FSkill').innerHTML = 'Skills : ' + document.getElementById('Username').value;
+  document.getElementById('FSkill').innerHTML = 'Skills : ' + document.getElementById('Skill').value;
   
   document.getElementById('FDesc').innerHTML = 'Description : ' + document.getElementById('Desc').value;
   

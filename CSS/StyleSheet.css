@@ -644,6 +644,7 @@ div#content th{
   text-align: left;
 }
 
+/* TableJob.html */
 div#content th.jobLongTh{
   width: 35%;
 }
@@ -656,16 +657,17 @@ div#content th.jobShortTg{
   width: 15%;
 }
 
+/* TableJobWBid.html */
 div#content th.bidLongTh{
-  width: 40%;
-}
-
-div#content th.bidMidTh{
   width: 30%;
 }
 
-div#content th.bidShortTg{
-  width: 15%;
+div#content th.bidMidTh{
+  width: 25%;
+}
+
+div#content th.bidShortTh{
+  width: 20%;
 }
 
 div#content table, 

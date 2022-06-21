@@ -39,8 +39,9 @@
     $HTMLExtra = str_replace('{{Address}}',trim($Result['Address']),$HTMLExtra);
     $HTMLExtra = str_replace('{{Tel}}',trim($Result['Phone']),$HTMLExtra);
     $HTMLExtra = str_replace('{{Curr}}',trim($Result['Curriculum']),$HTMLExtra);
-    $HTMLExtra = str_replace('{{Desc}}',trim($Result['Description']),$HTMLExtra);
+    $HTMLExtra = str_replace('{{Desc}}',trim($Result['Description']),$HTMLExtra); 
 
+    
     
     $urlTags = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangeTags.html';
     $HTMLExtra .= file_get_contents($urlTags);
@@ -49,13 +50,13 @@
     $HTMLTags = '';
     $num = 0;
     if(isset($tags)){
-      $num=count($tags);
+      //$num=count($tags);
       foreach($tags as $name=>$value)
       {
-        $HTMLTags .= '<option>'.$name.'</option>';
+        $HTMLTags .= '<li>'.$name.'</li>';
       }  
     }
-    $HTMLExtra = str_replace('{{num}}',$num,$HTMLExtra);
+    //$HTMLExtra = str_replace('{{num}}',$num,$HTMLExtra);
     $HTMLExtra = str_replace('{{yourTags}}',$HTMLTags,$HTMLExtra);
 
     

@@ -40,9 +40,12 @@
       $HTMLtableNewBid = str_replace('{{ caption }}','This table in page Bids displays all your current Bids.
       You can check all the job and bid info by clicking on the job title.',$HTMLtableNewBid);
       foreach($NewBid as $row ) {
+        $date1 = date_create();
+        $date2 = date_create($row['Expiring']);
         $tableNewBid .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
         <td>'. trim($row['Status'] ).'</td>
+        <td>'.date_diff($date2,$date1)->format('%a days %h hours %i minutes') .'</td>
         <td>'. trim($row['Tipology'] ).'</td>
         </tr>';
       }
@@ -62,11 +65,12 @@
       $HTMLTableOldBid = str_replace('{{ caption }}','This table displays all your past bids.
       You can click on a job title to display more information!',$HTMLTableOldBid);
       foreach($OldBid as $row ) {
+        trim($row["Payment"]) > 0 ? $res = 'Salary' : $res = 'Hourly';
         $TableOldBid .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'.trim($row["Status"]).'</td>
         <td>'.trim($row["Tipology"]).'</td>
-        <td>'.trim($row["Payment"]).'</td>
+        <td>'.$res.'</td>
         </tr>';
       } 
       $HTMLTableOldBid = str_replace('{{ value }}',$TableOldBid,$HTMLTableOldBid);
