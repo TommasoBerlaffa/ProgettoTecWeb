@@ -25,34 +25,37 @@ if(isset($_SESSION['user_Username']))
     //Se trova risultato
     if($row)
     {                 
-		$HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
-		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">Info on the Creator</a>',$HTML);
-		$HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
-		$HTML = str_replace('{{ Payment }}',trim($row["Payment"]),$HTML);
-		$HTML = str_replace('{{ Status }}',trim($row["Status"]),$HTML);
-		$HTML = str_replace('{{ Tipology }}',trim($row["Tipology"]),$HTML);
-		$HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
-		$HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
-    /// Admin Actions
-    $adminActions = '';
-    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
-    {
-      $adminActions .= '<a href="">Freeze this Offer</a>';  
-    }
-    else {
-      $adminActions .= '';
-    }
-      
-    $HTML = str_replace('<admin/>',$adminActions,$HTML);
-
-    $HTMltags ='';
-    if($tags) {
-      $HTMltags.='<ul>';
-      foreach($tags as $name=>$value) {
-        $HTMltags.='<li><a href="FindJob.php?tag='.$value.'">'.$name.'</a></li>';
+      $HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
+      $HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">Info on the Creator</a>',$HTML);
+      $HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
+      $pay = trim($row["Payment"]);
+      $HTML = $pay==0 ? str_replace('{{ Payment }}','Payment by hour',$HTML) : str_replace('{{ Payment }}','Total Payment at once',$HTML);
+      $HTML = str_replace('{{ Min Payment }}',trim($row["P_min"]),$HTML);
+      $HTML = str_replace('{{ Max Payment }}',trim($row["P_max"]),$HTML);
+      $HTML = str_replace('{{ Status }}',trim($row["Status"]),$HTML);
+      $HTML = str_replace('{{ Tipology }}',trim($row["Tipology"]),$HTML);
+      $HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
+      $HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
+      /// Admin Actions
+      $adminActions = '';
+      if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+      {
+        $adminActions .= '<a href="AdminAction.php">Freeze this Offer</a>';  
       }
-      $HTMltags.='
-        </ul>';
+      else {
+        $adminActions .= '';
+      }
+        
+      $HTML = str_replace('<admin/>',$adminActions,$HTML);
+
+      $HTMltags ='';
+      if($tags) {
+        $HTMltags.='<ul>';
+        foreach($tags as $name=>$value) {
+          $HTMltags.='<li><a href="FindJob.php?tag='.$value.'">'.$name.'</a></li>';
+        }
+        $HTMltags.='
+          </ul>';
     }
     $HTML = str_replace('<tags/>',$HTMltags,$HTML);
 

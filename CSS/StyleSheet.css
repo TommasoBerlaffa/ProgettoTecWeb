@@ -288,16 +288,18 @@ form#createJob {
 form#createJob fieldset{
   display: grid;
   row-gap: 1.5em;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 
   " a b b "
   " c d d " 
+  " i i i "
   " e f f "
   " g h h "
-  " i j j "
+
   " l . . "
   " m m m "
-  " n p q "
-  " o p . "
+  " n t p "
+  " o q p "
   " . z . ";
 }
 
@@ -340,12 +342,8 @@ form#createJob fieldset input#MaxPay {
   grid-area: h;
 }
 
-form#createJob fieldset label#labelPay {
+form#createJob fieldset div#Pay {
   grid-area: i;
-}
-
-form#createJob fieldset input#Pay {
-  grid-area: j;
 }
 
 form#createJob fieldset label#labelDesc {
@@ -371,6 +369,10 @@ form#createJob fieldset div#selectedTagsList {
 
 form#createJob fieldset div#tagsList {
   grid-area: q;
+}
+
+form#createJob fieldset label#helpLabelsearchTag {
+  grid-area: t;
 }
 
 form#createJob fieldset input#Create{
@@ -902,7 +904,9 @@ div#JobInfo {
   " t t "
   " a b "
   " c d "
-  " e l "
+  " e . "
+  " n o "
+  " . l "
   " f f "
   " g h "
   " i i ";
@@ -930,27 +934,34 @@ div#JobInfo span {
   padding-right: 0.3em;
 }
 
-div#JobInfo .status {
+div#JobInfo #status {
   grid-area: a; 
 }
 
-div#JobInfo .type {
+div#JobInfo #type {
   grid-area: b; 
 }
 
-div#JobInfo .date {
+div#JobInfo #date {
   grid-area: c; 
 }
 
-div#JobInfo .expiration {
+div#JobInfo #expiration {
   grid-area: d; 
 }
 
-div#JobInfo .pay {
+div#JobInfo #pay {
   grid-area: e; 
 }
 
-div#JobInfo .desc {
+input#Pay1,
+input#Pay2,
+#labelPay1,
+#labelPay2{
+  display: inline-block;
+}
+
+div#JobInfo #desc {
   grid-area: f; 
 }
 
@@ -965,6 +976,14 @@ div#JobInfo #cancel {
 
 div#JobInfo #creator {
   grid-area: g; 
+}
+
+div#JobInfo #minPay {
+  grid-area: n; 
+}
+
+div#JobInfo #maxPay {
+  grid-area: o; 
 }
 
 div#JobInfo #terminate {

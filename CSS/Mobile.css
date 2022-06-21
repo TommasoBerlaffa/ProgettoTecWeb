@@ -125,9 +125,8 @@
 
   /* 1.6.0 Filter for Page Find Job */
   main#findJob {
-    display: flex;
+    padding-top: 6em;
     flex-direction: column;
-    align-items: flex-start;
   }
 
   form#formFilter {
@@ -143,8 +142,10 @@
     column-gap: 1em;
     grid-template-areas: 
     " a c e"
-    " b d f" 
-    " . g . ";
+    " b d f"
+    " s h i"
+    " t h i"
+    " . g .";
   }
 
   form#formFilter #labelType, 

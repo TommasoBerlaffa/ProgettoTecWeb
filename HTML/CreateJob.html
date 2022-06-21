@@ -57,7 +57,7 @@
       <fieldset >
         <legend>Create a Job Offer</legend>
         <!-- Title -->
-        <label for="Title" id="labelTitle">Title</label>
+        <label for="Title" id="labelTitle">Title :</label>
         <input type="text" id="Title" name="Title" required>
         <!-- Tipology -->
         <label for="Tipology" id="labelType">Typology :</label>
@@ -67,15 +67,22 @@
           <option>Urgent</option>
           <option>Recruiter</option>
         </select>
+          <!-- Payment -->
+        <div id="Pay">
+          <label id="labelPay">Choose your preferred method of payment :</label>
+          <input type="checkbox" id="Pay1" name="Pay1" value="Pay1">
+          <label for="Pay1" id="labelPay1"> I want to pay all at once</label><br>
+          <input type="checkbox" id="Pay2" name="Pay2" value="Pay2">
+          <label for="Pay2" id="labelPay2"> I want to pay by worked hours</label>
+        </div>
         <!-- Minimum Pay -->
         <label for="MinPay" id="labelMin">Min Payment :</label>
         <input type="number" id="MinPay" min="0" name="Min" required>
         <!-- Maximum Pay -->
         <label for="MaxPay" id="labelMax">Max Payment :</label>
         <input type="number" id="MaxPay" min="0" name="Max" required>
-        <!-- Payment -->
-        <label for="Pay" id="labelPay">Payment :</label>
-        <input type="number" id="Pay" min="0" name="Pay" required>
+
+
         <!-- Job Description -->
         <label for="Desc" id="labelDesc">Describe the Job :</label>
         <textarea id="Desc" name="Description" required></textarea>
@@ -86,7 +93,7 @@
           </div>
           <label for="searchTag" id="labelsearchTag">Search Tags: </label>
           <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
-          <label for="searchTag" id="helpLabelsearchTag"></label>
+          <label for="tagsList" id="helpLabelsearchTag">Available Tags :</label>
           <div id="tagsList">
           </div>
         <input type="submit" id="Create" value="Create a new Job Offer">

@@ -63,7 +63,7 @@ if(isset($_SESSION['user_Username']))
       $adminActions = '';
       if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
       {
-        $adminActions .= '<a href="">Ban this user</a>';  
+        $adminActions .= '<a href="AdminAction.php">Ban this user</a>';  
       }
       else {
         $adminActions .= '';
