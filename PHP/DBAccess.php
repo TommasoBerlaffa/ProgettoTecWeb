@@ -637,7 +637,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
     // $queryCall=mysqli_prepare($this->connection, 'SELECT User_Review(?);');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT AVG(Stars) AS AvgStar FROM reviews WHERE Code_user =?;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT AVG(Stars) AS AvgStar FROM reviews JOIN past_jobs ON reviews.Code_Job = past_jobs.Code_job WHERE Code_Winner =?;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -655,8 +655,8 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
-						FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_user=?  ORDER BY R.Date DESC LIMIT ?;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_winner AS Winner, R.Code_user AS JobGiver, R.Stars , R.Comments, R.Date 
+						FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job = P.Code_job AND P.Code_winner = ?  ORDER BY R.Date DESC LIMIT ?;');
 		mysqli_stmt_bind_param($queryCall,'ii',$id,$number);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);

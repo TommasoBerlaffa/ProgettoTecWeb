@@ -35,15 +35,17 @@ if(isset($_SESSION['user_Username']))
       $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
       $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
     
-      $Review = $DBAccess->getUserReviewList($_SESSION['user_ID'],5);
+      $Review = $DBAccess->getUserReviewList($index,5);
       
       if($Review) {
         $content = '<div id="viewUserFeedBack" class="box"><div class="headchapter">
             <h1 class="chapter">'.trim($row["Nickname"]). '\'s Reviews : </h1></div>';
+        // Average Rating
         $average = $DBAccess->getUserReview($index);
         $content .= '<p>'.trim($row["Nickname"]).' average rating :'.trim($average["AvgStar"]) .'</p>';
+        // Lista Rating
         foreach($Review as $R) {
-          $User = $DBAccess->getUser(trim($R["C_Rew"]));
+          $User = $DBAccess->getUser(trim($R["JobGiver"]));
           // Replace Review with link to the job info
           $content .= '<div class="review">
             <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
