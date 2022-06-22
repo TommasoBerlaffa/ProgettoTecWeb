@@ -56,7 +56,7 @@
         
         foreach($Review as $R)
         {
-          $User = $DBAccess->getUser(trim($R["C_Rew"]));
+          $User = $DBAccess->getUser(trim($R["JobGiver"]));
           // Replace Review with link to the job info
           $content .= '<div class="review">
             <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
