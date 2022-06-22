@@ -425,14 +425,16 @@ class DBAccess {
   par: string type, int min (prezzo minimo), int date (ultimi x secondi)
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($tipology='Any',$min=0,$date=9999999,$tags=null){
+  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$tags=null){
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 
-	if(!is_numeric($min) OR !is_numeric($date))
+	if(!is_numeric($min) OR !is_numeric($date) OR !is_numeric($page))
 		return null;
-	  
-	//'SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs
+	$page--;
+	
+	//'CREATE TEMPORARY TABLE IF NOT EXISTS ? AS (
+	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs
 	//	 JOIN(
 	//		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
 	//			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
@@ -468,7 +470,16 @@ class DBAccess {
 	//	 ORDER BY 
 	//	 	counted 		DESC,
 	//	 	Date 		   	DESC,
-	//	 	Tipology			
+	//	 	Tipology
+	//	);
+	//
+	//SELECT COUNT(*) FROM ?;
+	//
+	//SELECT * FROM ?
+	//	LIMIT
+	//		?, ?;
+	//
+	//DROP ?;
 	//'
 
 	//tag parts
@@ -505,8 +516,12 @@ class DBAccess {
 	';
 	$end='
 		 	Date 		   	DESC,
-		 	Tipology;			
-	';
+		 	Tipology';
+	
+	$Nresults='SELECT COUNT(*) FROM (';
+	
+	
+	$limit=' LIMIT ?, ?;';
 	
 	//constrution of modular query with optional parameters
 	//creation of $type and $param arrays to bind
@@ -530,22 +545,48 @@ class DBAccess {
 	$query.=$middle;
 	$type.='ii';
 	$param[$i]=$date;
-	$param[$i+1]=$min;
+	$i++;
+	$param[$i]=$min;
+	$i++;
 	if(in_array($tipology,array('Fulltime','Onetime','Urgent','Recruiter'))){
 		$query.=$tip;
 		$type.='s';
-		$param[$i+2]=$tipology;
+		$param[$i]=$tipology;
+		$i++;
 	}
-	$query.=$middle2;
-	if(!empty($tags))
-		$query.=$count;
-	$query.=$end;
-	
+	if(!$bool){
+		$query.=$middle2;
+		if(!empty($tags))
+			$query.=$count;
+		$query.=$end;
+	}
+	if($bool){
+		$query=$Nresults.$query.') AS subquery;';
+		$queryCall=mysqli_prepare($this->connection,$query);
+		if(!$queryCall)
+			die('prepare() failed: ' . htmlspecialchars($this->connection->error));
+			//die('Errore preparazione query');
+		//single bind for the entire modular statement
+		$queryCall->bind_param($type, ...$param); 
+		if(!$queryCall)
+			die('Errore binding parametry query');
+		mysqli_stmt_execute($queryCall);
+		if(!$queryCall)
+			die('Errore esecuzione query');
+		$result=mysqli_fetch_row(mysqli_stmt_get_result($queryCall))[0];
+		mysqli_stmt_close($queryCall);
+		return $result;
+	}
+	$query.=$limit;
+	$type.='ii';
+	$param[$i]=$page*5;
+	$param[$i+1]=5;
 	$queryCall=mysqli_prepare($this->connection,$query);
 	if(!$queryCall)
-		die('Errore preparazione query');
+		die('prepare() failed: ' . htmlspecialchars($this->connection->error));
+		//die('Errore preparazione query');
 	//single bind for the entire modular statement
-	$queryCall->bind_param($type, ...$param); 
+	$queryCall->bind_param($type, ...$param);  
 	if(!$queryCall)
 		die('Errore binding parametry query');
     mysqli_stmt_execute($queryCall);

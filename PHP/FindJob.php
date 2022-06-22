@@ -1,9 +1,7 @@
 <?php
-	$globalstart=microtime(true);
 	// Inizio Sessione 
 	session_start();
 	require_once 'Util.php';
-	prof_flag("start");
 	require_once 'DBAccess.php';
 	
 	// Variabili pagina HTML e Switch
@@ -34,13 +32,13 @@
 	
 	$HtmlContent='<div id="jobList"><h1>List of job offers<Title_complete/></h1>';
 
-	prof_flag("filtering input");
 
 	$type= 'Any';
 	$min=0;
 	$date=9999999;
 	$tag=array();
     $tagName ='';
+	$page=1;
 	
 	if(isset($_GET['Tipology']))
 		$type=filter_var ( $_GET['Tipology'], FILTER_SANITIZE_STRING);
@@ -48,6 +46,8 @@
 		$min=filter_var ( $_GET['PayMin'], FILTER_SANITIZE_NUMBER_INT);
 	if(isset($_GET['Date']))
 		$date=filter_var ( $_GET['Date'], FILTER_SANITIZE_NUMBER_INT);
+	if(isset($_GET['Page']))
+		$page=filter_var ( $_GET['Page'], FILTER_SANITIZE_NUMBER_INT);
 	if(isset($_GET['tag']))
 		$tag=filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);
 	else{
@@ -65,9 +65,9 @@
 			$min =  intval(filter_var ( $_POST["PayMin"], FILTER_SANITIZE_STRING));
 		if(isset($_POST["Date"]))
 			$date =  intval(filter_var ( $_POST["Date"], FILTER_SANITIZE_STRING));
+		$page=1;
 	}
 	
-	prof_flag("refill form fields");
 	
 	$HtmlTypologySelect='
 		<option value="Any" '.($type=='Any'? 'selected':'').'>Any</option>
@@ -84,55 +84,49 @@
         <option value="744" '.($date==744? 'selected':'').'>Last Month</option>
 		';
 	
-	prof_flag("opening DB connection");
 	$DBAccess = new DBAccess();
 	if(!($DBAccess->openDBConnection())){
 		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
 		exit;
 	}
 	
-
+	$NumberPages=0;
+	
 	if(isset($_GET['tag'])){
-		prof_flag("search Tag Name");
 		$tagName = $DBAccess->searchTagName($tag);
 		prof_flag("search Job algor");
-		$result = $DBAccess->searchJob($type,$min,$date,array($tag));
+		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag));
+		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag));
 	}
 	else{
-		prof_flag("search Job algor");
-		$result = $DBAccess->searchJob($type,$min,$date,$tag);
+		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$tag);
+		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$tag);
 	}
+	$NumberPages=ceil($NumberPages / 5);
 	
 	$divider=0;
 	if($result){
-		$int=1;
 		foreach($result as $row)
 		{
-			prof_flag($int."° result start");
-			$start=microtime(true);
 			$desc=$row["Description"];
 			if(strlen($desc)>512){
 				$desc=substr($desc,0,511);
 				$desc=substr($desc,0,strrpos($desc, ' ') + 1).'...';
 			}
-			prof_flag($int."° result getBids");
 			$bids= $DBAccess->getBids($row['Code_job']);
 			if($bids)
 				$bids=count($bids);
 			else
 				$bids=0;
-			prof_flag($int."° result fillHTML");
 			$HtmlContent .='<div class="job">
 						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
-						<p class="date"><span>Date</span> : '.trim($row["Date"]).'</p>
+						<p class="date"><span>Date</span> : '.explode(' ',$row["Date"])[0].'</p>
 						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
 						<p class="minPay"><span>Minimum Pay</span> : $'.trim($row["P_min"]).'</p>
 						<p class="bids"><span>Bids</span> : '.$bids.'</p>
 						<p class="description"><span>Description</span> : <br>'.$desc.'</p>';
 			
-			prof_flag($int."° result getTags");
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
-			prof_flag($int."° result completing last pass");
 			if($jobTags) {
 				$HtmlContent .='<ul class="tags">';
 				foreach($jobTags as $name=>$value){
@@ -145,8 +139,6 @@
 			$divider++;
 			if($divider%5 == 0)
 				$HtmlContent .='<a href="#header">Go back to top</a>';
-			echo("completed ".$int."° result in: ".(microtime(true)-$start)."<br>");
-			$int++;
 		}
 		$HtmlContent .='</div>';
 	}
@@ -155,8 +147,29 @@
 	
 	$DBAccess->closeDBConnection();
 	
-	prof_flag("filling HTML page with PHP prepared content");
+	
+	$urlType=($type)? '&Tipology='.$type : '';
+	$urlMin=($min>0)? '&PayMin='.$min : '';
+	$urlDate=($date!=9999999)? '&Date='.$date : '';
+	$urlTag=($tag)? '&tag='.$tag : '';
+	
+	$pageHTML = '<div id="pages">';
+    if($page > 1)
+      $pageHTML .= '<a title="first page" href="FindJob.php?Page=1' . $urlType . $urlMin . $urlDate . $urlTag . '">1</a>';
+    if($page > 2)
+      $pageHTML .= '<a title="previous page" href="FindJob.php?Page=' . ($page - 1) . $urlType . $urlMin . $urlDate . $urlTag . '"><<</a>';
+    $pageHTML .= '<span>' . $page . '</span>';
+    if($page < $NumberPages-1)
+      $pageHTML .= '<a title="next page" href="FindJob.php?Page=' . ($page + 1) . $urlType . $urlMin . $urlDate . $urlTag . '">>></a>';
+    if($page < $NumberPages)
+      $pageHTML .= '<a title="last page" href="FindJob.php?Page=' . $NumberPages . $urlType . $urlMin . $urlDate . $urlTag . '">' . $NumberPages . '</a>';
+    $pageHTML .= '</div>';
+	
+	
+	
+	
 	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1></div>',$HtmlContent,$HTML);
+	$HTML = str_replace('<paging/>', $pageHTML, $HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
 	$HTML = str_replace('<DateSelect/>',$HtmlDateSelect,$HTML);
@@ -170,11 +183,8 @@
 		$HTML = str_replace('<GETsearch/>','',$HTML);
 			$HTML = str_replace('<Title_complete/>','',$HTML);
 	}
-	prof_flag("completed");
-	prof_print();
  
   // Apertura Pagina
-  echo("<br>"."Page created in: ".(microtime(true)-$globalstart)."<br>");
   echo $HTML;
 
 ?>
