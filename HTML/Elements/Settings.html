@@ -5,6 +5,7 @@
 <form action="../PHP/ChangeUserInfo.php" method="post" id="settings" enctype="multipart/form-data">
   <fieldset>
   <legend> Change User Informations</legend>
+    <p id="intro">Here you can modify the informations you want to change. We will only modify the informations you decide changed.</p>
     <label for="Username" class="Enter" id="labelUsername">Username : </label>
     <input type="text" name="Username" id="Username" class="Enter" value="{{Username}}">
     <!-- Name -->
@@ -45,6 +46,6 @@
     <!-- Description -->
     <label for="Description" id="labelDesc">Describe Yourself :</label>
     <textarea name="Description" id="Description" >{{Desc}} </textarea>   
-  <input type="submit" id="submit" value="Change User Info">
+  <button type="submit" id="submit">Change User Info</button>
   </fieldset>
 </form> 

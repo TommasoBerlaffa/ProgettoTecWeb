@@ -45,19 +45,6 @@
     
     $urlTags = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangeTags.html';
     $HTMLExtra .= file_get_contents($urlTags);
-    
-    $tags = $DBAccess->getTags($_SESSION['user_ID'],0);
-    $HTMLTags = '';
-    $num = 0;
-    if(isset($tags)){
-      //$num=count($tags);
-      foreach($tags as $name=>$value)
-      {
-        $HTMLTags .= '<li>'.$name.'</li>';
-      }  
-    }
-    //$HTMLExtra = str_replace('{{num}}',$num,$HTMLExtra);
-    $HTMLExtra = str_replace('{{yourTags}}',$HTMLTags,$HTMLExtra);
 
     
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);

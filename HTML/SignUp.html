@@ -18,6 +18,9 @@
 
 	<!-- Javascript -->
 	<script type="text/javascript" src="../JS/SignUp.js"></script>
+    
+  <!-- Javascript -->
+	<script type="text/javascript" src="../JS/searchTag.js"></script>
 
   <!-- Fogli di Stile -->
   <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen">
@@ -133,26 +136,21 @@
         <p> Only the field with a * are required</p>
 				<p> One last step! </p>
 
-        <!-- Da discutere più avanti, Temporaneo -->
-        <label for="Skills">Skills * : </label>
-
-        <select name="Skills" id="Skills">
-          <option value="HTML">HTML</option>
-          <option value="CSS">CSS</option>
-          <option value="PHP">PHP</option>
-          <option value="JavaScript">JavaScript</option>
-          <option value="C++">C++</option>
-          <option value="Java">Java</option>
-          <option value="C#">C#</option>
-          <option value="Python">Python</option>
-          <option value="C">C</option>
-          <option value="Visual Basic">Visual Basic</option>
-        </select>
+          <!-- Filled with Entries from DB -->
+          <div id="selectedTagsList">
+            <p class="SelectedTags">Selected Tags:</p>
+          </div>
+          <label for="searchTag" id="labelsearchTag">Search Tags: </label>
+          <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
+          <label for="searchTag" id="helpLabelsearchTag"></label>
+          <div id="tagsList">
+          </div>
+          <!--<tags/>-->
         <!-- Curriculum pattern="https://*"  -->
         <label for="Curr">Link To a Curriculum : </label>
         <input type="url" value="<Curriculum />" id="Curr" name="Curr"/>
         <!-- Description -->
-        <label for="Desc">Describe Yourself :</label>
+        <label for="Desc">Describe Yourself *:</label>
         <textarea id="Desc" name="Desc"><Description /></textarea>
 
         <input type="button" value="Go Back" onclick="Form2()"/>

@@ -136,11 +136,8 @@
 				$HtmlContent .='</ul>';
 			}
 			$HtmlContent .='</div>';
-			$divider++;
-			if($divider%5 == 0)
-				$HtmlContent .='<a href="#header">Go back to top</a>';
 		}
-		$HtmlContent .='</div>';
+		$HtmlContent .='<paging/></div>';
 	}
 	else
 		$HtmlContent.='<p>No Jobs Currently Available</p></div>';
@@ -168,7 +165,7 @@
 	
 	
 	
-	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1></div>',$HtmlContent,$HTML);
+	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>',$HtmlContent,$HTML);
 	$HTML = str_replace('<paging/>', $pageHTML, $HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);

@@ -6,6 +6,7 @@
 - 1.5.0  General Usage Form                      - 
 - 1.5.1  Input Form                              -
 - 1.5.2  Output Form                             - 
+- 1.5.4  Create Job Form                         - 
 - 1.6.0  Filter for Page Find Job                -
 - 1.7.0  Sidebar for User Profile                -
 - 1.7.1  Content for User Profile                -
@@ -123,6 +124,35 @@
     width: 80%;
   }
 
+  /* 1.5.4  Create Job Form */
+  form#createJob {
+    width: 80%;
+  }
+  
+  form#createJob fieldset{
+    grid-template-columns: 1fr 1fr ;
+    grid-template-areas: 
+    " s s "
+    " a a "
+    " b b "
+    " c c "
+    " d d " 
+    " i i "
+    " e e "
+    " f f "
+    " g g "
+    " h h "
+    " l l "
+    " m m "
+    " n n "
+    " o o "
+    " t t "
+    " q q "
+    " p p "
+    " p p "
+    " z z ";
+  }
+
   /* 1.6.0 Filter for Page Find Job */
   main#findJob {
     padding-top: 6em;
@@ -229,6 +259,11 @@
     padding-top: 2em;
   }
 
+  div#feedbacks div.review {
+    margin: auto;
+    width: 80%;
+  }
+
   /* - 1.7.5 User Profile Setting Page - */
   form#settings {
     width: 100%;
@@ -241,6 +276,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template: 
+    " f f f"
     " a b b"
     " d e e"
     " h i i"
@@ -254,9 +290,13 @@
     " r s s"
     " v w w"
     " x y y"
-    " . z .";
+    " z z z";
     row-gap: 1em;
     
+  }
+
+  form#settings fieldset div#ProfilePic {
+    margin-left: 0%;
   }
 
   /* - 1.7.6 Change Password Page - */

@@ -56,11 +56,12 @@
     <form id="createJob" action="../PHP/NewJob.php" method="post">
       <fieldset >
         <legend>Create a Job Offer</legend>
+        <p id="intro">Please fill all the fields with a * to create a job : </p>
         <!-- Title -->
-        <label for="Title" id="labelTitle">Title :</label>
+        <label for="Title" id="labelTitle">Choose Your Title *:</label>
         <input type="text" id="Title" name="Title" required>
         <!-- Tipology -->
-        <label for="Tipology" id="labelType">Typology :</label>
+        <label for="Tipology" id="labelType">Choose the Typology *:</label>
         <select id="Tipology" name="Type" required>
           <option>Fulltime</option>
           <option>One Time</option>
@@ -69,34 +70,34 @@
         </select>
           <!-- Payment -->
         <div id="Pay">
-          <label id="labelPay">Choose your preferred method of payment :</label>
+          <label id="labelPay">Choose your preferred method of payment *:</label>
           <input type="radio" id="Pay1" name="PayV" value="Pay1" checked>
           <label for="Pay1" id="labelPay1"> I want to pay all at once</label><br>
           <input type="radio" id="Pay2" name="PayV" value="Pay2">
           <label for="Pay2" id="labelPay2"> I want to pay by worked hours</label>
         </div>
         <!-- Minimum Pay -->
-        <label for="MinPay" id="labelMin">Min Payment :</label>
+        <label for="MinPay" id="labelMin">Minimum Payment *:</label>
         <input type="number" id="MinPay" min="0" name="Min" required>
         <!-- Maximum Pay -->
-        <label for="MaxPay" id="labelMax">Max Payment :</label>
+        <label for="MaxPay" id="labelMax">Maximum Payment :</label>
         <input type="number" id="MaxPay" min="0" name="Max" required>
 
 
         <!-- Job Description -->
-        <label for="Desc" id="labelDesc">Describe the Job :</label>
+        <label for="Desc" id="labelDesc">Describe the Job and what you are looking for *:</label>
         <textarea id="Desc" name="Description" required></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
           <div id="selectedTagsList">
-            <p class="SelectedTags">Selected Tags:</p>
+            <p class="SelectedTags">Selected Tags *:</p>
           </div>
           <label for="searchTag" id="labelsearchTag">Search Tags: </label>
           <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
           <label for="tagsList" id="helpLabelsearchTag">Available Tags :</label>
           <div id="tagsList">
           </div>
-        <input type="submit" id="Create" value="Create a new Job Offer">
+        <button type="submit" id="Create">Create a new Job Offer</button>
       </fieldset>
     </form>
   </main>

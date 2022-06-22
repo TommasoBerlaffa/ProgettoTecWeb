@@ -261,6 +261,11 @@ form#SignUp {
 form#SignUp input{
   margin-top: 0.5em;
 }
+
+img#newpfp {
+  width: 64px;
+  height: 64px;
+}
   
 /* - 5.3 Change Password Form - */
 form#changePsw {
@@ -290,13 +295,13 @@ form#createJob fieldset{
   row-gap: 1.5em;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 
+  " s s s "
   " a b b "
   " c d d " 
   " i i i "
   " e f f "
   " g h h "
-
-  " l . . "
+  " l l . "
   " m m m "
   " n t p "
   " o q p "
@@ -375,10 +380,13 @@ form#createJob fieldset label#helpLabelsearchTag {
   grid-area: t;
 }
 
-form#createJob fieldset input#Create{
+form#createJob fieldset button#Create{
   grid-area: z;
 }
 
+form#createJob fieldset p#intro{
+  grid-area: s;
+}
 
 /* - 6.0 Filter for Page Find Job - */
 main#findJob {
@@ -480,6 +488,15 @@ div#jobList {
   margin-left: 5%;
   margin-right: 5%;
   flex-grow: 1;
+}
+
+div#pages {
+  text-align: center;
+}
+
+div#pages span,
+div#pages a {
+  padding: 0.1em;
 }
 
 div.job {
@@ -673,7 +690,7 @@ div#content th.bidShortTh{
 div#content table, 
 div#content th, 
 div#content td {
-  padding: 0.2em;
+  padding: 0.4em;
   border-collapse: collapse;
 }
 
@@ -755,6 +772,7 @@ form#settings fieldset{
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 2fr;
   grid-template: 
+  " f f f f"
   " a b c c"
   " d e c c"
   " h i j k"
@@ -877,6 +895,10 @@ form#settings #submit {
   width: 50%;
 }
 
+form#settings #intro {
+  grid-area: f;
+}
+
 div#errorList {
   padding: 1em;
   width: 50%;
@@ -889,6 +911,14 @@ div#errorList h1{
 
 div#errorList p {
   padding: 0.2em;
+}
+
+form#changeTags fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 0.3em;
+  
 }
 
 /* - 8.0 View Old Job Info & Feedback - */
@@ -1142,6 +1172,7 @@ main#Home img{
 
 img#firstImg {
   grid-area: a;
+  padding: 1em;
 }
 
 div#Intro {
@@ -1265,7 +1296,6 @@ input#search {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-
 
 
 /* BreakPoint aggiuntivi per Migliorare l'esperienza */

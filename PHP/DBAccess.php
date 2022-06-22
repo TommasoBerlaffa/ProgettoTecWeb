@@ -771,7 +771,7 @@ class DBAccess {
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
 		$tmp=mysqli_affected_rows($this->connection);
-		if($tmp>0){
+		if($tmp){
 			mysqli_stmt_execute($queryCall2);
 			$tmp=mysqli_affected_rows($this->connection);
 		}
