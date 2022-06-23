@@ -53,13 +53,13 @@
 
   <!-- Main Content -->
   <main id="main">
-    <form id="createJob" action="../PHP/NewJob.php" method="post">
+    <form id="createJob" action="../PHP/CreateJob.php" method="post">
       <fieldset >
         <legend>Create a Job Offer</legend>
         <p id="intro">Please fill all the fields with a * to create a job : </p>
         <!-- Title -->
         <label for="Title" id="labelTitle">Choose Your Title *:</label>
-        <input type="text" id="Title" name="Title" required>
+        <input type="text" id="Title" name="Title" value="<title/>" required>
         <!-- Tipology -->
         <label for="Tipology" id="labelType">Choose the Typology *:</label>
         <select id="Tipology" name="Type" required>
@@ -78,15 +78,15 @@
         </div>
         <!-- Minimum Pay -->
         <label for="MinPay" id="labelMin">Minimum Payment *:</label>
-        <input type="number" id="MinPay" min="0" name="Min" required>
+        <input type="number" id="MinPay" min="0" name="Min" value="<min/>" required>
         <!-- Maximum Pay -->
         <label for="MaxPay" id="labelMax">Maximum Payment :</label>
-        <input type="number" id="MaxPay" min="0" name="Max" required>
+        <input type="number" id="MaxPay" min="0" name="Max" value="<max/>" required>
 
 
         <!-- Job Description -->
         <label for="Desc" id="labelDesc">Describe the Job and what you are looking for *:</label>
-        <textarea id="Desc" name="Description" required></textarea>
+        <textarea id="Desc" name="Description" required><desc/></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
           <div id="selectedTagsList">

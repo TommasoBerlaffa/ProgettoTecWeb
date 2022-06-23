@@ -104,7 +104,6 @@
 	}
 	$NumberPages=ceil($NumberPages / 5);
 	
-	$divider=0;
 	if($result){
 		foreach($result as $row)
 		{

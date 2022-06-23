@@ -791,7 +791,7 @@ form#settings fieldset textarea{
   width: 70%;
 }
 
-form#settings fieldset label
+form#settings fieldset  
 {
   width: max-content;
 }

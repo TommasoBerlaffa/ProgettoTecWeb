@@ -2,7 +2,8 @@
 
   require_once "DBAccess.php";
 
-  session_start();
+  if(!isset($_SESSION)) 
+    session_start();
 
   if(isset($_SESSION['user_Username']))
   {
