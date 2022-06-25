@@ -108,6 +108,7 @@
     width: 100%;
     border: 0px;
     border-bottom: 2px solid;
+    font-size: 1em;
   }
 
   /* 1.5.1 Login */
@@ -273,6 +274,7 @@
   }
 
   form#settings fieldset{
+    width: 80%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template: 
