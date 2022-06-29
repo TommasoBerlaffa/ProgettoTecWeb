@@ -485,8 +485,6 @@ class DBAccess {
 	//	WHERE
 	//	 	TIMESTAMPDIFF(HOUR,Date,CURDATE())<? AND
 	//	 	P_min > ? AND
-	//		(Status = "Active" OR
-	//		Status = "Expired") AND
 	//	 	Tipology = ?
 	//	 ORDER BY 
 	//	 	counted 		DESC,

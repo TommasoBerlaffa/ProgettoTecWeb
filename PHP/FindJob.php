@@ -35,7 +35,7 @@
 
 	$type= 'Any';
 	$min=0;
-  $pay=0;
+	$pay=0;
 	$date=9999999;
 	$tag=array();
     $tagName ='';
@@ -165,7 +165,7 @@
 	$urlType=($type)? '&Tipology='.$type : '';
 	$urlMin=($min>0)? '&PayMin='.$min : '';
 	$urlDate=($date!=9999999)? '&Date='.$date : '';
-	$urlTag=($tag)? '&tag='.$tag : '';
+	$urlTag=(is_string($tag))? '&tag='.$tag : '';
 	
 	$pageHTML = '<div id="pages">';
     if($page > 1)
