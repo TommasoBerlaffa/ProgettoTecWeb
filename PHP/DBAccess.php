@@ -70,12 +70,12 @@ class DBAccess {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
         die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
-      $queryInserimento = 'INSERT INTO current_jobs(Code_user, Title, Description, Tipology, Payment, P_min, P_max, Expiring)
-                VALUES (?,?,?,?,?,?,?,?)';
+      $queryInserimento = 'INSERT INTO current_jobs(Code_user, Date ,Title, Description, Tipology, Payment, P_min, P_max, Expiring)
+                VALUES (?,?,?,?,?,?,?,?,?)';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       if(!isset($pmax))
         $pmax='';
-      mysqli_stmt_bind_param($queryCall,'isssbiis',$id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+      mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $tmp=mysqli_affected_rows($this->connection);
@@ -243,8 +243,8 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
-      $queryInserimento = 'SELECT COUNT(DISTINCT bids.Code_user) AS C,current_jobs.Code_job, Status, Title, Tipology, Payment, P_min, P_max, Expiring 
-      FROM current_jobs join bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
+      $queryInserimento = 'SELECT COUNT(DISTINCT bids.Code_user) AS C,current_jobs.Code_job, Title, Tipology, Payment, P_min, P_max, Expiring 
+      FROM current_jobs left join bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
@@ -446,7 +446,7 @@ class DBAccess {
   par: string type, int min (prezzo minimo), int date (ultimi x secondi)
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$tags=null){
+  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$tags=null, $pay=2){
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 
@@ -523,13 +523,20 @@ class DBAccess {
 	$middle='
 		WHERE
 		 	TIMESTAMPDIFF(HOUR,Date,CURDATE()) < ? AND
-			P_min > ?   AND
-			(Status = "Active" OR
-			Status = "Expired")
+			P_min > ?
 			';
 	$tip='	AND
 			Tipology = ?
 	';
+  if($pay==0)
+    $payString='	AND
+      Payment = 0
+      ';
+  else if($pay==1)
+      $payString='	AND
+      Payment = 1
+      ';
+
 	$middle2='
 		ORDER BY 
 	';
@@ -564,6 +571,7 @@ class DBAccess {
 		$query.=$tagsEnd;
 	}
 	$query.=$middle;
+  $query.=$payString;
 	$type.='ii';
 	$param[$i]=$date;
 	$i++;
@@ -744,7 +752,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
 
-		$query='SELECT bids.Code_job AS Code , Status, Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
+		$query='SELECT bids.Code_job AS Code , Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
 				ON current_jobs.Code_job = bids.Code_job WHERE bids.Code_user =?;';
 		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;';
 		if(isset($old) and $old == true)

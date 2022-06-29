@@ -12,7 +12,7 @@
 	// Controllo se variabile sessione è presente 
 	if(isset($_SESSION['user_Username']))
 	{
-		$HTML = str_replace('<createjob/>','<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'CreateJob.php">
+		$HTML = str_replace('<createjob/>','<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'LoadCreateJob.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'write.png" class="icons"> Create an Offer </a></li>',$HTML);
 		$HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
@@ -35,6 +35,7 @@
 
 	$type= 'Any';
 	$min=0;
+  $pay=0;
 	$date=9999999;
 	$tag=array();
     $tagName ='';
@@ -61,6 +62,16 @@
 	if(isset($_POST['filter'])){
 		if(isset($_POST["Tipology"]))
 			$type =  filter_var ( $_POST["Tipology"], FILTER_SANITIZE_STRING);
+    if(isset($_POST["PayV"]))
+    {
+      $tmp = $_POST["PayV"];
+      if( in_array("Pay1",$tmp) && in_array("Pay2",$tmp))
+        $Pay=2;
+      else if ( in_array("Pay1",$tmp) )
+        $Pay=0;
+      else if ( in_array("Pay2",$tmp) )
+        $Pay=1;
+    }
 		if(isset($_POST["PayMin"]))
 			$min =  intval(filter_var ( $_POST["PayMin"], FILTER_SANITIZE_STRING));
 		if(isset($_POST["Date"]))
@@ -83,6 +94,13 @@
         <option value="168" '.($date==168? 'selected':'').'>Last Week</option>
         <option value="744" '.($date==744? 'selected':'').'>Last Month</option>
 		';
+  
+  $HtmlCheckboxPay='
+    <label id="labelPay">Choose which method of payment :</label>
+    <input type="checkbox" id="Pay1" name="PayV" value="Pay1" checked>
+    <label for="Pay1" id="labelPay1"> All at once</label><br>
+    <input type="checkbox" id="Pay2" name="PayV" value="Pay2">
+    <label for="Pay2" id="labelPay2"> By worked hours</label>';
 	
 	$DBAccess = new DBAccess();
 	if(!($DBAccess->openDBConnection())){
@@ -95,12 +113,12 @@
 	if(isset($_GET['tag'])){
 		$tagName = $DBAccess->searchTagName($tag);
 		prof_flag("search Job algor");
-		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag));
-		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag));
+		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag),$pay);
+		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag),$pay);
 	}
 	else{
-		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$tag);
-		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$tag);
+		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$tag,$pay);
+		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$tag,$pay);
 	}
 	$NumberPages=ceil($NumberPages / 5);
 	
@@ -121,7 +139,7 @@
 						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
 						<p class="date"><span>Date</span> : '.explode(' ',$row["Date"])[0].'</p>
 						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
-						<p class="minPay"><span>Minimum Pay</span> : $'.trim($row["P_min"]).'</p>
+						<p class="minPay"><span><abbr title="minimum">Min</abbr> Pay</span> : $'.trim($row["P_min"]).'</p>
 						<p class="bids"><span>Bids</span> : '.$bids.'</p>
 						<p class="description"><span>Description</span> : <br>'.$desc.'</p>';
 			

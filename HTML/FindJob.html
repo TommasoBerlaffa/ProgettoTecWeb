@@ -16,8 +16,6 @@
   <meta name="description" content="Find the perfect job for you!">
   <meta name="keywords" content="Find Job, Find, FindWork, Job, JobFinder">
   
-  
-
   <!-- Fogli di Stile -->
   <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen">
   <link rel="stylesheet" type="text/css" href="../CSS/Print.css" media="print">
@@ -59,12 +57,20 @@
 
       <!-- Filter By Tipology-->
       <label for="Tipology" id="labelType"> Tipology : </label>
-      <select name="Tipology" id="Tipology" >
+      <select name="Tipology" id="Tipology">
         <TipologySelect/>
       </select>
 
+      <div id="Pay">
+        <label id="labelPay">Choose which method of payment :</label>
+        <input type="checkbox" id="Pay1" name="PayV[]" value="Pay1" checked>
+        <label for="Pay1" id="labelPay1"> All at once</label><br>
+        <input type="checkbox" id="Pay2" name="PayV[]" value="Pay2">
+        <label for="Pay2" id="labelPay2"> By worked hours</label>
+      </div>
+
       <!-- Filter by Min Pay-->
-      <label for="PayMin" class="title" id="labelPay">  Minimum Pay : </label>
+      <label for="PayMin" class="title" id="labelPay">  <abbr title="minimum">Min</abbr> Pay : </label>
       <input type="number" name="PayMin" id="PayMin" min="0" [payval]/>
 
       <!-- Filter By Date -->
@@ -82,15 +88,13 @@
       <label for="searchTag" id="helpLabelsearchTag"></label>
       <div id="tagsList">
       </div>
-      <!--<tags/>-->
+        <!--<tags/>-->
 
       <button type="submit" name="filter" id="submit">Filter</button>
       </fieldset>
     </form>
     
     <div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>
-	
-	
 
   </main>
 

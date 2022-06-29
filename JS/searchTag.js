@@ -13,6 +13,7 @@ function updateUserTagList(response){
 		var bt=document.createElement('button');
 		bt.innerHTML=keys[i];
 		bt.value=list[keys[i]];
+    bt.classList.add("btnTag");
 		bt.setAttribute('type','button');
 		bt.setAttribute('onclick',"AjaxRemoveTag('"+keys[i]+"')");
 		div.appendChild(bt);
@@ -86,6 +87,7 @@ function mycallback(response){
 		var bt=document.createElement('button');
 		bt.innerHTML=keys[i];
 		bt.value=list[keys[i]];
+    bt.classList.add('btnTag');
 		bt.setAttribute('type','button');
 		bt.setAttribute('onclick',"AjaxAddTag('"+keys[i]+"','"+list[keys[i]]+"')");
 		div.appendChild(bt);
