@@ -45,7 +45,7 @@
         $tableNewBid .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
         <td>'. trim($row['Status'] ).'</td>
-        <td>'.date_diff($date2,$date1)->format('%a days %h hours %i minutes') .'</td>
+        <td>'.date_diff($date2,$date1)->format('%a <abbr title="days">d</abbr> %h <abbr title="hours">h</abbr> %i <abbr title="minutes">m</abbr>') .'</td>
         <td>'. trim($row['Tipology'] ).'</td>
         </tr>';
       }

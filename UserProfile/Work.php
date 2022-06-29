@@ -46,8 +46,7 @@
         $date2 = date_create($row['Expiring']);
         $tableJob .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
-        <td>'.trim($row["Status"]).'</td>
-        <td>'. date_diff($date2,$date1)->format('%a days %h hours %i minutes')  .'</td>
+        <td>'. date_diff($date2,$date1)->format('%a <abbr title="days">d</abbr> %h <abbr title="hours">h</abbr> %i <abbr title="minutes">m</abbr>')  .'</td>
         <td>'.trim($row["C"]).'</td>
         </tr>';
       } 
@@ -55,7 +54,7 @@
       $HTMLTable .= $HTMLtableJob;
     }
     else
-      $HTMLTable .= '<p>You currently have no active job. If you want to make a new job offer, feel free to check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'Createjob.php">Create a Job Offer</a></p>';
+      $HTMLTable .= '<p>You currently have no active job. If you want to make a new job offer, feel free to check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'LoadCreatejob.php">create a Job Offer</a></p>';
 
     // Ottiene Valori da Query - Past Jobs
     $PastJob = $DBAccess->getPastJobListbyCreator($_SESSION['user_ID']);
@@ -81,7 +80,7 @@
     }
     else 
       $HTMLTable .= '<p class="tableEmpty">You currently have no past job offer that are terminated. If you want to create a job offering history, you should start by creating some jobs offer.
-      Feel free to check out <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'Createjob.php">create a job offer</a></p>';
+      Feel free to check out <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'LoadCreatejob.php">create a job offer</a></p>';
 
     $HTMLTable .= '</div><a class="goTop" href="#">Go back to the top</a>';
     // Rimpiazza Valori su file html
