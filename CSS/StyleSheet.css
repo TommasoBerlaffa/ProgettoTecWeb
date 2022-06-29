@@ -46,6 +46,7 @@
   --subcolor: #4a6fa5;
   --content: #fff;
   --black: #000;
+  --darkWhite: #d1d9e6;
   --shadow: #999;
 }
 
@@ -298,6 +299,7 @@ form#createJob fieldset{
   " s s s "
   " a b b "
   " c d d " 
+  " j j k "
   " i i i "
   " e f f "
   " g h h "
@@ -349,6 +351,14 @@ form#createJob fieldset input#MaxPay {
 
 form#createJob fieldset div#Pay {
   grid-area: i;
+}
+
+form#createJob fieldset label#labelExpiring {
+  grid-area: j;
+}
+
+form#createJob fieldset select#Expiring {
+  grid-area: k;
 }
 
 form#createJob fieldset label#labelDesc {
@@ -408,6 +418,7 @@ form#formFilter fieldset{
   row-gap: 0.8em;
   grid-template-areas: 
   " a b " 
+  " j j "
   " c d "
   " e f "
   " s t "
@@ -463,8 +474,12 @@ form#formFilter div#tagsList {
   grid-area: h;
 }
 
-div#selectedTagsList {
+form#formFilter div#selectedTagsList {
   grid-area: i;
+}
+
+form#formFilter div#Pay {
+  grid-area: j;
 }
 
 h1.SelectedTags {
@@ -472,9 +487,14 @@ h1.SelectedTags {
 }
 
 .btnTag{
-  border: 3px solid var(--color);
-  margin: 0.3em;
-  background-color: #fff;
+  background: var(--content);
+  border-radius: 5px;
+  border: 2px solid var(--subcolor);
+  margin-right: 0.3em;
+}
+
+.btnTag:hover{
+  background: var(--darkWhite);
 }
 
 form#formFilter #submit {

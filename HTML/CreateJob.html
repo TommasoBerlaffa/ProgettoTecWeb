@@ -45,8 +45,6 @@
     </ul>
   </header>
 
-      
-
   <nav class="breadcrumb">
     ..\ <a href="../PHP/Index.php">Home</a> \ Create a Job Offer
   </nav>
@@ -64,12 +62,20 @@
         <!-- Tipology -->
         <label for="Tipology" id="labelType">Choose the Typology *:</label>
         <select id="Tipology" name="Type" required>
-          <option>Fulltime</option>
+          <option selected>Fulltime</option>
           <option>One Time</option>
           <option>Urgent</option>
           <option>Recruiter</option>
         </select>
-          <!-- Payment -->
+        <!-- Expiring -->
+        <label for="Expiring" id="labelExpiring">Choose how long your offer will last *:</label>
+        <select id="Expiring" name="Expiring" required>
+          <option selected>1 day</option>
+          <option>3 days</option>
+          <option>1 week</option>
+          <option>1 month</option>
+        </select>
+        <!-- Payment -->
         <div id="Pay">
           <label id="labelPay">Choose your preferred method of payment *:</label>
           <input type="radio" id="Pay1" name="PayV" value="Pay1" checked>
