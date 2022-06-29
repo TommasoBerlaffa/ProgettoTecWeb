@@ -157,7 +157,7 @@
 		$HtmlContent .='<paging/></div>';
 	}
 	else
-		$HtmlContent.='<p>No Jobs Currently Available</p></div>';
+		$HtmlContent.='<p>No Jobs Currently Available</p><img src="../IMG/Tumbleweed.gif" alt="Animated image of a rolling tumbleweed across the desert" width="500" height="300"></div>';
 	
 	$DBAccess->closeDBConnection();
 	
