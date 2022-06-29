@@ -102,14 +102,15 @@ function Form1() {
 	document.getElementById("Form_1").style.display='inherit';
 	document.getElementById("Form_2").style.display='none';
 }
-function Form1_foward() {
+function Form1_forward() {
 	if(checkRequiredInputs("Form_1")){
 		document.getElementById('Missing1').innerText='';
 		if(Ajax_Taken('Username',mycallback))
 			if(passwordSecurity())
 				Form2();
 	}
-	document.getElementById('Missing1').innerText='Please fill up all fields with "*" on the name';	
+  else
+	  document.getElementById('Missing1').innerText='Please fill up all fields with "*" on the name';	
 }
 
 function Form2() {
@@ -117,13 +118,14 @@ function Form2() {
 	document.getElementById("Form_2").style.display='inherit';
 	document.getElementById("Form_3").style.display='none';
 }
-function Form2_foward() {
+function Form2_forward() {
 	if(checkRequiredInputs("Form_2")){
 		document.getElementById('Missing2').innerText='';
 		if(Ajax_Taken('Email',mycallback))
 			Form3();
 	}
-	document.getElementById('Missing2').innerText='Please fill up all fields with "*" on the name';
+  else
+  	document.getElementById('Missing2').innerText='Please fill up all fields with "*" on the name';
 }
 
 function Form3() {
@@ -132,12 +134,13 @@ function Form3() {
 	document.getElementById("Form_4").style.display='none';
 	
 }
-function Form3_foward() {
+function Form3_forward() {
 	if(checkRequiredInputs("Form_3")){
 		document.getElementById('Missing3').innerText='';
 		Form4();
 	}
-	document.getElementById('Missing3').innerText='Please fill up all fields with "*" on the name';
+  else
+	  document.getElementById('Missing3').innerText='Please fill up all fields with "*" on the name';
 }
 
 function Form4() {

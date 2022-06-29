@@ -63,7 +63,7 @@ body {
 body {
   background-color: var(--content);
   font-family:Tahoma, sans-serif;
-  font-size: 1em;  
+/*  font-size: 1em;*/
   margin:auto;  
   max-width: 1024px;
   overflow-x: hidden;
@@ -73,7 +73,7 @@ main {
   padding: 0em;
   padding-bottom: 2.5em;
   margin-bottom: 3%;
-  font-size: 0.875em; 
+  /*font-size: 0.875em;*/
 }
 
 .box {
@@ -762,7 +762,7 @@ main img#icon {
 /* - 7.5 User Profile Setting Page - */
 form#settings,
 form#changeTags {
-  width: 80%;
+  width: 100%;
   margin: auto;
   margin-bottom: 2em;
   margin-top: 2em;
@@ -791,9 +791,9 @@ form#settings fieldset textarea{
   width: 70%;
 }
 
-form#settings fieldset label
+form#settings fieldset  
 {
-  width: max-content;
+  width: fit-content;
 }
 
 
@@ -1217,14 +1217,14 @@ ul#popularJobs li {
 }
 
 h1.index {
-  text-align:justify;
+  text-align:left;
   padding-left : 2em;
   text-decoration: underline;
   font-size: 1.375em;
 }
 
 h2.index {
-  text-align:justify;
+  text-align:left;
   padding-left: 1.75em;
   font-size: 1em;
 }

@@ -2,7 +2,8 @@
   require_once "DBAccess.php";
 
   // CONTROLLI SE LOGIN EFFETTUATO
-  session_start();
+  if(!isset($_SESSION)) 
+    session_start(); 
 
   if(isset($_SESSION['user_Username'])) {
     $index = null;
