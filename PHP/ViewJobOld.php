@@ -27,10 +27,10 @@ if(isset($_SESSION['user_Username'])) {
   if($row) {              
 		$HTML = str_replace("{{ Title }}",trim($row["Title"]),$HTML);
 		$HTML = str_replace("{{ Description }}",trim($row["Description"]),$HTML);
-    $pay = trim($row["Payment"]);
-    $HTML = $pay==0 ? str_replace('{{ Payment }}','Payment by hour',$HTML) : str_replace('{{ Payment }}','Total Payment at once',$HTML);
-    $HTML = str_replace('{{ Min Payment }}',trim($row["P_min"]),$HTML);
-    $HTML = str_replace('{{ Max Payment }}',trim($row["P_max"]),$HTML);
+		$pay = trim($row["Payment"]);
+		$HTML = $pay==0 ? str_replace('{{ Payment }}','Payment by hour',$HTML) : str_replace('{{ Payment }}','Total Payment at once',$HTML);
+		$HTML = str_replace('{{ Min Payment }}',trim($row["P_min"]),$HTML);
+		$HTML = str_replace('{{ Max Payment }}',trim($row["P_max"]),$HTML);
 		$HTML = str_replace("{{ Status }}",trim($row["Status"]),$HTML);
 		$HTML = str_replace("{{ Tipology }}",trim($row["Tipology"]),$HTML);
 		$HTML = str_replace("{{ Date }}",trim($row["Date"]),$HTML);
@@ -38,29 +38,29 @@ if(isset($_SESSION['user_Username'])) {
 		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">More informations on the Creator</a>',$HTML);
 		$HTML = str_replace('{{ Winner }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_winner"]).'">More informations on the Winner</a>',$HTML);
 		
-    $HTMltags='';
-    if($tags){
-      $HTMltags.='<li>';
-      foreach($tags as $name=>$value)
-        $HTMltags.='
-              <a href="FindJob.php?tag='.$value.'">'.$name.'</a>';
-      $HTMltags.='
-            </li>';
-    }
-
-		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
-		
+		$HTMltags='';
+		if($tags){
+		$HTMltags.='<li>';
+		foreach($tags as $name=>$value)
+			$HTMltags.='
+				<a href="FindJob.php?tag='.$value.'">'.$name.'</a>';
+		$HTMltags.='
+				</li>';
+		}
 	
-    $adminActions = '';
-    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
-    {
-      $adminActions .= '<a href="AdminAction.php">Delete this job</a>';  
-    }
-    else {
-      $adminActions .= '';
-    }
-      
-    $HTML = str_replace('<admin/>',$adminActions,$HTML);
+			$HTML = str_replace('<tags/>',$HTMltags,$HTML);
+			
+		
+		$adminActions = '';
+		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+		{
+		$adminActions .= '<a href="AdminAction.php">Delete this job</a>';  
+		}
+		else {
+		$adminActions .= '';
+		}
+		
+		$HTML = str_replace('<admin/>',$adminActions,$HTML);
 		$feedback = $DbAccess->getJobReview($index);
 		if(!$feedback) {
 			if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {

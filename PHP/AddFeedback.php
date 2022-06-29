@@ -17,7 +17,7 @@ if(isset($_SESSION['user_Username'])) {
 		$date = date("Y/m/d");
 		if($DBAccess->createReview($_SESSION['user_ID'],$_SESSION["Code_job"],$star,$comment,$date)){
 			$DBAccess->closeDBConnection();
-			header('Location:..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'ViewJobOld.php?Code_job='.$_SESSION["Code_job"]);
+			header('Location:..'.DIRECTORY_SEPARATOR.'PHP'.DIRECTORY_SEPARATOR.'ViewOffer.php?Code_job='.$_SESSION["Code_job"]);
 		}
     }
     else{

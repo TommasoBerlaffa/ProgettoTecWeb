@@ -6,6 +6,7 @@ Function List:
 
 1.createJob
 2.setWinner
+2.deleteJob
 3.getJob
 4.createReview
 5.getJobReview
@@ -85,17 +86,17 @@ class DBAccess {
       return false;
   }
 
-  /***2.Set the Winner of a Past Job***
-  par: int userID, int jobID;
+  /***2.Set the Winner ***
+  par: int winnerID, int jobID, int userID;
   desc: assegna ad un lavoro passato il vincitore del concorso. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function setWinner($id, $job) {
+  public function setWinner($winner, $job, $id) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job)){
-      $queryInserimento = 'SET @p=""; CALL Set_Winner(?,?,@p); SELECT @p;';
+      $queryInserimento = 'CALL Set_Winner(?,?,?);';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      mysqli_stmt_bind_param($queryCall,'ii',$id, $job);
+      mysqli_stmt_bind_param($queryCall,'iii',$winner, $job, $id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
@@ -105,27 +106,53 @@ class DBAccess {
     } else
       return false;
   }
-
-  /***3.Get Job Info***
-  par: int jobID, bool old;
-  desc: ritorna le informazioni di un lavoro corrente o passato(bool old) in base al jobID. altrimenti ritorna null.
+  
+  
+  /***2.Delete a Job ***
+  par: int userID, int jobID;
+  desc: assegna ad un lavoro passato il vincitore del concorso. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function getJob($id,$old) {
-	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+  public function deleteJob($id, $job) {
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($id)){
-      $queryInserimento = 'SELECT * FROM current_jobs WHERE Code_job = ? LIMIT 1;';
-      $queryInserimentoPast = 'SELECT * FROM past_jobs WHERE Code_job = ? LIMIT 1;';
-      $queryCall=null;
-      if(isset($old) and $old==true)
-        $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      else
-        $queryCall=mysqli_prepare($this->connection, $queryInserimentoPast);
-      mysqli_stmt_bind_param($queryCall,'i',$id);
+    if(isset($id) and isset($job)){
+      $queryInserimento = 'CALL Delete_job(?,?,@p);';
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'ii',$job, $id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      return mysqli_fetch_assoc($queryResult);
+      if(mysqli_fetch_assoc($queryResult))
+        return true;
+      return false;
+    } else
+      return false;
+  }
+  
+
+  /***3.Get Job Info***
+  par: int jobID;
+  desc: ritorna le informazioni di un lavoro (corrente o passato)in base al jobID. altrimenti ritorna null.
+  ****************************/
+  public function getJob($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($id)){
+      $queryCall=mysqli_prepare($this->connection, 'SELECT * FROM current_jobs WHERE Code_job = ? LIMIT 1;');
+	  mysqli_stmt_bind_param($queryCall,'i',$id);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+	  $queryResult=mysqli_fetch_assoc($queryResult);
+	  if(!$queryResult){
+		$queryCall=mysqli_prepare($this->connection, 'SELECT * FROM past_jobs WHERE Code_job = ? LIMIT 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		$queryResult=mysqli_fetch_assoc($queryResult);
+	  }
+      return $queryResult;
     } else
       return null;
   }
@@ -156,7 +183,7 @@ class DBAccess {
 
   /***5.Get Job Review***
   par: int jobID;
-  desc: ancora non a cosa serva e se serva questa funzione. (ho dimenticato perchè ne avevo concetuallizata l'esistenza).
+  desc: information of the reviews about one job.
   ****************************/
   public function getJobReview($id) {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
@@ -258,21 +285,15 @@ class DBAccess {
   }
 
   /***9.Change Job Status***
-  par: int jobID, enum status, bool old;
-  desc: cambia lo stato di un lavoro jobID corrente o passato(bool old). ritorna se la transazione ha avuto successo oppure no.
+  par: int jobID, enum status;
+  desc: cambia lo stato di un lavoro jobID passato. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function changeJobStatus($id,$status,$old) {
+  public function changeJobStatus($id,$status) {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 	$queryInserimento = '';
-    if(isset($id) and isset($status)){
-		if(isset($old) and $old==true and in_array($status,array('Deleted', 'Frozen','Success','Unsucces')))
-			$queryInserimento = 'UPDATE `past_jobs` SET `Status` = ? WHERE `past_jobs`.`Code_job` = ?;';
-		else if(in_array($status,array('Active', 'Frozen','Expired')))
-			$queryInserimento = 'UPDATE `current_jobs` SET `Status` = ? WHERE `current_jobs`.`Code_job` = ?;';
-		else
-			return null;
-		
+    if(isset($id) and isset($status) and in_array($status,array('Deleted','Success','Unsucces'))){
+		$queryInserimento = 'UPDATE `past_jobs` SET `Status` = ? WHERE `past_jobs`.`Code_job` = ?;';		
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		mysqli_stmt_bind_param($queryCall,'si',$status,$id);
 		mysqli_stmt_execute($queryCall);
@@ -938,32 +959,68 @@ class DBAccess {
   }
   /* Get all Past Jobs */
   public function getPastJobs() {
-	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-      $queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM past_jobs;');
-      if(mysqli_num_rows($queryResult) == 0)
-        return null;
-      else {
-        $result=array();
-        while($row=mysqli_fetch_assoc($queryResult))
-          array_push($result, $row);
-        return $result;
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		$queryCall = mysqli_prepare($this->connection, 'SELECT Title, Code_job, Status FROM past_jobs;');
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else {
+			$result=array();
+			while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+			return $result;
     }
   }
   /* Get all Offers */
   public function getOffers() {
-	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-      $queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM current_jobs;');
-      if(mysqli_num_rows($queryResult) == 0)
-        return null;
-      else {
-        $result=array();
-        while($row=mysqli_fetch_assoc($queryResult))
-          array_push($result, $row);
-        return $result;
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM current_jobs;');
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else {
+			$result=array();
+			while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+			return $result;
     }
   }
+  
+  /* Get all Offers */
+  public function setDeleteJobAdmin($id,$job,$comment) {
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		
+		//other stuff first like maybe call deleteJob or add the query first
+		$queryCall = mysqli_query($this->connection, 'INSERT INTO past_admin_actions (Code_job,Comments,Code_admin) VALUES (?,?,?);');
+		mysqli_stmt_bind_param($queryCall,'isi',$job, $comment, $id);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else {
+			$result=array();
+			while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+			return $result;
+    }
+  }
+  
+  /* Get all Offers */
+  public function setSomethingAdmin() {
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM current_jobs;');
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else {
+			$result=array();
+			while($row=mysqli_fetch_assoc($queryResult))
+			array_push($result, $row);
+			return $result;
+    }
+  }
+  
 }
 
 ?>
