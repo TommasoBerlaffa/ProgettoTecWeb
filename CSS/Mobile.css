@@ -129,6 +129,7 @@
   /* 1.5.4  Create Job Form */
   form#createJob {
     width: 80%;
+    padding: 1em;
   }
   
   form#createJob fieldset{
@@ -203,7 +204,6 @@
   main#userProfile {  
     width: 85%;
     margin-bottom: 12%;
-    margin-top: 12%;
     position:unset;
   }
 
@@ -267,6 +267,10 @@
   div#feedbacks div.review {
     margin: auto;
     width: 80%;
+  }
+
+  div#feedbacks h3 {
+    text-align: center;
   }
 
   /* - 1.7.5 User Profile Setting Page - */

@@ -44,9 +44,10 @@
       foreach ($CurrentJob as $row) {
         $date1 = date_create();
         $date2 = date_create($row['Expiring']);
+        $finalDate = $date2>$date1 ? date_diff($date2,$date1)->format('%a <abbr title="days">d</abbr> %h <abbr title="hours">h</abbr> %i <abbr title="minutes">m</abbr>') : 'This offer is over';
         $tableJob .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
-        <td>'. date_diff($date2,$date1)->format('%a <abbr title="days">d</abbr> %h <abbr title="hours">h</abbr> %i <abbr title="minutes">m</abbr>')  .'</td>
+        <td>'. $finalDate  .'</td>
         <td>'.trim($row["C"]).'</td>
         </tr>';
       } 

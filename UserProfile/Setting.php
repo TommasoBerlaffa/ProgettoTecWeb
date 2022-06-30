@@ -23,7 +23,7 @@
 		exit;
 	}
 	
-    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="emptyErrorList"></div></div>';
+    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="emptyErrorList"></div>';
 
 
     $Result = $DBAccess->getUser($_SESSION['user_ID']);
@@ -46,7 +46,7 @@
     $urlTags = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangeTags.html';
     $HTMLExtra .= file_get_contents($urlTags);
 
-    
+    $HTMLExtra .= '</div>';
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
     // Spazione vuoto
     if(isset($_SESSION['error'])) {
