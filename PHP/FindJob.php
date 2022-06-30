@@ -35,7 +35,7 @@
 
 	$type= 'Any';
 	$min=0;
-	$pay=0;
+	$Pay=0;
 	$date=9999999;
 	$tag=array();
     $tagName ='';
@@ -57,22 +57,20 @@
 		}
 		$tag=$_SESSION['TagList'];
 	}
+  if(isset($_GET["Pay"]))
+    $Pay==filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);    
 	
 	//if there is a post from the filter form than override whatever got from the GET 
 	if(isset($_POST['filter'])){
 		if(isset($_POST["Tipology"]))
 			$type =  filter_var ( $_POST["Tipology"], FILTER_SANITIZE_STRING);
-    if(isset($_POST["PayV"]))
-    {
-      $tmp = $_POST["PayV"];
-      if( in_array("Pay1",$tmp) && in_array("Pay2",$tmp))
-        $Pay=2;
-      else if ( in_array("Pay1",$tmp) )
-        $Pay=0;
-      else if ( in_array("Pay2",$tmp) )
-        $Pay=1;
-    }
-		if(isset($_POST["PayMin"]))
+    if(isset($_POST["Pay1"]) && !isset($_POST["Pay2"]))
+      $Pay=1;
+    else if( !isset($_POST["Pay1"]) && isset($_POST["Pay2"]))
+      $Pay=2;
+    else 
+      $Pay=0;
+    if(isset($_POST["PayMin"]))
 			$min =  intval(filter_var ( $_POST["PayMin"], FILTER_SANITIZE_STRING));
 		if(isset($_POST["Date"]))
 			$date =  intval(filter_var ( $_POST["Date"], FILTER_SANITIZE_STRING));
@@ -97,9 +95,9 @@
   
   $HtmlCheckboxPay='
     <label id="labelPay">Choose which method of payment :</label>
-    <input type="checkbox" id="Pay1" name="PayV" value="Pay1" checked>
+    <input type="checkbox" id="Pay1" name="Pay1" value="Pay1" '. (($Pay==1 OR $Pay==0) ? 'checked' : '').'>
     <label for="Pay1" id="labelPay1"> All at once</label><br>
-    <input type="checkbox" id="Pay2" name="PayV" value="Pay2">
+    <input type="checkbox" id="Pay2" name="Pay2" value="Pay2"'. (($Pay==2 OR $Pay==0) ? 'checked' : '').'>
     <label for="Pay2" id="labelPay2"> By worked hours</label>';
 	
 	$DBAccess = new DBAccess();
@@ -113,12 +111,12 @@
 	if(isset($_GET['tag'])){
 		$tagName = $DBAccess->searchTagName($tag);
 		prof_flag("search Job algor");
-		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag),$pay);
-		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag),$pay);
+		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag),$Pay);
+		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag),$Pay);
 	}
 	else{
-		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$tag,$pay);
-		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$tag,$pay);
+		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$tag,$Pay);
+		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$tag,$Pay);
 	}
 	$NumberPages=ceil($NumberPages / 5);
 	
@@ -139,6 +137,7 @@
 						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
 						<p class="date"><span>Date</span> : '.explode(' ',$row["Date"])[0].'</p>
 						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
+            <p class="Pay"><span>Payment Type</span> : '.(trim($row["Payment"])==0? 'Payment by Hour' : 'All at once').'</p>
 						<p class="minPay"><span><abbr title="minimum">Min</abbr> Pay</span> : $'.trim($row["P_min"]).'</p>
 						<p class="bids"><span>Bids</span> : '.$bids.'</p>
 						<p class="description"><span>Description</span> : <br>'.$desc.'</p>';
@@ -157,7 +156,7 @@
 		$HtmlContent .='<paging/></div>';
 	}
 	else
-		$HtmlContent.='<p>No Jobs Currently Available</p><img src="../IMG/Tumbleweed.gif" alt="Animated image of a rolling tumbleweed across the desert" width="500" height="300"></div>';
+		$HtmlContent.='<p>No Jobs Currently Available</p><img src="../IMG/Tumbleweed.gif" alt="Animated image of a rolling tumbleweed across the desert" id="NoAvailableJob"></div>';
 	
 	$DBAccess->closeDBConnection();
 	
@@ -166,17 +165,18 @@
 	$urlMin=($min>0)? '&PayMin='.$min : '';
 	$urlDate=($date!=9999999)? '&Date='.$date : '';
 	$urlTag=(is_string($tag))? '&tag='.$tag : '';
-	
+	$urlPay=($Pay)? '&pay='.$Pay :'';
+
 	$pageHTML = '<div id="pages">';
     if($page > 1)
-      $pageHTML .= '<a title="first page" href="FindJob.php?Page=1' . $urlType . $urlMin . $urlDate . $urlTag . '">1</a>';
+      $pageHTML .= '<a title="first page" href="FindJob.php?Page=1' . $urlType . $urlMin . $urlDate . $urlTag . $urlPay .'">1</a>';
     if($page > 2)
-      $pageHTML .= '<a title="previous page" href="FindJob.php?Page=' . ($page - 1) . $urlType . $urlMin . $urlDate . $urlTag . '"><<</a>';
+      $pageHTML .= '<a title="previous page" href="FindJob.php?Page=' . ($page - 1) . $urlType . $urlMin . $urlDate . $urlTag .  $urlPay . '"><<</a>';
     $pageHTML .= '<span>' . $page . '</span>';
     if($page < $NumberPages-1)
-      $pageHTML .= '<a title="next page" href="FindJob.php?Page=' . ($page + 1) . $urlType . $urlMin . $urlDate . $urlTag . '">>></a>';
+      $pageHTML .= '<a title="next page" href="FindJob.php?Page=' . ($page + 1) . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '">>></a>';
     if($page < $NumberPages)
-      $pageHTML .= '<a title="last page" href="FindJob.php?Page=' . $NumberPages . $urlType . $urlMin . $urlDate . $urlTag . '">' . $NumberPages . '</a>';
+      $pageHTML .= '<a title="last page" href="FindJob.php?Page=' . $NumberPages . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '">' . $NumberPages . '</a>';
     $pageHTML .= '</div>';
 	
 	
@@ -185,7 +185,8 @@
 	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>',$HtmlContent,$HTML);
 	$HTML = str_replace('<paging/>', $pageHTML, $HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
-	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
+	$HTML = str_replace('<paytype/>',$HtmlCheckboxPay,$HTML);
+  $HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
 	$HTML = str_replace('<DateSelect/>',$HtmlDateSelect,$HTML);
 	$HTML = str_replace('<div id="jobList"></div>',$HtmlContent,$HTML);
 	if(isset($_GET['tag'])){

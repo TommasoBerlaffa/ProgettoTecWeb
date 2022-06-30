@@ -526,14 +526,15 @@ class DBAccess {
 	$tip='	AND
 			Tipology = ?
 	';
-  if($pay==0)
+  $payString='';
+  if($pay==1)
     $payString='	AND
       Payment = 0
       ';
-  else if($pay==1)
-      $payString='	AND
-      Payment = 1
-      ';
+  else if($pay==2)
+    $payString='	AND
+      Payment != 0
+    ';
 
 	$middle2='
 		ORDER BY 
@@ -963,11 +964,26 @@ class DBAccess {
         return $result;
     }
   }
+  /* getAdminUsers */
+  public function getAdminUsers() {
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+    die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    $queryResult  = mysqli_query($this->connection, 'SELECT Date, Comments FROM users_admin_actions;');
+    if(mysqli_num_rows($queryResult) == 0)
+      return null;
+    else {
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+      array_push($result, $row);
+      return $result;
+    }
+  }
+
   /* Get all Past Jobs */
   public function getPastJobs() {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		$queryCall = mysqli_prepare($this->connection, 'SELECT Title, Code_job, Status FROM past_jobs;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM past_jobs;');
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {
@@ -981,7 +997,7 @@ class DBAccess {
   public function getOffers() {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM current_jobs;');
+		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job FROM current_jobs;');
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {

@@ -404,6 +404,10 @@ main#findJob {
   align-items: flex-start;
 }
 
+img#NoAvailableJob {
+  width: 100%;
+}
+
 form#formFilter {
   min-width: 30%;
   margin-left: 1em;
@@ -526,6 +530,7 @@ div.job {
   grid-template-areas: 
   " a a . . b b"
   " c c c . d d"
+  " c c c . n n"
   " c c c . e e"
   " c c c . f f"
   " g g g g . ."
@@ -562,6 +567,10 @@ div.job .type {
 
 div.job .minPay {
   grid-area: e;
+}
+
+div.job .Pay {
+  grid-area: n;
 }
 
 div.job .bids {
