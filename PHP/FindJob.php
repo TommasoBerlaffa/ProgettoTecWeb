@@ -58,7 +58,7 @@
 		$tag=$_SESSION['TagList'];
 	}
   if(isset($_GET["Pay"]))
-    $Pay==filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);    
+    $Pay=filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);    
 	
 	//if there is a post from the filter form than override whatever got from the GET 
 	if(isset($_POST['filter'])){
