@@ -529,11 +529,11 @@ class DBAccess {
   $payString='';
   if($pay==1)
     $payString='	AND
-      Payment = 0
+      Payment != 0
       ';
   else if($pay==2)
     $payString='	AND
-      Payment != 0
+      Payment = 0
     ';
 
 	$middle2='
