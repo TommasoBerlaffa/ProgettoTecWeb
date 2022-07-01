@@ -116,13 +116,13 @@ class DBAccess {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job)){
-      $queryInserimento = 'CALL Delete_job(?,?,@p);';
+      $queryInserimento = 'CALL Delete_job(?,?);';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'ii',$job, $id);
       mysqli_stmt_execute($queryCall);
-      $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      if(mysqli_fetch_assoc($queryResult))
+      $result = mysqli_affected_rows($this->connection);
+      if($result)
         return true;
       return false;
     } else
@@ -1028,19 +1028,35 @@ class DBAccess {
     }
   }
   
-  /* Get all Offers */
-  public function setSomethingAdmin() {
+  /* Ban User Admin */
+  public function BanUserAdmin($id, $idAdmin,$comment) {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Status FROM current_jobs;');
-		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		else {
-			$result=array();
-			while($row=mysqli_fetch_assoc($queryResult))
-			array_push($result, $row);
-			return $result;
+		// chiama procedura per ban
+    $sqlBan = 'UPDATE users SET Status = 3 WHERE Code_user = ? ;';
+    $queryCall=mysqli_prepare($this->connection, $sqlBan);
+    mysqli_stmt_bind_param($queryCall,'i',$id);
+    mysqli_stmt_execute($queryCall);
+    mysqli_stmt_close($queryCall);
+    $tmp=mysqli_affected_rows($this->connection);
+    if($tmp)
+    {
+      // INSERT INTO users_admin_actions(Code_user, Comments, Date, Code_admin) VALUES (?,?,?,?)
+      $sqlUpdate = 'INSERT INTO users_admin_actions(Code_user, Comments, Date, Code_admin) VALUES (?,?,?,?);';
+      $queryCall2=mysqli_prepare($this->connection, $sqlUpdate);
+      mysqli_stmt_bind_param($queryCall2,'issi',$id,$comment,date("Y-m-d h:i:sa"),$idAdmin);
+      mysqli_stmt_execute($queryCall2);
+      mysqli_stmt_close($queryCall2);
+      $tmp=mysqli_affected_rows($this->connection);
+      if($tmp)
+        return true;
+      else
+        return false;
     }
+    else
+      return false;
+    
+
   }
   
 }

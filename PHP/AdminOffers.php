@@ -19,16 +19,15 @@ if(isset($_SESSION['Admin'])) {
   <caption id="description"> List of Offers </caption>
   <thead>
     <tr>
-      <th scope="col" > User </th>
-      <th scope="col" > Status </th>
+      <th scope="col" > OfferTitle </th>
     </tr>
   </thead>
   <tbody>';
   if(isset($listaOffers)){
     foreach($listaOffers as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$U["Code_job"].'">'.$U["Title"].'</a></td>
-      <td>'.trim($U["Status"]).'</td></tr>';
+      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$U["Code_job"].'">'.$U["Title"].'</a></td>
+      </tr>';
     }
   }
   $contenuto .= '</tbody></table>';

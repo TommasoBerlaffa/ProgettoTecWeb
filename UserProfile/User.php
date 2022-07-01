@@ -20,6 +20,13 @@
     $content='<div id="content"><div id="intro">
       <p><em>User Profile</em> is the place where you can see your own informations and your 3 latest reviews.</p>
     </div>';
+    $adminActions = '';
+    if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+      $adminActions .= '<a id="AdminArea" href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminHistory.php">Go to the secret admin page</a>';  
+    else 
+      $adminActions .= '';
+
+    $content.=$adminActions;
     // Ottiene Valori Utente da SQL
     // Query del tipo SELECT * FROM users WHERE Code_user = $_SESSION['Code_User'];
     $DBAccess = new DBAccess();
@@ -49,6 +56,18 @@
       $content = str_replace("{{Description}}",trim($Result["Description"]),$content);
       $content = str_replace("{{Creation}}",trim($Result["Creation"]),$content);
       
+      $adminActions = '';
+      if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+      {
+        $adminActions .= '<a id="AdminArea" href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminUser.php">Go to the secret admin page</a>';  
+      }
+      else {
+        $adminActions .= '';
+      }
+      
+
+
+
       $Review = $DBAccess->getUserReviewList($_SESSION['user_ID'],3);
       
       if($Review) {

@@ -648,6 +648,12 @@ div#sidebar ul li{
   height: 16px;
 }
 
+a#AdminArea {
+  text-align: center;
+  display: block;
+  font-size: 1.2em;
+}
+
 /* - 7.1 Content for User Profile - */
 div#content {
   padding: 1em;
@@ -970,6 +976,7 @@ div#JobInfo {
   " . l "
   " f f "
   " g h "
+  " r s "
   " i i ";
 }
 
@@ -1036,7 +1043,7 @@ div#JobInfo #cancel {
 }
 
 div#JobInfo #creator {
-  grid-area: g; 
+  grid-area: s; 
 }
 
 div#JobInfo #minPay {
@@ -1052,7 +1059,7 @@ div#JobInfo #terminate {
 }
 
 div#JobInfo #winner {
-  grid-area: h; 
+  grid-area: r; 
 }
 
 div#JobInfo #tags {
@@ -1295,6 +1302,18 @@ div#viewUserFeedBack {
 
 main#viewUser h2{
   font-size: 1.2em;
+}
+
+/* form per ban utenti dell'Admin*/
+form#banUser {
+  width: 60%;
+  margin: auto;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+form#banUser button{
+  display: block;
 }
 
 /* -11.0 Hidden Help - */

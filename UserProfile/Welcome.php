@@ -15,7 +15,7 @@
     $adminActions = '';
     if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
     {
-      $adminActions .= '<a href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminUser.php">Go to the secret admin page</a>';  
+      $adminActions .= '<a id="AdminArea" href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminHistory.php">Go to the secret admin page</a>';  
     }
     else {
       $adminActions .= '';
