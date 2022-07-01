@@ -41,7 +41,7 @@
     (isset($_POST["Name"]) && $_POST["Name"]!=$Result["Name"]) ? $Name = filter_var($_POST["Name"], FILTER_SANITIZE_STRING) : $Name=$Result["Name"];
     (isset($_POST["Surname"]) && $_POST["Surname"]!=$Result["Surname"]) ? $Surname = filter_var($_POST["Surname"], FILTER_SANITIZE_STRING) : $Surname=$Result["Surname"];
     // Data di Nascita
-    if(isset($_POST["Birth"]) && $_POST["Birth"]!=$Result["Birth"]) {
+    if(isset($_POST["Birth"]) && $_POST["Birth"]!=$Result["Birth"] && $_POST["Birth"]!='') {
       // Copiato da codice Sign Up
       $birthDate=explode('-',$_POST['Birth']);
 			$age = (date("md", date("U", mktime(0, 0, 0, $birthDate[1], $birthDate[2], $birthDate[0]))) > date("md")? ((date("Y") - $birthDate[0]) - 1): (date("Y") - $birthDate[0]));

@@ -57,22 +57,22 @@
       <p id="date"><span>Date</span> : {{ Date }} </p>
       <p id="expiration"><span>Expiration Date</span> : {{ Expiring }} </p>
       <p id="pay"><span>Payment</span> : {{ Payment }} </p>
-      <p id="minPay"><span>Minimum Payment</span> : {{ Min Payment }} </p>
-      <p id="maxPay"><span>Maximum Payment</span> : {{ Max Payment }} </p>
-      <p id="offerCreator">{{ Creator }}</p>
+      <p id="minPay"><span>Minimum Payment</span> : {{ Min Payment }}$ </p>
+      <p id="maxPay"><span>Maximum Payment</span> : {{ Max Payment }}$ </p>
       <div id="desc" class="desc">
         <p><span>Description</span> : </p> 
         <p id="description"> {{ Description }} </p>
       </div> 
-      {{ owner options }}
+      <p id="creator">{{ Creator }}</p>
+      <p id="winner">{{ Winner }}</p>
+      
       <div id="tags">
         <p><span>Job Tags :</span></p>
         <tags/>
       </div>
-	    <p id="creator">{{ Creator }}</p>
-      <p id="winner">{{ Winner }}</p>
-      <admin/>
+	    {{ owner options }}  
     </div>
+    <admin/>
     <div id="bids" class="box"></div>
     <form id="addBid"></form>
 	<div id="feedback"></div>

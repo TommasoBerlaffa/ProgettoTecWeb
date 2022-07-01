@@ -34,7 +34,7 @@ if(isset($_SESSION['user_Username'])) {
 		$HTML = str_replace("{{ Status }}",trim($row["Status"]),$HTML);
 		$HTML = str_replace("{{ Tipology }}",trim($row["Tipology"]),$HTML);
 		$HTML = str_replace("{{ Date }}",trim($row["Date"]),$HTML);
-		$HTML = str_replace("{{ Expiring }}",trim($row["Expiring_time"]),$HTML);
+		$HTML = str_replace("{{ Expiring }}",trim($row["Expiring"]),$HTML);
 		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">More informations on the Creator</a>',$HTML);
 		$HTML = str_replace('{{ Winner }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_winner"]).'">More informations on the Winner</a>',$HTML);
 		
@@ -51,17 +51,17 @@ if(isset($_SESSION['user_Username'])) {
 			$HTML = str_replace('<tags/>',$HTMltags,$HTML);
 			
 		
-		$adminActions = '';
+
+    $adminActions = '';
 		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
 		{
-		$adminActions .= '<a href="AdminAction.php">Delete this job</a>';  
+      $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminUser.html';
+      $adminActions .= file_get_contents($urlContent);  
+      $adminActions = str_replace('<code/>',$index, $adminActions);
 		}
-		else {
-		$adminActions .= '';
-		}
+    $HTML = str_replace('<admin/>',$adminActions,$HTML);
 		
-		$HTML = str_replace('<admin/>',$adminActions,$HTML);
-		$feedback = $DbAccess->getJobReview($index);
+    $feedback = $DbAccess->getJobReview($index);
 		if(!$feedback) {
 			if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
 				$_SESSION['Code_job'] = $_GET['Code_job'];
@@ -72,25 +72,25 @@ if(isset($_SESSION['user_Username'])) {
 				// Aggiungo form per aggiungere feedback
 			}
 			else // Caso in cui non c'è feedback e non ho l'autorità per aggiungerlo (non sono creatore dell'offerta di lavoro)
-				$HTML = preg_replace('/<div id="feedback"><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
+				$HTML = preg_replace('/<div id="feedback"><\/div>/','',$HTML);
 		}
 		else {
-		$User = $DbAccess->getUser(trim($feedback["C_Rew"]));
-		$urlFeed = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Feedback.html';
-		$HTMLFeed = file_get_contents($urlFeed);
-		$HTMLFeed = str_replace("{{Nickname}}",$User["Nickname"],$HTMLFeed);
-		$HTMLFeed = str_replace("{{Stars}}",trim($feedback["Stars"]),$HTMLFeed);
-		$HTMLFeed = str_replace("{{Date}}",trim($feedback["Date"]),$HTMLFeed);
-		$HTMLFeed = str_replace("{{Comments}}",trim($feedback["Comments"]),$HTMLFeed);
-		
-		$HTML = str_replace('<div id="feedback"></div>',$HTMLFeed,$HTML);
+      $User = $DbAccess->getUser(trim($feedback["C_Rew"]));
+      $urlFeed = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Feedback.html';
+      $HTMLFeed = file_get_contents($urlFeed);
+      $HTMLFeed = str_replace("{{Nickname}}",$User["Nickname"],$HTMLFeed);
+      $HTMLFeed = str_replace("{{Stars}}",trim($feedback["Stars"]),$HTMLFeed);
+      $HTMLFeed = str_replace("{{Date}}",trim($feedback["Date"]),$HTMLFeed);
+      $HTMLFeed = str_replace("{{Comments}}",trim($feedback["Comments"]),$HTMLFeed);
+      
+      $HTML = str_replace('<div id="feedback"></div>',$HTMLFeed,$HTML);
 		}
-    } //Se non trova un risultato
-    else {
-      $HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
-      $HTML = preg_replace('/<div id="JobInfo">.*?.<\/div><\/div><div id="feedback"><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
-      //$HTML = str_replace('<div id="JobInfo">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
-    }
+  } //Se non trova un risultato
+  else {
+    $HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
+    $HTML = preg_replace('/<div id="JobInfo">.*?.<\/div><\/div><div id="feedback"><\/div>/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
+    //$HTML = str_replace('<div id="JobInfo">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
+  }
 	$DbAccess->closeDBConnection();
 	
 	echo $HTML;    

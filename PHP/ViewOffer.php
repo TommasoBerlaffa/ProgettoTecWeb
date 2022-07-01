@@ -58,9 +58,12 @@ if(isset($_SESSION['user_Username']))
 		/// Admin Actions
 		
 		$adminActions = '';
-		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1)
-			$adminActions .= '<a href="AdminAction.php">Delete this job</a>';
-		
+		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) {
+      $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminUser.html';
+      $adminActions .= file_get_contents($urlContent);  
+      $adminActions = str_replace('<code/>',$index, $adminActions);
+    }
+			
 		$HTML = str_replace('<admin/>',$adminActions,$HTML);
 	
 		$HTMltags ='';
