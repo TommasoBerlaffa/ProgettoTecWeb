@@ -156,7 +156,7 @@
 		$HtmlContent .='<paging/></div>';
 	}
 	else
-		$HtmlContent.='<p>No Jobs Currently Available</p><img src="../IMG/Tumbleweed.gif" alt="Animated image of a rolling tumbleweed across the desert" id="NoAvailableJob"></div>';
+		$HtmlContent.='<p>No Jobs Currently Available. Try to change your filters in the <a href="#formFilter">filtering form</a> to find more Jobs.</p><img src="../IMG/Tumbleweed.gif" alt="Animated image of a rolling tumbleweed across the desert" id="NoAvailableJob"></div>';
 	
 	$DBAccess->closeDBConnection();
 	

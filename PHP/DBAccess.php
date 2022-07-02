@@ -931,8 +931,8 @@ class DBAccess {
   }
 
   /***25.removeBid***
-  par:  
-  desc:
+  par: int idJob, int idUser; 
+  desc: delete a bid from a Job Offer from a specific User;
   ****************************/
   public function removeBid($idJob, $idUser) {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
@@ -950,22 +950,12 @@ class DBAccess {
   }
 
   /*********26.AdminFunctions */
-  /* Get all Users */
-  public function getUsers() {
-	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-      $queryResult = mysqli_query($this->connection, 'SELECT Nickname, Code_User, Status FROM users;');
-      if(mysqli_num_rows($queryResult) == 0)
-        return null;
-      else {
-        $result=array();
-        while($row=mysqli_fetch_assoc($queryResult))
-          array_push($result, $row);
-        return $result;
-    }
-  }
-  /* getAdminUsers */
-  public function getAdminUsers() {
+ 
+  /* getAdminUserAction 
+  par: none;
+  desc: return the list of Admin Actions on users;
+  */
+  public function getAdminUserAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     $queryResult  = mysqli_query($this->connection, 'SELECT Date, Comments FROM users_admin_actions;');
@@ -979,7 +969,46 @@ class DBAccess {
     }
   }
 
-  /* Get all Past Jobs */
+  /* getAdminJobAction
+  par: none;
+  desc: return the list of Admin Actions on current and past Jobs;
+  */
+  public function getAdminJobAction() {
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+    die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    $queryResult  = mysqli_query($this->connection, 'SELECT Date, Comments FROM past_admin_actions;');
+    if(mysqli_num_rows($queryResult) == 0)
+      return null;
+    else {
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+      array_push($result, $row);
+      return $result;
+    }
+  }
+
+  /* Get all Users 
+  par: none;
+  desc: return the list of users for the admin page;
+  */
+  public function getUsers() {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $queryResult = mysqli_query($this->connection, 'SELECT Nickname, Code_User, Status FROM users;');
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      else {
+        $result=array();
+        while($row=mysqli_fetch_assoc($queryResult))
+          array_push($result, $row);
+        return $result;
+    }
+  }
+
+  /* Get all Past Jobs 
+  par: none;
+  desc: return the list of Past Jobs for the admin page;
+  */
   public function getPastJobs() {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
@@ -993,7 +1022,11 @@ class DBAccess {
 			return $result;
     }
   }
-  /* Get all Offers */
+
+  /* Get all Offers 
+  par: none;
+  desc: return the list of Current Job Offer for the admin page;
+  */
   public function getOffers() {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
@@ -1008,27 +1041,78 @@ class DBAccess {
     }
   }
   
-  /* Get all Offers */
-  public function setDeleteJobAdmin($id,$job,$comment) {
+  /* DeleteJobAdmin ( Delete Offer ) 
+  par: int Job, int idAdmin, string comment;
+  desc: given a Job Id, an admin ID and a comment from the admin, moves the current job to past as deleted and adds an instance with the comment in past_admin_actions
+  */
+  public function DeleteJobAdmin($job,$idAdmin,$comment) {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		
-		//other stuff first like maybe call deleteJob or add the query first
-		$queryCall = mysqli_query($this->connection, 'INSERT INTO past_admin_actions (Code_job,Comments,Code_admin) VALUES (?,?,?);');
-		mysqli_stmt_bind_param($queryCall,'isi',$job, $comment, $id);
-		mysqli_stmt_execute($queryCall);
-		mysqli_stmt_close($queryCall);
-		if(mysqli_num_rows($queryResult) == 0)
-			return null;
-		else {
-			$result=array();
-			while($row=mysqli_fetch_assoc($queryResult))
-			array_push($result, $row);
-			return $result;
+		// chiama procedura per ban
+    $sqlDelete = 'CALL Delete_job(?,?)';
+    $queryCall=mysqli_prepare($this->connection, $sqlDelete);
+    mysqli_stmt_bind_param($queryCall,'ii',$job,$idAdmin);
+    mysqli_stmt_execute($queryCall);
+    mysqli_stmt_close($queryCall);
+    $tmp=mysqli_affected_rows($this->connection);
+    if($tmp)
+    {
+      // INSERT INTO past_admin_actions(Code_job, Comments,Date,Code_admin) VALUES (?,?,?,?);
+      $sqlUpdate = 'INSERT INTO past_admin_actions(Code_job, Comments,Date,Code_admin) VALUES (?,?,?,?);';
+      $queryCall2=mysqli_prepare($this->connection, $sqlUpdate);
+      if(!isset($comment))
+        $comment='';
+      mysqli_stmt_bind_param($queryCall2,'issi',$job,$comment,date("Y-m-d h:i:sa"),$idAdmin);
+      mysqli_stmt_execute($queryCall2);
+      mysqli_stmt_close($queryCall2);
+      $tmp=mysqli_affected_rows($this->connection);
+      if($tmp)
+        return true;
+      else
+        return false;
     }
+    else
+      return false;
+  }
+
+  /* DeletePastJobAdmin ( Delete Past_job ) 
+  par: int Job, int idAdmin, string comment;
+  desc:given a Job Id, an admin ID and a comment from the admin, changes the past job status and adds an instance with the comment in past_admin_actions
+  */
+  public function DeletePastJobAdmin($job,$idAdmin,$comment) {
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		// chiama procedura per ban
+    $sqlDelete = 'UPDATE past_jobs SET Code_winner=NULL,Status=1 WHERE Code_job= ?;';
+    $queryCall=mysqli_prepare($this->connection, $sqlDelete);
+    mysqli_stmt_bind_param($queryCall,'i',$job);
+    mysqli_stmt_execute($queryCall);
+    mysqli_stmt_close($queryCall);
+    $tmp=mysqli_affected_rows($this->connection);
+    if($tmp)
+    {
+      // INSERT INTO past_admin_actions(Code_job, Comments,Date,Code_admin) VALUES (?,?,?,?);
+      $sqlUpdate = 'INSERT INTO past_admin_actions(Code_job, Comments,Date,Code_admin) VALUES (?,?,?,?);';
+      $queryCall2=mysqli_prepare($this->connection, $sqlUpdate);
+      if(!isset($comment))
+        $comment='';
+      mysqli_stmt_bind_param($queryCall2,'issi',$job,$comment,date("Y-m-d h:i:sa"),$idAdmin);
+      mysqli_stmt_execute($queryCall2);
+      mysqli_stmt_close($queryCall2);
+      $tmp=mysqli_affected_rows($this->connection);
+      if($tmp)
+        return true;
+      else
+        return false;
+    }
+    else
+      return false;
   }
   
-  /* Ban User Admin */
+  /* Ban User Admin 
+  par: int Job, int idAdmin, string comment;
+  desc:given a Job Id, an admin ID and a comment from the admin, changes the user status and adds an instance with the comment in past_admin_actions
+  */
   public function BanUserAdmin($id, $idAdmin,$comment) {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
@@ -1055,8 +1139,38 @@ class DBAccess {
     }
     else
       return false;
-    
+  }
 
+  /* UnBan User Admin 
+  par: int Job, int idAdmin, string comment;
+  desc:given a Job Id, an admin ID and a comment from the admin, changes the user status and adds an instance with the comment in past_admin_actions
+  */
+  public function UnBanUserAdmin($id, $idAdmin,$comment) {
+		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+		// chiama procedura per ban
+    $sqlBan = 'UPDATE users SET Status = 1 WHERE Code_user = ? ;';
+    $queryCall=mysqli_prepare($this->connection, $sqlBan);
+    mysqli_stmt_bind_param($queryCall,'i',$id);
+    mysqli_stmt_execute($queryCall);
+    mysqli_stmt_close($queryCall);
+    $tmp=mysqli_affected_rows($this->connection);
+    if($tmp)
+    {
+      // INSERT INTO users_admin_actions(Code_user, Comments, Date, Code_admin) VALUES (?,?,?,?)
+      $sqlUpdate = 'INSERT INTO users_admin_actions(Code_user, Comments, Date, Code_admin) VALUES (?,?,?,?);';
+      $queryCall2=mysqli_prepare($this->connection, $sqlUpdate);
+      mysqli_stmt_bind_param($queryCall2,'issi',$id,$comment,date("Y-m-d h:i:sa"),$idAdmin);
+      mysqli_stmt_execute($queryCall2);
+      mysqli_stmt_close($queryCall2);
+      $tmp=mysqli_affected_rows($this->connection);
+      if($tmp)
+        return true;
+      else
+        return false;
+    }
+    else
+      return false;
   }
   
 }

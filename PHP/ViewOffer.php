@@ -59,9 +59,11 @@ if(isset($_SESSION['user_Username']))
 		
 		$adminActions = '';
 		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) {
-      $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminUser.html';
+      $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
       $adminActions .= file_get_contents($urlContent);  
       $adminActions = str_replace('<code/>',$index, $adminActions);
+      $adminActions = str_replace('<job/>','job', $adminActions);
+      $adminActions = str_replace('{{job}}','offer',$adminActions);
     }
 			
 		$HTML = str_replace('<admin/>',$adminActions,$HTML);

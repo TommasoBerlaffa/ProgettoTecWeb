@@ -311,11 +311,17 @@ form#createJob fieldset{
 }
 
 form#createJob fieldset input,
-form#createJob fieldset select,
+form#createJob fieldset select
+{
+  width: fit-content;
+  max-height: 25px;
+}
+
 form#createJob fieldset textarea
 {
   width: fit-content;
 }
+
 
 form#createJob fieldset label#labelTitle {
   grid-area: a;
