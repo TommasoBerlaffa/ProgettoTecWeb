@@ -10,7 +10,11 @@
     \item keyword utilizzate per la ricerca della pagina sul web.
   \end{itemize}
   Nel nostro caso, le parole utilizzate come keyword sono il titolo del sito e delle parole che hanno a che fare con lo scopo della pagina, come nel caso di findJob in cui le parole utilizzate saranno "Find a Job Offer".
-
+  I file HTML si andranno a dividere in 2 categorie :
+  \begin{itemize}
+    \item Pagine HTML, che vengono caricate da PHP e a cui vengono modificati alcuni valori;
+    \item Elementi HTML, ovvero file HTML che contengono solo alcuni elementi che poi verranno modificati da PHP e caricati sull'effettiva pagina HTML;
+  \end{itemize}
 
   
   \subsection{CSS}
@@ -20,19 +24,20 @@
     \item mobile.css: per i dispositivi mobile;
     \item print.css: per le funzioni di stampa.
   \end{itemize}
-  Viene garantita la separazione tra struttura e presentazione. Per questo motivo non vengono dichiarati tag <style> nei file html e si utilizzano file esterni piuttosto che css inline o embeded.
-  In alcune parti del sito sono state utilizzate le flex invece delle grid poiché supportato maggiormente.\\
-  Per la definizione di dimensioni all'intero del sito, si è optato nella maggior parte dei casi per unità misura gli em o la percentuale. Alcuni elementi invece, come le icone, utilizzano px.\\
-  Viene fatto largo uso di display flex per allieare elementi orizzontalmente o verticalmente in modo da migliorare l'impaginazione di elementi su diverse tipologie di schermi. \\
+  Viene garantita la separazione tra struttura e presentazione. Per questo motivo non vengono dichiarati tag style nei file html e si utilizzano file esterni piuttosto che css inline o embeded.
+  Per la definizione di dimensioni all'intero del sito, si è optato nella maggior parte dei casi per unità misura gli em o percentuale. Alcuni elementi invece, come le icone, utilizzano px.\\
+  Viene fatto largo uso di display flex per allieare elementi orizzontalmente o verticalmente in modo da migliorare l'inpaginazione di elementi su diverse tipologie di schermi. \\
   Vengono inoltre utilizzati display grid per diversi elementi, come le form di cambio dati utente e le informazioni relative all'offerta di lavoro su FindJob.
-
+  
   \subsection{JavaScript}
   Javascript è uno dei linguaggio utilizzati per il comportamento ed è stato utilizzato per 3 funzionalità:
   \begin{itemize}
-    \item controlli su form, per fare in modo che la pagina non dovesse venire ricaricata nel caso ci fossero errori facilmente risolvibili;
-    \item filtraggio tramite tag, \dots
+    \item controlli su form, per fare in modo che la pagina non dovesse venire ricaricata nel caso ci fossero errori facilmente risolvibili. Alcuni esempi sono il controllo della password, per confermare se soddisfa i requisiti minimi di complessità;
+    \item filtraggio tramite tag per findjob e ricerca ed inserimento tag per createJob e area privata;
     \item ricerca tramite input testuale per la zona riservata agli admin.
   \end{itemize}
+  
+  Viene inoltre fatto utilizzo di \textbf{AJAX} per ottenere i tag dal server senza dover aggiornare la pagina.
 
   \subsection{PHP}
   Ogni pagina nel nostro sito viene caricata tramite pagina PHP, questo perché alcuni elementi presenti nell'header verranno visualizzati in maniera diversa in base allo stato di login del'utente. \\
@@ -46,8 +51,9 @@
   Vengono eseguiti controlli sull'input, quali:
   \begin{itemize}
     \item filter\textunderscore var, data una variabile ed il tipo di filter effettua delle operazioni per ottenere una stringa filtrata;
-    \item trim, data una variabile restituisce la stessa senza spazi prima e dopo.
+    \item trim, rimuove spazi vuoti all'inizio e alla fine di una stringa.
   \end{itemize}
 
   \subsection{MySql}
-  Per la gestione ed il mantenimento dei dati si é scelto di utilizzare MySql. Viene utilizzata l'estensione misqli per tutte le funzioni che usano MySql.
+  Per la gestione ed il mantenimento dei dati si é scelto di utilizzare MySql. Viene utilizzata l'estensione misqli per tutte le funzioni che usano MySql. \\
+  Si utilizza bind\textunderscore parameters per evitare query injection.

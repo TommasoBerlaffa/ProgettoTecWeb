@@ -1,4 +1,4 @@
-\newcommand{\docNome}{ Relazione Progetto di Tecnologie Web}   
+\newcommand{\docNome}{ Relazione Progetto di Tecnologie Web}
 \newcommand{\titoloProgetto}{ Job Finder}
 \newcommand{\Tber}{Tommaso Berlaffa } 
 \newcommand{\MatT}{1201234}
@@ -6,7 +6,7 @@
 \newcommand{\MatM}{1122180}
 \newcommand{\Plau}{Pietro Lauriola } 
 \newcommand{\MatP}{1224820}
-\newcommand{\Amat}{Alberto Materrazzo} 
+\newcommand{\Amat}{Alberto Materazzo} 
 \newcommand{\MatA}{1144597}
 
 \documentclass[12pt, a4paper,table]{article}
@@ -17,6 +17,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage[document]{ragged2e}
 \usepackage[export]{adjustbox}
 \hypersetup{
 	pdfborder = {0 0 0}
@@ -25,12 +26,16 @@
 \title{\textsc{\docNome}}
 
 \date{}
-
+\author{}
 \definecolor{footer-gray}{HTML}{808080}
 \pagestyle{fancy}
 \fancyhf{}
+\fancyhead{}
+
 \rhead{\textcolor{footer-gray}{\docNome} }
 \lhead{\textcolor{footer-gray}{Job Finder}}
+\setlength{\headheight}{14.49998pt}
+
 \fancyfoot{}
 \cfoot{\textcolor{footer-gray}{Pagina \thepage } }
 
@@ -38,9 +43,9 @@
 	\maketitle
 	\begin{center}
     \begin{figure}[h]
-      \includegraphics[scale=0.1]{Images/Logo_Università_Padova.svg.png}
+      \includegraphics[scale=0.095]{Images/Logo_Università_Padova.svg.png}
       \hspace{21em}
-      \includegraphics[scale=0.1]{Images/JF_1200.png}
+      \includegraphics[scale=0.095]{Images/JF_1200.png}
     \end{figure}
     Titolo Progetto : \huge{\titoloProgetto}
 		\\
@@ -60,13 +65,13 @@
     \vspace{0.5em}
     \\ Credenziali :
     \begin{center}
-      \begin{tabular}{ |c|c| } 
+      \begin{tabular}{ |c|c|c| } 
       \hline
-      Nickname & User \\ 
-      Password & User \\ 
+      & Nickname & Password \\
       \hline
-      Nickname & Admin \\ 
-      Password & Admin \\
+      User Generico & user & user\\ 
+      \hline
+      Admin & admin & admin \\ 
       \hline
       \end{tabular}
     \end{center}
@@ -78,7 +83,7 @@
 
   \newpage
   \tableofcontents
-
+  ragged-left ( \raggedright )
 	\newpage
 	\input{Capitoli/00_Introduzione.tex}
 	
