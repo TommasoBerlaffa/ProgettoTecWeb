@@ -7,6 +7,8 @@ function delay(){
 function updateUserTagList(response){
 	var div=document.getElementById('selectedTagsList');
 	var list=JSON.parse(response);
+	if(list==null)
+		return;
 	var keys = Object.keys(list);
 	div.innerHTML="<p>Selected Tags: ("+ keys.length +" / 20)</p>";
 	var tmp=document.getElementById('FSkill');
@@ -87,6 +89,8 @@ function tagList(response){
 	var div=document.getElementById('tagsList');
 	div.innerHTML="";
 	var list=JSON.parse(response);
+	if(list==null)
+		return;
 	var keys = Object.keys(list);
 	for (i=0; i<keys.length;i++){
 		var bt=document.createElement('button');
