@@ -9,7 +9,7 @@ if(isset($_SESSION['user_Username'])) {
 	$url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'ViewJobOld.html';
 	$HTML = file_get_contents($url);
 	
-	$HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+	$HTMLContent = '<li><a href="UserProfile.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
 	
@@ -35,8 +35,8 @@ if(isset($_SESSION['user_Username'])) {
 		$HTML = str_replace("{{ Tipology }}",trim($row["Tipology"]),$HTML);
 		$HTML = str_replace("{{ Date }}",trim($row["Date"]),$HTML);
 		$HTML = str_replace("{{ Expiring }}",trim($row["Expiring"]),$HTML);
-		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">More informations on the Creator</a>',$HTML);
-		$HTML = str_replace('{{ Winner }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_winner"]).'">More informations on the Winner</a>',$HTML);
+		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'">More informations on the Creator</a>',$HTML);
+		$HTML = str_replace('{{ Winner }}','<a href="ViewUser.php?Code_User='.trim($row["Code_winner"]).'">More informations on the Winner</a>',$HTML);
 		
 		$HTMltags='';
 		if($tags){
@@ -101,7 +101,7 @@ if(isset($_SESSION['user_Username'])) {
 else
 {
   $value = filter_var($_GET['Code_job'],FILTER_SANITIZE_NUMBER_INT);
-  header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php?view=ViewJobOld&code=".$value);    
+  header("Location:Login.php?view=ViewJobOld&code=".$value);    
 }
 
 

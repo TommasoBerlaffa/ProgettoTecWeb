@@ -2,7 +2,7 @@
 
   require_once "DBAccess.php";
 
-  require_once "Util.php";
+  require_once ".." . DIRECTORY_SEPARATOR . "Util.php";
 	
   if(!isset($_SESSION)) 
     session_start();
@@ -23,7 +23,7 @@
   }
   else
   {
-    header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR. "Login.php");
+    header("Location:Login.php");
   }
 
 ?>

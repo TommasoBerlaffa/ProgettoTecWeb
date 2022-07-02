@@ -6,10 +6,10 @@ session_start();
 if(isset($_SESSION['user_Username']))
 {
 	// Ottengo Valori da Pagina Statica
-	$url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'ViewOffer.html';
+	$url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'ViewOffer.html';
 	$HTML = file_get_contents($url);
 	// Replacing User Profile
-	$HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+	$HTMLContent = '<li><a href="UserProfile.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
 	$self=true;
@@ -41,7 +41,7 @@ if(isset($_SESSION['user_Username']))
 		else
 			$status='Active';
 		$HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
-		$HTML = str_replace('{{ Creator }}','<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($row["Code_user"]).'">Info on the Creator</a>',$HTML);
+		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'">Info on the Creator</a>',$HTML);
 		$HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
 		$pay = trim($row["Payment"]);
 		$HTML = $pay==0 ? str_replace('{{ Payment }}','Payment by hour',$HTML) : str_replace('{{ Payment }}','Total Payment at once',$HTML);
@@ -88,12 +88,12 @@ if(isset($_SESSION['user_Username']))
 				
 				foreach($bids as $B){
 				$HTMLBids.= '<div class="bid">
-								<p><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
+								<p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
 								<p><span>User Price</span> : '.trim($B["Price"]).'</p>
 								<p><span>Description</span> : '.trim($B["Description"]).'</p>';
 				if($B["Code"]==$_SESSION['user_ID']){
 					$self=false;
-					$HTMLBids.='<a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
+					$HTMLBids.='<a href="RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
 				}
 				else
 					$HTMLBids.='</div>';            

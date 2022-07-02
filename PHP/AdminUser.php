@@ -14,7 +14,7 @@ if(isset($_SESSION['Admin'])) {
   $pagina = file_get_contents($url);
 	$listaUser = $DBAccess->getUsers();
 	
-  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminUser.html';
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableAdminUser.html';
   
   $tabella = file_get_contents($urltabella);
 
@@ -22,7 +22,7 @@ if(isset($_SESSION['Admin'])) {
   if(isset($listaUser)){
     foreach($listaUser as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($U["Code_User"]).'">'.trim($U["Nickname"]).'</a></td>
+      $contenuto .= '<tr><td><a href="ViewUser.php?Code_User='.trim($U["Code_User"]).'">'.trim($U["Nickname"]).'</a></td>
       <td>'.trim($U["Status"]).'</td></tr>';
     }
   }
@@ -36,5 +36,5 @@ if(isset($_SESSION['Admin'])) {
   echo $pagina;
 }
 else
-	header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."UserProfile.php");
+	header("Location:UserProfile.php");
 ?>

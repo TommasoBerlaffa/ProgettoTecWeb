@@ -17,7 +17,7 @@ if(isset($_SESSION['Admin'])) {
 	
   $pagina = str_replace('<input type="text" id="search" onkeyup="AdminSearch()" placeholder="Search for {{element}}..">','',$pagina);
 
-  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryUser.html';
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryUser.html';
   
   $tabella = file_get_contents($urltabella);
   $contenuto='';
@@ -34,7 +34,7 @@ if(isset($_SESSION['Admin'])) {
   }
   $tabella = str_replace('{{value}}',$contenuto,$tabella);
 
-  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryJobs.html';
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryJobs.html';
   
   $tabella .= file_get_contents($urltabella);
   
@@ -61,5 +61,5 @@ if(isset($_SESSION['Admin'])) {
   echo $pagina;
 }
 else
-	header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."UserProfile.php");
+	header("Location:UserProfile.php");
 ?>

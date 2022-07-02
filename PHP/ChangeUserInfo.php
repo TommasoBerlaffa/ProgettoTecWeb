@@ -1,8 +1,8 @@
 <?php
 
-  require_once "DbAccess.php";
+  require_once "DBAccess.php";
 
-  require_once "Util.php";
+  require_once "Modules" . DIRECTORY_SEPARATOR . "Util.php";
 	
   if(!isset($_SESSION)) 
     session_start();

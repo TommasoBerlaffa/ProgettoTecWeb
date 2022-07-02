@@ -2,7 +2,7 @@
 
   require_once 'DBAccess.php';
 	
-	require_once "Util.php";
+	require_once "Modules". DIRECTORY_SEPARATOR ."Util.php";
 
   $source_img = 'source.jpg';
   $destination_img = 'destination .jpg';
@@ -16,7 +16,10 @@
 	if(isset($_GET['section'])){
 		$page=filter_var($_GET['section'], FILTER_VALIDATE_INT);
 	}
-	$paginaHTML = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'SignUp.html');
+	$HTML = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'SignUp.html');
+	
+	$TagModule = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagsSearch.html');
+	$HTML = str_replace('<TagModule/>',$TagModule,$HTML);
 	
 	$messaggioErrore = '';
 	
@@ -65,17 +68,23 @@
 			$messaggioErrore .='<li>Email field must be filled.</li>';
 		else{
 			$tmp = filter_var($_POST['Email'], FILTER_SANITIZE_EMAIL);
-            if(strlen($tmp) == 0)
-                $messaggioErrore .= '<li>Email field must be filled.</li>';
-			$domain=explode('@',$tmp);
-			//if( exec('grep '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
-			if( exec('findstr '.escapeshellarg($domain[1]).' ..'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt'))
-				$messaggioErrore .= '<li>Email domain is blacklisted as disposable.</li>';
-			else{
-				if($DBAccess->emailTaken($tmp))
-					$messaggioErrore .= '<li>This Email is already used.</li>';
-				$Email = $tmp;
+			if(strlen($tmp) == 0)
+				$messaggioErrore .= '<li>Email field must be filled.</li>';
+			$disposable = file_get_contents('..'. DIRECTORY_SEPARATOR .'Utils'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt');
+			$disposable = explode(PHP_EOL,$disposable);
+			$i=0;
+			$domain=explode('@',$tmp)[1];
+			$cond=true;
+			while($i!=count($disposable) AND $cond){
+				if($disposable[$i]===$domain){
+					$messaggioErrore .="<li>Your Domain is in our blacklist. Please choose another Email address.<l/i>";
+					$cond=false;
+				}
+				$i++;
 			}
+			if($DBAccess->emailTaken($tmp))
+				$messaggioErrore .= '<li>This Email is already used.</li>';
+			$Email = $tmp;
 		}
 		
 		if(!isset($_POST['Password']))
@@ -202,6 +211,9 @@
 				$Description = $tmp;
 		}
 		
+		if($_SESSION['TagList']==array())
+			$messaggioErrore .='<li>Select at least 1 Skill.</li>';
+		
 		if(!isset($_FILES['Picture']))
 			$messaggioErrore .='<li>A profile Picture must be uploaded or choosen between the default ones.</li>';
 		else if($messaggioErrore===''){
@@ -244,11 +256,11 @@
 		
 		
 		if($messaggioErrore==''){
-            $Success=$DBAccess->register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description);
+            $Success=$DBAccess->register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description, $_SESSION['TagList']);
 			if(!$Success)
 				$messaggioErrore .= '<div id="errorMessages"><ul>Something went wrong while creating your new account.</ul></div>';
-			else
-				header('Location:Login.php');
+			//else
+			//	header('Location:Login.php');
 			
 		}
 		else
@@ -257,20 +269,20 @@
 		
 	}
 
-	$paginaHTML =  str_replace('<Username />', $Username, $paginaHTML);
-	$paginaHTML =  str_replace('<Firstname />', $Firstname, $paginaHTML);
-	$paginaHTML =  str_replace('<Lastname />', $Lastname, $paginaHTML);
-	$paginaHTML =  str_replace('<Birthday />', $Birthday, $paginaHTML);
-	$paginaHTML =  str_replace('<Email />', $Email, $paginaHTML);
-	$paginaHTML =  str_replace('<Country />', $Country, $paginaHTML);
-	$paginaHTML =  str_replace('<City />', $City, $paginaHTML);
-	$paginaHTML =  str_replace('<Address />', $Address, $paginaHTML);
-	$paginaHTML =  str_replace('<Phone />', $Phone, $paginaHTML);
-	$paginaHTML =  str_replace('<Picture />', $Picture, $paginaHTML);
-	$paginaHTML =  str_replace('<Curriculum />', $Curriculum, $paginaHTML);
-	$paginaHTML =  str_replace('<Description />', $Description, $paginaHTML);
+	$HTML =  str_replace('<Username />', $Username, $HTML);
+	$HTML =  str_replace('<Firstname />', $Firstname, $HTML);
+	$HTML =  str_replace('<Lastname />', $Lastname, $HTML);
+	$HTML =  str_replace('<Birthday />', $Birthday, $HTML);
+	$HTML =  str_replace('<Email />', $Email, $HTML);
+	$HTML =  str_replace('<Country />', $Country, $HTML);
+	$HTML =  str_replace('<City />', $City, $HTML);
+	$HTML =  str_replace('<Address />', $Address, $HTML);
+	$HTML =  str_replace('<Phone />', $Phone, $HTML);
+	$HTML =  str_replace('<Picture />', $Picture, $HTML);
+	$HTML =  str_replace('<Curriculum />', $Curriculum, $HTML);
+	$HTML =  str_replace('<Description />', $Description, $HTML);
 		
 		
-    $paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);
-    echo $paginaHTML;
+    $HTML =  str_replace('<messaggiForm />', $messaggioErrore, $HTML);
+    echo $HTML;
 ?>

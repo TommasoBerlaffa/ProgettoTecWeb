@@ -14,7 +14,7 @@ if(isset($_SESSION['Admin'])) {
   $pagina = file_get_contents($url);
 	$listaOffers = $DBAccess->getOffers();
 	
-  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminJob.html';
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableAdminJob.html';
   
   $tabella = file_get_contents($urltabella);
 
@@ -22,7 +22,7 @@ if(isset($_SESSION['Admin'])) {
   if(isset($listaOffers)){
     foreach($listaOffers as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
+      $contenuto .= '<tr><td><a href="ViewOffer.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
       <td>'. (trim($U["Expiring"]) > date("Y-m-d h:i:sa") ? 'Active' : 'Terminated') .'<td>
       </tr>';
     }
@@ -37,5 +37,5 @@ if(isset($_SESSION['Admin'])) {
   echo $pagina;
 }
 else
-	header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."UserProfile.php");
+	header("Location:UserProfile.php");
 ?>

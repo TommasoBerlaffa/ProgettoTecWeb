@@ -14,7 +14,7 @@ if(isset($_SESSION['Admin'])) {
   $pagina = file_get_contents($url);
 	$listaJobs = $DBAccess->getPastJobs();
 	
-  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminJob.html';
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableAdminJob.html';
   
   $tabella = file_get_contents($urltabella);
 
@@ -22,7 +22,7 @@ if(isset($_SESSION['Admin'])) {
   if(isset($listaJobs)){
     foreach($listaJobs as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
+      $contenuto .= '<tr><td><a href="ViewJobOld.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
       <td>'.trim($U["Status"]).'</td></tr>';
     }
   }
@@ -37,5 +37,5 @@ if(isset($_SESSION['Admin'])) {
   echo $pagina;
 }
 else
-	header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."UserProfile.php");
+	header("Location:UserProfile.php");
 ?>

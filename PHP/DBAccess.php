@@ -778,10 +778,10 @@ class DBAccess {
   par: string password, string name, string surname, string nickname, date birth, string nationality, string city, string address, int phone, string picture, string curriculum, string description;
   desc: inserisce un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
-  public function register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
+  public function register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description, $tags) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description)){
+	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description) and isset($tags)){
 		//create new entry on table users and then create with the relative index the credentials for the login.
 		$queryInserimento = 'INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description)
 							VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
@@ -798,14 +798,32 @@ class DBAccess {
 		mysqli_stmt_bind_param($queryCall2,'ss', $nickname, $password);
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
+		$Code_user=mysqli_insert_id($this->connection);
 		$tmp=mysqli_affected_rows($this->connection);
 		if($tmp){
 			mysqli_stmt_execute($queryCall2);
 			$tmp=mysqli_affected_rows($this->connection);
 		}
 		mysqli_stmt_close($queryCall2);
-		if($tmp)
-			return true;
+		if($tmp){
+			echo($Code_user);
+			$queryTags= 'INSERT INTO tags_users(Code_user,Code_tag) VALUES ';
+			$a='';
+			$b=array();
+			foreach($tags as $tag){
+				$queryTags .= '(?,?),';
+				$a.='ii';
+				array_push($b,$Code_user,$tag );
+			}
+			$queryTags=rtrim($queryTags, ",");
+			$queryCall=mysqli_prepare($this->connection, $queryTags);
+			$queryCall->bind_param($a, ...$b);
+			mysqli_stmt_execute($queryCall);
+			$tmp=mysqli_affected_rows($this->connection);
+			mysqli_stmt_close($queryCall);
+			if($tmp)
+				return true;
+		}
 		return false;
     } else
 		return false;
@@ -1146,9 +1164,9 @@ class DBAccess {
   desc:given a Job Id, an admin ID and a comment from the admin, changes the user status and adds an instance with the comment in past_admin_actions
   */
   public function UnBanUserAdmin($id, $idAdmin,$comment) {
-		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		// chiama procedura per ban
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+	// chiama procedura per ban
     $sqlBan = 'UPDATE users SET Status = 1 WHERE Code_user = ? ;';
     $queryCall=mysqli_prepare($this->connection, $sqlBan);
     mysqli_stmt_bind_param($queryCall,'i',$id);

@@ -7,7 +7,7 @@ session_start();
 if(isset($_SESSION['user_Username']))
 {
   // Ottengo Valori da Pagina Statica
-  $url = '..'.DIRECTORY_SEPARATOR.'HTML'.DIRECTORY_SEPARATOR.'ViewUser.html';
+  $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'ViewUser.html';
   $HTML = file_get_contents($url);
 
   $DBAccess = new DBAccess();
@@ -16,7 +16,7 @@ if(isset($_SESSION['user_Username']))
   	exit;
   }
 	
-  $HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+  $HTMLContent = '<li><a href="UserProfile.php">
   <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
   $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
   
@@ -48,7 +48,7 @@ if(isset($_SESSION['user_Username']))
           $User = $DBAccess->getUser(trim($R["JobGiver"]));
           // Replace Review with link to the job info
           $content .= '<div class="review">
-            <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
+            <h2 class="reviewTitle">Review by <a href="ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
             <p class="star"><span>Date</span> : '.trim($R["Date"]) .'</p>
             <p class="date"><span>Rating</span> : '.trim($R["Stars"]).'/5 </p> 
           </div>';
@@ -92,13 +92,13 @@ if(isset($_SESSION['user_Username']))
     echo $HTML;
   }
   else {
-    header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Index.php");
+    header("Location:Index.php");
   }
   $DBAccess->closeDBConnection();
 }
 else
 {
   $value = filter_var($_GET['Code_User'],FILTER_SANITIZE_NUMBER_INT);
-  header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php?view=ViewUser&code=".$value);  
+  header("Location:Login.php?view=ViewUser&code=".$value);  
 }
 ?>

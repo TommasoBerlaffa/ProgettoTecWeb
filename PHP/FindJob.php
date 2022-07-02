@@ -1,29 +1,31 @@
 <?php
 	// Inizio Sessione 
 	session_start();
-	require_once 'Util.php';
+	require_once 'Modules'. DIRECTORY_SEPARATOR .'Util.php';
 	require_once 'DBAccess.php';
 	
 	// Variabili pagina HTML e Switch
-	$url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'FindJob.html';
-	$HTML = file_get_contents($url);
+	$HTML = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'FindJob.html');
 	$HTMLContent ='';
+	
+	$TagModule = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagsSearch.html');
+	$HTML = str_replace('<TagModule/>',$TagModule,$HTML);
 	
 	// Controllo se variabile sessione è presente 
 	if(isset($_SESSION['user_Username']))
 	{
-		$HTML = str_replace('<createjob/>','<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'LoadCreateJob.php">
+		$HTML = str_replace('<createjob/>','<li><a href="LoadCreateJob.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'write.png" class="icons"> Create an Offer </a></li>',$HTML);
-		$HTMLContent = '<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+		$HTMLContent = '<li><a href="UserProfile.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
 	}
 	else
 	{
 		$HTML = str_replace('<createjob/>','',$HTML);
 		$HTMLContent = '
-		<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php">
+		<li><a href="Login.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'login.png" class="icons"> Login </a></li>
-		<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Signup.php">
+		<li><a href="Signup.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'book.png" class="icons"> Sign up </a></li>';
 	}
 	
@@ -58,7 +60,7 @@
 		$tag=$_SESSION['TagList'];
 	}
   if(isset($_GET["Pay"]))
-    $Pay=filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);    
+    $Pay=filter_var ( $_GET['Pay'], FILTER_SANITIZE_NUMBER_INT);    
 	
 	//if there is a post from the filter form than override whatever got from the GET 
 	if(isset($_POST['filter'])){
@@ -110,7 +112,6 @@
 	
 	if(isset($_GET['tag'])){
 		$tagName = $DBAccess->searchTagName($tag);
-		prof_flag("search Job algor");
 		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag),$Pay);
 		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag),$Pay);
 	}
