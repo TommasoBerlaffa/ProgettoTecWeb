@@ -48,6 +48,8 @@
   --black: #000;
   --darkWhite: #d1d9e6;
   --shadow: #999;
+  --correct: #44c244;
+  --error: #d4110b;
 }
 
 /* - 1.0 General CSS For every page - */
@@ -214,6 +216,14 @@ input {
 
 div#Desc {
   width: 80%;
+}
+
+p.correct {
+  color: var(--correct);
+}
+
+p.error {
+  color: var(--error);
 }
 
 /* - 5.1 Login Input Form - */

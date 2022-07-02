@@ -56,16 +56,18 @@ function passwordSecurity() {
 	}
 	let regexpPwd = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
 	if(regexpPwd.test(document.getElementById("Password").value)){
-		document.getElementById('Security').style.color = 'green';
-		document.getElementById('Security').innerHTML = 'Strong Password';
+    document.getElementById('Security').classList.remove('error');
+		document.getElementById('Security').classList.add('correct');
+		document.getElementById('Security').innerHTML = 'strong Password';
 		if(passwordMatch())
 			return true;
 		else
 			return false;
 	}
 	else {
-		document.getElementById('Security').style.color = 'red';
-		document.getElementById('Security').innerHTML = 'Weak Password';
+    document.getElementById('Security').classList.remove('correct');
+		document.getElementById('Security').classList.add('error');
+		document.getElementById('Security').innerHTML = 'weak Password';
 		return false;
 	}
 }
@@ -76,11 +78,13 @@ function passwordMatch() {
 		return false;
 	}
 	if (document.getElementById('Password').value == document.getElementById('Repeat-Password').value) {
-		document.getElementById('Match').style.color = 'green';
+    document.getElementById('Match').classList.remove('error');
+		document.getElementById('Match').classList.add('correct');
 		document.getElementById('Match').innerHTML = 'matching';
 		return true;
 	} else {
-		document.getElementById('Match').style.color = 'red';
+    document.getElementById('Match').classList.remove('correct');
+		document.getElementById('Match').classList.add('error');
 		document.getElementById('Match').innerHTML = 'not matching';
 		return false;
 	}
