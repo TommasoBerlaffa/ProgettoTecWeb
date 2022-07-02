@@ -1331,7 +1331,7 @@ form#banUser button{
 }
 
 /* -12.0 Admin - */
-table#AdminTable {
+table.AdminTable {
   border: 1px solid var(--black);
   border-collapse: separate;
   width: 50%;
@@ -1339,9 +1339,13 @@ table#AdminTable {
   margin: auto;
 }
 
-table#AdminTable th,
-table#AdminTable td {
+table.AdminTable th,
+table.AdminTable td {
   text-align: start;
+}
+
+table.AdminTable .doubleCol {
+  width: 50%;
 }
 
 input#search {

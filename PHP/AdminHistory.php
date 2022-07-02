@@ -17,47 +17,45 @@ if(isset($_SESSION['Admin'])) {
 	
   $pagina = str_replace('<input type="text" id="search" onkeyup="AdminSearch()" placeholder="Search for {{element}}..">','',$pagina);
 
-  $contenuto ='<table id="AdminTable">
-  <caption id="description"> List of Admin Action on Users </caption>
-  <thead>
-    <tr>
-      <th scope="col" > Date </th>
-      <th scope="col" > Comment </th>
-    </tr>
-  </thead>
-  <tbody>';
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryUser.html';
+  
+  $tabella = file_get_contents($urltabella);
+  $contenuto='';
   if(isset($listaAdminUser)){
     foreach($listaAdminUser as $U)
     {
-      $contenuto .= '<tr><td>'.trim($U["Date"]).'</td>
-      <td>'.trim($U["Comments"]).'</td></tr>';
+      $contenuto .= '<tr>
+      <td><a href="ViewUser.php?Code_User='.trim($U["Code"]).'">'. trim($U["Nick"]) .'</a></td>
+      <td>'. trim($U["Stat"]) .'</td>
+      <td>'.trim($U["Date"]).'</td>
+      <td>'.trim($U["Comments"]).'</td>
+      </tr>';
     }
   }
-  $contenuto .= '</tbody></table>';
+  $tabella = str_replace('{{value}}',$contenuto,$tabella);
+
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryJobs.html';
   
-  $contenuto .='<table id="AdminTable">
-  <caption id="description"> List of Admin Action on Jobs </caption>
-  <thead>
-    <tr>
-      <th scope="col" > Date </th>
-      <th scope="col" > Comment </th>
-    </tr>
-  </thead>
-  <tbody>';
+  $tabella .= file_get_contents($urltabella);
+  
+  
+  $contenuto ='';
   if(isset($listaAdminJob)){
     foreach($listaAdminJob as $J)
     {
-      $contenuto .= '<tr><td>'.trim($J["Date"]).'</td>
+      $contenuto .= '<tr>
+      <td><a href="ViewJobOld.php?Code_job='.trim($J["Code"]).'">'. trim($J["Title"]) .'</a></td>
+      <td>'.trim($J["Date"]).'</td>
       <td>'.trim($J["Comments"]).'</td></tr>';
     }
   }
-  $contenuto .= '</tbody></table>';
 
-
-
+  $tabella = str_replace('{{value}}',$contenuto,$tabella);
+  
+  
 
   $DBAccess->closeDBConnection();
-  $pagina = str_replace('<admin>',$contenuto,$pagina);
+  $pagina = str_replace('<admin>',$tabella,$pagina);
   $pagina = str_replace('{{element}}','User Nicknames',$pagina);
   $pagina = str_replace('{{Page}}','List of Users',$pagina);
   echo $pagina;

@@ -14,26 +14,23 @@ if(isset($_SESSION['Admin'])) {
   $pagina = file_get_contents($url);
 	$listaUser = $DBAccess->getUsers();
 	
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminUser.html';
+  
+  $tabella = file_get_contents($urltabella);
 
-  $contenuto ='<table id="AdminTable">
-  <caption id="description"> List of Users </caption>
-  <thead>
-    <tr>
-      <th scope="col" > User </th>
-      <th scope="col" > Status </th>
-    </tr>
-  </thead>
-  <tbody>';
+  $contenuto ='';
   if(isset($listaUser)){
     foreach($listaUser as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$U["Code_User"].'">'.$U["Nickname"].'</a></td>
+      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.trim($U["Code_User"]).'">'.trim($U["Nickname"]).'</a></td>
       <td>'.trim($U["Status"]).'</td></tr>';
     }
   }
-  $contenuto .= '</tbody></table>';
+
+  $tabella = str_replace('{{value}}',$contenuto,$tabella);
+
   $DBAccess->closeDBConnection();
-  $pagina = str_replace('<admin>',$contenuto,$pagina);
+  $pagina = str_replace('<admin>',$tabella,$pagina);
   $pagina = str_replace('{{element}}','User Nicknames',$pagina);
   $pagina = str_replace('{{Page}}','List of Users',$pagina);
   echo $pagina;

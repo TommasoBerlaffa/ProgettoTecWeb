@@ -958,7 +958,7 @@ class DBAccess {
   public function getAdminUserAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT Date, Comments FROM users_admin_actions;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT users.Nickname AS Nick,users.Code_user AS Code,users.Status AS Stat,Date, Comments FROM users_admin_actions JOIN users ON users_admin_actions.Code_user = users.Code_user;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
@@ -976,7 +976,7 @@ class DBAccess {
   public function getAdminJobAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT Date, Comments FROM past_admin_actions;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
@@ -1030,7 +1030,7 @@ class DBAccess {
   public function getOffers() {
 		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job FROM current_jobs;');
+		$queryResult = mysqli_query($this->connection, 'SELECT Title, Code_job, Expiring FROM current_jobs;');
 		if(mysqli_num_rows($queryResult) == 0)
 			return null;
 		else {

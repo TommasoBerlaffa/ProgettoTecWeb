@@ -14,25 +14,24 @@ if(isset($_SESSION['Admin'])) {
   $pagina = file_get_contents($url);
 	$listaOffers = $DBAccess->getOffers();
 	
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminJob.html';
+  
+  $tabella = file_get_contents($urltabella);
 
-  $contenuto ='<table id="AdminTable">
-  <caption id="description"> List of Offers </caption>
-  <thead>
-    <tr>
-      <th scope="col" > OfferTitle </th>
-    </tr>
-  </thead>
-  <tbody>';
+  $contenuto ='';
   if(isset($listaOffers)){
     foreach($listaOffers as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$U["Code_job"].'">'.$U["Title"].'</a></td>
+      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
+      <td>'. (trim($U["Expiring"]) > date("Y-m-d h:i:sa") ? 'Active' : 'Terminated') .'<td>
       </tr>';
     }
   }
-  $contenuto .= '</tbody></table>';
+  $tabella = str_replace('{{value}}',$contenuto,$tabella);
+  $tabella = str_replace('{{elem}}','offer',$tabella);
+
   $DBAccess->closeDBConnection();
-  $pagina = str_replace('<admin>',$contenuto,$pagina);
+  $pagina = str_replace('<admin>',$tabella,$pagina);
   $pagina = str_replace('{{element}}','Offers Title',$pagina);
   $pagina = str_replace('{{Page}}','List of Offers',$pagina);
   echo $pagina;

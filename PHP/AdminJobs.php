@@ -14,28 +14,26 @@ if(isset($_SESSION['Admin'])) {
   $pagina = file_get_contents($url);
 	$listaJobs = $DBAccess->getPastJobs();
 	
+  $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR.'Elements'. DIRECTORY_SEPARATOR .'TableAdminJob.html';
+  
+  $tabella = file_get_contents($urltabella);
 
-  $contenuto ='<table id="AdminTable">
-  <caption id="description"> List of Past Jobs </caption>
-  <thead>
-    <tr>
-      <th scope="col" > Jobs </th>
-      <th scope="col" > Status </th>
-    </tr>
-  </thead>
-  <tbody>';
+  $contenuto ='';
   if(isset($listaJobs)){
     foreach($listaJobs as $U)
     {
-      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$U["Code_job"].'">'.$U["Title"].'</a></td>
+      $contenuto .= '<tr><td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
       <td>'.trim($U["Status"]).'</td></tr>';
     }
   }
-  $contenuto .= '</tbody></table>';
+
+  $tabella = str_replace('{{value}}',$contenuto,$tabella);
+  $tabella = str_replace('{{elem}}','past jobs',$tabella);
+  
   $DBAccess->closeDBConnection();
   $pagina = str_replace('{{Page}}','List of Jobs',$pagina);
   $pagina = str_replace('{{element}}','Job Title',$pagina);
-  $pagina = str_replace('<admin>',$contenuto,$pagina);
+  $pagina = str_replace('<admin>',$tabella,$pagina);
   echo $pagina;
 }
 else
