@@ -58,9 +58,8 @@ html {
   background-color: var(--background);
 }
 
-html, 
-body {
-    min-height: 100vh;
+html, body{
+  min-height: 100vh;
 }
 
 body {
@@ -315,6 +314,7 @@ form#createJob fieldset{
   " g h h "
   " l l . "
   " m m m "
+  " u u u "
   " n t p "
   " o q p "
   " . z . ";
@@ -398,6 +398,10 @@ form#createJob fieldset div#selectedTagsList {
   grid-area: p;
 }
 
+div#selectedTagsList p{
+  margin-block-start: 0;
+}
+
 form#createJob fieldset div#tagsList {
   grid-area: q;
 }
@@ -413,6 +417,11 @@ form#createJob fieldset button#Create{
 form#createJob fieldset p#intro{
   grid-area: s;
 }
+
+form#createJob fieldset p#TagDescription{
+  grid-area: u;
+}
+
 
 /* - 6.0 Filter for Page Find Job - */
 main#findJob {
@@ -488,6 +497,7 @@ form#formFilter #labelsearchTag {
 form#formFilter #searchTag {
   grid-area: t;
   width: 80%;
+  max-height: 25px;
 }
 
 form#formFilter div#tagsList {
@@ -743,6 +753,7 @@ div#content th,
 div#content td {
   padding: 0.4em;
   border-collapse: collapse;
+  border: 1px solid var(--black);
 }
 
 div#content p.tableEmpty {

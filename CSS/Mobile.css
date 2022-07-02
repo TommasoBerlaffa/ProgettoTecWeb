@@ -23,11 +23,16 @@
 @media only screen and (max-width: 694px) {
 
   /* 1.1.0 General CSS For every page */
+  html {
+    min-height: 480px;
+  }
+
   body {
     font-family:Tahoma,sans-serif;  
     font-size: 14px;
     margin:auto;  
     max-width: 100%;
+    height: 100%;
   }
 
   header {
@@ -41,6 +46,7 @@
   
   main { 
     padding-top: 4em;
+    margin-top: 10%;
     margin-bottom: 5%;
   }
   
@@ -149,6 +155,7 @@
     " h h "
     " l l "
     " m m "
+    " u u "
     " n n "
     " o o "
     " t t "
@@ -179,7 +186,7 @@
     " a c e "
     " b d f "
     " j j j "
-    " s . i "
+    " s h i "
     " t h i "
     " . . g ";
   }

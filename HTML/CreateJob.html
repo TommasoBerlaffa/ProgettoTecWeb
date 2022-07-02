@@ -96,14 +96,19 @@
         <textarea id="Desc" name="Description" required><desc/></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
-          <div id="selectedTagsList">
-            <p class="SelectedTags">Selected Tags *:</p>
-          </div>
+          <p id="TagDescription">Search the tags you want to add by using the <a href="#searchTag"> tag search </a>. 
+            Available tags will be shown in <a href="#tagsList">this zone</a> and you will be able to add them to your list by clicking a tag.
+            Selected tags will be shown in <a href="#selectedTagsList">this area</a> and you will be able to remove a tag from your list by clicking on it.
+          </p>
           <label for="searchTag" id="labelsearchTag">Search Tags: </label>
           <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
           <label for="tagsList" id="helpLabelsearchTag">Available Tags :</label>
           <div id="tagsList">
           </div>
+          <div id="selectedTagsList">
+            <p class="SelectedTags">Selected Tags * :</p>
+          </div>
+          <a href="#searchTag" class="hiddenHelp">search more tags</a>
         <button type="submit" id="Create">Create a new Job Offer</button>
       </fieldset>
     </form>
