@@ -1,5 +1,5 @@
 <?php
-require_once 'DBAccess.php';
+require_once "..". DIRECTORY_SEPARATOR .'DBAccess.php';
 
 session_start();
 
@@ -11,7 +11,7 @@ if(isset($_SESSION['user_Username'])) {
 	  {
       $DBAccess = new DBAccess();
       if(!($DBAccess->openDBConnection())){
-        header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
         exit;
       }
       //$result = $DBAccess->deleteJob($_SESSION['user_ID'],$_SESSION['Code_job']);
@@ -22,8 +22,8 @@ if(isset($_SESSION['user_Username'])) {
       header("Location:Findjob.php");
   }
   else
-	  header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");
+	  header("Location:..".DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR ."PHP".DIRECTORY_SEPARATOR."Login.php");
 }
 else
-	header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."Login.php");
+	header("Location:..".DIRECTORY_SEPARATOR."..". DIRECTORY_SEPARATOR ."PHP".DIRECTORY_SEPARATOR."Login.php");
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-  require_once "DBAccess.php";
+  require_once "..". DIRECTORY_SEPARATOR ."DBAccess.php";
 
   if(!isset($_SESSION)) 
     session_start();
@@ -22,7 +22,7 @@
           $User = $_SESSION['user_ID'];
           $DBAccess = new DBAccess();
           if(!($DBAccess->openDBConnection())){
-            header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+            header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
             exit;
           }
           $DBAccess->changePassword($password,$Newpassword);
@@ -36,13 +36,13 @@
 
       if($errorList!='')
         $_SESSION['error'] = $errorList;
-      header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Password.php");
+      header("Location: ..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Password.php");
     }
     else
-      header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."UserProfile.php");
+      header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."UserProfile.php");
   }
   else
-    header("Location:..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");
+    header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");
   
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-    require_once "DBAccess.php";
+    require_once "..". DIRECTORY_SEPARATOR ."DBAccess.php";
 
     // Attivo Session
     if(!isset($_SESSION)) 
@@ -9,7 +9,7 @@
     if(!isset($_SESSION['user_Username']))
     {
       $_SESSION['Url'] = 'CreateJob';
-      header("location: ../PHP/Login.php");
+      header("location: ../../PHP/Login.php");
     }
   
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'CreateJob.html';
