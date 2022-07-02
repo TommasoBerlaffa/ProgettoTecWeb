@@ -1,40 +1,38 @@
 
-function onLoad() {
+window.addEventListener('load',function() {
+	document.getElementById("Sign_Up").disabled=true;
     document.getElementById("Form_2").style.display='none';
     document.getElementById("Form_3").style.display='none';
     document.getElementById("Form_4").style.display='none';
-}
+})
 
 
 function Ajax_Taken(content,callback) {
 	const xhttp = new XMLHttpRequest();
 	var data = {};
 	if(content==='Username')
-		data = {Username:document.getElementById('Username').value};
+		data = {'Username':document.getElementById('Username').value};
 	else if(content==='Email')
-		data = {Email:document.getElementById('Email').value};
+		data = {'Email':document.getElementById('Email').value};
 	else
 		return;
 	
-	xhttp.open('POST', '../PHP/AjaxSignUp.php', false);
+	xhttp.open('POST', '../PHP/Modules/AjaxSignUp.php', false);
 	
+	var st=true;
 	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState === 4 && xhttp.status === 200){
-			if(callback(content, xhttp.responseText))
-				return true;
-			return false;			
-		}
+		if (xhttp.readyState === 4 && xhttp.status === 200)
+			st=callback(content, xhttp.responseText)
 		else if (xhttp.readyState === 4 && xhttp.status === 429){
 			document.getElementById(content + 'Taken').innerText='Too many requests, retry in 5 secs.';
-			return false;
+			st= false;
 		}
-		return false;
 	}
 	
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.send(JSON.stringify(data));
-	return true;
 	
+	return st;
 }
 
 function mycallback(content, response){
@@ -42,8 +40,10 @@ function mycallback(content, response){
 		document.getElementById(content + 'Taken').innerText='';
 		return true;
 	}
-	else
+	else{
 		document.getElementById(content + 'Taken').innerText=response;
+		Form1();
+	}
 	return false;
 }
 
@@ -56,18 +56,18 @@ function passwordSecurity() {
 	}
 	let regexpPwd = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
 	if(regexpPwd.test(document.getElementById("Password").value)){
-    document.getElementById('Security').classList.remove('error');
+		document.getElementById('Security').classList.remove('error');
 		document.getElementById('Security').classList.add('correct');
-		document.getElementById('Security').innerHTML = 'strong Password';
+		document.getElementById('Security').innerHTML = 'Strong Password';
 		if(passwordMatch())
 			return true;
 		else
 			return false;
 	}
 	else {
-    document.getElementById('Security').classList.remove('correct');
+		document.getElementById('Security').classList.remove('correct');
 		document.getElementById('Security').classList.add('error');
-		document.getElementById('Security').innerHTML = 'weak Password';
+		document.getElementById('Security').innerHTML = 'Weak Password';
 		return false;
 	}
 }
@@ -78,12 +78,12 @@ function passwordMatch() {
 		return false;
 	}
 	if (document.getElementById('Password').value == document.getElementById('Repeat-Password').value) {
-    document.getElementById('Match').classList.remove('error');
+		document.getElementById('Match').classList.remove('error');
 		document.getElementById('Match').classList.add('correct');
 		document.getElementById('Match').innerHTML = 'matching';
 		return true;
 	} else {
-    document.getElementById('Match').classList.remove('correct');
+		document.getElementById('Match').classList.remove('correct');
 		document.getElementById('Match').classList.add('error');
 		document.getElementById('Match').innerHTML = 'not matching';
 		return false;
@@ -109,7 +109,7 @@ function Form1() {
 function Form1_forward() {
 	if(checkRequiredInputs("Form_1")){
 		document.getElementById('Missing1').innerText='';
-		if(Ajax_Taken('Username',mycallback))
+		if(Ajax_Taken('Username',mycallback) && (Ajax_Taken('Email',mycallback)) )
 			if(passwordSecurity())
 				Form2();
 	}
@@ -125,8 +125,7 @@ function Form2() {
 function Form2_forward() {
 	if(checkRequiredInputs("Form_2")){
 		document.getElementById('Missing2').innerText='';
-		if(Ajax_Taken('Email',mycallback))
-			Form3();
+		Form3();
 	}
   else
   	document.getElementById('Missing2').innerText='Please fill up all fields with "*" on the name';
@@ -150,6 +149,7 @@ function Form3_forward() {
 function Form4() {
 	document.getElementById("Form_3").style.display='none';
 	document.getElementById("Form_4").style.display='inherit';
+	document.getElementById("Sign_Up").disabled=false;
   //      <label id="Fpfp">Profile Picture : </label>
 
   var oFReader = new FileReader();
@@ -159,27 +159,15 @@ function Form4() {
   };
   
   document.getElementById('FNickname').innerHTML = 'Username : ' + document.getElementById('Username').value ;  
-
   document.getElementById('FName').innerHTML = 'Name : ' + document.getElementById('Firstname').value;
-  
   document.getElementById('FSurname').innerHTML = 'Surname : ' + document.getElementById('Lastname').value;
-
   document.getElementById('FEmail').innerHTML = 'Email : ' + document.getElementById('Email').value;
-  
   document.getElementById('FBirth').innerHTML = 'Birthday : ' + document.getElementById('Birthday').value;
-  
   document.getElementById('FNationality').innerHTML = 'Nationality : ' + document.getElementById('Country').value;
-  
   document.getElementById('FCity').innerHTML = 'City : ' + document.getElementById('City').value;
-  
   document.getElementById('FAddress').innerHTML = 'Address : ' + document.getElementById('Address').value;
-  
   document.getElementById('FTel').innerHTML = 'Telephone Number : ' + document.getElementById('Tel').value;
-  
   document.getElementById('FLink').innerHTML = 'Link to a Curriculum : ' + document.getElementById('Curr').value;
-  
-  document.getElementById('FSkill').innerHTML = 'Skills : ' + document.getElementById('Skill').value;
-  
   document.getElementById('FDesc').innerHTML = 'Description : ' + document.getElementById('Desc').value;
   
 }

@@ -16,11 +16,8 @@
   <meta name="description" content="Sign up to Find a Job or look for a professionist!">
   <meta name="keywords" content="SignUp, Sign up, Username, Password, Job, Job Finder">
 
-	<!-- Javascript -->
-	<script type="text/javascript" src="../JS/SignUp.js"></script>
-    
   <!-- Javascript -->
-	<script type="text/javascript" src="../JS/searchTag.js"></script>
+  <script type="text/javascript" src="../JS/SignUp.js"></script>
 
   <!-- Fogli di Stile -->
   <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" media="screen">
@@ -31,7 +28,7 @@
   <link rel="icon" type="image/png" href="../IMG/JF_64.png"/>
 
 </head>
-<body onload="onLoad()">
+<body>
   <!-- Header con Link per altre Pagine del Sito-->
   <header id="header">
     <ul class="hiddenHelp">
@@ -136,16 +133,9 @@
         <p> Only the field with a * are required</p>
 				<p> One last step! </p>
 
-          <!-- Filled with Entries from DB -->
-          <div id="selectedTagsList">
-            <p class="SelectedTags">Selected Tags:</p>
-          </div>
-          <label for="searchTag" id="labelsearchTag">Search Tags: </label>
-          <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
-          <label for="searchTag" id="helpLabelsearchTag"></label>
-          <div id="tagsList">
-          </div>
-          <!--<tags/>-->
+        <!--<tags/>-->
+		<TagModule/>
+		
         <!-- Curriculum pattern="https://*"  -->
         <label for="Curr">Link To a Curriculum : </label>
         <input type="url" value="<Curriculum />" id="Curr" name="Curr"/>
@@ -174,11 +164,11 @@
         <p id="FAddress">Address : </p>
         <p id="FTel">Telephone Number : </p>
         <p id="FLink">Link to a Curriculum : </p>
-        <p id="FSkill">Skills : </p>
+        <ul id="FSkill">Skills : </ul>
         <p id="FDesc">Description : </p>
 
         <input type="button" value="Go Back" onclick="Form3()"/>
-        <button type="submit" name="Sign_Up" value="Sign_Up">Sign Up!</button>
+        <button type="submit" name="Sign_Up" id="Sign_Up" value="Sign_Up">Sign Up!</button>
     </fieldset>
     </form>
 
@@ -190,6 +180,7 @@
     <p class="hiddenHelp"><a href="#header">Go back to the header</a></p>
     <p> Check out the <a href="FAQ.php">FAQ</a> for any question - To report any issue contact our Admin at admin@JobFinder.mail.com</p>
   </footer>
-
+<!-- Javascript -->
+	<script type="text/javascript" src="../JS/searchTag.js"></script>
 </body>
 </html>

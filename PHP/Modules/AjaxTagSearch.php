@@ -1,6 +1,6 @@
 <?php
 
-	require_once 'DBAccess.php';
+	require_once "..". DIRECTORY_SEPARATOR .'DBAccess.php';
 	
 	session_start();
 		
@@ -38,7 +38,7 @@
 			exit();
 	$DBAccess= new DBAccess();
 	if(!($DBAccess->openDBConnection())){
-		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
 		exit;
 	}
 	$result=$DBAccess->searchTags($word);

@@ -1,7 +1,7 @@
 var timer;
 function delay(){
    clearTimeout(timer);
-   timer=setTimeout(AjaxTagSearch(mycallback),250);
+   timer=setTimeout(AjaxTagSearch(tagList),250);
 }
 
 function updateUserTagList(response){
@@ -9,21 +9,26 @@ function updateUserTagList(response){
 	var list=JSON.parse(response);
 	var keys = Object.keys(list);
 	div.innerHTML="<p>Selected Tags: ("+ keys.length +" / 20)</p>";
+	var tmp=document.getElementById('FSkill');
+	if(tmp)
+		tmp.innerHTML ='';
 	for(i=0; i<keys.length; i++){
 		var bt=document.createElement('button');
 		bt.innerHTML=keys[i];
 		bt.value=list[keys[i]];
-    bt.classList.add("btnTag");
+		bt.classList.add("btnTag");
 		bt.setAttribute('type','button');
 		bt.setAttribute('onclick',"AjaxRemoveTag('"+keys[i]+"')");
 		div.appendChild(bt);
+		if(tmp)
+			tmp.innerHTML += '<li>' + keys[i] + '</li>';
 	}
 }
 
 function AjaxUpdate(callback){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Update':true};
-	xhttp.open('POST', '../PHP/Util.php', false);
+	xhttp.open('POST', '../PHP/Modules/Util.php', false);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
@@ -38,14 +43,14 @@ function AjaxUpdate(callback){
 	return;
 }
 
-window.onload=function(){
+window.addEventListener('load',function() {
 	AjaxUpdate(updateUserTagList);
-}
+})
 
 function AjaxRemoveTag(name){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Sub':true,'Name':name};
-	xhttp.open('POST', '../PHP/Util.php', false);
+	xhttp.open('POST', '../PHP/Modules/Util.php', false);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
@@ -63,7 +68,7 @@ function AjaxRemoveTag(name){
 function AjaxAddTag(name,val){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Add':true,'Name':name,'Value':val};
-	xhttp.open('POST', '../PHP/Util.php', false);
+	xhttp.open('POST', '../PHP/Modules/Util.php', false);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
@@ -78,7 +83,7 @@ function AjaxAddTag(name,val){
 	return;
 }
 
-function mycallback(response){
+function tagList(response){
 	var div=document.getElementById('tagsList');
 	div.innerHTML="";
 	var list=JSON.parse(response);
@@ -104,7 +109,7 @@ function AjaxTagSearch(callback){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Tag':tag};
 	
-	xhttp.open('POST', '../PHP/AjaxTagSearch.php', false);
+	xhttp.open('POST', '../PHP/Modules/AjaxTagSearch.php', false);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
