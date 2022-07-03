@@ -632,10 +632,19 @@ div#sidebar ul li{
 
 #sidebar a {
   display: block;
-  color: var(--content);
   padding: 1em;
-  text-decoration: none;
 }
+
+#sidebar a:link,
+#sidebar a:link span{
+  color: var(--background);
+}
+
+#sidebar a:visited,
+#sidebar a:visited span{
+  color: var(--shadow);
+}
+
 
 #sidebar span {
   color: var(--content);
