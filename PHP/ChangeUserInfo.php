@@ -30,7 +30,7 @@
           $errorReport.='<p>This Username is already taken. Please try again with a <a href="#Username">different username<a></p>';
           $Username=$Result["Nickname"];
         }
-        else
+        else 
           $Username = $postNick;
       else
         $Username=$Result["Nickname"];

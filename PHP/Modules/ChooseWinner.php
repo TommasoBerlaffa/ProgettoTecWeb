@@ -14,20 +14,32 @@ if(isset($_SESSION['user_Username'])) {
     if(isset($_SESSION['user_ID'])) {
 		
       // Winner, Job, ID
+      $result='';
       $Winner='';$job='';
-      if(isset($_POST['winner']))
+      if(isset($_POST['winner']) ) {
         $Winner=$_POST['winner'];
+        if($Winner=='')
+          header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errwin');
+      }
       else
-        $error.='<li>Cannot set the winner, try again by changing the winner</li>';
-      if(isset($_SESSION['Code_job']))
-        $job=$_SESSION['Code_job'];
-      else
-        $error.='<li>Cannot find the job, please try again later</li>';
+        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errwin');
       
-      if($Winner!='' && $job!='')
-        $DBAccess->setWinner($Winner,$job,$_SESSION['user_ID']);
+      if(isset($_SESSION['Code_job']))
+      {
+        $job=$_SESSION['Code_job'];
+        if($job =='')
+         header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errcode');
+      }
+      else
+        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errcode');
+     
+      $result = $DBAccess->setWinner($Winner,$job,$_SESSION['user_ID']);
 			$DBAccess->closeDBConnection();
-			header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"]);
+      
+      if($result==true)
+			  header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=wsuccess');
+      else
+        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=wfail');
 		}
     
     else{

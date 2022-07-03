@@ -10,13 +10,21 @@ if(isset($_SESSION['user_Username'])) {
 		exit;
 	}
     // Controllo se nella sessione c'é User ID (dovrebbe esserci per il controllo di User Username ma è meglio fare 2 controlli)
-    if(isset($_SESSION['user_ID'])) {
+  if(isset($_SESSION['user_ID'])) {
 		$id=$_SESSION['user_ID'];
-		isset($_POST["Price"]) ? $price =  $_POST["Price"] : $price=0;
-		isset($_POST["Description"]) ? $description =  $_POST["Description"] : $description='';
+		if( isset($_POST["Price"]) )
+      $price =  filter_var($_POST["Price"],FILTER_VALIDATE_INT );
+    else
+      header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&bid=errPrice');    
+  
+    if( isset($_POST["Description"]) )
+      $description =  filter_var($_POST["Description"],FILTER_SANITIZE_STRING );
+    else
+      header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&bid=errDesc');    
+    
 		$DBAccess->createBid($id,$_SESSION["Code_job"],$price,$description);
 		$DBAccess->closeDBConnection();
-		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"]);    
+		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&bid=succ');    
     }
     else{
 		$DBAccess->closeDBConnection();

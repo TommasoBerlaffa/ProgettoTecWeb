@@ -19,7 +19,8 @@
     $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangePassword.html';
     $HTMLContent=file_get_contents($urlContent);
     $HTML = str_replace('<div id="content"></div>',$HTMLContent,$HTML);
-	$HTML = str_replace('<error/>',$_SESSION['error'],$HTML);
+    
+    $HTML = str_replace('<error/>',isset($_SESSION['error'])?$_SESSION['error']:'',$HTML);
 	$_SESSION['error']='';
     // Apre file html
     echo $HTML;

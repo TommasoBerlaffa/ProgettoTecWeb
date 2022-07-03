@@ -114,7 +114,7 @@ function Form1_forward() {
 				Form2();
 	}
   else
-	  document.getElementById('Missing1').innerText='Please fill up all fields with "*" on the name';	
+	  document.getElementById('Missing1').innerText='Please fill up all required fields';	
 }
 
 function Form2() {
@@ -128,7 +128,7 @@ function Form2_forward() {
 		Form3();
 	}
   else
-  	document.getElementById('Missing2').innerText='Please fill up all fields with "*" on the name';
+  	document.getElementById('Missing2').innerText='Please fill up all required fields';
 }
 
 function Form3() {
@@ -143,7 +143,7 @@ function Form3_forward() {
 		Form4();
 	}
   else
-	  document.getElementById('Missing3').innerText='Please fill up all fields with "*" on the name';
+	  document.getElementById('Missing3').innerText='Please fill up all required fields';
 }
 
 function Form4() {

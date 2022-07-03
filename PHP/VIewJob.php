@@ -88,7 +88,65 @@ if(isset($_SESSION['user_Username']))
 				</ul>';
 		}
 		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
-	
+    
+    if(isset($_GET['result']))
+    {
+      $tmp='';
+      $getValue=trim($_GET['result']);
+      if( $getValue == 'cancelTrue')
+        $tmp='<p class="result"> Job successfully cancelled</p>';
+      else if( $getValue == 'cancelFalse')
+        $tmp='<p class="result"> There was an error with the cancellation of the job, please try again later</p>';
+      else if( $getValue == 'terminateTrue')
+        $tmp='<p class="result"> Job termination was succesfull </p>';
+      else if( $getValue == 'terminateFalse')
+        $tmp='<p class="result"> There was an error with the termination of the job, please try again later</p>';
+      else if( $getValue == 'removeTrue')
+        $tmp='<p class="result"> Bid removed succesfully </p>';
+      else if( $getValue == 'removeFalse')
+        $tmp='<p class="result"> There was an error with the deletion of the bid, please try again later</p>';
+      $HTML = str_replace('<result/>',$tmp,$HTML);
+    }
+    else if (isset($_GET['winner']) ) {
+      $tmp='';
+      $getValue=trim($_GET['winner']);
+      if( $getValue == 'errwin')
+        $tmp='<p class="result"> There was an error with the code of the winner, please try to select <a href="#winner">the winner</a> again.</p>';
+      else if( $getValue == 'errcode')
+        $tmp='<p class="result"> There was an error with the code of the winner, please try to select the winner again.</p>';
+      else if( $getValue == 'wsuccess')
+        $tmp='<p class="result"> The winner was selected succesfully. </p>';
+      else if( $getValue == 'wfail')
+        $tmp='<p class="result"> There was an error with the selection of the winner, please try again. </p>';
+      $HTML = str_replace('<result/>',$tmp,$HTML);
+    }
+    else if (isset($_GET['bid']) ) {
+      $tmp='';
+      $getValue=trim($_GET['bid']);
+      if( $getValue == 'errPrice')
+        $tmp='<p class="result"> There was an error with the price of the bid, please try to select <a href="#Price">the price</a> again.</p>';
+      else if( $getValue == 'errDesc')
+        $tmp='<p class="result"> There was an error with the description of the bid, please try to select <a href="#Description">the description</a> again.</p>';
+      else if( $getValue == 'succ')
+        $tmp='<p class="result"> The bid was created succesfully. </p>';
+      $HTML = str_replace('<result/>',$tmp,$HTML);
+    }
+    else if (isset($_GET['feedback']) ) {
+      $tmp='';
+      $getValue=trim($_GET['feedback']);
+      if( $getValue == 'errStar')
+        $tmp='<p class="result"> There was an error with stars, please insert them again.</p>';
+      else if( $getValue == 'errComm')
+        $tmp='<p class="result"> There was an error with the comment, please try to insert it again.</p>';
+      else if( $getValue == 'succ')
+        $tmp='<p class="result"> The feedback was created succesfully. </p>';
+      else if( $getValue == 'fail')
+        $tmp='<p class="result"> There was an error with the creation of the feedback, please try again. </p>';
+      $HTML = str_replace('<result/>',$tmp,$HTML);
+    }
+    else
+      $HTML = str_replace('<result/>','',$HTML);
+
     // Controllo se Utente è Owner ed è PastJob
     if($_SESSION['user_ID']==trim($row["Code_user"]) && !$PJob) {
       $OwnerActions = '<p id="cancel"> <a href="Modules'. DIRECTORY_SEPARATOR .'OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>'. ($status!= 'Terminated' ?
@@ -102,7 +160,7 @@ if(isset($_SESSION['user_Username']))
 			$bids =$DBAccess->getBids($index);
 			if($bids)
 			{
-        if($end == true)
+        if($end == true && $_SESSION['user_ID']==trim($row["Code_user"]))
         {
           $HTMLChooseWinner = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormChooseWinner.html');
           $offerers = '';

@@ -15,8 +15,9 @@ if(isset($_SESSION['user_Username'])) {
         exit;
       }
       $result = $DBAccess->terminateJob($_SESSION['user_ID'],$_SESSION['Code_job']);
+      $resultValue = $result ? 'terminateTrue' : 'terminateFalse'; 
       $DBAccess->closeDBConnection();
-      header("Location:..". DIRECTORY_SEPARATOR ."ViewJob.php?Code_job=" .  $_SESSION['Code_job']);
+      header("Location:..". DIRECTORY_SEPARATOR ."ViewJob.php?Code_job=" .  $_SESSION['Code_job']."&result=".$resultValue);
 	  }
     else
       header("Location:.." .DIRECTORY_SEPARATOR ."Findjob.php");

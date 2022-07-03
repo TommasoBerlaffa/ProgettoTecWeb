@@ -15,8 +15,9 @@ if(isset($_SESSION['user_Username'])) {
         exit;
       }
       $result = $DBAccess->deleteJob($_SESSION['user_ID'],$_SESSION['Code_job']);
+      $resultValue = $result ? 'cancelTrue' : 'cancelFalse'; 
       $DBAccess->closeDBConnection();
-      header("Location:..". DIRECTORY_SEPARATOR . ($result ? "ViewJobOld.php?Code_job=" : "ViewJob.php?Code_job=") .  $_SESSION['Code_job']);
+      header("Location:..". DIRECTORY_SEPARATOR . "ViewJob.php?Code_job=" .  $_SESSION['Code_job']."&result=".$resultValue);
 	  }
     else
       header("Location:.." .DIRECTORY_SEPARATOR . "Findjob.php");

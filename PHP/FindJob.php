@@ -14,7 +14,7 @@
 	// Controllo se variabile sessione è presente 
 	if(isset($_SESSION['user_Username']))
 	{
-		$HTML = str_replace('<createjob/>','<li><a href="LoadCreateJob.php">
+		$HTML = str_replace('<createjob/>','<li><a href="CreateJob.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'write.png" class="icons"> Create an Offer </a></li>',$HTML);
 		$HTMLContent = '<li><a href="UserProfile.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';

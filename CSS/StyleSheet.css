@@ -69,6 +69,11 @@ a.goTop {
   margin-right: 10%;
 }
 
+.result {
+  text-align: center;
+  font-size: 1.2em;
+}
+
 /* - 2.0 Header - */
 header {
   background-color: var(--color);
@@ -290,12 +295,12 @@ form#createJob fieldset{
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: 
   " s s s "
-  " a b b "
-  " c d d " 
+  " a . b "
+  " c . d "
   " j j k "
   " i i i "
-  " e f f "
-  " g h h "
+  " e . f "
+  " g . h "
   " l l . "
   " m m m "
   " u u u "
@@ -449,6 +454,7 @@ form#formFilter #labelType {
 
 form#formFilter #Tipology {
   width: 60%;
+  min-width: fit-content;
   margin: auto;
   grid-area: b;
 }
@@ -471,6 +477,7 @@ form#formFilter #labelDate {
 
 form#formFilter #Date {
   width: 60%;
+  min-width: fit-content;
   margin: auto;
   grid-area: f;
 }
@@ -1419,23 +1426,24 @@ input#search {
   
   form#formFilter fieldset {
     grid-template-areas:
-        " a "
-        " b "
-        " c "
-        " d "
-        " e "
-        " f "
-        " s "
-        " t "
-        " h "
-        " i "
-        " g ";
+  " a "
+  " b "
+  " c "
+  " d "
+  " e "
+  " f "
+  " s "
+  " t "
+  " h "
+  " i "
+  " g ";
   }
 
   form#formFilter #Tipology,
   form#formFilter #Date,
   form#formFilter #PayMin {
     margin:0%;
+    min-width: fit-content;
   }
   
   /* - 7.0 Sidebar for User Profile - */
