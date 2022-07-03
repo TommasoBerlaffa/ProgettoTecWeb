@@ -930,18 +930,16 @@ class DBAccess {
   par: string oldPsw, string newPsw, 
   desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
   ****************************/
-  public function changePassword($oldPsw,$newPsw) {
+  public function changePassword($id,$Psw) {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($oldPsw) && isset($newPsw)){
-      $queryCheck = '';
-      $queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
-      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      mysqli_stmt_bind_param($queryCall,'is',$id,$status);
+    if(isset($id) && isset($Psw)){
+      $query = 'CALL Change_password(?,?);';
+      $queryCall=mysqli_prepare($this->connection, $query);
+      mysqli_stmt_bind_param($queryCall,'is',$id,$Psw);
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
-      $result = mysqli_affected_rows($this->connection);
-      if($result)
+      if(mysqli_affected_rows($this->connection))
         return true;
       return false;
     } else
