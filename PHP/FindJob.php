@@ -135,7 +135,7 @@
 			else
 				$bids=0;
 			$HtmlContent .='<div class="job">
-						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
+						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
 						<p class="date"><span>Date</span> : '.explode(' ',$row["Date"])[0].'</p>
 						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
             <p class="Pay"><span>Payment Type</span> : '.(trim($row["Payment"])==0? 'Payment by Hour' : 'All at once').'</p>

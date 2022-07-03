@@ -46,6 +46,10 @@
     $urlTags = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangeTags.html';
     $HTMLExtra .= file_get_contents($urlTags);
 
+    $urlTagElement =  '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TagsSearch.html';
+    $TagElements = file_get_contents($urlTagElement);
+    $HTMLExtra = str_replace('<TagModule/>',$TagElements,$HTMLExtra);
+  
     $HTMLExtra .= '</div>';
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
     // Spazione vuoto

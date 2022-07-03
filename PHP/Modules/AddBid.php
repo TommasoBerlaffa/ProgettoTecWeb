@@ -16,7 +16,7 @@ if(isset($_SESSION['user_Username'])) {
 		isset($_POST["Description"]) ? $description =  $_POST["Description"] : $description='';
 		$DBAccess->createBid($id,$_SESSION["Code_job"],$price,$description);
 		$DBAccess->closeDBConnection();
-		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$_SESSION["Code_job"]);    
+		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"]);    
     }
     else{
 		$DBAccess->closeDBConnection();

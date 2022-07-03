@@ -22,7 +22,7 @@ if(isset($_SESSION['Admin'])) {
   if(isset($listaJobs)){
     foreach($listaJobs as $U)
     {
-      $contenuto .= '<tr><td><a href="ViewJobOld.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
+      $contenuto .= '<tr><td><a href="ViewJob.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
       <td>'.trim($U["Status"]).'</td></tr>';
     }
   }

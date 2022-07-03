@@ -46,7 +46,7 @@
         $date2 = date_create($row['Expiring']);
         $finalDate = $date2>$date1 ? date_diff($date2,$date1)->format('%a <abbr title="days">d</abbr> %h <abbr title="hours">h</abbr> %i <abbr title="minutes">m</abbr>') : 'This offer is over';
         $tableJob .= '<tr>
-        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
+        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'. $finalDate  .'</td>
         <td>'.trim($row["C"]).'</td>
         </tr>';
@@ -70,7 +70,7 @@
       foreach ($PastJob as $row) {
         trim($row["Payment"]) > 0 ? $res = 'Salary' : $res = 'Hourly';
         $tablePastJob.= '<tr>
-        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
+        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'.trim($row["Status"]).'</td>
         <td>'.trim($row["Tipology"]).'</td>
         <td>'.$res.'</td>

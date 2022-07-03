@@ -18,7 +18,7 @@ if(isset($_SESSION['Admin'])) {
 
   if(isset($_GET['Code_user']))
   {
-    $result = $DBAccess->BanUserAdmin($_GET['Code_user'],$_SESSION['user_ID'],$comment);
+    $result = $DBAccess->BanUserAdmin($_GET['Code_user'],$_SESSION['user_ID'],'Ban reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
@@ -28,7 +28,7 @@ if(isset($_SESSION['Admin'])) {
 
   if(isset($_GET['unban_Code_user']))
   {
-    $result = $DBAccess->UnBanUserAdmin($_GET['unban_Code_user'],$_SESSION['user_ID'],$comment);
+    $result = $DBAccess->UnBanUserAdmin($_GET['unban_Code_user'],$_SESSION['user_ID'],'Unban reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
@@ -38,20 +38,20 @@ if(isset($_SESSION['Admin'])) {
 
   if(isset($_GET['Code_job']))
   {
-    $result = $DBAccess->DeleteJobAdmin($_GET['Code_job'],$_SESSION['user_ID'],$comment);
+    $result = $DBAccess->DeleteJobAdmin($_GET['Code_job'],$_SESSION['user_ID'],'Offer delete reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
-      header("Location:ViewOffer.php?Code_job=".$_GET['Code_job']);
+      header("Location:ViewJob.php?Code_job=".$_GET['Code_job']);
   }
 
   if(isset($_GET['Code_pastjob']))
   {
-    $result = $DBAccess->DeletePastJobAdmin($_GET['Code_pastjob'],$_SESSION['user_ID'],$comment);
+    $result = $DBAccess->DeletePastJobAdmin($_GET['Code_pastjob'],$_SESSION['user_ID'],'Job delete reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
-      header("Location:ViewJobOld.php?Code_job=".$_GET['Code_pastjob']);
+      header("Location:ViewJob.php?Code_job=".$_GET['Code_pastjob']);
   }
   
   

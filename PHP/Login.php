@@ -83,7 +83,7 @@
 				if(isset($_SESSION['code'])){
 				$code = $_SESSION['code'];
 				unset($_SESSION['code']);
-				if($view == "ViewOffer" || $view == "ViewJobOld")
+				if($view == "ViewJob" )
 					header('Location:'. $view .'.php?Code_job='.$code);
 				if($view == 'ViewUser')
 					header('Location:'. $view .'.php?Code_User='.$code);

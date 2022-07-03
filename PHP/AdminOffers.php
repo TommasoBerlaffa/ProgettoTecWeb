@@ -22,7 +22,7 @@ if(isset($_SESSION['Admin'])) {
   if(isset($listaOffers)){
     foreach($listaOffers as $U)
     {
-      $contenuto .= '<tr><td><a href="ViewOffer.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
+      $contenuto .= '<tr><td><a href="ViewJob.php?Code_job='.trim($U["Code_job"]).'">'.trim($U["Title"]).'</a></td>
       <td>'. (trim($U["Expiring"]) > date("Y-m-d h:i:sa") ? 'Active' : 'Terminated') .'<td>
       </tr>';
     }

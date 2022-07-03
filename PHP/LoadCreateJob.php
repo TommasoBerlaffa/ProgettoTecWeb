@@ -1,5 +1,5 @@
 <?php
-    require_once "..". DIRECTORY_SEPARATOR ."DBAccess.php";
+    require_once "DBAccess.php";
 
     // Attivo Session
     if(!isset($_SESSION)) 

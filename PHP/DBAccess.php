@@ -100,7 +100,7 @@ class DBAccess {
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      if(mysqli_fetch_assoc($queryResult))
+      if(mysqli_affected_rows($this->connection))
         return true;
       return false;
     } else
@@ -128,6 +128,27 @@ class DBAccess {
     } else
       return false;
   }
+
+  /***2.1.Terminate a Job ***
+  par: int userID, int jobID;
+  desc: termina il tempo disponibile per un lavoro
+  ****************************/
+  public function terminateJob($id, $job) {
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+        die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      if(isset($id) and isset($job)){
+        $queryInserimento = 'UPDATE current_jobs SET Expiring = ? WHERE Code_job = ? AND Code_user = ?;';
+        $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+        mysqli_stmt_bind_param($queryCall,'sii',date("Y-m-d h:i:sa",strtotime("-1 minutes")),$job, $id);
+        mysqli_stmt_execute($queryCall);
+        mysqli_stmt_close($queryCall);
+        $result = mysqli_affected_rows($this->connection);
+        if($result)
+          return true;
+        return false;
+      } else
+        return false;
+    }
   
 
   /***3.Get Job Info***

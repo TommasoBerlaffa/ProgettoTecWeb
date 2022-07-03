@@ -43,8 +43,7 @@
         $date1 = date_create();
         $date2 = date_create($row['Expiring']);
         $tableNewBid .= '<tr>
-        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewOffer.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
-        <td>'. trim($row['Status'] ).'</td>
+        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.trim($row['Code']).'">'.trim($row['Title'] ).' </a></td>
         <td>'.date_diff($date2,$date1)->format('%a <abbr title="days">d</abbr> %h <abbr title="hours">h</abbr> %i <abbr title="minutes">m</abbr>') .'</td>
         <td>'. trim($row['Tipology'] ).'</td>
         </tr>';
@@ -67,7 +66,7 @@
       foreach($OldBid as $row ) {
         trim($row["Payment"]) > 0 ? $res = 'Salary' : $res = 'Hourly';
         $TableOldBid .= '<tr>
-        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJobOld.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
+        <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'.trim($row["Status"]).'</td>
         <td>'.trim($row["Tipology"]).'</td>
         <td>'.$res.'</td>

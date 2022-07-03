@@ -16,8 +16,7 @@
 - 7.3 User Info and Review from User Profile  -
 - 7.4 Change Password Page                    -
 - 7.5 User Profile Setting Page               -
-- 8.0 View Old Job Info & Feedback            -
-- 8.1 View Offer                              -
+- 8.0 View Job                                -
 - 9.0 Index                                   -
 -10.0 View User                               -
 -11.0 Hidden Help                             -
@@ -347,6 +346,7 @@ form#createJob fieldset label#labelType {
 
 form#createJob fieldset select#Tipology {
   grid-area: d;
+  max-height: fit-content;
 }
 
 form#createJob fieldset label#labelMin {
@@ -375,6 +375,7 @@ form#createJob fieldset label#labelExpiring {
 
 form#createJob fieldset select#Expiring {
   grid-area: k;
+  max-height: fit-content;
 }
 
 form#createJob fieldset label#labelDesc {
@@ -983,7 +984,7 @@ form#changeTags fieldset {
   
 }
 
-/* - 8.0 View Old Job Info & Feedback - */
+/* - 8.0 View Job Info & Feedback - */
 div#JobInfo {
   margin:auto;
   margin-top : 1em;
@@ -1183,6 +1184,16 @@ input.stars {
   display: inline;
 }
 
+#ChooseWinner {
+  padding-top: 1em;
+  width: 60%;
+  margin: auto;
+}
+
+#ChooseWinner input[type=radio] {
+  display: inline-block;
+}
+
 /* - 8.1 View Offer - */
 div#bids {
   width: 60%;
@@ -1262,7 +1273,7 @@ div#popularJobs {
   grid-area: e;
 }
 
-ul#popularJobs {
+ul#popularJobsList {
   background: var(--subcolor);
   padding: 0.2em;
   display: flex;
@@ -1270,7 +1281,7 @@ ul#popularJobs {
   border: 2px solid var(--background);
 }
 
-ul#popularJobs li {
+ul#popularJobsList li {
   list-style-type: none;
   text-align: center;
   flex-basis: 20%;
@@ -1355,7 +1366,7 @@ form#banUser button{
 table.AdminTable {
   border: 1px solid var(--black);
   border-collapse: separate;
-  width: 50%;
+  width: 80%;
 
   margin: auto;
 }

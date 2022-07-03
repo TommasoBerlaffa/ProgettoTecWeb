@@ -14,7 +14,7 @@ if(isset($_SESSION['user_Username']))
     if(isset($_SESSION['user_ID'])){ 
       $result = $DBAccess->removeBid($_GET['code'],$_SESSION['user_ID']);  
       if($result)
-        header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."ViewOffer.php?Code_job=". $_GET['code']);
+        header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."ViewJob.php?Code_job=". $_GET['code']);
     }
     else
       header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");
