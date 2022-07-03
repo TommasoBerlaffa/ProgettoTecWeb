@@ -70,19 +70,19 @@
         <!-- Nickname -->
         <label for="Username" class="Enter">Username* : </label>
         <input type="text" id="Username" name="Username" class="Enter" value="<Username />" required />
-				<p id="UsernameTaken" for="Username" class="Error"></p>
+				<p id="UsernameTaken" class="Error"></p>
 				<!-- Mail -->
 				<label for="Email" >Email* : </label>
         <input type="email" id="Email" name="Email" value="<Email />" required />
-				<p id="EmailTaken" for="Email" class="Error"></p>
+				<p id="EmailTaken" class="Error"></p>
         <!-- Password -->
         <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
         <input type="password" id="Password" name="Password" class="Enter" onkeyup='passwordSecurity();' required />
-				<p id="Security" for="Password" class="Error"></p>
+				<p id="Security" class="Error"></p>
         <!-- Password ( Check ) -->
         <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
         <input type="password" id="Repeat-Password" name="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
-				<p id="Match" for="Repeat-Password" class="Error"></p>
+				<p id="Match" class="Error"></p>
 				<!-- Icon Image -->
         <label for="Picture" class="Enter">Profile Picture* :</label>
         <input type="file" id="Picture" name="Picture" accept="image/jpeg, image/png, image/gif" class="Enter" required />

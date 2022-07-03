@@ -109,7 +109,7 @@ if(isset($_SESSION['user_Username']))
           foreach($bids as $B){
             $offerers.='<div>
               <label><input type="radio" name="winner" value="'.$B["Code"] .'" required>
-              <a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></label>
+              <img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'"><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></label>
               <p><span>User Price</span> : '.trim($B["Price"]).'</p>
               <p><span>Description</span> : '.trim($B["Description"]).'</p></div>';
           }
@@ -124,7 +124,8 @@ if(isset($_SESSION['user_Username']))
 				
           foreach($bids as $B){
           $HTMLBids.= '<div class="bid">
-                  <p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
+                  <p><img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
+                  <a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
                   <p><span>User Price</span> : '.trim($B["Price"]).'</p>
                   <p><span>Description</span> : '.trim($B["Description"]).'</p>';
           if($B["Code"]==$_SESSION['user_ID']){

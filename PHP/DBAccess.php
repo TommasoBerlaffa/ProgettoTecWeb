@@ -238,7 +238,7 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
-      $queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
+      $queryInserimento = 'SELECT users.Code_user AS Code, users.Picture as PFP,users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
 							FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);

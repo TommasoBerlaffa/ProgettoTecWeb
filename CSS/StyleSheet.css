@@ -804,6 +804,13 @@ main img#icon {
   padding-right: 1.5em;
 }
 
+img.icons {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  padding: 0.2em;
+}
+
 .review .star,
 .review .date {
   margin-block-start: 0.4em;
@@ -1287,7 +1294,6 @@ ul#popularJobsList li {
 h1.index {
   text-align:left;
   padding-left : 2em;
-  text-decoration: underline;
   font-size: 1.375em;
 }
 
