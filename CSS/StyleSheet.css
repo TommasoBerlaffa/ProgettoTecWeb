@@ -22,23 +22,6 @@
 -11.0 Hidden Help                             -
 -12.0 Admin                                   -
 */
-/*  
-  GREEN AND BROWN
-  --background: #dad7cd;
-  --color: #588157;
-  --subcolor: #A3B18A;
-  --content: #fff; 
-  BLUE (lul)
-  --background: #dbe9ee;
-  --color: #166088;
-  --subcolor: #4a6fa5;
-  --content: #fff;
-  BLUE AND BROWN
-  --background: #ECE5C7;
-  --color: #354259;
-  --subcolor: #C2DED1;
-  --content: #fff;
-    */
 :root {
   --background: #ECE5C7;
   --color: #00679e;
@@ -64,7 +47,6 @@ html, body{
 body {
   background-color: var(--content);
   font-family:Tahoma, sans-serif;
-/*  font-size: 1em;*/
   margin:auto;  
   max-width: 1024px;
   overflow-x: hidden;
@@ -74,7 +56,6 @@ main {
   padding: 0em;
   padding-bottom: 2.5em;
   margin-bottom: 3%;
-  /*font-size: 0.875em;*/
 }
 
 .box {
@@ -113,10 +94,14 @@ header ul li {
   margin-left: 1em;
 }
 
-header ul li a {
-  text-decoration: none;
+header ul li a:link {
   margin-bottom: 0.2em;
   color: var(--background);
+}
+
+header ul li a:visited {
+  margin-bottom: 0.2em;
+  color: var(--shadow);
 }
 
 header ul li span {
@@ -169,7 +154,7 @@ footer#footer p {
 }
 
 footer#footer a {
-  color: var(--background);
+  color: var(--darkWhite);
 }
 
 footer#footer img#smallLogo{
