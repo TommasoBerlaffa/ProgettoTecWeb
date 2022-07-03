@@ -9,6 +9,7 @@
 - 5.2 Sign Up Input Form Form                 - 
 - 5.3 Change Password Form                    - 
 - 5.4 Create Job Form                         - 
+- 5.5 404 Page  	                          - 
 - 6.0 Filter for Page Find Job                -
 - 7.0 Sidebar for User Profile                -
 - 7.1 Content for User Profile                -
@@ -413,6 +414,47 @@ form#createJob fieldset p#intro{
 form#createJob fieldset p#TagDescription{
   grid-area: u;
 }
+
+/* - 5.4 Create Job Form - */
+h1.title404{
+  display:block;
+  text-align: center;
+  font-family: Trebuchet MS;
+  font-size: 4em;
+  font-weight: bold;
+  margin-top: 0.15em;
+  margin-bottom: 0em;
+}
+
+img#image404{
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+div#choose{
+  float: center;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+div#choose p{
+  text-align: center;
+  font-size: 1.15em;
+  border: 0px;
+}
+
+div.container404{
+  display: inline-flex;
+  float: center;
+}
+
+button.btn404{
+  margin: 0em 0.2em 0em 0.2em;
+  max-width: 12em;
+  font-size: 1em;
+}
+
 
 
 /* - 6.0 Filter for Page Find Job - */
