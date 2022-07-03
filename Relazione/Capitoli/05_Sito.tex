@@ -1,0 +1,44 @@
+\section{Sito Web}
+	Il sito sarà quindi diviso nelle seguenti pagine :
+  \begin{itemize}
+    \item \textbf{Homepage} : pagina centrale del sito, mostra delle informazioni generiche con lo scopo di aiutare chi arriva per la prima volta su questa pagina;
+    viene utilizzato un layout grid per posizionare gli elementi in maniera corretta nella schermata; sono presenti due immagini, di puro abbellimento, quindi con alt vuoto;
+    nella versione mobile, il layout grid viene modificato per semplificare la navigazione tramite scorrimento, cambiando gli elementi affiancati e ponendoli verticalmente su tutta la schermata;
+    \item \textbf{FAQ} : pagina composta prevalentemente da testo, con domande e risposte frequenti; seguente l'ordine degli header, ovvero h1 seguito da h2, modificati con css per rispettare lo stile che volevamo utilizzare ma mantendendo la correttezza del significato dell'elemento;
+    \item \textbf{Login} : pagina contentente 1 form con 2 campi, username e password; la password non viene visualizzata e verrà utilizzato un "salt" per effettuare la codifica; nel caso l'inserimento non avvenga correttamente, viene visualizzato un messaggio d'errore che punta ad \#user;
+    \item \textbf{Sign Up} : pagina contentente 1 form, divisa in 4 fieldset, utilizzata per la registrazione al sito;
+    la registrazione richiederà diversi passaggi e potrebbe risultare lunga e faticosa, abbiamo quindi deciso di dividere la form in 4 fieldset, visualizzando 1 fieldset
+    per volta, in modo tale da controllare i campi ad ogni cambio di fieldset, evitando così errori dovuti al non corretto inserimento di dati nella form; in questo modo se un username è già in uso o se la password è non valida, questa verrà notificato nel primo fieldset e non dopo aver completato tutta la form;
+    \item \textbf{FindJob} : pagina centrale per lo scopo del nostro sito, utilizza un layout flex diviso tra form di filtering e lista dei lavori, divisi tramite paginazione;
+    per l'inserimento dei tag, si è discusso molto su quale elemento utilizzare ed il gruppo è arrivato alla conclusione che elementi come select con attributo multiple o datalist non facessero al nostro caso;
+    abbiamo quindi deciso di utilizzare un input che in base ai risultati ottenuti tramite AJAX crea dei bottoni che rappresentano i tag, questi possono essere aggiunti/tolti e verranno utilizzati nel filtering;
+    sono stati predisposti degli hiddenHelp per aiutare utenti che utilizzano screen reader ad utilizzare al meglio questo meccanismo;
+    \item \textbf{CreateJob} : pagina utilizzata per la creazione di un annuncio, contiene una form da riempire con tutti i dati necessari;
+    \item \textbf{UserProfile} : zona riservata di ogni utente che ha effettuato il login al sito; divisa in 6 sottopagine :
+    \begin{enumerate}
+      \item \textit{Welcome} : visibile quando si entra per la prima volta dopo il login nel sito;
+      \item \textit{User Info} : mostra le informazioni dell'utente e le ultime 3 reviews;
+      \item \textit{Your Job Offer} : pagina contentente 2 tabelle, la prima contentente le offerte create dall'utente che sono in corso o aspettano la scelta di un vincitore; la seconda contente i lavori passati creati sempre dall'utente;
+      \item \textit{Your Bids} : pagina specchiata rispetto a "Your Job Offer", contiene 2 tabelle simili ma riguardo alle Bids presenti e passate;
+      \item \textit{User Settings} : contiene 2 form, una per la modifica dei dati utente, caricata tramite PHP con i dati utente; la seconda per la modifica dei tag, caricata con i tag utente;
+      \item \textit{Change Password} : contiene una form per il cambio della password;
+    \end{enumerate}
+    \item \textbf{Viste} : nel sito sono presenti 2 pagine "viste", ovvero ViewJob e ViewUser.
+    \begin{itemize}
+      \item \textit{ViewUser} : vista sulle informazioni dell'utente. Solo alcune informazioni vengono mostrate, per mantenere la privacy; vengono inoltre mostrate le ultime 5 review, ma senza descrizione;
+      \item \textit{ViewJob} : vista sulle informazioni di un lavoro. Un lavoro può essere Past o Current e può appartenere a diversi status :
+      \begin{itemize}
+        \item Se il lavoro è current ed il tempo non è terminato, un utente potrà effettuare una bid; a sua volta il creatore della offer potrà eliminare o terminare il lavoro;
+        \item Se il lavoro è current ma il tempo è terminato, non si potranno effettuare bid; il creatore della offer potrà eliminare il lavoro o decidere chi sarà il vincitore nel caso in cui ci siano bid;
+        \item Se il lavoro è past e c'è un vincitore, il creatore della offer potrà effettuare una review sull'utente che ha effettuato il lavoro;
+        \item Se il lavoro è past e non ci sono stati vincitore, non saranno possibili altre azioni.
+      \end{itemize}
+    \end{itemize}
+    \item \textbf{Admin} : le pagine di admin saranno visibili su UserProfile \/ Welcome e UserProfile \/ UserInfo. Queste saranno 4 e conterranno rispettivamente :
+    \begin{enumerate}
+      \item \textit{Admin History} : contiene 2 tabelle con le azioni compiute dagli admin;
+      \item \textit{Admin Users} : contiene lista degli user con possibilità di ricerca per nome; ogni nome avrà un link che invia alla pagina ViewUser, dove l'admin potrà bannare o "sbannare" un utente;
+      \item \textit{Admin Offers} : contiene lista delle offerte con possiblità di ricerca per titolo; l'Admin potrà cancellare l'offerta, rendendola un past job con status "Deleted";
+      \item \textit{Admin Jobs} : contiene lista dei lavori con possibilità di ricerca per titolo, l'Admin potrà eliminare l'offerta, cambiando status ad un past job e rendendolo "Deleted".
+    \end{enumerate}
+  \end{itemize}
