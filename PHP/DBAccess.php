@@ -66,22 +66,39 @@ class DBAccess {
   par: int userID, string titolo, string descrizione, eunum tipo di lavoro, bool tipo di pagamento, int pagamento minimo, int pagamento massimo, int tempo di scadenza;
   desc: crea una nuova inserzione di lavoro. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring) {
+  public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring, $tags) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
         die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
-      $queryInserimento = 'INSERT INTO current_jobs(Code_user, Date ,Title, Description, Tipology, Payment, P_min, P_max, Expiring)
-                VALUES (?,?,?,?,?,?,?,?,?)';
-      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      if(!isset($pmax))
-        $pmax='';
-      mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
-      mysqli_stmt_execute($queryCall);
-      mysqli_stmt_close($queryCall);
-      $tmp=mysqli_affected_rows($this->connection);
-      if($tmp)
-        return true;
-      return false;
+    if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring) and isset($tags)){
+		$queryInserimento = 'INSERT INTO current_jobs(Code_user, Date ,Title, Description, Tipology, Payment, P_min, P_max, Expiring)
+					VALUES (?,?,?,?,?,?,?,?,?)';
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		if(!isset($pmax))
+			$pmax='';
+		mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		$Code_job=mysqli_insert_id($this->connection);
+		if(mysqli_affected_rows($this->connection)){
+			$queryTags= 'INSERT INTO tags_current_jobs(Code_job,Code_tag) VALUES ';
+			$a='';
+			$b=array();
+			foreach($tags as $tag){
+				$queryTags .= '(?,?),';
+				$a.='ii';
+				array_push($b,$Code_job,$tag );
+			}
+			$queryTags=rtrim($queryTags, ",");
+			$queryCall=mysqli_prepare($this->connection, $queryTags);
+			$queryCall->bind_param($a, ...$b);
+			mysqli_stmt_execute($queryCall);
+			$tmp=mysqli_affected_rows($this->connection);
+			mysqli_stmt_close($queryCall);
+			if($tmp)
+				return true;
+		}
+		else
+			return false;
     } else
       return false;
   }
@@ -827,7 +844,6 @@ class DBAccess {
 		}
 		mysqli_stmt_close($queryCall2);
 		if($tmp){
-			echo($Code_user);
 			$queryTags= 'INSERT INTO tags_users(Code_user,Code_tag) VALUES ';
 			$a='';
 			$b=array();
@@ -845,7 +861,8 @@ class DBAccess {
 			if($tmp)
 				return true;
 		}
-		return false;
+		else
+			return false;
     } else
 		return false;
   }

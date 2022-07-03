@@ -62,18 +62,12 @@
         <!-- Tipology -->
         <label for="Tipology" id="labelType">Choose the Typology *:</label>
         <select id="Tipology" name="Type" size="4" required>
-          <option selected>Fulltime</option>
-          <option>One Time</option>
-          <option>Urgent</option>
-          <option>Recruiter</option>
+			<TipologySelect/>
         </select>
         <!-- Expiring -->
         <label for="Expiring" id="labelExpiring">Choose how long your offer will last *:</label>
-        <select id="Expiring" name="Expiring" size="4" required>
-          <option selected>1 day</option>
-          <option>3 days</option>
-          <option>1 week</option>
-          <option>1 month</option>
+        <select id="Expiring" name="Expiring" size="6" required>
+			<DateSelect/>
         </select>
         <!-- Payment -->
         <div id="Pay">
@@ -109,7 +103,7 @@
             <p class="SelectedTags">Selected Tags * :</p>
           </div>
           <a href="#searchTag" class="hiddenHelp">search more tags</a>
-        <button type="submit" id="Create">Create a new Job Offer</button>
+        <button type="submit" name= "Create" id="Create">Create a new Job Offer</button>
       </fieldset>
     </form>
   </main>
