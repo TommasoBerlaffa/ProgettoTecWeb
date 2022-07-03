@@ -968,7 +968,8 @@ class DBAccess {
   desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
   ****************************/
   public function changeUserInfo($id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
-    
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     //create new entry on table users and then create with the relative index the credentials for the login.
     $queryInserimento = 'UPDATE users 
       SET Name=?,Surname=?,Nickname=?,Birth=?,Email=?,Nationality=?,City=?,Address=?,Phone=?,Picture=?,Curriculum=?,Description=? 
@@ -982,6 +983,45 @@ class DBAccess {
       return true;
     else
       return false;
+  }
+  
+  /***24.changeUserTags***
+  par:  $id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description
+  desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
+  ****************************/
+  public function changeUserTags($id, $tags) {
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($id) && isset($tags)){
+		$queryTags = 'DELETE FROM tags_users WHERE Code_user=?';
+		$a='i';
+		$queryCall=mysqli_prepare($this->connection, $queryTags);
+		mysqli_stmt_bind_param($queryCall,$a,$id);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		$queryCall=mysqli_prepare($this->connection, $queryTags);
+		$queryTags ='INSERT INTO tags_users (Code_user,Code_tag) VALUES ';
+		$a='';
+		$b=array();
+		foreach($tags as $tag){
+			$queryTags .= '(?,?),';
+			$a.='ii';
+			array_push($b,$id,$tag );
+		}
+		$queryTags=rtrim($queryTags, ",");
+		echo($queryTags);
+		$queryCall=mysqli_prepare($this->connection, $queryTags);
+		echo($a);
+		print_r($b);
+		$queryCall->bind_param($a, ...$b);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_affected_rows($this->connection))
+			return true;
+		return false;
+	}
+	else
+		return false;
   }
 
   /***25.removeBid***
