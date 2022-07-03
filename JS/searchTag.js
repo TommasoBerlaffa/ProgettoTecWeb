@@ -6,6 +6,8 @@ function delay(){
 
 function updateUserTagList(response){
 	var div=document.getElementById('selectedTagsList');
+	if(!div)
+		return;
 	var list=JSON.parse(response);
 	if(list==null)
 		return;
@@ -128,9 +130,11 @@ function AjaxTagSearch(callback){
 	return;
 }
 
-document.getElementById('searchTag').onkeyup = function (e, callback) {
-	e = e || window.event;
-	delay();
+if(document.getElementById('searchTag')){
+	document.getElementById('searchTag').onkeyup = function (e, callback) {
+		e = e || window.event;
+		delay();
+	}
 }
 
 

@@ -43,7 +43,7 @@
 		isset($_POST["Min"]) ? $Min = filter_var($_POST["Min"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#MinPay">minimum payment<a/>.</li>';
 		isset($_POST["Max"]) ? $Max = filter_var($_POST["Max"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#MaxPay">maximum payment<a/>.</li>';
 		isset($_POST["PayV"]) ? ( $_POST["PayV"] == 'Pay1' ? $Pay = 0 : $Pay = 1) : $errorMsg.='<li>Your job offer need a <a href="#labelPay">payment type<a/>.</li>';
-		isset($_POST["Expiring"]) ? $Expiring = filter_var($_POST["Max"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#Expiring">expiring date<a/>.</li>';
+		isset($_POST["Expiring"]) ? $Expiring = filter_var($_POST["Expiring"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#Expiring">expiring date<a/>.</li>';
 		//$Expiring= date("Y-m-d h:i:sa", strtotime("+".filter_var($_POST["Expiring"], FILTER_SANITIZE_STRING))) :
 		if($Min > $Max) 
 			$errorMsg .= '<li> The <a href=#MaxPay>maximum price</a> should be higher than the <a href=#MinPay>minimum one</a>. Please, fix this in order to create a job offer.</li>';
