@@ -68,7 +68,7 @@ if(isset($_SESSION['user_Username']))
         $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminUser.html';
         $adminActions .= file_get_contents($urlContent);  
         $adminActions = str_replace('<code/>',$index, $adminActions);
-        $adminActions = str_replace('{{Ban}}',trim($row["Status"])=='Banned'? 'unban':'ban',$adminActions);
+        $adminActions = str_replace('{{Ban}}',trim($row["Status"])=='Banned'? 'Unban':'Ban',$adminActions);
         $adminActions = str_replace('<ban/>',trim($row["Status"])=='Banned'? 'unban_':'',$adminActions);
         
       }

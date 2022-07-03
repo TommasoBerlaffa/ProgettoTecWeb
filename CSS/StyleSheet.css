@@ -67,6 +67,7 @@ a.goTop {
   display: block;
   float: right;
   margin-right: 10%;
+  margin-bottom: 15%;
 }
 
 .result {
@@ -106,7 +107,7 @@ header ul li a:link {
 
 header ul li a:visited {
   margin-bottom: 0.2em;
-  color: var(--shadow);
+  color: var(--content);
 }
 
 header ul li span {
@@ -441,9 +442,9 @@ form#formFilter fieldset{
   " j j "
   " c d "
   " e f "
-  " s t "
-  " h h "
-  " i i "
+  " s s "
+  " s s "
+  " s s "
   " g g ";
 }
 
@@ -484,21 +485,21 @@ form#formFilter #Date {
 
 form#formFilter #labelsearchTag {
   margin-left: 0.5em;
-  grid-area: s;
 }
 
 form#formFilter #searchTag {
-  grid-area: t;
   width: 80%;
   max-height: 25px;
 }
-
+/*
 form#formFilter div#tagsList {
-  grid-area: h;
 }
 
 form#formFilter div#selectedTagsList {
-  grid-area: i;
+}
+*/
+form#formFilter div#TagModule {
+  grid-area: s;
 }
 
 form#formFilter div#Pay {
@@ -514,6 +515,7 @@ h1.SelectedTags {
   border-radius: 5px;
   border: 2px solid var(--subcolor);
   margin-right: 0.3em;
+  margin-top: 0.2em;
 }
 
 .btnTag:hover{
@@ -649,7 +651,7 @@ div#sidebar ul li{
 
 #sidebar a:visited,
 #sidebar a:visited span{
-  color: var(--shadow);
+  color: var(--content);
 }
 
 
@@ -739,15 +741,15 @@ div#content th.jobShortTg{
 
 /* TableJobWBid.html */
 div#content th.bidLongTh{
-  width: 30%;
+  width: 40%;
 }
 
 div#content th.bidMidTh{
-  width: 25%;
+  width: 35%;
 }
 
 div#content th.bidShortTh{
-  width: 20%;
+  width: 25%;
 }
 
 div#content table, 
@@ -1232,6 +1234,10 @@ form#addBid {
   margin-top: 1em;
 }
 
+form#addBid button{
+  display: block;
+}
+
 /* - 9.0 Index - */
 main#Home {
   margin: auto;
@@ -1374,8 +1380,8 @@ table.AdminTable {
   border: 1px solid var(--black);
   border-collapse: separate;
   width: 80%;
-
   margin: auto;
+  margin-bottom: 2em;
 }
 
 table.AdminTable th,
@@ -1428,14 +1434,15 @@ input#search {
     grid-template-areas:
   " a "
   " b "
+  " j "
   " c "
   " d "
   " e "
   " f "
   " s "
-  " t "
-  " h "
-  " i "
+  " s "
+  " s "
+  " s "
   " g ";
   }
 

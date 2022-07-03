@@ -317,7 +317,6 @@
   }
 
   /* - 1.7.6 Change Password Page - */
-
   form#changePsw {
     width: 70%;
   }
@@ -332,6 +331,14 @@
   }
 
   form#AddFeedback {
+    width: 90%;
+  }
+
+  form#addBid {
+    width: 90%;
+  }
+
+  form#banUser {
     width: 90%;
   }
 
@@ -355,7 +362,7 @@
     margin-bottom: 5%;
   }
 
-  ul#popularJobs {
+  ul#popularJobsList {
     display: flex;
     flex-direction: column;
   }
