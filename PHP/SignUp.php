@@ -214,8 +214,8 @@
 		if($_SESSION['TagList']==array())
 			$messaggioErrore .='<li>Select at least 1 Skill.</li>';
 		
-		if(!isset($_FILES['Picture']))
-			$messaggioErrore .='<li>A profile Picture must be uploaded or choosen between the default ones.</li>';
+		if(!isset($_FILES['Picture']) OR (!file_exists($_FILES['Picture']['tmp_name']) || !is_uploaded_file($_FILES['Picture']['tmp_name'])))
+			$Picture='default.jpg';
 		else if($messaggioErrore===''){
 			//filter Name
 			$originalName = filter_var($_FILES['Picture']['name'], FILTER_SANITIZE_STRING);
@@ -259,8 +259,8 @@
             $Success=$DBAccess->register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description, $_SESSION['TagList']);
 			if(!$Success)
 				$messaggioErrore .= '<div id="errorMessages"><ul>Something went wrong while creating your new account.</ul></div>';
-			//else
-			//	header('Location:Login.php');
+			else
+				header('Location:Login.php');
 			
 		}
 		else

@@ -5,7 +5,6 @@
 	if (!function_exists('str_contains')) {
 		function str_contains(string $haystack, string $needle): bool
 		{
-			echo(strpos($haystack, $needle));
 			return '' === $needle || false !== strpos($haystack, $needle);
 		}
 	}

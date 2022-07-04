@@ -152,11 +152,17 @@ function Form4() {
 	document.getElementById("Sign_Up").disabled=false;
   //      <label id="Fpfp">Profile Picture : </label>
 
-  var oFReader = new FileReader();
-  oFReader.readAsDataURL(document.getElementById("Picture").files[0]);
-  oFReader.onload = function (oFREvent) {
-    document.getElementById("newpfp").src = oFREvent.target.result;
-  };
+  if(document.getElementById("Picture").files[0]){
+	var oFReader = new FileReader();
+	oFReader.readAsDataURL(document.getElementById("Picture").files[0]);
+	oFReader.onload = function (oFREvent) {
+		document.getElementById("newpfp").src = oFREvent.target.result;
+	};
+  }
+  else{
+	  document.getElementById("newpfp").remove();
+	  document.getElementById("Fpfp").remove();
+  }
   
   document.getElementById('FNickname').innerHTML = 'Username : ' + document.getElementById('Username').value ;  
   document.getElementById('FName').innerHTML = 'Name : ' + document.getElementById('Firstname').value;
