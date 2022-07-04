@@ -26,7 +26,7 @@
 			}
 			if($DBAccess->login($_SESSION['user_Username'], $password)){
 				if($DBAccess->changePassword($_SESSION['user_ID'],$Newpassword))
-					$errorList.='<p>Succesfully changed password</p>';
+					$errorList.='<p class="result">Succesfully changed password</p>';
 			}
 			else //Errore password vecchia sbagliata
 				$errorList.='<li>Incorrect old password</li>';

@@ -254,6 +254,10 @@ div#errorMessages {
   text-align: center;
 }
 
+p.error {
+  text-align: center;
+}
+
 /* - 5.2 Sign Up Input Form - */ 
 form#SignUp {
   position: inherit;
