@@ -50,7 +50,7 @@ if(isset($_SESSION['user_Username']))
 
     // Carico i risultati da DB
 		$HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
-		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'">Info on the Creator</a>',$HTML);
+		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'"><abbr title="informations">Info</abbr> on the Creator</a>',$HTML);
 		$HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
 		$pay = trim($row["Payment"]);
 		$HTML = $pay==0 ? str_replace('{{ Payment }}','Payment by hour',$HTML) : str_replace('{{ Payment }}','Total Payment at once',$HTML);
@@ -149,8 +149,8 @@ if(isset($_SESSION['user_Username']))
 
     // Controllo se Utente è Owner ed è PastJob
     if($_SESSION['user_ID']==trim($row["Code_user"]) && !$PJob) {
-      $OwnerActions = '<p id="cancel"> <a href="Modules'. DIRECTORY_SEPARATOR .'OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>'. ($status!= 'Terminated' ?
-      '<p id="terminate"><a href="Modules'. DIRECTORY_SEPARATOR .'OfferTerminate.php" class="terminate">Terminate this Job Offer</a></p>': '');
+      $OwnerActions = '<p id="cancel"> <a href="Modules'. DIRECTORY_SEPARATOR .'OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>
+      <p id="terminate">'.($status!= 'Terminated' ? '<a href="Modules'. DIRECTORY_SEPARATOR .'OfferTerminate.php" class="terminate">Terminate this Job Offer</a>': 'Offer is already terminated').'</p>';
       $HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
     }
     else
