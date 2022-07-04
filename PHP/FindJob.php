@@ -96,10 +96,10 @@
 		';
   
   $HtmlCheckboxPay='
-    <label id="labelPay">Choose which method of payment :</label>
+    <label id="labelPayment">Choose which method of payment :</label>
     <input type="checkbox" id="Pay1" name="Pay1" value="Pay1" '. (($Pay==1 OR $Pay==0) ? 'checked' : '').'>
     <label for="Pay1" id="labelPay1"> All at once</label><br>
-    <input type="checkbox" id="Pay2" name="Pay2" value="Pay2"'. (($Pay==2 OR $Pay==0) ? 'checked' : '').'>
+    <input type="checkbox" id="Pay2" name="Pay2" value="Pay2" '. (($Pay==2 OR $Pay==0) ? 'checked' : '').'>
     <label for="Pay2" id="labelPay2"> By worked hours</label>';
 	
 	$DBAccess = new DBAccess();
@@ -170,14 +170,14 @@
 
 	$pageHTML = '<div id="pages">';
     if($page > 1)
-      $pageHTML .= '<a title="first page" href="FindJob.php?Page=1' . $urlType . $urlMin . $urlDate . $urlTag . $urlPay .'">1</a>';
+      $pageHTML .= '<a title="first page" href="FindJob.php?Page=1' . $urlType . $urlMin . $urlDate . $urlTag . $urlPay .'"> 1 </a>';
     if($page > 2)
-      $pageHTML .= '<a title="previous page" href="FindJob.php?Page=' . ($page - 1) . $urlType . $urlMin . $urlDate . $urlTag .  $urlPay . '"><<</a>';
+      $pageHTML .= '<a title="previous page" href="FindJob.php?Page=' . ($page - 1) . $urlType . $urlMin . $urlDate . $urlTag .  $urlPay . '"> back </a>';
     $pageHTML .= '<span>' . $page . '</span>';
     if($page < $NumberPages-1)
-      $pageHTML .= '<a title="next page" href="FindJob.php?Page=' . ($page + 1) . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '">>></a>';
+      $pageHTML .= '<a title="next page" href="FindJob.php?Page=' . ($page + 1) . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '"> next </a>';
     if($page < $NumberPages)
-      $pageHTML .= '<a title="last page" href="FindJob.php?Page=' . $NumberPages . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '">' . $NumberPages . '</a>';
+      $pageHTML .= '<a title="last page" href="FindJob.php?Page=' . $NumberPages . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '"> ' . $NumberPages . ' </a>';
     $pageHTML .= '</div>';
 	
 	

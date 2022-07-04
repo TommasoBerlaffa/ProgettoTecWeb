@@ -744,14 +744,16 @@ div#content table {
 }
 
 /* This 2 elements are used on view pages too */
-div#intro {
+div#intro,
+div#introTags {
   width: 80%;
   margin: auto;
   padding-bottom: 0.2em;
   border-bottom: 2px solid var(--color);
 }
 
-div#intro p {
+div#intro p,
+div#introTags {
   text-align: center;
   font-size: 1.2em;
 }
@@ -761,7 +763,7 @@ div#content table {
   margin-bottom: 2em;
 }
 
-div#content table caption#description{
+div#content table caption.description{
   padding: 1em;
   text-align: center;
 }
@@ -827,6 +829,10 @@ div#feedbacks {
 
 div#feedbacks {
   width: 40%;
+}
+
+div#feedbacks h1.noReviews {
+  font-size: 1.5em;
 }
 
 div#userinfo {
@@ -1017,7 +1023,7 @@ form#settings #submit {
   width: 50%;
 }
 
-form#settings #intro {
+form#settings #introduction {
   grid-area: f;
 }
 

@@ -89,7 +89,7 @@
         $content .= '</div></div>';
       }
       else
-        $content .= '<div id="feedbacks"><h3>You have no reviews.</h3></div></div>';
+        $content .= '<div id="feedbacks"><h1 class="noReviews">You have no reviews.</h1></div></div>';
     }
     else 
       $content .= '<div><p>There is no content to be shown. </p></div>';

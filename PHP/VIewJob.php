@@ -199,7 +199,7 @@ if(isset($_SESSION['user_Username']))
         }
 				}
 			else
-				$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer! Check again later!</p></div>',$HTML);
+				$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer. Please, check again later.</p></div>',$HTML);
 		
 			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
 			{
