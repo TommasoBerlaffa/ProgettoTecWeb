@@ -84,11 +84,11 @@ if(isset($_SESSION['user_Username']))
     }
     else
     {
-    $HTML = str_replace( '{{ User }}', 'Unknown User' ,$HTML);
+      $HTML = str_replace( '{{ Nickname }}', 'Unknown User' ,$HTML);
     // (?<=<div id="userInfo">)((\n|.)*)(?=<\/div>)
-    $HTML = preg_replace('/(?<=<div id="userInfo">)((\n|.)*)(?=<\/div>)/',
-      '<div id="content">
-        <p> No Info are currently available about this specific User</p>
+    $HTML = preg_replace('/<div id="viewUserInfo" class="box">((\n|.)*)<\/div>/',
+      '<div id="NoUser">
+        <p> No Info are currently available about this specific User. If you want to go back to browsing jobs, please go to <a href="findjob.php">find a job</a>.</p>
       </div>',$HTML);
     //$HTML = str_replace('<div id="JobInfo">'.*?.'</div>','<div id="content"><p> There is nothing to be seen here </p></div>',$HTML);
     }

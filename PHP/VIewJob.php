@@ -25,14 +25,16 @@ if(isset($_SESSION['user_Username']))
   $index = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
     $_SESSION['Code_job'] = $index;
     $row = $DBAccess->getJob($index,true);
-	if(array_key_exists('Status',$row))
-		$tags = $DBAccess->getTags($index,2);
-	else
-		$tags = $DBAccess->getTags($index,1);
+
   
   //Se trova risultato
     if($row)
     {   
+
+    if(array_key_exists('Status',$row))
+      $tags = $DBAccess->getTags($index,2);
+    else
+      $tags = $DBAccess->getTags($index,1);
 		$end=false;
 		// Past Job
     if(array_key_exists('Status',$row)){
@@ -251,7 +253,7 @@ if(isset($_SESSION['user_Username']))
 	} //Se non trova un risultato
   else {
 		$HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
-		$HTML = preg_replace('/(?<=<div id="JobInfo">)((\n|.)*)(?=<\/div>)/','<div id="content"><p> No Info are currently available about this specific Job</p></div>',$HTML);
+		$HTML = preg_replace('/<div id="JobInfo" class="box">((\n|.)*)<\/div>/','<div id="NoJob"><p> It seems like this job doesn\'t exists. If you want to find more jobs, you can search in <a href="findjob.php">find job</a>.</p></div>',$HTML);
   }
 	$DBAccess->closeDBConnection();
 	echo $HTML;    

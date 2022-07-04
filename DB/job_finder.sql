@@ -4712,28 +4712,6 @@ END LOOP;
 CLOSE cursor_job;
 END$$
 
-CREATE DEFINER=`root`@`localhost` EVENT `Check_for_ended_jobs` ON SCHEDULE EVERY 5 MINUTE STARTS '2022-06-27 00:40:33' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-DECLARE n INT;
-DECLARE done BOOLEAN DEFAULT FALSE;
-DECLARE cursor_job CURSOR FOR
-	SELECT current_jobs.Code_job FROM current_jobs
-    LEFT JOIN bids ON bids.Code_job=current_jobs.Code_job
-	WHERE NOW() > Expiring
-    GROUP BY bids.Code_job
-    HAVING COUNT(bids.Code_user)=0;
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-OPEN cursor_job;
-loop_rows : LOOP
-	FETCH cursor_job INTO n;
-	IF(done) THEN
-    	LEAVE loop_rows;
-    END IF;
-	CALL Transfer_current_past_jobs(n,'Failed');
-END LOOP;
-CLOSE cursor_job;
-END$$
-
 DELIMITER ;
 COMMIT;
 
