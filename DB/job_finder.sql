@@ -4080,7 +4080,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Code_user`, `Status`, `Name`, `Surname`, `Nickname`, `Birth`, `Email`, `Nationality`, `City`, `Address`, `Phone`, `Picture`, `Curriculum`, `Description`, `Creation`) VALUES
-(1, 'Active', 'Benedetta', 'De Rosa', 'admin', '1986-02-18', 'Benedetta.De Rosa_1986@gmail.com', 'China', 'Leiyang', '', 2147483647, 'doggo.png', 'https://en.wikipedia.org/wiki/Special:Random', '[Description Placeholder]', '2021-12-21'),
+(1, 'Active', 'Benedetta', 'De Rosa', 'admin', '1986-02-18', 'Benedetta.DeRosa_1986@gmail.com', 'China', 'Leiyang', '', 2147483647, 'doggo.png', 'https://en.wikipedia.org/wiki/Special:Random', '[Description Placeholder]', '2021-12-21'),
 (2, 'Active', 'Rebecca', 'Esposito', 'user', '1986-02-07', 'Rebecca.Esposito_1986@gmail.com', 'India', 'Mysore', '', 1676357485, 'doggo.png', 'https://en.wikipedia.org/wiki/Special:Random', '[Description Placeholder]', '2021-12-21'),
 (3, 'Active', 'Cristiano', 'Villa', 'Jesse James', '2001-06-07', 'Cristiano.Villa_2001@gmail.com', 'Zambia', 'Ndola', '', 2147483647, 'doggo.png', '', '[Description Placeholder]', '2021-12-21'),
 (4, 'Active', 'Cloe', 'Messina', 'Boomslang', '1975-06-25', 'Cloe.Messina_1975@gmail.com', 'Italy', 'Ercolano', '', 2147483647, 'doggo.png', '', '[Description Placeholder]', '2021-12-21'),
