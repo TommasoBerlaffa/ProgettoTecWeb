@@ -32,7 +32,10 @@ if(isset($_SESSION['user_Username']))
       $HTML = str_replace("{{ Status }}",trim($row["Status"]),$HTML);
       $HTML = str_replace("{{ Phone }}",($row["Phone"] ? trim($row["Phone"]) : 'Not Available'),$HTML);
       $HTML = str_replace("{{ Email }}",trim($row["Email"]),$HTML);
-      $HTML = str_replace("{{ Curriculum }}",$row["Curriculum"]?trim($row["Curriculum"]) : "Not Available",$HTML);
+	  if($row["Curriculum"])
+		$HTML = str_replace("{{ Curriculum }}",'<a href="'.trim($row["Curriculum"]).'">'.trim($row["Curriculum"]).'</a>',$HTML);
+	  else
+		$HTML = str_replace("{{ Curriculum }}","Not Available",$HTML);
       $HTML = str_replace("{{ Description }}",$row["Description"]?trim($row["Description"]) : "Not Available",$HTML);   
     
       $Review = $DBAccess->getUserReviewList($index,5);

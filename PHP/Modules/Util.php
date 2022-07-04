@@ -25,9 +25,9 @@
 		$old_y=imageSY($image);
 		$res=0;
 		if($old_x>$old_y)
-			$res=450/$old_x;
+			$res=350/$old_x;
 		else
-			$res=450/$old_y;
+			$res=350/$old_y;
 	
 		$thumb=ImageCreateTrueColor($old_x*$res, $old_y*$res);
 		imagecopyresized($thumb,$image, 0,0,0,0, $old_x*$res,$old_y*$res, $old_x,$old_y);

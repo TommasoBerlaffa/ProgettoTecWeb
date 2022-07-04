@@ -242,7 +242,7 @@
 							$randomName=generateRandomString();
 							while(file_exists('../IMG/UsrPrfl/' .$randomName. '.jpg'))
 								$randomName=generateRandomString();
-							compressImage($_FILES['Picture']['tmp_name'], '../IMG/UsrPrfl/'.$randomName.'.jpg', 90);
+							compressImage($_FILES['Picture']['tmp_name'], '../IMG/UsrPrfl/'.$randomName.'.jpg', 60);
 							if(file_exists('../IMG/UsrPrfl/' .$randomName. '.jpg'))
 								$Picture = $randomName. '.jpg';
 							else
