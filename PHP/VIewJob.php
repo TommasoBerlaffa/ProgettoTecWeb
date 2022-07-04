@@ -184,11 +184,13 @@ if(isset($_SESSION['user_Username']))
           $HTMLBids ='<div id="bids">';
 				
           foreach($bids as $B){
+          $review = $DBAccess->getUserReview($B["Code"]);
           $HTMLBids.= '<div class="bid">
-                  <p><img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
-                  <a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
+          <img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
+                  <div class="bidData"><p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
                   <p><span>User Price</span> : '.trim($B["Price"]).'</p>
-                  <p><span>Description</span> : '.trim($B["Description"]).'</p>';
+                  <p><span>Description</span> : '.trim($B["Description"]).'</p>
+                  <p><span>Average Review Rating</span> : '.($review? $review['AvgStar'] : 'No review average available').'</p></div>';
           if($B["Code"]==$_SESSION['user_ID']){
             $self=false;
             $HTMLBids.='<a href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          

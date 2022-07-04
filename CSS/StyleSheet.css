@@ -883,8 +883,8 @@ h2.reviewTitle {
 }
 
 main img#icon {
-  width:48px;
-  height:48px;
+  width:60px;
+  height:60px;
   float:left;
   padding-right: 1.5em;
 }
@@ -894,6 +894,16 @@ img.icons {
   height: 24px;
   display: inline-block;
   padding: 0.2em;
+}
+
+div.bid img.icons {
+  width: 20%;
+  height: 20%;
+}
+
+div.bidData {
+  display: inline-block;
+  margin-left: 5%;
 }
 
 .review .star,
