@@ -1164,6 +1164,10 @@ div#JobInfo #tags ul{
   list-style-type: none;
 }
 
+div#JobInfo #tags ul li{
+  display: inline-block;
+}
+
 p#description{
   padding : 0.5em;
   word-break: break-all;

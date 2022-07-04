@@ -26,9 +26,9 @@ if(isset($_SESSION['user_Username']))
     $_SESSION['Code_job'] = $index;
     $row = $DBAccess->getJob($index,true);
 	if(array_key_exists('Status',$row))
-		$tags = $DBAccess->getTags($index,1);
-	else
 		$tags = $DBAccess->getTags($index,2);
+	else
+		$tags = $DBAccess->getTags($index,1);
   
   //Se trova risultato
     if($row)
@@ -78,15 +78,16 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace('<admin/>',$adminActions,$HTML);
 	
     // Tags
-		$HTMltags ='';
 		if($tags) {
-			$HTMltags.='<ul>';
+      $HTMltags ='<ul>';
 			foreach($tags as $name=>$value) {
 				$HTMltags.='<li><a href="FindJob.php?tag='.$value.'">'.$name.'</a></li>';
 			}
-			$HTMltags.='
-				</ul>';
+      $HTMltags.='</ul>';
 		}
+    else
+    $HTMltags = 'This job has no tags';
+
 		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
     
     if(isset($_GET['result']))
