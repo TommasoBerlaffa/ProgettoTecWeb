@@ -36,6 +36,7 @@
   }
 
   header {
+    padding-bottom: 0.6em;
     border-radius: 5px 5px 0 0;
     left: 0;
     bottom: 0;
@@ -47,7 +48,7 @@
   main { 
     padding-top: 4em;
     margin-top: 10%;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
   }
   
   footer#footer {
@@ -168,6 +169,7 @@
   /* 1.6.0 Filter for Page Find Job */
   main#findJob {
     padding-top: 6em;
+    margin-bottom: 4.5em;
     flex-direction: column;
   }
 
@@ -199,7 +201,7 @@
 
   form#formFilter #Tipology, 
   form#formFilter #Date {
-    width: fit-content;
+    max-width: 30%;
   }
 
   div#jobList{
@@ -209,7 +211,7 @@
 
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
-    width: 85%;
+    width: 83%;
     margin-bottom: 12%;
     position:unset;
   }
@@ -284,8 +286,6 @@
   form#settings {
     width: 100%;
     margin-bottom: 2em;
-    margin-left: 5%;
-    margin-right: 5%;
   }
 
   form#settings fieldset{

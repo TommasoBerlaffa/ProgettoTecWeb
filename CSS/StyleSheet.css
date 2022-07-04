@@ -1518,7 +1518,8 @@ input#search {
   form#formFilter #Date,
   form#formFilter #PayMin {
     margin:0%;
-    min-width: fit-content;
+    
+    max-width: 100%;
   }
   
   /* - 7.0 Sidebar for User Profile - */
