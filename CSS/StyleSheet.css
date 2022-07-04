@@ -160,8 +160,12 @@ footer#footer p {
   color: var(--background);
 }
 
-footer#footer a {
-  color: var(--darkWhite);
+footer#footer a:link {
+  color: var(--background);
+}
+
+footer#footer a:visited {
+  color: var(--content);
 }
 
 footer#footer img#smallLogo{
@@ -427,15 +431,15 @@ h1.title404{
 }
 
 img#image404{
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
+  width: 80%;
+  margin: auto;
+  display: block;
 }
 
 div#choose{
-  float: center;
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 80%;
+  margin: auto;
+  text-align: center;
 }
 
 div#choose p{
@@ -450,9 +454,12 @@ div.container404{
 }
 
 button.btn404{
-  margin: 0em 0.2em 0em 0.2em;
+  height: 10em;
+  margin: 1em 0.2em 0em 0.2em;
   max-width: 12em;
+  width: 22.5%;
   font-size: 1em;
+  vertical-align: bottom;
 }
 
 
@@ -1015,6 +1022,7 @@ form#settings #intro {
 }
 
 div#errorList {
+  text-align: center;
   padding: 1em;
   width: 50%;
   margin: auto;

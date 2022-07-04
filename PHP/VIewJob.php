@@ -98,11 +98,11 @@ if(isset($_SESSION['user_Username']))
       else if( $getValue == 'cancelFalse')
         $tmp='<p class="result"> There was an error with the cancellation of the job, please try again later</p>';
       else if( $getValue == 'terminateTrue')
-        $tmp='<p class="result"> Job termination was succesfull </p>';
+        $tmp='<p class="result"> Job termination was successful </p>';
       else if( $getValue == 'terminateFalse')
         $tmp='<p class="result"> There was an error with the termination of the job, please try again later</p>';
       else if( $getValue == 'removeTrue')
-        $tmp='<p class="result"> Bid removed succesfully </p>';
+        $tmp='<p class="result"> Bid removed successfully </p>';
       else if( $getValue == 'removeFalse')
         $tmp='<p class="result"> There was an error with the deletion of the bid, please try again later</p>';
       $HTML = str_replace('<result/>',$tmp,$HTML);
@@ -115,7 +115,7 @@ if(isset($_SESSION['user_Username']))
       else if( $getValue == 'errcode')
         $tmp='<p class="result"> There was an error with the code of the winner, please try to select the winner again.</p>';
       else if( $getValue == 'wsuccess')
-        $tmp='<p class="result"> The winner was selected succesfully. </p>';
+        $tmp='<p class="result"> The winner was selected successfully. </p>';
       else if( $getValue == 'wfail')
         $tmp='<p class="result"> There was an error with the selection of the winner, please try again. </p>';
       $HTML = str_replace('<result/>',$tmp,$HTML);
@@ -128,7 +128,7 @@ if(isset($_SESSION['user_Username']))
       else if( $getValue == 'errDesc')
         $tmp='<p class="result"> There was an error with the description of the bid, please try to select <a href="#Description">the description</a> again.</p>';
       else if( $getValue == 'succ')
-        $tmp='<p class="result"> The bid was created succesfully. </p>';
+        $tmp='<p class="result"> The bid was created successfully. </p>';
       $HTML = str_replace('<result/>',$tmp,$HTML);
     }
     else if (isset($_GET['feedback']) ) {
@@ -139,7 +139,7 @@ if(isset($_SESSION['user_Username']))
       else if( $getValue == 'errComm')
         $tmp='<p class="result"> There was an error with the comment, please try to insert it again.</p>';
       else if( $getValue == 'succ')
-        $tmp='<p class="result"> The feedback was created succesfully. </p>';
+        $tmp='<p class="result"> The feedback was created successfully. </p>';
       else if( $getValue == 'fail')
         $tmp='<p class="result"> There was an error with the creation of the feedback, please try again. </p>';
       $HTML = str_replace('<result/>',$tmp,$HTML);

@@ -41,8 +41,6 @@
     $HTMLExtra = str_replace('{{Curr}}',trim($Result['Curriculum']),$HTMLExtra);
     $HTMLExtra = str_replace('{{Desc}}',trim($Result['Description']),$HTMLExtra); 
 
-    
-    
     $urlTags = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangeTags.html';
     $HTMLExtra .= file_get_contents($urlTags);
 
@@ -58,6 +56,17 @@
       unset($_SESSION['error']);
     }
     
+    if(isset($_GET['err'])) {
+      $err='';
+      if($_GET['err'] == 'tags')
+        $err = '<div id="errorList">Please, insert some <a href="#searchTag">new tags</a> or remove old tags to change your tag list.</div>';   
+      else if($_GET['err'] == 'err')
+        $err = '<div id="errorList">There was an error with the insertion of the tags in the database, please try again later.</div>';   
+      else if($_GET['err'] == 'succ')
+        $err = '<div id="errorList">The operation was succesaful.</div>';   
+  
+      $HTML = str_replace('<div id="emptyErrorList"></div>',$err,$HTML);  
+    }
     // Apre file html
     echo $HTML;
   }

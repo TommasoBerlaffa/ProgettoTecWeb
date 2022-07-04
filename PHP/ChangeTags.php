@@ -12,21 +12,21 @@
 
   if(isset($_SESSION['user_Username']))
   {
-	if($_SESSION['TagList']!=array())
-	{
-		// Apro Connessione a DB
-		$DBAccess = new DBAccess();
-		if(!($DBAccess->openDBConnection())){
-			header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-			exit;
-		}
-		$DBAccess->changeUserTags($_SESSION['user_ID'],$_SESSION['TagList']);
-	
-		$DBAccess->closeDBConnection();
-		header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php");  
-	}
-	else
-		$errorMsg.="<li>Please, select at least one tag.</li>";
+    if($_SESSION['TagList']!=array())
+    {
+      // Apro Connessione a DB
+      $DBAccess = new DBAccess();
+      if(!($DBAccess->openDBConnection())){
+        header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
+        exit;
+      }
+      $result = $DBAccess->changeUserTags($_SESSION['user_ID'],$_SESSION['TagList']);
+    
+      $DBAccess->closeDBConnection();
+      header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php?err=". ($result ? 'succ' : 'err'));  
+    }
+    else
+      header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php?err=tags");
   }
   else
   {
