@@ -62,14 +62,24 @@
 		$disposable = file_get_contents('..'. DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'Utils'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt');
 		$disposable = explode(PHP_EOL,$disposable);
 		$i=0;
-		$domain=explode('@',$user)[1];
-		while($i!=count($disposable)){
-			if($disposable[$i]===$domain){
-				echo("Your Domain is in our blacklist. Please choose another Email address.");
-				return;
-			}
-			$i++;
-		}
+    if(!str_contains($user,'@'))
+    {
+      echo("Your email doesn't contain @.");
+      return;
+    }
+    else
+    {
+      $d=(explode('@',$user));
+      $domain=$d[1];
+      while($i!=count($disposable)){
+        if($disposable[$i]===$domain){
+          echo("Your Domain is in our blacklist. Please choose another Email address.");
+          return;
+        }
+        $i++;
+      }
+    }
+
 		
 		$DBAccess= new DBAccess();
 		if(!($DBAccess->openDBConnection())){
