@@ -103,12 +103,12 @@ header ul li {
 
 header ul li a:link {
   margin-bottom: 0.2em;
-  color: var(--background);
+  color: var(--content);
 }
 
 header ul li a:visited {
   margin-bottom: 0.2em;
-  color: var(--content);
+  color: var(--background);
 }
 
 header ul li span {
@@ -161,11 +161,11 @@ footer#footer p {
 }
 
 footer#footer a:link {
-  color: var(--background);
+  color: var(--content);
 }
 
 footer#footer a:visited {
-  color: var(--content);
+  color: var(--background);
 }
 
 footer#footer img#smallLogo{
@@ -699,12 +699,12 @@ div#sidebar ul li{
 
 #sidebar a:link,
 #sidebar a:link span{
-  color: var(--background);
+  color: var(--content);
 }
 
 #sidebar a:visited,
 #sidebar a:visited span{
-  color: var(--content);
+  color: var(--background);
 }
 
 
