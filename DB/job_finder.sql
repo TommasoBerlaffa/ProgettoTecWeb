@@ -116,6 +116,13 @@ DELETE FROM current_jobs WHERE Code_job=jobID LIMIT 1;
 END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE Change_password`(IN `userID INT(10) UNSIGNED, IN Pass VARCHAR(48)) NOT DETERMINISTIC MODIFIES SQL DATA SQL SECURITY DEFINER BEGIN 
+ DECLARE _salt BINARY(20); 
+    IF (SELECT 1 FROM credentials WHERE Code_user=userID) THEN 
+  SET `_salt`=SUBSTRING(MD5(RAND()), -24); 
+     UPDATE credentials SET `Passwd`=UNHEX(SHA1(CONCAT(Pass, `_salt`))), `Salt`=UNHEX(`_salt`) WHERE `Code_user`=userID; 
+    END IF; 
+END$$
 --
 -- Funzioni
 --
@@ -542,6 +549,25 @@ CREATE TABLE `current_jobs` (
 
 -- --------------------------------------------------------
 
+-- Dump dei dati per la tabella `past_jobs`
+--
+INSERT INTO `current_jobs` (`Code_job`, `Code_user`, `Date`, `Title`, `Description`, `Tipology`, `Payment`, `P_min`, `P_max`, `Expiring`) VALUES
+(11, 2, '2022-07-04 19:32:25','Help with Java','Help me, i need someone to help me code a project in java' , 'Onetime',0,10,25,'2022-08-05 19:32:25'),
+(12, 2, '2022-07-04 19:32:25','Creation of an app in Python','Hi, i am a junior dev and i need help with a project in python' , 'Onetime',0,12,25,'2022-08-05 19:32:25'),
+(13, 2, '2022-07-04 19:32:25','Looking for a senior dev','Looking for a senior dev, with knowledge of every coding language to have ever existed' , 'Recruiter',0,10,35,'2022-08-05 19:32:25'),
+(14, 2, '2022-07-04 19:32:25','Looking for a junior dev' ,'We need someone that do our job, send your curriculum thank you' , 'Recruiter',0,5,15,'2022-08-05 19:32:25'),
+(15, 2, '2022-07-04 19:32:25','Git help' ,'I need help fixing a small issue with git' , 'Onetime',0,2,4,'2022-08-05 19:32:25'),
+(16, 3, '2022-07-04 19:32:25','Making a database' ,'I want to make a database to store my family photos' , 'Onetime',1,200,350,'2022-08-05 19:32:25'),
+(17, 5, '2022-07-04 19:32:25','My first Website' ,'I am creating my first website and need your help' , 'Fulltime',0,8,22,'2022-08-05 19:32:25'),
+(18, 4, '2022-07-04 19:32:25','Help with C#' ,'Help me, i need someone to help me code a project in C#' , 'Urgent',0,11,23,'2022-08-05 19:32:25'),
+(19, 6, '2022-07-04 19:32:25','Coding help' ,'I am new to coding and I need someone to teach me' , 'Fulltime',1,120,205,'2022-07-05 19:32:25'),
+(20, 7, '2022-07-04 19:32:25','Making an app to spy my friend' ,'I need an app to spy my friends' , 'Onetime',0,10,25,'2022-08-05 19:32:25'),
+(21, 11, '2022-07-04 19:32:25', 'My E-commerce','I want to make my own e-commerce to sell my t-shirts' , 'Fulltime',0,10,25,'2022-08-05 19:32:25'),
+(22, 123, '2022-07-04 19:32:25', 'My own NFT','I need your help to create the best NFT EVER' , 'Fulltime',0,12,25,'2022-08-05 19:32:25'),
+(23, 42, '2022-07-04 19:32:25', 'My Minecraft Mod','I want to make a minecraft mod that uses linkedin' , 'Fulltime',0,14,16,'2022-08-05 19:32:25'),
+(24, 22, '2022-07-04 19:32:25','Web Browser compatibility' ,'I am creating a project for compatibility of all web browsers' , 'Fulltime',0,40,45,'2022-08-05 19:32:25'),
+(25, 2, '2022-07-04 19:32:25','Facebook and Tumblr with Virtual Reality' ,'The title says it all' , 'Onetime',0,10,25,'2022-08-05 19:32:25');
+
 --
 -- Struttura della tabella `past_admin_actions`
 --
@@ -576,6 +602,22 @@ CREATE TABLE `past_jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+
+--
+-- Dump dei dati per la tabella `past_jobs`
+--
+INSERT INTO `past_jobs` (`Code_job`, `Code_user`, `Code_winner`, `Status`, `Date`, `Title`, `Description`, `Tipology`, `Payment`, `P_min`, `P_max`, `Expiring`) VALUES
+(1, 2, null, 'Deleted', '2022-06-03 19:32:25', 'Creation of a Web App','I need help creating a web app' , 'Fulltime',0,10,25,'2022-06-05 19:32:25'),
+(2, 2, null, 'Failed', '2022-06-03 19:32:25', 'Website for my uni course','I need help creating a website for my university course' , 'Fulltime',0,12,25,'2022-06-05 19:32:25'),
+(3, 2, 11, 'Success', '2022-06-03 19:32:25', 'Database Management','I am looking for someone that can work with databases' , 'Fulltime',0,10,25,'2022-06-05 19:32:25'),
+(4, 2, 8, 'Success', '2022-06-03 19:32:25','Java App' ,'I want to create a Java app to detect intruders, message me for more infos' , 'Fulltime',0,10,25,'2022-06-05 19:32:25'),
+(5, 2, 4, 'Success', '2022-06-03 19:32:25','Card game' ,'Hi, i am a senior developer and I am looking for people to make a game in Unity' , 'Onetime',0,10,25,'2022-06-05 19:32:25'),
+(6, 3, 2, 'Success', '2022-06-03 19:32:25','Job opportunity with C#' ,'We are looking for new developers that can code in c#, message us for more informations' , 'Fulltime',1,100,250,'2022-06-05 19:32:25'),
+(7, 5, 2, 'Success', '2022-06-03 19:32:25','Website with WordPress' ,'Need help with the creation of a website with wordrpress, email me please thanks' , 'Fulltime',0,10,25,'2022-06-05 19:32:25'),
+(8, 4, 2, 'Success', '2022-06-03 19:32:25','Chatbot with Python' ,'I am making a chatbot with python but I need someone to help me with some libraries for the deployment' , 'Urgent',0,10,25,'2022-06-05 19:32:25'),
+(9, 6, 2, 'Success', '2022-06-03 19:32:25','Looking for C expert to help me with an issue' ,'Looking for C expert to help me with an issue' , 'Fulltime',1,120,205,'2022-06-05 19:32:25'),
+(10, 7, 2, 'Success', '2022-06-03 19:32:25','Need an expert in Git' ,'We are trying to set up our files by using git but we are having some issues. So we are looking for an expert' , 'Recruiter',0,10,25,'2022-06-05 19:32:25');
+
 
 --
 -- Struttura della tabella `reviews`
@@ -1312,6 +1354,40 @@ CREATE TABLE `tags_current_jobs` (
 
 -- --------------------------------------------------------
 
+INSERT INTO `tags_current_jobs` (`Code_job`, `Code_tag`) VALUES
+(11,8),
+(12,7),
+(13,7),
+(13,8),
+(13,78),
+(13,13),
+(14,88),
+(14,8),
+(15,104),
+(15,517),
+(16,72),
+(16,73),
+(16,93),
+(17,14),
+(17,152),
+(17,1),
+(17,3),
+(18,10),
+(19,88),
+(19,78),
+(20,645),
+(21,20),
+(21,27),
+(22,29),
+(23,305),
+(23,136),
+(24,362),
+(24,158),
+(24,169),
+(25,224),
+(25,188),
+(25,371);
+
 --
 -- Struttura della tabella `tags_past_jobs`
 --
@@ -1322,6 +1398,28 @@ CREATE TABLE `tags_past_jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+
+INSERT INTO `tags_past_jobs` (`Code_job`, `Code_tag`) VALUES
+(1,99),
+(2,14),
+(2,152),
+(2,1),
+(3,72),
+(3,73),
+(3,93),
+(4,8),
+(5,22),
+(5,23),
+(5,96),
+(6,177),
+(6,10),
+(7,4),
+(7,98),
+(8,7),
+(8,250),
+(9,13),
+(10,104),
+(10,517);
 
 --
 -- Struttura della tabella `tags_users`
@@ -4357,6 +4455,8 @@ CREATE TABLE `users_admin_actions` (
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`Code_user`);
+
+INSERT INTO `admin`(`Code_user`) VALUES (1); 
 
 --
 -- Indici per le tabelle `bids`
