@@ -44,7 +44,7 @@ if(isset($_SESSION['Admin'])) {
     foreach($listaAdminJob as $J)
     {
       $contenuto .= '<tr>
-      <td><a href="ViewJobOld.php?Code_job='.trim($J["Code"]).'">'. trim($J["Title"]) .'</a></td>
+      <td><a href="ViewJob.php?Code_job='.trim($J["Code"]).'">'. trim($J["Title"]) .'</a></td>
       <td>'.trim($J["Date"]).'</td>
       <td>'.trim($J["Comments"]).'</td></tr>';
     }
