@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 04, 2022 alle 22:44
+-- Creato il: Lug 05, 2022 alle 03:01
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 7.4.27
 
@@ -152,7 +152,12 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`Code_user`) VALUES
-(1);
+(1),
+(35),
+(72),
+(123),
+(275),
+(302);
 
 -- --------------------------------------------------------
 
@@ -556,27 +561,6 @@ CREATE TABLE `current_jobs` (
   `Expiring` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dump dei dati per la tabella `current_jobs`
---
-
-INSERT INTO `current_jobs` (`Code_job`, `Code_user`, `Date`, `Title`, `Description`, `Tipology`, `Payment`, `P_min`, `P_max`, `Expiring`) VALUES
-(11, 2, '2022-07-04 19:32:25', 'Help with Java', 'Help me, i need someone to help me code a project in java', 'Onetime', 0, 10, 25, '2022-08-05 19:32:25'),
-(12, 2, '2022-07-04 19:32:25', 'Creation of an app in Python', 'Hi, i am a junior dev and i need help with a project in python', 'Onetime', 0, 12, 25, '2022-08-05 19:32:25'),
-(13, 2, '2022-07-04 19:32:25', 'Looking for a senior dev', 'Looking for a senior dev, with knowledge of every coding language to have ever existed', 'Recruiter', 0, 10, 35, '2022-08-05 19:32:25'),
-(14, 2, '2022-07-04 19:32:25', 'Looking for a junior dev', 'We need someone that do our job, send your curriculum thank you', 'Recruiter', 0, 5, 15, '2022-08-05 19:32:25'),
-(15, 2, '2022-07-04 19:32:25', 'Git help', 'I need help fixing a small issue with git', 'Onetime', 0, 2, 4, '2022-08-05 19:32:25'),
-(16, 3, '2022-07-04 19:32:25', 'Making a database', 'I want to make a database to store my family photos', 'Onetime', 1, 200, 350, '2022-08-05 19:32:25'),
-(17, 5, '2022-07-04 19:32:25', 'My first Website', 'I am creating my first website and need your help', 'Fulltime', 0, 8, 22, '2022-08-05 19:32:25'),
-(18, 4, '2022-07-04 19:32:25', 'Help with C#', 'Help me, i need someone to help me code a project in C#', 'Urgent', 0, 11, 23, '2022-08-05 19:32:25'),
-(19, 6, '2022-07-04 19:32:25', 'Coding help', 'I am new to coding and I need someone to teach me', 'Fulltime', 1, 120, 205, '2022-07-05 19:32:25'),
-(20, 7, '2022-07-04 19:32:25', 'Making an app to spy my friend', 'I need an app to spy my friends', 'Onetime', 0, 10, 25, '2022-08-05 19:32:25'),
-(21, 11, '2022-07-04 19:32:25', 'My E-commerce', 'I want to make my own e-commerce to sell my t-shirts', 'Fulltime', 0, 10, 25, '2022-08-05 19:32:25'),
-(22, 123, '2022-07-04 19:32:25', 'My own NFT', 'I need your help to create the best NFT EVER', 'Fulltime', 0, 12, 25, '2022-08-05 19:32:25'),
-(23, 42, '2022-07-04 19:32:25', 'My Minecraft Mod', 'I want to make a minecraft mod that uses linkedin', 'Fulltime', 0, 14, 16, '2022-08-05 19:32:25'),
-(24, 22, '2022-07-04 19:32:25', 'Web Browser compatibility', 'I am creating a project for compatibility of all web browsers', 'Fulltime', 0, 40, 45, '2022-08-05 19:32:25'),
-(25, 2, '2022-07-04 19:32:25', 'Facebook and Tumblr with Virtual Reality', 'The title says it all', 'Onetime', 0, 10, 25, '2022-08-05 19:32:25');
-
 -- --------------------------------------------------------
 
 --
@@ -590,6 +574,14 @@ CREATE TABLE `past_admin_actions` (
   `Date` datetime NOT NULL,
   `Code_admin` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `past_admin_actions`
+--
+
+INSERT INTO `past_admin_actions` (`Code`, `Code_job`, `Comments`, `Date`, `Code_admin`) VALUES
+(1, 1, 'Learn to do it by yourself.', '2022-06-05 02:29:57', 1),
+(2, 8, 'You\'re dumb.', '2022-06-04 02:29:57', 275);
 
 -- --------------------------------------------------------
 
@@ -617,16 +609,26 @@ CREATE TABLE `past_jobs` (
 --
 
 INSERT INTO `past_jobs` (`Code_job`, `Code_user`, `Code_winner`, `Status`, `Date`, `Title`, `Description`, `Tipology`, `Payment`, `P_min`, `P_max`, `Expiring`) VALUES
-(1, 2, NULL, 'Deleted', '2022-06-03 19:32:25', 'Creation of a Web App', 'I need help creating a web app', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(2, 2, NULL, 'Failed', '2022-06-03 19:32:25', 'Website for my uni course', 'I need help creating a website for my university course', 'Fulltime', 0, 12, 25, '2022-06-05 19:32:25'),
-(3, 2, 11, 'Success', '2022-06-03 19:32:25', 'Database Management', 'I am looking for someone that can work with databases', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(4, 2, 8, 'Success', '2022-06-03 19:32:25', 'Java App', 'I want to create a Java app to detect intruders, message me for more infos', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(5, 2, 4, 'Success', '2022-06-03 19:32:25', 'Card game', 'Hi, i am a senior developer and I am looking for people to make a game in Unity', 'Onetime', 0, 10, 25, '2022-06-05 19:32:25'),
-(6, 3, 2, 'Success', '2022-06-03 19:32:25', 'Job opportunity with C#', 'We are looking for new developers that can code in c#, message us for more informations', 'Fulltime', 1, 100, 250, '2022-06-05 19:32:25'),
-(7, 5, 2, 'Success', '2022-06-03 19:32:25', 'Website with WordPress', 'Need help with the creation of a website with wordrpress, email me please thanks', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(8, 4, 2, 'Success', '2022-06-03 19:32:25', 'Chatbot with Python', 'I am making a chatbot with python but I need someone to help me with some libraries for the deployment', 'Urgent', 0, 10, 25, '2022-06-05 19:32:25'),
-(9, 6, 2, 'Success', '2022-06-03 19:32:25', 'Looking for C expert to help me with an issue', 'Looking for C expert to help me with an issue', 'Fulltime', 1, 120, 205, '2022-06-05 19:32:25'),
-(10, 7, 2, 'Success', '2022-06-03 19:32:25', 'Need an expert in Git', 'We are trying to set up our files by using git but we are having some issues. So we are looking for an expert', 'Recruiter', 0, 10, 25, '2022-06-05 19:32:25');
+(1, 2, NULL, 'Deleted', '2022-06-03 19:32:25', 'Finnish Prompt Creation', 'For this project, you will need to create Finnish prompts for recording needs, which can be copied from the Internet. There are 13,200 sentences and 600 unique topics that need to be completed.\n\nIdeally, each prompt should be 10-25 words (but this depends on the length of how we read the word) or should take around 5-12 seconds when reading.\n\nPlease check the guideline file for more details.', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
+(2, 2, NULL, 'Failed', '2022-06-03 19:32:25', 'design 3 different logo designs for a small business\n', 'the designs are for a small business the theme of the business is exploring, camping, fishing, 4WDing and hiking the name is Here2There the logo needs to incorporate this name into it but can also be shortened to H2T or other creative ways of making the logo', 'Fulltime', 0, 12, 25, '2022-06-05 19:32:25'),
+(3, 2, 11, 'Success', '2022-06-03 19:32:25', 'Brand icon patterns', 'Wanting a pattern made up of small illustrations of our products that can be printed on tissue paper for packaging, or as a background and also individually for branding purposes.', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
+(4, 2, 8, 'Success', '2022-06-03 19:32:25', 'I need someone', 'I need someone to do a job, I need someone to do a job', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
+(5, 2, 4, 'Success', '2022-06-03 19:32:25', 'RUN BASH SCRIPT', 'Hello,\n\nI wrote a bash script (the script is used to automatically create users on my system) with AWK commands but I can\'t execute it. I have errors.', 'Onetime', 0, 10, 25, '2022-06-05 19:32:25'),
+(6, 3, 2, 'Success', '2022-06-03 19:32:25', 'Marketing - Facebook ads and Google ads creation', 'Looking for a really good marketing person/team that are reasonable in their pricing to assist with marketing our brand with little input. What this means is you can research my website and my competitors and create content that will drive customers for United States only to shop on the website, organizations to sign up and tell their members and students to shop or merchants inquire about signing up and utilizing our services. Need someone with good content creation and graphics if necessary to drive users', 'Fulltime', 1, 100, 250, '2022-06-05 19:32:25'),
+(7, 5, 2, 'Success', '2022-06-03 19:32:25', 'Make me a design', 'Hi custumer Please read this article carefully, do you want to design any kind of billboards and how to customize them to your best satisfaction, please contact a customer I will take care of you', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
+(8, 4, 2, 'Deleted', '2022-06-03 19:32:25', 'footage of 5 clips', 'am looking for some one who has an account in : [login to view URL]\n\nbecause i need a footage of 5 clips\n\ni have already found the clips in this website ([login to view URL])', 'Urgent', 0, 10, 25, '2022-06-05 19:32:25'),
+(9, 6, 2, 'Success', '2022-06-03 19:32:25', 'Update project', 'Simple quick project update.\n\nCurrent project uses React JS, FastAPI and MongoDB.\n\n1. Need to have the current code updated where each user can CRUD the database but ONLY be able to CRUD their additions. Admin would still be able to CRUD all\n\n2. Need to update the CSS by moving the websites title to the middle and changing navigation section from black to white color\n\n3. Connect the site to my Heroku account\n\n4. Connect the database to my MongoDB account', 'Fulltime', 1, 120, 205, '2022-06-05 19:32:25'),
+(10, 7, 2, 'Failed', '2022-06-03 19:32:25', 'American English Telemarketer (cold caller) - Do not bid if you cannot speak fluent and understandable English.', 'Fluent English is required.\n\nDo not bid if you cannot speak fluent and understandable English.\n\nFreight brokerage: [login to view URL]\n\nis looking for a self-confident and result-oriented Sales Representative with cold calling experience to establish, develop and maintain positive business relationships with clients.\n\nSalary $ 150 weekly + $ 10 for a signed contract with a client:\n\nRequirements:\n\nFluent English\n\n1-year cold calling experience\n\nFast learner\n\n· Remote work\n\nYou will be provided with a list of clients and a VoIP telephone line.\n\nJob type: part-time\n\nSchedule:\n\n9:00 am - 2:00 pm EST, USA', 'Recruiter', 0, 10, 25, '2022-06-05 19:32:25'),
+(11, 53, 253, 'Success', '2022-04-19 00:19:24', 'build an app for my franchise subway restaurant for delivery.', 'i need an app that is very simple for my restuarant, costumers should be able to place order and pay and create an account', 'Onetime', 1, 35, 75, '2022-05-19 00:19:24'),
+(12, 153, 72, 'Success', '2022-02-01 00:19:24', 'I need kajabi expert', 'Transfert site basic plus 1 formation web à kajabi', 'Urgent', 0, 5, 35, '2022-03-03 00:19:24'),
+(13, 42, NULL, 'Failed', '2022-03-01 00:19:24', 'build me a bckend', 'i have a pre disigned front end of my website and want to get backend code for that design', 'Onetime', 0, 12, 25, '2022-04-01 00:19:24'),
+(14, 199, 75, 'Success', '2022-05-01 00:19:24', 'Create a Tradingview Strategy', '1. The following strategy must be written and tested using v5 Pine Script for Tradingview.\r\n\r\n2. It must be capable of backtesting and replaying in Tradingview, i.e, the Heiken Ashi candle data must pull from the Security function.\r\n\r\n3. No repainting is allowed during or after backtesting.\r\n\r\n4. The entry and exit trade prices must come from the actual price action, not the smoothed Heiken Ashi candle data. The trade entries and exits will show on the chart’s standard candle view.\r\n\r\n5. Inputs and Properties for the strategy must include:\r\n\r\na. Adjustable Simple Moving Average (SMA)\r\n\r\nb. Initial Capital selection\r\n\r\nc. Base Currency selection\r\n\r\nd. Order Size selection\r\n\r\ne. Pyramiding selection\r\n\r\nf. Commission selection\r\n\r\ng. Take Profit – adjustable %\r\n\r\nh. Stop Loss – adjustable %\r\n\r\ni. Adjustable entry and exit dates for the strategy\r\n\r\n6. The trade entry/exits will be marked on the chart as follows:\r\n\r\na. Below the candle: an Arrow and “Long” displayed for entering a long entry\r\n\r\nb. Below the candle: an Arrow and “Exit Long” displayed for exiting a long entry\r\n\r\nc. Above the candle: an Arrow and “Short” displayed for entering a short entry\r\n\r\nd. Above the candle: an arrow and “Exit Long” displayed for exiting a short entry\r\n\r\nStrategy Algorithm:\r\n\r\n1. Long Trade:\r\n\r\na. Trade Entry on:\r\n\r\nThe close of the 1st green Heikin Ashi candle\r\n\r\nb. Trade exits:\r\n\r\ni. The close of the 1st red Heiken Ashi candle,\r\n\r\nor\r\n\r\nii. The close of the 3rd consecutive green Heiken Ashi candle - if the price is below the SMA,\r\n\r\nor\r\n\r\niii. The close of the 9th consecutive green Heiken Ashi candle - if the price is above the SMA,\r\n\r\nor\r\n\r\niv. The input defined Take Profit % is reached,\r\n\r\nor\r\n\r\nv. The input defined Stop Loss % is reached.\r\n\r\n2. Short Trade:\r\n\r\na. Trade Entry on:\r\n\r\nThe close of the 1st red Heikin Ashi candle\r\n\r\nb. Trade exits:\r\n\r\ni. The close of the 1st green Heiken Ashi candle,\r\n\r\nor\r\n\r\nii. The close of the 3rd consecutive red Heiken Ashi candle - if the price is above the SMA,\r\n\r\nor\r\n\r\niii. The close of the 9th consecutive red Heiken Ashi candle - if the price is below the SMA,\r\n\r\nor\r\n\r\niv. The input defined Take Profit % is reached,\r\n\r\nor\r\n\r\nv. The input defined Stop Loss % is reached.', 'Onetime', 1, 85, 255, '2022-06-01 00:19:24'),
+(15, 300, NULL, 'Failed', '2022-04-10 00:19:24', 'Need a US based accountant to setup accounts', 'I am looking for a US based accountant who can setup accounts for our new startup business.', 'Onetime', 0, 36, 105, '2022-05-13 00:19:24'),
+(16, 25, 75, 'Success', '2022-04-19 00:19:24', 'Computer Repair Techs Needed | Pune', 'LAPTOP REPAIR TECHNICIANS NEEDED!\r\n\r\nAre you great at repairing PC\'s and laptops?\r\n\r\nWant to work for one of the world\'s biggest technology companies?\r\n\r\nAre you located in or close to (PUT IN LOCAL AREA HERE)?\r\n\r\nIf you thrive on taking a customer centric based approach and have experience with hardware repairs for notebooks/laptops and printers, then we want to hear from you! A tech giant through Freelancer.com - the world\'s largest freelancing marketplace - is looking for Field Hardware Engineer candidates!\r\n\r\nSome responsibilities may include but are not limited to:\r\n\r\nPerform preventative maintenance and repair services on equipment by analysing system problems, troubleshooting, ordering and gathering components and parts, completing installation and performing tests\r\n\r\nReplace/Repair the following on a laptop - motherboard, display, webcam, speaker, fan, bezel, heatsink, touchpad, keyboard and HDD.\r\n\r\nRequired:\r\n\r\nPrevious work experience troubleshooting and performing physical repair of laptops or PC’s and their respective components\r\n\r\nCurrent drivers license and transportation method\r\n\r\nExcellent customer service skills', 'Recruiter', 1, 100, 150, '2022-05-21 00:19:24'),
+(17, 235, 236, 'Success', '2022-06-12 00:19:24', 'Computer Repair Techs Needed | Ahmedabad', 'LAPTOP REPAIR TECHNICIANS NEEDED!\r\n\r\nAre you great at repairing PC\'s and laptops?\r\n\r\nWant to work for one of the world\'s biggest technology companies?\r\n\r\nAre you located in or close to (PUT IN LOCAL AREA HERE)?\r\n\r\nIf you thrive on taking a customer centric based approach and have experience with hardware repairs for notebooks/laptops and printers, then we want to hear from you! A tech giant through Freelancer.com - the world\'s largest freelancing marketplace - is looking for Field Hardware Engineer candidates!\r\n\r\nSome responsibilities may include but are not limited to:\r\n\r\nPerform preventative maintenance and repair services on equipment by analysing system problems, troubleshooting, ordering and gathering components and parts, completing installation and performing tests\r\n\r\nReplace/Repair the following on a laptop - motherboard, display, webcam, speaker, fan, bezel, heatsink, touchpad, keyboard and HDD.\r\n\r\nRequired:\r\n\r\nPrevious work experience troubleshooting and performing physical repair of laptops or PC’s and their respective components\r\n\r\nCurrent drivers license and transportation method\r\n\r\nExcellent customer service skills', 'Recruiter', 1, 100, 150, '2022-06-19 00:19:24'),
+(18, 235, 162, 'Success', '2022-04-19 00:19:24', 'Computer Repair Techs Needed | Kolkata', 'LAPTOP REPAIR TECHNICIANS NEEDED!\r\n\r\nAre you great at repairing PC\'s and laptops?\r\n\r\nWant to work for one of the world\'s biggest technology companies?\r\n\r\nAre you located in or close to (PUT IN LOCAL AREA HERE)?\r\n\r\nIf you thrive on taking a customer centric based approach and have experience with hardware repairs for notebooks/laptops and printers, then we want to hear from you! A tech giant through Freelancer.com - the world\'s largest freelancing marketplace - is looking for Field Hardware Engineer candidates!\r\n\r\nSome responsibilities may include but are not limited to:\r\n\r\nPerform preventative maintenance and repair services on equipment by analysing system problems, troubleshooting, ordering and gathering components and parts, completing installation and performing tests\r\n\r\nReplace/Repair the following on a laptop - motherboard, display, webcam, speaker, fan, bezel, heatsink, touchpad, keyboard and HDD.\r\n\r\nRequired:\r\n\r\nPrevious work experience troubleshooting and performing physical repair of laptops or PC’s and their respective components\r\n\r\nCurrent drivers license and transportation method\r\n\r\nExcellent customer service skills', 'Recruiter', 1, 20, 25, '2022-04-26 00:19:24'),
+(19, 123, NULL, 'Failed', '2022-05-01 00:19:24', 'Write an illustrated children\'s book', 'A children\'s book that would teach them a valuable lesson in life\r\n\r\nA funny and light book', 'Onetime', 0, 5, 35, '2022-05-15 00:19:24'),
+(20, 45, 97, 'Success', '2022-04-13 00:19:24', 'OJS 3x upgrades', 'Small non-profit journal seeks professional experienced with PKP Open Journal Systems ( OJS ) cms to upgrade Version 3.3.0-9 to the most recent version (3.3.0-11) in a Shared Hosting Environment and troubleshoot minor CSS issue. A sandbox/test area is in place using a subdomain.', 'Urgent', 0, 45, 100, '2022-04-20 00:19:24');
 
 -- --------------------------------------------------------
 
@@ -639,8 +641,23 @@ CREATE TABLE `reviews` (
   `Code_job` int(10) UNSIGNED NOT NULL,
   `Stars` int(1) UNSIGNED NOT NULL,
   `Comments` varchar(250) NOT NULL,
-  `Date` date NOT NULL
+  `Date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `reviews`
+--
+
+INSERT INTO `reviews` (`Code_user`, `Code_job`, `Stars`, `Comments`, `Date`) VALUES
+(2, 2, 4, 'Good', '2022-07-05'),
+(2, 4, 5, 'Thanks', '2022-07-05'),
+(2, 5, 2, 'It didn&#39;t run', '2022-07-05'),
+(2, 9, 4, 'Fast and efficient. Still a little expensive for the final result.', '2022-07-05'),
+(11, 3, 5, 'Well Done. You accomplished what we thaught was impossible. Good job. Fast. Unbeatable.', '2022-07-05'),
+(75, 16, 5, '', '2022-07-05'),
+(162, 18, 4, '', '2022-07-05'),
+(236, 17, 4, 'Ok', '2022-07-05'),
+(253, 11, 0, 'Utterly Incompetent. I lost my money. I want a refund', '2022-07-05');
 
 -- --------------------------------------------------------
 
@@ -1363,44 +1380,6 @@ CREATE TABLE `tags_current_jobs` (
   `Code_tag` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dump dei dati per la tabella `tags_current_jobs`
---
-
-INSERT INTO `tags_current_jobs` (`Code_job`, `Code_tag`) VALUES
-(11, 8),
-(12, 7),
-(13, 7),
-(13, 8),
-(13, 13),
-(13, 78),
-(14, 8),
-(14, 88),
-(15, 104),
-(15, 517),
-(16, 72),
-(16, 73),
-(16, 93),
-(17, 1),
-(17, 3),
-(17, 14),
-(17, 152),
-(18, 10),
-(19, 78),
-(19, 88),
-(20, 645),
-(21, 20),
-(21, 27),
-(22, 29),
-(23, 136),
-(23, 305),
-(24, 158),
-(24, 169),
-(24, 362),
-(25, 188),
-(25, 224),
-(25, 371);
-
 -- --------------------------------------------------------
 
 --
@@ -1436,7 +1415,33 @@ INSERT INTO `tags_past_jobs` (`Code_job`, `Code_tag`) VALUES
 (8, 250),
 (9, 13),
 (10, 104),
-(10, 517);
+(10, 517),
+(11, 1),
+(11, 37),
+(11, 250),
+(11, 402),
+(12, 75),
+(13, 13),
+(13, 450),
+(14, 32),
+(14, 45),
+(14, 600),
+(15, 72),
+(15, 95),
+(15, 165),
+(16, 14),
+(16, 35),
+(16, 45),
+(16, 105),
+(16, 602),
+(17, 72),
+(17, 135),
+(17, 555),
+(18, 45),
+(18, 192),
+(19, 325),
+(20, 2),
+(20, 12);
 
 -- --------------------------------------------------------
 
@@ -4587,7 +4592,7 @@ ALTER TABLE `current_jobs`
 -- AUTO_INCREMENT per la tabella `past_admin_actions`
 --
 ALTER TABLE `past_admin_actions`
-  MODIFY `Code` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Code` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `tags`
@@ -4690,27 +4695,7 @@ DELIMITER $$
 --
 -- Eventi
 --
-CREATE DEFINER=`root`@`localhost` EVENT `Check_for_ended_jobs` ON SCHEDULE EVERY 5 MINUTE STARTS '2022-06-27 00:40:33' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-DECLARE n INT;
-DECLARE done BOOLEAN DEFAULT FALSE;
-DECLARE cursor_job CURSOR FOR
-	SELECT current_jobs.Code_job FROM current_jobs
-    LEFT JOIN bids ON bids.Code_job=current_jobs.Code_job
-	WHERE NOW() > Expiring
-    GROUP BY bids.Code_job
-    HAVING COUNT(bids.Code_user)=0;
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-OPEN cursor_job;
-loop_rows : LOOP
-	FETCH cursor_job INTO n;
-	IF(done) THEN
-    	LEAVE loop_rows;
-    END IF;
-	CALL Transfer_current_past_jobs(n,'Failed');
-END LOOP;
-CLOSE cursor_job;
-END$$
+$$
 
 DELIMITER ;
 COMMIT;
