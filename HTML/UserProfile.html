@@ -52,23 +52,29 @@
     ..\ <a href="../PHP/Index.php">Home</a> \ User Profile \ {{ SubPage }}
   </nav>
 
+  <input type="checkbox" id="hideSidebar" role="button" ></input>
+  
   <!-- Sidebar per Navigazione su Subpage -->
   <div id="sidebar">
+    
     <ul class="hiddenHelp">
       <li><a href="#userProfile">Move to the Content</a></li>
       <li><a href="#footer">Move to Footer</a></li>
     </ul>
-    <ul>
-      <li><a href="../PHP/UserProfile.php?section=1"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a></li>
-      <li><a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>
-      <li><a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span></a></li>
-      <li><a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a></li>
-      <li><a href="../PHP/UserProfile.php?section=5"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a></li>
+    <label id="exitSidebar" for="hideSidebar"><img src="../IMG/Icons/exit.png" class="icons" alt="close sidebar"></label>
+    <ul id="sidebarNav">
+      <li><a href="../PHP/User.php"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a></li>
+      <li><a href="../PHP/Work.php"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>
+      <li><a href="../PHP/Bids.php"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span></a></li>
+      <li><a href="../PHP/Setting.php"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a></li>
+      <li><a href="../PHP/Password.php"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a></li>
     </ul>
   </div>
   <!-- Main Content -->
   <main id="userProfile">
     <p class="hiddenHelp"><a href="#footer">Skip the content and go to footer</a></p>
+    <!-- Checkbox per nascondere la Sidebar -->
+    <label for="hideSidebar" id="labelHideSidebar" onclick=""> <img src="../IMG/Icons/sidebar.png" alt="Hide the sidebar" class="icons"></label>      
     <!-- Zona per mostrare il contenuto delle Subpage -->
     <div id="content"></div>
     

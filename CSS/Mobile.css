@@ -33,24 +33,26 @@
     margin:auto;  
     max-width: 100%;
     height: 100%;
+    padding-bottom: 2.5em;
   }
 
   header {
-    padding-bottom: 0.6em;
+    padding-bottom: 0.5em;
     border-radius: 5px 5px 0 0;
     left: 0;
     bottom: 0;
     width: 100%;
     position: fixed; 
     display: block;
+    min-height: fit-content;
   }
   
   main { 
-    padding-top: 4em;
+    padding-top: 2em;
     margin-top: 10%;
     margin-bottom: 10%;
   }
-  
+
   footer#footer {
     position: absolute;
     bottom: 92%;
@@ -92,9 +94,11 @@
     font-size: 0.675em; 
     text-align: center;
     display: block;
+    margin-bottom: 1em;
   }
 
   header img.icons{
+    padding: 0px;
     width:32px;
     height:32px;
     display:block;
@@ -102,9 +106,9 @@
   }
 
   header img#profilepic{
-    width:28px;
-    height:28px;  
-    padding:1px;
+    width: 28px;
+    height: 28px;  
+    padding: 1px;
     margin: auto;
   }
 
@@ -121,13 +125,19 @@
   }
 
   /* 1.5.1 Login */
+  main#Login {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    padding-top: 3em;
+  }
+
   form#login {
     margin-top: 30%;
     width: 60%;
   } 
   
   form#login fieldset label {
-    margin-left: 40%;
+    margin-left: 20%;
   }
 
   /* 1.5.2 Sign Up Input Form */ 
@@ -146,34 +156,35 @@
   form#createJob fieldset{
     grid-template-columns: 1fr 1fr ;
     grid-template-areas: 
-    " s s "
-    " a a "
-    " b b "
-    " c c "
-    " d d " 
-    " j j "
-    " k k "
-    " i i "
-    " e e "
-    " f f "
-    " g g "
-    " h h "
-    " l l "
-    " m m "
-    " u u "
-    " n n "
-    " o o "
-    " t t "
-    " q q "
-    " p p "
-    " p p "
-    " z z ";
+    " Intro     Intro     "
+    " labTitle  labTitle  "
+    " Title     Title     "
+    " labType   labType   "
+    " Type      Type      "   
+    " labExp    labExp    "
+    " Exp       Exp       "
+    " Pay       Pay       "
+    " labMin    labMin    "
+    " Min       Min       "
+    " labMax    labMax    "
+    " Max       Max       "
+    " labDesc   labDesc   "
+    " Desc      Desc      "
+    " TagD      TagD      "
+    " labSearch labSearch "
+    " Search    Search    "
+    " Help      Help      "
+    " List      List      "
+    " Select    Select    "
+    " Select    Select    "
+    " Submit    Submit    ";
   }
 
   /* 1.6.0 Filter for Page Find Job */
   main#findJob {
     padding-top: 6em;
     margin-bottom: 4.5em;
+    display: -ms-flexbox;
     flex-direction: column;
   }
 
@@ -185,6 +196,7 @@
   }
   
   form#formFilter fieldset{
+    display: -ms-grid;
     display: grid;
     row-gap: 0.8em;
     column-gap: 1em;
@@ -221,6 +233,7 @@
     grid-row: 2;
     -ms-grid-column: 1;
     grid-column: 1;
+    grid-area: labType;
   }
   
   form#formFilter #Tipology {
@@ -228,6 +241,7 @@
     grid-row: 3;
     -ms-grid-column: 1;
     grid-column: 1;
+    grid-area: Type;
   }
   
   form#formFilter div#Pay {
@@ -236,6 +250,7 @@
     -ms-grid-column: 1;
     -ms-grid-column-span: 3;
     grid-column: 1 / span 3;
+    grid-area: Pay;
   }
   
   form#formFilter #labelPay {
@@ -252,6 +267,7 @@
     grid-row: 3;
     -ms-grid-column: 2;
     grid-column: 2;
+    grid-area: MinPay;
   }
   
   form#formFilter #labelDate {
@@ -259,6 +275,7 @@
     grid-row: 2;
     -ms-grid-column: 3;
     grid-column: 3;
+    grid-area: labDate;
   }
   
   form#formFilter #Date {
@@ -266,6 +283,7 @@
     grid-row: 3;
     -ms-grid-column: 3;
     grid-column: 3;
+    grid-area: Date;
   }
   
   form#formFilter div#TagModule {
@@ -275,6 +293,7 @@
     -ms-grid-column: 1;
     -ms-grid-column-span: 3;
     grid-column: 1 / span 3;
+    grid-area: TagModule;
   }
   
   form#formFilter #submit {
@@ -293,19 +312,21 @@
 
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
-    width: 83%;
+    width: 95%;
     margin-bottom: 12%;
     position:unset;
+    transition: background-color 0.5s ease-in-out;
   }
 
   div#sidebar {
-    float:left;
-    top: 14%;
-    left: 0;
-    height: fit-content;
-    min-height: fit-content; 
-    overflow: unset;
-    width: fit-content;
+    position: absolute;
+    width: 25%;
+    top: 0;
+    height: 100%;
+    left: -32%;
+    /* for sidebar to stay on top */
+    z-index: 1;
+    transition: left 0.5s ease-in-out;
   }
 
   #sidebar a {
@@ -315,7 +336,7 @@
   }
 
   #sidebar span.sidebarText{
-    display: none;
+    font-size: 0.7em;
   }
 
   #sidebar img.icons{
@@ -323,7 +344,35 @@
     height: 24px;
   }
 
+  #hideSidebar:checked ~ #sidebar {
+    left: 0;
+  }
+  
+  #hideSidebar:checked ~ #UserProfile {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  
+  label#labelHideSidebar,
+  input#hideSidebar,
+  #sidebar label#exitSidebar  {
+    display: block;
 
+  }
+
+  label#labelHideSidebar {
+    width: fit-content;
+    padding: 1em;
+    border-radius: 0 10px 10px 0;
+    background-color: #00679e;
+    background-color: var(--color);
+  }
+
+  #sidebar label#exitSidebar {
+    margin-left: 75%;
+    margin-top: 1em;  
+  }
+  
   /* 1.7.1 Content for User Profile */
   div#content {
     margin: auto;
@@ -364,6 +413,11 @@
     text-align: center;
   }
 
+  main img#icon {
+    width:48px;
+    height:48px;
+  }
+
   /* - 1.7.5 User Profile Setting Page - */
   form#settings {
     width: 100%;
@@ -371,7 +425,7 @@
   }
 
   form#settings fieldset{
-    width: 80%;
+    width: 90%;
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 1fr 1fr;
@@ -453,18 +507,18 @@
   main#Home * {
     max-width: 100%;
   }
+  
+  div#Intro {
+    -ms-grid-row: 1;
+    grid-row: 1;
+    -ms-grid-column: 1;
+    grid-column: 1;
+  }
 
   img#firstImg {
     -ms-grid-row: 2;
     -ms-grid-row-span: 2;
     grid-row: 2 / span 2;
-    -ms-grid-column: 1;
-    grid-column: 1;
-  }
-  
-  div#Intro {
-    -ms-grid-row: 1;
-    grid-row: 1;
     -ms-grid-column: 1;
     grid-column: 1;
   }
@@ -476,9 +530,17 @@
     grid-column: 1;
   }
   
+  img#secondImg {
+    -ms-grid-row: 6;
+    -ms-grid-row-span: 2;
+    grid-row: 5 / span 2;
+    -ms-grid-column: 1;
+    grid-column: 1;
+  }
+  
   div#Function {
-    -ms-grid-row: 5;
-    grid-row: 5;
+    -ms-grid-row: 7;
+    grid-row: 7;
     -ms-grid-column: 1;
     grid-column: 1;
   }
@@ -486,14 +548,6 @@
   div#UserProf {
     -ms-grid-row: 8;
     grid-row: 8;
-    -ms-grid-column: 1;
-    grid-column: 1;
-  }
-  
-  img#secondImg {
-    -ms-grid-row: 6;
-    -ms-grid-row-span: 2;
-    grid-row: 5 / span 2;
     -ms-grid-column: 1;
     grid-column: 1;
   }

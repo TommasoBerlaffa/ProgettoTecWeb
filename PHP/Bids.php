@@ -14,7 +14,7 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Your Bids",$HTML);
 
-    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=3"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span></a></li>',
+    $HTML = str_replace('<li><a href="../PHP/Bids.php"><img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span></a></li>',
     '<li class="selected">
     <img src="../IMG/Icons/bid.png" class="icons" alt=""><span class="sidebarText"> Your Bids</span>
     </li>',$HTML);

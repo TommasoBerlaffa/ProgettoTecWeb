@@ -12,7 +12,7 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","User Informations",$HTML);
     // Cambio Colore Sidebar Selected
-    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=1"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a></li>',
+    $HTML = str_replace('<li><a href="../PHP/User.php"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a></li>',
       '<li class="selected">
       <img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span>
       </li>',$HTML);

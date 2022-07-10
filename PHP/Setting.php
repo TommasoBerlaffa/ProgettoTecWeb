@@ -4,7 +4,6 @@
   session_start();
 
   if(isset($_SESSION['user_Username'])) {
-    // Non servono controlli su Login perchè vengono fatti da UserProfile.php
 
     // Ottengo Valori da Pagina Statica 
     $url = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'UserProfile.html';
@@ -12,7 +11,7 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","User Settings",$HTML);
 
-    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=4"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a></li>',
+    $HTML = str_replace('<li><a href="../PHP/Setting.php"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></a></li>',
     '<li class="selected"><img src="../IMG/Icons/setting.png" class="icons" alt=""><span class="sidebarText"> User Setting</span></li>',$HTML);
   
     $urlExtra = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Settings.html';

@@ -234,6 +234,13 @@ input {
   display: block;
 }
 
+button[type=submit],
+input[type=submit]
+{
+  border: 2px solid #000;
+  border-color: var(--black);
+}
+
 div#Desc {
   width: 80%;
 }
@@ -896,16 +903,17 @@ main#userProfile {
   vertical-align: top;
 }
 
+label#labelHideSidebar,
+input#hideSidebar,
+#sidebar label#exitSidebar {
+  display: none;
+}
+
 div#sidebar { 
   background-color: #4a6fa5;
   background-color: var(--subcolor);
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
   display: inline-block;
-  top: 0;
-  margin-top : 0px;
-  margin-bottom: 5%;
-  width: 20%;
+  width: fit-content;
 }
 
 div#sidebar ul {
@@ -934,7 +942,6 @@ div#sidebar ul li{
   color: #ECE5C7;
   color: var(--background);
 }
-
 
 #sidebar span {
   color:#fff;
@@ -970,6 +977,7 @@ a#AdminArea {
 /* - 7.1 Content for User Profile - */
 div#content {
   padding: 1em;
+  width: 100%;
 }
 
 div#NoUser,

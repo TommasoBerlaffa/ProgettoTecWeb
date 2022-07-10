@@ -12,7 +12,7 @@
     // Cambio Valore BreadCrumb
     $HTML = str_replace("{{ SubPage }}","Your Job Offers",$HTML);
 
-    $HTML = str_replace('<li><a href="../PHP/UserProfile.php?section=2"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>',
+    $HTML = str_replace('<li><a href="../PHP/Work.php"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>',
     '<li class="selected">
     <img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span>
     </li>',$HTML);
