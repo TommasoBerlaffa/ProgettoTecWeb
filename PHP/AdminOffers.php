@@ -37,5 +37,5 @@ if(isset($_SESSION['Admin'])) {
   echo $pagina;
 }
 else
-	header("Location:UserProfile.php");
+	header("Location:Welcome.php");
 ?>

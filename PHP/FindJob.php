@@ -16,7 +16,7 @@
 	{
 		$HTML = str_replace('<createjob/>','<li><a href="CreateJob.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'Icons'. DIRECTORY_SEPARATOR .'write.png" class="icons" alt=""> Create an Offer </a></li>',$HTML);
-		$HTMLContent = '<li><a href="UserProfile.php">
+		$HTMLContent = '<li><a href="Welcome.php">
 		<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Your Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
 	}
 	else

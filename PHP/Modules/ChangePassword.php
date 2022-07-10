@@ -40,10 +40,10 @@
 	
 		if($errorList!='')
 			$_SESSION['error'] = $errorList;
-		header("Location: ..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Password.php");
+		header("Location: ..". DIRECTORY_SEPARATOR ."Password.php");
 		}
 		else
-		header("Location:..". DIRECTORY_SEPARATOR ."UserProfile.php");
+		  header("Location:..". DIRECTORY_SEPARATOR ."Welcome.php");
 	}
 	else
 		header("Location:..". DIRECTORY_SEPARATOR ."Login.php");

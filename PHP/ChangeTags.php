@@ -23,10 +23,10 @@
       $result = $DBAccess->changeUserTags($_SESSION['user_ID'],$_SESSION['TagList']);
     
       $DBAccess->closeDBConnection();
-      header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php?err=". ($result ? 'succ' : 'err'));  
+      header("Location:Setting.php?err=". ($result ? 'succ' : 'err'));  
     }
     else
-      header("Location: ..". DIRECTORY_SEPARATOR ."UserProfile". DIRECTORY_SEPARATOR ."Setting.php?err=tags");
+      header("Location:Setting.php?err=tags");
   }
   else
   {

@@ -16,7 +16,7 @@ if(isset($_SESSION['user_Username']))
   	exit;
   }
 	
-  $HTMLContent = '<li><a href="UserProfile.php">
+  $HTMLContent = '<li><a href="Welcome.php">
   <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>';
   $HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
   

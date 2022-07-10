@@ -16,7 +16,7 @@
 		$_SESSION['TagList']=array();
 
 	$HTML = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'CreateJob.html');
-    $HTML = str_replace('<subpage/>','<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'UserProfile.php">
+    $HTML = str_replace('<subpage/>','<li><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Welcome.php">
     <img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'usrprfl'. DIRECTORY_SEPARATOR . $_SESSION['user_Icon'] .'" alt="Profile Picture" id="profilepic" class="icons">User Profile</a></li>',$HTML);
       
 
@@ -59,7 +59,7 @@
 			$Result=$DBAccess->createJob($Id,$Title,$Desc,$Type,$Pay,$Min,$Max,$Expiring,$_SESSION['TagList']);
 			$DBAccess->closeDBConnection();
 			if($Result) 
-				header("Location:UserProfile.php?section=2");
+				header("Location:Welcome.php");
 			else {
 				header("Location:CreateJob.php?error=1");
 			}

@@ -58,6 +58,6 @@ if(isset($_SESSION['Admin'])) {
   //header("Location:AdminHistory.php");
 }
 else
-	header("Location:..".DIRECTORY_SEPARATOR."PHP".DIRECTORY_SEPARATOR."UserProfile.php");
+	header("Location:Welcome.php");
 
 ?>

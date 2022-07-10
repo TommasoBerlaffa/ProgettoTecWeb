@@ -98,7 +98,7 @@
 			}
 	
 			if(!isset($view) && !isset($page) )
-				header('Location:UserProfile.php');
+				header('Location:Welcome.php');
         } 
         else
           $messaggioErrore =  '<div id="errorList" class="box"><p>Username and/or Password are not correct. Please <a href="#Username">try again</a>.</p></div>';
@@ -120,7 +120,7 @@
 		if(isset($page))
 			header('Location:UserProfile.php?section='. $page);
 		else
-			header('Location:UserProfile.php');
+			header('Location:Welcome.php');
 	}
 
 ?>
