@@ -76,9 +76,9 @@
         <!-- Payment -->
         <div id="Pay">
           <label id="labelPay">Choose your preferred method of payment *:</label>
-          <input type="radio" id="Pay1" name="PayV" value="Pay1" checked>
+          <input type="radio" id="Pay1" name="Pay" value="0" checked>
           <label for="Pay1" id="labelPay1"> I want to pay all at once</label><br>
-          <input type="radio" id="Pay2" name="PayV" value="Pay2">
+          <input type="radio" id="Pay2" name="Pay" value="1">
           <label for="Pay2" id="labelPay2"> I want to pay by worked hours</label>
         </div>
         <!-- Minimum Pay -->
@@ -91,7 +91,7 @@
 
         <!-- Job Description -->
         <label for="Desc" id="labelDesc">Describe the Job and what you are looking for *:</label>
-        <textarea id="Desc" name="Description" required><desc/></textarea>
+        <textarea id="Desc" name="Description" rows="15" cols="76" required><desc/></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
           <p id="TagDescription">Search the tags you want to add by using the <a href="#searchTag">tag search</a>. 

@@ -42,7 +42,15 @@
 		isset($_POST["Type"]) ? $Type= filter_var($_POST["Type"], FILTER_SANITIZE_STRING) : $errorMsg.='<li>Your job offer need a <a href="#Tipology">type<a/>.</li>';
 		isset($_POST["Min"]) ? $Min = filter_var($_POST["Min"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#MinPay">minimum payment<a/>.</li>';
 		isset($_POST["Max"]) ? $Max = filter_var($_POST["Max"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#MaxPay">maximum payment<a/>.</li>';
-		isset($_POST["PayV"]) ? ( $_POST["PayV"] == 'Pay1' ? $Pay = 0 : $Pay = 1) : $errorMsg.='<li>Your job offer need a <a href="#labelPay">payment type<a/>.</li>';
+		if(isset($_POST["Pay"])){
+			$tmp = filter_var($_POST["Pay"], FILTER_SANITIZE_NUMBER_INT);
+			if($tmp==0 OR $tmp==1)
+				$Pay=$tmp;
+			else
+				$errorMsg.='<li>Wrong value selected on <a href="#labelPay">payment type<a/>.</li>';
+		}
+		else
+			$errorMsg.='<li>Your job offer need a <a href="#labelPay">payment type<a/>.</li>';
 		isset($_POST["Expiring"]) ? $Expiring = filter_var($_POST["Expiring"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#Expiring">expiring date<a/>.</li>';
 		//$Expiring= date("Y-m-d h:i:sa", strtotime("+".filter_var($_POST["Expiring"], FILTER_SANITIZE_STRING))) :
 		if($Min > $Max) 
@@ -86,9 +94,9 @@
 	
 	$radio = '
 		<label id="labelPay">Choose your preferred method of payment *:</label>
-		<input type="radio" id="Pay1" name="PayV" value="Pay1"'. ($Pay == 0 ? 'checked' : '') .'>
+		<input type="radio" id="Pay1" name="Pay" value="0"'. ($Pay == 0 ? 'checked' : '') .'>
 		<label for="Pay1" id="labelPay1"> I want to pay all at once</label><br>
-		<input type="radio" id="Pay2" name="PayV" value="Pay2"'. ($Pay != 0 ? 'checked' : '').'>
+		<input type="radio" id="Pay2" name="Pay" value="1"'. ($Pay != 0 ? 'checked' : '').'>
 		<label for="Pay2" id="labelPay2"> I want to pay by worked hours</label>
 	';
 	$HTML = preg_replace('/(?<=<div id="Pay">)((\n|.)*?)(?=<\/div>)/',$radio, $HTML, 1);

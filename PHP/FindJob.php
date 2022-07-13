@@ -134,11 +134,23 @@
 				$bids=count($bids);
 			else
 				$bids=0;
+			
+			$left=DateTime::createFromFormat('Y-m-d H:i:s', $row["Expiring"])->diff(new DateTime());
+			$leftString='';
+			if($left->m)
+				$leftString.=$left->m.' Months '.$left->d.' Days';
+			else if($left->d>2)
+				$leftString.=$left->d.' Days';
+			else if($left->d>0 and $left->d<3)
+				$leftString.=$left->d.' Days '.$left->h.' Hours';
+			else
+				$leftString.=$left->i.' Minutes';
+			
 			$HtmlContent .='<div class="job">
 						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
-						<p class="date"><span>Date</span> : '.explode(' ',$row["Date"])[0].'</p>
+						<p class="date"><span>Time left</span> : '.$leftString.'</p>
 						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
-            <p class="Pay"><span>Payment Type</span> : '.(trim($row["Payment"])==0? 'Payment by Hour' : 'All at once').'</p>
+						<p class="Pay"><span>Payment Type</span> : '.(trim($row["Payment"])==0? 'All at once' : 'Payment by Hour').'</p>
 						<p class="minPay"><span><abbr title="minimum">Min</abbr> Pay</span> : $'.trim($row["P_min"]).'</p>
 						<p class="bids"><span>Bids</span> : '.$bids.'</p>
 						<p class="description"><span>Description</span> : <br>'.$desc.'</p>';

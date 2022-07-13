@@ -55,7 +55,7 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'"><abbr title="informations">Info</abbr> on the Creator</a>',$HTML);
 		$HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
 		$pay = trim($row["Payment"]);
-		$HTML = $pay==0 ? str_replace('{{ Payment }}','Payment by hour',$HTML) : str_replace('{{ Payment }}','Total Payment at once',$HTML);
+		$HTML = $pay==0 ? str_replace('{{ Payment }}','Total Payment at once',$HTML) : str_replace('{{ Payment }}','Payment per hour',$HTML);
 		$HTML = str_replace('{{ Min Payment }}',trim($row["P_min"]),$HTML);
 		$HTML = str_replace('{{ Max Payment }}',trim($row["P_max"]),$HTML);
 		$HTML = str_replace('{{ Status }}',$status,$HTML);

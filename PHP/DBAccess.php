@@ -75,7 +75,7 @@ class DBAccess {
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		if(!isset($pmax))
 			$pmax='';
-		mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
+		mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, date('Y-m-d h:i:sa', strtotime(' + ' .$expiring. ' hours')));
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
 		$Code_job=mysqli_insert_id($this->connection);
@@ -493,7 +493,7 @@ class DBAccess {
 	$page--;
 	
 	//'CREATE TEMPORARY TABLE IF NOT EXISTS ? AS (
-	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs
+	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs
 	//	 JOIN(
 	//		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
 	//			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
@@ -555,7 +555,7 @@ class DBAccess {
 	
 	//query parts
 	$begin='
-	SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs';
+	SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs';
 	$middle='
 		WHERE
 		 	TIMESTAMPDIFF(HOUR,Date,CURDATE()) < ? AND
