@@ -31,17 +31,17 @@ if(isset($_SESSION['user_Username']))
     if($row)
     {   
 
-    if(array_key_exists('Status',$row))
-      $tags = $DBAccess->getTags($index,2);
-    else
-      $tags = $DBAccess->getTags($index,1);
-		$end=false;
-		// Past Job
-    if(array_key_exists('Status',$row)){
+		if(array_key_exists('Status',$row))
+		$tags = $DBAccess->getTags($index,2);
+		else
+		$tags = $DBAccess->getTags($index,1);
+			$end=false;
+			// Past Job
+		if(array_key_exists('Status',$row)){
 			$PJob = true;
-      $status=$row["Status"];
+			$status=$row["Status"];
 			if($status!='Deleted')
-				$status='Terminated';
+			$status='Terminated';
 		} // Current Job Terminated
 		else if (strtotime((new DateTime())->format("Y-m-d H:i:s")) > strtotime($row['Expiring'])){
 			$status='Terminated';
@@ -73,7 +73,7 @@ if(isset($_SESSION['user_Username']))
       $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
       $adminActions .= file_get_contents($urlContent);  
       $adminActions = str_replace('<code/>',$index, $adminActions);
-      $adminActions = str_replace('<job/>',($PJob ? 'past job' : 'offer'), $adminActions);
+      $adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'offer'), $adminActions);
       $adminActions = str_replace('{{job}}',($PJob ? 'job' : 'offer'),$adminActions);
     }
 			
@@ -163,50 +163,49 @@ if(isset($_SESSION['user_Username']))
 			$bids =$DBAccess->getBids($index);
 			if($bids)
 			{
-        if($end == true && $_SESSION['user_ID']==trim($row["Code_user"]))
-        {
-          $HTMLChooseWinner = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormChooseWinner.html');
-          $offerers = '';
-          foreach($bids as $B){
-            $offerers.='<div>
-              <label><input type="radio" name="winner" value="'.$B["Code"] .'" required>
-              <img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'"><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></label>
-              <p><span>User Price</span> : '.trim($B["Price"]).'</p>
-              <p><span>Description</span> : '.trim($B["Description"]).'</p></div>';
-          }
-          $HTMLChooseWinner = str_replace('<offerers/>',$offerers,$HTMLChooseWinner);
-        
-          $HTML = str_replace('<div id="bids" class="box"></div>',$HTMLChooseWinner,$HTML);
-        
-        }
-        else
-        {
-          $HTMLBids ='<div id="bids">';
-				
-          foreach($bids as $B){
-          $review = $DBAccess->getUserReview($B["Code"]);
-          $HTMLBids.= '<div class="bid">
-          <img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
-                  <div class="bidData"><p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
-                  <p><span>User Price</span> : '.trim($B["Price"]).'</p>
-                  <p><span>Description</span> : '.trim($B["Description"]).'</p>
-                  <p><span>Average Review Rating</span> : '.($review? $review['AvgStar'] : 'No review average available').'</p></div>';
-          if($B["Code"]==$_SESSION['user_ID']){
-            $self=false;
-            $HTMLBids.='<a href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
-          }
-          else
-            $HTMLBids.='</div>';            
-          }
-          $HTMLBids .='</div>';
-          $HTML = str_replace('<div id="bids" class="box"></div>',$HTMLBids,$HTML);
-        
-        }
+				if($end == true && $_SESSION['user_ID']==trim($row["Code_user"]))
+				{
+					$HTMLChooseWinner = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormChooseWinner.html');
+					$offerers = '';
+					foreach($bids as $B){
+						$offerers.='<div>
+						<label><input type="radio" name="winner" value="'.$B["Code"] .'" required>
+						<img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'"><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></label>
+						<p><span>User Price</span> : '.trim($B["Price"]).'</p>
+						<p><span>Description</span> : '.trim($B["Description"]).'</p></div>';
+					}
+					$HTMLChooseWinner = str_replace('<offerers/>',$offerers,$HTMLChooseWinner);
+					
+					$HTML = str_replace('<div id="bids" class="box"></div>',$HTMLChooseWinner,$HTML);
 				}
+				else
+				{
+					$HTMLBids ='<div id="bids">';
+							
+					foreach($bids as $B){
+						$review = $DBAccess->getUserReview($B["Code"]);
+						$HTMLBids.= '<div class="bid">
+						<img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
+								<div class="bidData"><p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
+								<p><span>User Price</span> : '.trim($B["Price"]).'</p>
+								<p><span>Description</span> : '.trim($B["Description"]).'</p>
+								<p><span>Average Review Rating</span> : '.($review? $review['AvgStar'] : 'No review average available').'</p></div>';
+						if($B["Code"]==$_SESSION['user_ID']){
+							$self=false;
+							$HTMLBids.='<a href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
+						}
+						else
+							$HTMLBids.='</div>';            
+					}
+					$HTMLBids .='</div>';
+					$HTML = str_replace('<div id="bids" class="box"></div>',$HTMLBids,$HTML);
+					
+				}
+			}
 			else
 				$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer. Please, check again later.</p></div>',$HTML);
 		
-			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self)
+			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self AND $status=='Active')
 			{
 				$_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
 				// Se non sei il creatore del lavoro, puoi aggiungere una bid
@@ -217,8 +216,8 @@ if(isset($_SESSION['user_Username']))
 				$HTML= str_replace('<form id="addBid"></form>','',$HTML);
 		}
 		else if($status=='Terminated' AND $end==false) {
-			$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','',$HTML);
-			$HTML = preg_replace('/<form id="addBid"><\/form>/','',$HTML);
+			$HTML = str_replace('<div id="bids" class="box"></div>','',$HTML);
+			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
 			$feedback = $DBAccess->getJobReview($index);
 			if(!$feedback) {
 				if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
@@ -230,7 +229,7 @@ if(isset($_SESSION['user_Username']))
 					// Aggiungo form per aggiungere feedback
 				}
 				else // Caso in cui non c'è feedback e non ho l'autorità per aggiungerlo (non sono creatore dell'offerta di lavoro)
-					$HTML = preg_replace('/<div id="feedback"><\/div>/','',$HTML);
+					$HTML = str_replace('/<div id="feedback"><\/div>/','',$HTML);
 			}
 			else {
         $User = $DBAccess->getUser(trim($feedback["C_Rew"]));
@@ -245,16 +244,18 @@ if(isset($_SESSION['user_Username']))
 			}
 		}
 		else if($status=='Terminated'){
-			$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> This job offer is currently :'.$status .'</p></div>',$HTML);
-			$HTML = preg_replace('/<form id="addBid"><\/form>/','',$HTML);
+			$HTML = str_replace('<div id="bids" class="box"></div>','<div id="bids"><p class="error"> This job offer is currently :'.$status .'</p></div>',$HTML);
+			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
 		}
-    else {
-      $HTML = preg_replace('/<div id="bids" class="box"><\/div>/','',$HTML);
-			$HTML = preg_replace('/<form id="addBid"><\/form>/','',$HTML);
-    }
+		else 
+		{
+			$HTML = str_replace('<div id="bids" class="box"></div>','',$HTML);
+			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
+		}
 	} //Se non trova un risultato
   else {
 		$HTML = str_replace( '{{ Title }}', 'No Info Available' ,$HTML);
+		$HTML = str_replace( '<result/>', '' ,$HTML);
 		$HTML = preg_replace('/<div id="JobInfo" class="box">((\n|.)*)<\/div>/','<div id="NoJob"><p> It seems like this job doesn\'t exists. If you want to find more jobs, you can search in <a href="findjob.php">find job</a>.</p></div>',$HTML);
   }
 	$DBAccess->closeDBConnection();

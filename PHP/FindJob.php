@@ -174,11 +174,11 @@
 	$DBAccess->closeDBConnection();
 	
 	
-	$urlType=($type)? '&Tipology='.$type : '';
-	$urlMin=($min>0)? '&PayMin='.$min : '';
-	$urlDate=($date!=9999999)? '&Date='.$date : '';
-	$urlTag=(is_string($tag))? '&tag='.$tag : '';
-	$urlPay=($Pay)? '&pay='.$Pay :'';
+	$urlType=($type)? '&amp;Tipology='.$type : '';
+	$urlMin=($min>0)? '&amp;PayMin='.$min : '';
+	$urlDate=($date!=9999999)? '&amp;Date='.$date : '';
+	$urlTag=(is_string($tag))? '&amp;tag='.$tag : '';
+	$urlPay=($Pay)? '&amp;pay='.$Pay :'';
 
 	$pageHTML = '<div id="pages">';
     if($page > 1)

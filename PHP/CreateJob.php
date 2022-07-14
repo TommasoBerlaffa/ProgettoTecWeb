@@ -39,7 +39,15 @@
 		// Controllo se i campi obbligatori sono stati inseriti
 		isset($_POST["Title"]) && filter_var($_POST["Title"], FILTER_SANITIZE_STRING) != '' ? $Title = filter_var($_POST["Title"], FILTER_SANITIZE_STRING) : $errorMsg.='<li>Your job offer need a <a href="#Title">title<a/>.</li>';
 		isset($_POST["Description"]) && filter_var($_POST["Description"], FILTER_SANITIZE_STRING) != ''? $Desc = filter_var($_POST["Description"], FILTER_SANITIZE_STRING) : $errorMsg.='<li>Your job offer need a <a href="#Desc">description<a/>.</li>';
-		isset($_POST["Type"]) ? $Type= filter_var($_POST["Type"], FILTER_SANITIZE_STRING) : $errorMsg.='<li>Your job offer need a <a href="#Tipology">type<a/>.</li>';
+		if(isset($_POST["Type"])){
+		    $tmp= filter_var($_POST["Type"], FILTER_SANITIZE_STRING);
+			if(in_array($tmp,array("Fulltime","Onetime","Urgent","Recruiter")))
+				$Type=$tmp;
+			else
+				$errorMsg.='<li>Invalid <a href="#Tipology">type<a/> selected.</li>';
+		}
+		else
+			$errorMsg.='<li>Your job offer need a <a href="#Tipology">type<a/>.</li>';
 		isset($_POST["Min"]) ? $Min = filter_var($_POST["Min"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#MinPay">minimum payment<a/>.</li>';
 		isset($_POST["Max"]) ? $Max = filter_var($_POST["Max"], FILTER_SANITIZE_NUMBER_INT) : $errorMsg.='<li>Your job offer need a <a href="#MaxPay">maximum payment<a/>.</li>';
 		if(isset($_POST["Pay"])){
@@ -78,7 +86,7 @@
 	
 	$select = '
 		<option value="Fulltime" '. ($Type == 'Fulltime' ? 'selected' : ''). '>Fulltime</option>
-		<option value="Onetime" '. ($Type == 'One Time' ? 'selected' : '').  '>One Time</option>
+		<option value="Onetime" '. ($Type == 'Onetime' ? 'selected' : '').  '>One Time</option>
 		<option value="Urgent" '. ($Type == 'Urgent' ? 'selected' : '').  '>Urgent</option>
 		<option value="Recruiter"'. ($Type == 'Recruiter' ? 'selected' : '').  '>Recruiter</option>
 	';
@@ -101,15 +109,16 @@
 	';
 	$HTML = preg_replace('/(?<=<div id="Pay">)((\n|.)*?)(?=<\/div>)/',$radio, $HTML, 1);
 	
-	$errorMsg .= "</ul>";
+	if($errorMsg)
+		$errorMsg='<ul id="error">'.$errorMsg."</ul>";
 	
-	$HTML = preg_replace('<TipologySelect/>',$select, $HTML);
-	$HTML = preg_replace('<DateSelect/>',$select2, $HTML);
+	$HTML = str_replace('<TipologySelect/>',$select, $HTML);
+	$HTML = str_replace('<DateSelect/>',$select2, $HTML);
 	$HTML = str_replace('<title/>',$Title,$HTML);
 	$HTML = str_replace('<desc/>',$Desc,$HTML);
 	$HTML = str_replace('<min/>',$Min,$HTML);
 	$HTML = str_replace('<max/>',$Max,$HTML);
-	$HTML = str_replace('<ul id="error"></ul>',$errorMsg,$HTML);
+	$HTML = str_replace('<error/>',$errorMsg,$HTML);
 	echo $HTML;
     
     

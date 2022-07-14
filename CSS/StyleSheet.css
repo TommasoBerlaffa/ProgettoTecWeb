@@ -904,7 +904,7 @@ main#userProfile {
 }
 
 label#labelHideSidebar,
-input#hideSidebar,
+div input#hideSidebar,
 #sidebar label#exitSidebar {
   display: none;
 }

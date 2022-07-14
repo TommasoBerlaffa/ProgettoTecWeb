@@ -65,6 +65,10 @@
         $err = '<div id="errorList">The operation was succesaful.</div>';   
   
       $HTML = str_replace('<div id="emptyErrorList"></div>',$err,$HTML);  
+      $HTML = str_replace('</footer>','</footer>
+					<!-- Javascript per Change User Info -->
+					<script type="text/javascript" src="../JS/searchTag.js"></script>
+					<script type="text/javascript" src="../JS/ChangePassword.js"></script>',$HTML);  
     }
     // Apre file html
     echo $HTML;
