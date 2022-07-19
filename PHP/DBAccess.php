@@ -762,7 +762,7 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_winner AS Winner, R.Code_user AS JobGiver, R.Stars , R.Comments, R.Date 
+		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_winner AS Winner, P.Code_user AS JobGiver, R.Stars , R.Comments, R.Date 
 						FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job = P.Code_job AND P.Code_winner = ?  ORDER BY R.Date DESC LIMIT ?;');
 		mysqli_stmt_bind_param($queryCall,'ii',$id,$number);
 		mysqli_stmt_execute($queryCall);
