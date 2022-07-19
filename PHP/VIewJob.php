@@ -203,7 +203,7 @@ if(isset($_SESSION['user_Username']))
 				}
 			}
 			else
-				$HTML = preg_replace('<bids/>','<div id="bids"><p class="error"> No bids are currently up for this job offer. Please, check again later.</p></div>',$HTML);
+				$HTML = str_replace('<bids/>','<div id="bids"><p class="error"> No bids are currently up for this job offer. Please, check again later.</p></div>',$HTML);
 		
 			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self AND $status=='Active')
 			{
