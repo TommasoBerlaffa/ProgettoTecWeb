@@ -88,23 +88,23 @@
 		<option value="Fulltime" '. ($Type == 'Fulltime' ? 'selected' : ''). '>Fulltime</option>
 		<option value="Onetime" '. ($Type == 'Onetime' ? 'selected' : '').  '>One Time</option>
 		<option value="Urgent" '. ($Type == 'Urgent' ? 'selected' : '').  '>Urgent</option>
-		<option value="Recruiter"'. ($Type == 'Recruiter' ? 'selected' : '').  '>Recruiter</option>
+		<option value="Recruiter" '. ($Type == 'Recruiter' ? 'selected' : '').  '>Recruiter</option>
 	';
 	$select2 = '
 		<option value="24" '. ($Expiring == 24 ? 'selected' : ''). '>1 day</option>
 		<option value="72" '. ($Expiring == 72 ? 'selected' : ''). '>3 days</option>
-		<option value="168"'. ($Expiring == 168 ? 'selected' : ''). '>1 week</option>
-		<option value="336"'. ($Expiring == 336 ? 'selected' : ''). '>2 weeks</option>
-		<option value="744"'. ($Expiring == 744 ? 'selected' : ''). '>1 month</option>
-		<option value="1488"'. ($Expiring == 1488 ? 'selected' : ''). '>2 months</option>
+		<option value="168" '. ($Expiring == 168 ? 'selected' : ''). '>1 week</option>
+		<option value="336" '. ($Expiring == 336 ? 'selected' : ''). '>2 weeks</option>
+		<option value="744" '. ($Expiring == 744 ? 'selected' : ''). '>1 month</option>
+		<option value="1488" '. ($Expiring == 1488 ? 'selected' : ''). '>2 months</option>
 	';
 	
 	
 	$radio = '
 		<label id="labelPay">Choose your preferred method of payment *:</label>
-		<input type="radio" id="Pay1" name="Pay" value="0"'. ($Pay == 0 ? 'checked' : '') .'>
+		<input type="radio" id="Pay1" name="Pay" value="0" '. ($Pay == 0 ? 'checked' : '') .'>
 		<label for="Pay1" id="labelPay1"> I want to pay all at once</label><br>
-		<input type="radio" id="Pay2" name="Pay" value="1"'. ($Pay != 0 ? 'checked' : '').'>
+		<input type="radio" id="Pay2" name="Pay" value="1" '. ($Pay != 0 ? 'checked' : '').'>
 		<label for="Pay2" id="labelPay2"> I want to pay by worked hours</label>
 	';
 	$HTML = preg_replace('/(?<=<div id="Pay">)((\n|.)*?)(?=<\/div>)/',$radio, $HTML, 1);

@@ -12,7 +12,9 @@ function updateUserTagList(response){
 	if(list==null)
 		return;
 	var keys = Object.keys(list);
-	div.innerHTML="<p>Selected Tags: ("+ keys.length +" / 20)</p>";
+	div.innerHTML='<p class="SelectedTags">Selected Tags: ('+ keys.length +' / 20)</p>';
+	if(!keys)
+		div.innerHTML+='<p class="hiddenHelp">Empty</p>';
 	var tmp=document.getElementById('FSkill');
 	if(tmp)
 		tmp.innerHTML ='';
@@ -32,7 +34,7 @@ function updateUserTagList(response){
 function AjaxUpdate(callback){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Update':true};
-	xhttp.open('POST', '../PHP/Modules/Util.php', false);
+	xhttp.open('POST', '../PHP/Modules/Util.php', true);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
@@ -54,7 +56,7 @@ window.addEventListener('load',function() {
 function AjaxRemoveTag(name){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Sub':true,'Name':name};
-	xhttp.open('POST', '../PHP/Modules/Util.php', false);
+	xhttp.open('POST', '../PHP/Modules/Util.php', true);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
@@ -72,7 +74,7 @@ function AjaxRemoveTag(name){
 function AjaxAddTag(name,val){
 	const xhttp = new XMLHttpRequest();
 	var data = {'Add':true,'Name':name,'Value':val};
-	xhttp.open('POST', '../PHP/Modules/Util.php', false);
+	xhttp.open('POST', '../PHP/Modules/Util.php', true);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){
@@ -89,16 +91,20 @@ function AjaxAddTag(name,val){
 
 function tagList(response){
 	var div=document.getElementById('tagsList');
-	div.innerHTML="";
-	var list=JSON.parse(response);
-	if(list==null)
+	if(!div)
 		return;
+	div.innerHTML='<p class="chooseTags">Available Tags :</p>';
+	var list=JSON.parse(response);
+	if(list==null){
+		div.innerHTML+='<p class="hiddenHelp">Empty</p>';
+		return;
+	}
 	var keys = Object.keys(list);
 	for (i=0; i<keys.length;i++){
 		var bt=document.createElement('button');
 		bt.innerHTML=keys[i];
 		bt.value=list[keys[i]];
-    bt.classList.add('btnTag');
+		bt.classList.add('btnTag');
 		bt.setAttribute('type','button');
 		bt.setAttribute('onclick',"AjaxAddTag('"+keys[i]+"','"+list[keys[i]]+"')");
 		div.appendChild(bt);
@@ -109,13 +115,13 @@ function AjaxTagSearch(callback){
 	var tag=document.getElementById('searchTag').value;
 	if(tag.length<=2){
 		var div=document.getElementById('tagsList');
-		div.innerHTML="";
+		div.innerHTML='<p class="chooseTags">Available Tags :</p><p class="hiddenHelp">Empty</p>';
 		return;
 	}
 	const xhttp = new XMLHttpRequest();
 	var data = {'Tag':tag};
 	
-	xhttp.open('POST', '../PHP/Modules/AjaxTagSearch.php', false);
+	xhttp.open('POST', '../PHP/Modules/AjaxTagSearch.php', true);
 	
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200){

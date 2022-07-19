@@ -70,94 +70,94 @@ if(isset($_SESSION['user_Username']))
     // Admin Actions
 		$adminActions = '';
 		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) {
-      $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
-      $adminActions .= file_get_contents($urlContent);  
-      $adminActions = str_replace('<code/>',$index, $adminActions);
-      $adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'offer'), $adminActions);
-      $adminActions = str_replace('{{job}}',($PJob ? 'job' : 'offer'),$adminActions);
-    }
+			$urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
+			$adminActions .= file_get_contents($urlContent);  
+			$adminActions = str_replace('<code/>',$index, $adminActions);
+			$adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'offer'), $adminActions);
+			$adminActions = str_replace('{{job}}',($PJob ? 'job' : 'offer'),$adminActions);
+		}
 			
 		$HTML = str_replace('<admin/>',$adminActions,$HTML);
 	
     // Tags
 		if($tags) {
-      $HTMltags ='<ul>';
+			$HTMltags ='<ul>';
 			foreach($tags as $name=>$value) {
 				$HTMltags.='<li><a href="FindJob.php?tag='.$value.'">'.$name.'</a></li>';
 			}
-      $HTMltags.='</ul>';
+		$HTMltags.='</ul>';
 		}
-    else
-    $HTMltags = 'This job has no tags';
+		else
+			$HTMltags = 'This job has no tags';
 
 		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
     
-    if(isset($_GET['result']))
-    {
-      $tmp='';
-      $getValue=trim($_GET['result']);
-      if( $getValue == 'cancelTrue')
-        $tmp='<p class="result"> Job successfully cancelled</p>';
-      else if( $getValue == 'cancelFalse')
-        $tmp='<p class="result"> There was an error with the cancellation of the job, please try again later</p>';
-      else if( $getValue == 'terminateTrue')
-        $tmp='<p class="result"> Job termination was successful </p>';
-      else if( $getValue == 'terminateFalse')
-        $tmp='<p class="result"> There was an error with the termination of the job, please try again later</p>';
-      else if( $getValue == 'removeTrue')
-        $tmp='<p class="result"> Bid removed successfully </p>';
-      else if( $getValue == 'removeFalse')
-        $tmp='<p class="result"> There was an error with the deletion of the bid, please try again later</p>';
-      $HTML = str_replace('<result/>',$tmp,$HTML);
-    }
-    else if (isset($_GET['winner']) ) {
-      $tmp='';
-      $getValue=trim($_GET['winner']);
-      if( $getValue == 'errwin')
-        $tmp='<p class="result"> There was an error with the code of the winner, please try to select <a href="#winner">the winner</a> again.</p>';
-      else if( $getValue == 'errcode')
-        $tmp='<p class="result"> There was an error with the code of the winner, please try to select the winner again.</p>';
-      else if( $getValue == 'wsuccess')
-        $tmp='<p class="result"> The winner was selected successfully. </p>';
-      else if( $getValue == 'wfail')
-        $tmp='<p class="result"> There was an error with the selection of the winner, please try again. </p>';
-      $HTML = str_replace('<result/>',$tmp,$HTML);
-    }
-    else if (isset($_GET['bid']) ) {
-      $tmp='';
-      $getValue=trim($_GET['bid']);
-      if( $getValue == 'errPrice')
-        $tmp='<p class="result"> There was an error with the price of the bid, please try to select <a href="#Price">the price</a> again.</p>';
-      else if( $getValue == 'errDesc')
-        $tmp='<p class="result"> There was an error with the description of the bid, please try to select <a href="#Description">the description</a> again.</p>';
-      else if( $getValue == 'succ')
-        $tmp='<p class="result"> The bid was created successfully. </p>';
-      $HTML = str_replace('<result/>',$tmp,$HTML);
-    }
-    else if (isset($_GET['feedback']) ) {
-      $tmp='';
-      $getValue=trim($_GET['feedback']);
-      if( $getValue == 'errStar')
-        $tmp='<p class="result"> There was an error with stars, please insert them again.</p>';
-      else if( $getValue == 'errComm')
-        $tmp='<p class="result"> There was an error with the comment, please try to insert it again.</p>';
-      else if( $getValue == 'succ')
-        $tmp='<p class="result"> The feedback was created successfully. </p>';
-      else if( $getValue == 'fail')
-        $tmp='<p class="result"> There was an error with the creation of the feedback, please try again. </p>';
-      $HTML = str_replace('<result/>',$tmp,$HTML);
-    }
-    else
-      $HTML = str_replace('<result/>','',$HTML);
-
-    // Controllo se Utente è Owner ed è PastJob
-    if($_SESSION['user_ID']==trim($row["Code_user"]) && !$PJob) {
-      $OwnerActions = '<p id="cancel"> <a href="Modules'. DIRECTORY_SEPARATOR .'OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>
-      <p id="terminate">'.($status!= 'Terminated' ? '<a href="Modules'. DIRECTORY_SEPARATOR .'OfferTerminate.php" class="terminate">Terminate this Job Offer</a>': 'Offer is already terminated').'</p>';
-      $HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
-    }
-    else
-      $HTML = str_replace('{{ owner options }}','',$HTML); 
+		if(isset($_GET['result']))
+		{
+			$tmp='';
+			$getValue=trim($_GET['result']);
+			if( $getValue == 'cancelTrue')
+				$tmp='<p class="result"> Job successfully cancelled</p>';
+			else if( $getValue == 'cancelFalse')
+				$tmp='<p class="result"> There was an error with the cancellation of the job, please try again later</p>';
+			else if( $getValue == 'terminateTrue')
+				$tmp='<p class="result"> Job termination was successful </p>';
+			else if( $getValue == 'terminateFalse')
+				$tmp='<p class="result"> There was an error with the termination of the job, please try again later</p>';
+			else if( $getValue == 'removeTrue')
+				$tmp='<p class="result"> Bid removed successfully </p>';
+			else if( $getValue == 'removeFalse')
+				$tmp='<p class="result"> There was an error with the deletion of the bid, please try again later</p>';
+			$HTML = str_replace('<result/>',$tmp,$HTML);
+		}
+		else if (isset($_GET['winner']) ) {
+			$tmp='';
+			$getValue=trim($_GET['winner']);
+			if( $getValue == 'errwin')
+				$tmp='<p class="result"> There was an error with the code of the winner, please try to select <a href="#winner">the winner</a> again.</p>';
+			else if( $getValue == 'errcode')
+				$tmp='<p class="result"> There was an error with the code of the winner, please try to select the winner again.</p>';
+			else if( $getValue == 'wsuccess')
+				$tmp='<p class="result"> The winner was selected successfully. </p>';
+			else if( $getValue == 'wfail')
+				$tmp='<p class="result"> There was an error with the selection of the winner, please try again. </p>';
+			$HTML = str_replace('<result/>',$tmp,$HTML);
+		}
+		else if (isset($_GET['bid']) ) {
+			$tmp='';
+			$getValue=trim($_GET['bid']);
+			if( $getValue == 'errPrice')
+				$tmp='<p class="result"> There was an error with the price of the bid, please try to select <a href="#Price">the price</a> again.</p>';
+			else if( $getValue == 'errDesc')
+				$tmp='<p class="result"> There was an error with the description of the bid, please try to select <a href="#Description">the description</a> again.</p>';
+			else if( $getValue == 'succ')
+				$tmp='<p class="result"> The bid was created successfully. </p>';
+			$HTML = str_replace('<result/>',$tmp,$HTML);
+		}
+		else if (isset($_GET['feedback']) ) {
+			$tmp='';
+			$getValue=trim($_GET['feedback']);
+			if( $getValue == 'errStar')
+				$tmp='<p class="result"> There was an error with stars, please insert them again.</p>';
+			else if( $getValue == 'errComm')
+				$tmp='<p class="result"> There was an error with the comment, please try to insert it again.</p>';
+			else if( $getValue == 'succ')
+				$tmp='<p class="result"> The feedback was created successfully. </p>';
+			else if( $getValue == 'fail')
+				$tmp='<p class="result"> There was an error with the creation of the feedback, please try again. </p>';
+			$HTML = str_replace('<result/>',$tmp,$HTML);
+		}
+		else
+			$HTML = str_replace('<result/>','',$HTML);
+	
+		// Controllo se Utente è Owner ed è PastJob
+		if($_SESSION['user_ID']==trim($row["Code_user"]) && !$PJob) {
+			$OwnerActions = '<p id="cancel"> <a href="Modules'. DIRECTORY_SEPARATOR .'OfferCancel.php" class="cancel">Cancel this Job Offer</a></p>
+			<p id="terminate">'.($status!= 'Terminated' ? '<a href="Modules'. DIRECTORY_SEPARATOR .'OfferTerminate.php" class="terminate">Terminate this Job Offer</a>': 'Offer is already terminated').'</p>';
+			$HTML = str_replace('{{ owner options }}',$OwnerActions,$HTML); 
+		}
+		else
+			$HTML = str_replace('{{ owner options }}','',$HTML); 
 
 		if($status=='Active' OR ($status=='Terminated' AND $end==true)) {
 			$bids =$DBAccess->getBids($index);
@@ -214,6 +214,7 @@ if(isset($_SESSION['user_Username']))
 			}
 			else
 				$HTML= str_replace('<addBid/>','',$HTML);
+			$HTML = str_replace('<feedback/>','',$HTML);
 		}
 		else if($status=='Terminated' AND $end==false) {
 			$HTML = str_replace('<bids/>','',$HTML);
@@ -224,7 +225,6 @@ if(isset($_SESSION['user_Username']))
 					$_SESSION['Code_job'] = $_GET['Code_job'];
 					$urlForm = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormFeedback.html';
 					$HTMLForm = file_get_contents($urlForm);
-			
 					$HTML = str_replace( '<feedback/>', $HTMLForm ,$HTML);
 					// Aggiungo form per aggiungere feedback
 				}
@@ -232,25 +232,27 @@ if(isset($_SESSION['user_Username']))
 					$HTML = str_replace('<feedback/>','',$HTML);
 			}
 			else {
-        $User = $DBAccess->getUser(trim($feedback["C_Rew"]));
-        $urlFeed = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Feedback.html';
-        $HTMLFeed = file_get_contents($urlFeed);
-        $HTMLFeed = str_replace("{{Nickname}}",$User["Nickname"],$HTMLFeed);
-        $HTMLFeed = str_replace("{{Stars}}",trim($feedback["Stars"]),$HTMLFeed);
-        $HTMLFeed = str_replace("{{Date}}",trim($feedback["Date"]),$HTMLFeed);
-        $HTMLFeed = str_replace("{{Comments}}",trim($feedback["Comments"]),$HTMLFeed);
+				$User = $DBAccess->getUser(trim($feedback["C_Rew"]));
+				$urlFeed = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'Feedback.html';
+				$HTMLFeed = file_get_contents($urlFeed);
+				$HTMLFeed = str_replace("{{Nickname}}",$User["Nickname"],$HTMLFeed);
+				$HTMLFeed = str_replace("{{Stars}}",trim($feedback["Stars"]),$HTMLFeed);
+				$HTMLFeed = str_replace("{{Date}}",trim($feedback["Date"]),$HTMLFeed);
+				$HTMLFeed = str_replace("{{Comments}}",trim($feedback["Comments"]),$HTMLFeed);
         
-			$HTML = str_replace('<feedback/>',$HTMLFeed,$HTML);
+				$HTML = str_replace('<feedback/>',$HTMLFeed,$HTML);
 			}
 		}
 		else if($status=='Terminated'){
 			$HTML = str_replace('<bids/>','<div id="bids"><p class="error"> This job offer is currently :'.$status .'</p></div>',$HTML);
 			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
+			$HTML = str_replace('<feedback/>','',$HTML);
 		}
 		else 
 		{
 			$HTML = str_replace('<bids/>','',$HTML);
 			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
+			$HTML = str_replace('<feedback/>','',$HTML);
 		}
 	} //Se non trova un risultato
   else {

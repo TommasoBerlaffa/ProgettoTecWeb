@@ -49,6 +49,12 @@
   
     $HTMLExtra .= '</div>';
     $HTML = str_replace('<div id="content"></div>',$HTMLExtra,$HTML);
+	//$HTML = str_replace('</footer>','',$HTML);  
+	$HTML = str_replace('</footer>','</footer>
+	
+	<!-- Javascript per Change User Info -->
+	<script type="text/javascript" src="../JS/searchTag.js"></script>
+	<script type="text/javascript" src="../JS/ChangePassword.js"></script>',$HTML);  
     // Spazione vuoto
     if(isset($_SESSION['error'])) {
       $HTML = str_replace('<div id="emptyErrorList"></div>','<div id="errorList">'.$_SESSION['error'].'</div>',$HTML);

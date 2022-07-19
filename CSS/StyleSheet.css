@@ -352,7 +352,6 @@ form#createJob fieldset{
   " labDesc   labDesc .       "
   " Desc      Desc    Desc    "
   " TagD      TagD    TagD    "
-  " labSearch Help    Select  "
   " Search    List    Select  "
   " .         Submit  .       ";
   margin-bottom: 5em;
@@ -511,20 +510,20 @@ form#createJob fieldset p#TagDescription{
   grid-area: TagD;
 }
 
-form#createJob fieldset label#labelsearchTag {
+form#createJob fieldset div#searchTagField {
   -ms-grid-column: 1;
   grid-column: 1;
   -ms-grid-row: 12;
   grid-row: 12;
-  grid-area: labSearch;
+  grid-area: Search;
 }
 
-form#createJob fieldset label#helpLabelsearchTag {
-  -ms-grid-column: 2;
-  grid-column: 2;
-  -ms-grid-row: 12;
-  grid-row: 12;
-  grid-area: Help;
+form#createJob fieldset div#tagsList {
+  -ms-grid-column: 3;
+  grid-column: 3;
+  -ms-grid-row: 13;
+  grid-row: 13;
+  grid-area: List;
 }
 
 form#createJob fieldset div#selectedTagsList {
@@ -536,24 +535,16 @@ form#createJob fieldset div#selectedTagsList {
   grid-area: Select;
 }
 
-form#createJob fieldset input#searchTag {
-  -ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 13;
-  grid-row: 13;
-  grid-area: Search;
+form#createJob fieldset div input#searchTag {
+  margin-top: 1.4em;
+}
+
+div#tagsList p{
+  margin-block-start: 0;
 }
 
 div#selectedTagsList p{
   margin-block-start: 0;
-}
-
-form#createJob fieldset div#tagsList {
-  -ms-grid-column: 2;
-  grid-column: 2;
-  -ms-grid-row: 13;
-  grid-row: 13;
-  grid-area: List;
 }
 
 form#createJob fieldset button#Create{
@@ -907,6 +898,7 @@ label#labelHideSidebar,
 input#hideSidebar,
 #sidebar label#exitSidebar {
   display: none;
+  aria-pressed: true;
 }
 
 div#sidebar { 

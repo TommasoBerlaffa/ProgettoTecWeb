@@ -25,7 +25,7 @@
   <link rel="icon" type="image/png" href="../IMG/JF_64.png" />
   
   <!-- Javascript -->
-  <script type="text/javascript" src="../JS/CreateJob.js"></script>
+  <script src="../JS/CreateJob.js"></script>
 
 </head>
 <body>
@@ -98,10 +98,12 @@
             Available tags will be shown in <a href="#tagsList">this zone</a> and you will be able to add them to your list by clicking a tag.
             Selected tags will be shown in <a href="#selectedTagsList">this area</a> and you will be able to remove a tag from your list by clicking on it.
           </p>
-          <label for="searchTag" id="labelsearchTag">Search Tags: </label>
-          <input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
-          <label for="tagsList" id="helpLabelsearchTag">Available Tags :</label>
-          <div id="tagsList">
+		  <div id="searchTagField">
+			<label for="searchTag" id="labelsearchTag">Search Tags: </label>
+			<input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
+          </div>
+		  <div id="tagsList">
+			<p class="chooseTags">Available Tags :</p>
           </div>
           <div id="selectedTagsList">
             <p class="SelectedTags">Selected Tags * :</p>
@@ -117,6 +119,6 @@
     <p class="hiddenHelp"><a href="#header">Go back to the header</a></p>
     <p> Check out the <a href="FAQ.php">FAQ</a> for any question - To report any issue contact our Admin at admin@JobFinder.mail.com</p>
   </footer>
-  <script type="text/javascript" src="../JS/searchTag.js"></script>
+  <script src="../JS/searchTag.js"></script>
 </body>
 </html>
