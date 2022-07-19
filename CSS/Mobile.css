@@ -37,20 +37,22 @@
   }
 
   header {
-    padding-bottom: 0.5em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
     border-radius: 5px 5px 0 0;
     left: 0;
     bottom: 0;
     width: 100%;
     position: fixed; 
     display: block;
-    min-height: fit-content;
+    height: 5vh;
+    height: fit-content;
+    min-height: 5vh
   }
   
   main { 
-    padding-top: 2em;
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 12%;
+    padding-top: 10%;
   }
 
   footer#footer {
@@ -150,7 +152,7 @@
 
   /* 1.5.4  Create Job Form */
   form#createJob {
-    width: 80%;
+    width: 92%;
     padding: 1em;
   }
   
@@ -468,6 +470,13 @@
     transition: left 0.5s ease-in-out;
   }
 
+  span#openSidebar {
+    color: var(--background);
+    vertical-align: super;
+    font-size: 1.2em;
+    text-decoration: underline;
+  }
+
   #sidebar a {
     display: block;
     color: white;
@@ -476,6 +485,7 @@
 
   #sidebar span.sidebarText{
     font-size: 0.7em;
+    text-decoration: underline;
   }
 
   #sidebar img.icons{
@@ -502,6 +512,7 @@
   label#labelHideSidebar {
     width: fit-content;
     padding: 1em;
+    padding-bottom: 0.5em;
     border-radius: 0 10px 10px 0;
     background-color: #00679e;
     background-color: var(--color);
