@@ -176,7 +176,7 @@ if(isset($_SESSION['user_Username']))
 					}
 					$HTMLChooseWinner = str_replace('<offerers/>',$offerers,$HTMLChooseWinner);
 					
-					$HTML = str_replace('<div id="bids" class="box"></div>',$HTMLChooseWinner,$HTML);
+					$HTML = str_replace('<bids/>',$HTMLChooseWinner,$HTML);
 				}
 				else
 				{
@@ -198,26 +198,26 @@ if(isset($_SESSION['user_Username']))
 							$HTMLBids.='</div>';            
 					}
 					$HTMLBids .='</div>';
-					$HTML = str_replace('<div id="bids" class="box"></div>',$HTMLBids,$HTML);
+					$HTML = str_replace('<bids/>',$HTMLBids,$HTML);
 					
 				}
 			}
 			else
-				$HTML = preg_replace('/<div id="bids" class="box"><\/div>/','<div id="bids"><p class="error"> No bids are currently up for this job offer. Please, check again later.</p></div>',$HTML);
+				$HTML = preg_replace('<bids/>','<div id="bids"><p class="error"> No bids are currently up for this job offer. Please, check again later.</p></div>',$HTML);
 		
 			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self AND $status=='Active')
 			{
 				$_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
 				// Se non sei il creatore del lavoro, puoi aggiungere una bid
 				$HTMLFormBid=file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAddBid.html');
-				$HTML= str_replace('<form id="addBid"></form>',$HTMLFormBid,$HTML);
+				$HTML= str_replace('<addBid/>',$HTMLFormBid,$HTML);
 			}
 			else
-				$HTML= str_replace('<form id="addBid"></form>','',$HTML);
+				$HTML= str_replace('<addBid/>','',$HTML);
 		}
 		else if($status=='Terminated' AND $end==false) {
-			$HTML = str_replace('<div id="bids" class="box"></div>','',$HTML);
-			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
+			$HTML = str_replace('<bids/>','',$HTML);
+			$HTML = str_replace('<addBid/>','',$HTML);
 			$feedback = $DBAccess->getJobReview($index);
 			if(!$feedback) {
 				if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
@@ -225,11 +225,11 @@ if(isset($_SESSION['user_Username']))
 					$urlForm = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormFeedback.html';
 					$HTMLForm = file_get_contents($urlForm);
 			
-					$HTML = str_replace( '<div id="feedback"></div>', $HTMLForm ,$HTML);
+					$HTML = str_replace( '<feedback/>', $HTMLForm ,$HTML);
 					// Aggiungo form per aggiungere feedback
 				}
 				else // Caso in cui non c'è feedback e non ho l'autorità per aggiungerlo (non sono creatore dell'offerta di lavoro)
-					$HTML = str_replace('/<div id="feedback"><\/div>/','',$HTML);
+					$HTML = str_replace('<feedback/>','',$HTML);
 			}
 			else {
         $User = $DBAccess->getUser(trim($feedback["C_Rew"]));
@@ -240,16 +240,16 @@ if(isset($_SESSION['user_Username']))
         $HTMLFeed = str_replace("{{Date}}",trim($feedback["Date"]),$HTMLFeed);
         $HTMLFeed = str_replace("{{Comments}}",trim($feedback["Comments"]),$HTMLFeed);
         
-			$HTML = str_replace('<div id="feedback"></div>',$HTMLFeed,$HTML);
+			$HTML = str_replace('<feedback/>',$HTMLFeed,$HTML);
 			}
 		}
 		else if($status=='Terminated'){
-			$HTML = str_replace('<div id="bids" class="box"></div>','<div id="bids"><p class="error"> This job offer is currently :'.$status .'</p></div>',$HTML);
+			$HTML = str_replace('<bids/>','<div id="bids"><p class="error"> This job offer is currently :'.$status .'</p></div>',$HTML);
 			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
 		}
 		else 
 		{
-			$HTML = str_replace('<div id="bids" class="box"></div>','',$HTML);
+			$HTML = str_replace('<bids/>','',$HTML);
 			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
 		}
 	} //Se non trova un risultato
