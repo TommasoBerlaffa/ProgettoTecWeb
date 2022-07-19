@@ -103,6 +103,9 @@
 
   // Rimpiazza Valori su file html
   $HTML = str_replace('<div id="content"></div>',$content,$HTML);
+
+  $HTML = str_replace('</javascript>','',$HTML);  
+  
   // Stampo File Modificato
   echo $HTML;
   

@@ -23,6 +23,10 @@
     $HTML = str_replace('<error/>',isset($_SESSION['error'])?$_SESSION['error']:'',$HTML);
 	$_SESSION['error']='';
     // Apre file html
+    $HTML = str_replace('</javascript>','
+    <!-- Javascript per Change User Info -->
+    <script type="text/javascript" src="../JS/ChangePassword.js"></script>',$HTML);  
+
     echo $HTML;
   }
   else

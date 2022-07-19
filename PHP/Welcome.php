@@ -27,6 +27,8 @@
 
     $HTML = str_replace('<div id="content"></div>',$WelcomeMessage,$HTML);
 
+    $HTML = str_replace('</javascript>','',$HTML);  
+    
     echo $HTML;
   }
   else
