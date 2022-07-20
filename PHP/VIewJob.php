@@ -214,6 +214,7 @@ if(isset($_SESSION['user_Username']))
 			}
 			else
 				$HTML= str_replace('<addBid/>','',$HTML);
+
 			$HTML = str_replace('<feedback/>','',$HTML);
 		}
 		else if($status=='Terminated' AND $end==false) {
@@ -251,7 +252,7 @@ if(isset($_SESSION['user_Username']))
 		else 
 		{
 			$HTML = str_replace('<bids/>','',$HTML);
-			$HTML = str_replace('<form id="addBid"></form>','',$HTML);
+			$HTML = str_replace('<addBid/>','',$HTML);
 			$HTML = str_replace('<feedback/>','',$HTML);
 		}
 	} //Se non trova un risultato

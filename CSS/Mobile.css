@@ -458,11 +458,10 @@
     padding-top: 0%;
     margin-bottom: 12%;
     position:unset;
-    transition: background-color 0.5s ease-in-out;
   }
 
   div#sidebarWithControl {
-    margin-top: 15%;
+    padding-top: 20%;
   }
 
   div#sidebar {
@@ -802,6 +801,7 @@
 
   div#feedback {
     width : 90%;
+    margin-bottom: 5%;
   }
 
   form#AddFeedback {
