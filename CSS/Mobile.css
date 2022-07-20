@@ -454,9 +454,15 @@
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
     width: 95%;
+    margin-top: 0%;
+    padding-top: 0%;
     margin-bottom: 12%;
     position:unset;
     transition: background-color 0.5s ease-in-out;
+  }
+
+  div#sidebarWithControl {
+    margin-top: 15%;
   }
 
   div#sidebar {
@@ -501,9 +507,7 @@
     background-color: rgba(0, 0, 0, 0.5);
   }
   
-  
   label#labelHideSidebar,
-  input#hideSidebar,
   #sidebar label#exitSidebar  {
     display: block;
 
