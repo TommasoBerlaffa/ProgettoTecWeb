@@ -62,15 +62,15 @@
         <p id="intro">Please fill all the fields with a * to create a job : </p>
         <!-- Title -->
         <label for="Title" id="labelTitle">Choose your Title *:</label>
-        <input type="text" id="Title" name="Title" value="<title/>" required>
+        <input type="text" id="Title" name="Title" value="<title/>" aria-required="true" required>
         <!-- Tipology -->
         <label for="Tipology" id="labelType">Choose the Typology *:</label>
-        <select id="Tipology" name="Type" size="4" required>
+        <select id="Tipology" name="Type" size="4" aria-required="true" required>
 			<TipologySelect/>
         </select>
         <!-- Expiring -->
         <label for="Expiring" id="labelExpiring">Choose how long your offer will last *:</label>
-        <select id="Expiring" name="Expiring" size="6" required>
+        <select id="Expiring" name="Expiring" size="6" aria-required="true" required>
 			<DateSelect/>
         </select>
         <!-- Payment -->
@@ -83,15 +83,15 @@
         </div>
         <!-- Minimum Pay -->
         <label for="MinPay" id="labelMin">Minimum Payment *:</label>
-        <input type="number" id="MinPay" min="0" name="Min" value="<min/>" required>
+        <input type="number" id="MinPay" min="0" name="Min" value="<min/>" aria-required="true" required>
         <!-- Maximum Pay -->
-        <label for="MaxPay" id="labelMax">Maximum Payment :</label>
-        <input type="number" id="MaxPay" min="0" name="Max" value="<max/>" required>
+        <label for="MaxPay" id="labelMax">Maximum Payment *:</label>
+        <input type="number" id="MaxPay" min="0" name="Max" value="<max/>" aria-required="true" required>
 
 
         <!-- Job Description -->
         <label for="Desc" id="labelDesc">Describe the Job and what you are looking for *:</label>
-        <textarea id="Desc" name="Description" rows="15" cols="76" required><desc/></textarea>
+        <textarea id="Desc" name="Description" rows="15" cols="76" aria-required="true" required><desc/></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
           <p id="TagDescription">Search the tags you want to add by using the <a href="#searchTag">tag search</a>. 
@@ -109,7 +109,7 @@
             <p class="SelectedTags">Selected Tags * :</p>
           </div>
           <a href="#searchTag" class="hiddenHelp">search more tags</a>
-        <button type="submit" name= "Create" id="Create">Create a new Job Offer</button>
+        <button type="submit" name= "Create" id="Create" aria-label="Create a new job offer with the informations in this form">Create a new Job Offer</button>
       </fieldset>
     </form>
   </main>

@@ -4,6 +4,7 @@ html {
   width: 100%; 
   margin: 0; 
   float: none;
+  font-size: 1em;
 }
 
 .hiddenHelp {
@@ -63,5 +64,27 @@ table {
 }
 
 .goTop {
+  display: none;
+}
+
+#intro {
+  display: none;
+}
+
+h1 {
+  font-size: 1.2em;
+}
+
+h2 {
+  font-size: 1.1em;
+}
+
+/* FindJob */
+#NoAvailableJob {
+  display: none;
+}
+
+/* userProfile */
+section#sidebarWithControl {
   display: none;
 }

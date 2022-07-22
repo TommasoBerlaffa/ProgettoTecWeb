@@ -85,17 +85,18 @@
     margin: 0;
   }
 
-  header ul li a {
-    text-decoration: none;
-    font-size: 0.675em; 
+  header ul li a,
+  header ul li span {
+    font-size: 0.8em; 
     text-align: center;
     display: block
   }
 
+  header ul li a {
+    text-decoration: none;
+  }
+
   header ul li span {
-    font-size: 0.675em; 
-    text-align: center;
-    display: block;
     margin-bottom: 1em;
   }
 
@@ -489,7 +490,7 @@
   }
 
   #sidebar span.sidebarText{
-    font-size: 0.7em;
+    font-size: 0.8em;
     text-decoration: underline;
   }
 
