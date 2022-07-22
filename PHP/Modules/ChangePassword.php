@@ -29,14 +29,14 @@
 					$errorList.='<p class="result">Succesfully changed password</p>';
 			}
 			else //Errore password vecchia sbagliata
-				$errorList.='<li>Incorrect old password</li>';
+				$errorList.='<li id="old_pw">Incorrect old password. Please try to <a href="#OldPsw">enter your old password again</a>.</li>';
 			$DBAccess->closeDBConnection();
 			}
 			else //Errore password non coincidono 
-			$errorList.='<li>Your new password doesn\'t match</li>';
+			$errorList.='<li id="new_pw_match">Your new password doesn\'t match.Please try to <a href="#Password">enter your new password again</a>.</li>';
 		}
 		else //Errore password vecchia uguale a nuova
-			$errorList.='<li>Your old and new password can\'t be the same</li>';
+			$errorList.='<li id="old_new_pw">Your old and new password can\'t be the same. Please try to <a href="#OldPsw">enter your old password</a>.</li>';
 	
 		if($errorList!='')
 			$_SESSION['error'] = $errorList;

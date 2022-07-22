@@ -7,25 +7,25 @@
   <legend> Change User Informations</legend>
     <p id="introduction">Here you can modify the informations you want to change. We will only modify the informations you decide changed.</p>
     <label for="Username" class="Enter" id="labelUsername">Username : </label>
-    <input type="text" name="Username" id="Username" class="Enter" value="{{Username}}">
+    <input type="text" name="Username" id="Username" class="Enter" value="{{Username}}" aria-required="true" required>
     <!-- Name -->
     <label for="Name" class="Enter" id="labelName">Name :</label>
-    <input type="text" name="Name" id="Name" class="Enter" value="{{Name}}">
+    <input type="text" name="Name" id="Name" class="Enter" value="{{Name}}" aria-required="true" required>
     <!-- Surname -->
     <label for="Surname" class="Enter" id="labelSurname">Surname :</label>
-    <input type="text" name="Surname" id="Surname" class="Enter"  value="{{Surname}}">
+    <input type="text" name="Surname" id="Surname" class="Enter"  value="{{Surname}}" aria-required="true" required>
     <!-- Mail -->
     <label for="Email" id="labelEmail">Email : </label>   
-    <input type="email" name="Email" id="Email"  value="{{Email}}">
+    <input type="email" name="Email" id="Email"  value="{{Email}}" aria-required="true" required>
     <!-- Birthday -->
     <label for="Birth" id="labelBirth" >Birthday : </label>
-    <input type="date" name="Birth" id="Birth"  value="{{Birth}}">
+    <input type="date" name="Birth" id="Birth"  value="{{Birth}}" aria-required="true" required>
     <!-- Nationality -->
     <label for="Nationality" id="labelNationality">Nationality : </label>
-    <input type="text" name="Nationality" id="Nationality"  value="{{Nationality}}">
+    <input type="text" name="Nationality" id="Nationality"  value="{{Nationality}}" aria-required="true" required>
     <!-- City -->
     <label for="City" id="labelCity">City : </label>
-    <input type="text" name="City" id="City"  value="{{City}}">
+    <input type="text" name="City" id="City"  value="{{City}}" aria-required="true" required>
     <!-- Address -->
     <label for="Address" id="labelAddress">Address : </label>
     <input type="text" name="Address" id="Address"  value="{{Address}}">
@@ -45,7 +45,7 @@
     <input type="url" name="Curr" id="Curr"  value="{{Curr}}">
     <!-- Description -->
     <label for="Description" id="labelDesc">Describe Yourself :</label>
-    <textarea name="Description" id="Description" >{{Desc}} </textarea>   
-  <button type="submit" id="submit">Change User Info</button>
+    <textarea name="Description" id="Description"  aria-required="true" required>{{Desc}} </textarea>   
+  <button type="submit" id="submit" aria-label="Change your personal user information">Change User Info</button>
   </fieldset>
 </form> 

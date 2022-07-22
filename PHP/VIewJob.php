@@ -209,7 +209,7 @@ if(isset($_SESSION['user_Username']))
 			{
 				$_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
 				// Se non sei il creatore del lavoro, puoi aggiungere una bid
-				$HTMLFormBid=file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAddBid.html');
+				$HTMLFormBid=file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'AddBid.html');
 				$HTML= str_replace('<addBid/>',$HTMLFormBid,$HTML);
 			}
 			else

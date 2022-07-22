@@ -52,7 +52,7 @@
     ..\ <a href="../PHP/Index.php">Home</a> \ User Profile \ {{ SubPage }}
   </nav>
 
-  <div id="sidebarWithControl">
+  <section id="sidebarWithControl">
     <input type="checkbox" id="hideSidebar" role="button" aria-pressed="true">
     <label for="hideSidebar" id="labelHideSidebar" onclick=""> <img src="../IMG/Icons/sidebar.png" alt="Hide the sidebar" class="icons"><span id="openSidebar"> Sidebar</span></label>      
 
@@ -64,7 +64,6 @@
         <li><a href="#userProfile">Move to the Content</a></li>
         <li><a href="#footer">Move to Footer</a></li>
       </ul>
-      <label id="exitSidebar" for="hideSidebar"><img src="../IMG/Icons/exit.png" class="icons" alt="close sidebar"></label>
       <ul id="sidebarNav">
         <li><a href="../PHP/User.php"><img src="../IMG/Icons/info.png" class="icons" alt=""><span class="sidebarText"> User Profile</span></a></li>
         <li><a href="../PHP/Work.php"><img src="../IMG/Icons/work.png" class="icons" alt=""><span class="sidebarText"> Your Job Offers</span></a></li>
@@ -73,7 +72,7 @@
         <li><a href="../PHP/Password.php"><img src="../IMG/Icons/sidebar.png" class="icons" alt=""><span class="sidebarText"> Change Password</span></a></li>
       </ul>
     </div>  
-  </div>
+  </section>
   <!-- Main Content -->
   <main id="userProfile">
     <p class="hiddenHelp"><a href="#footer">Skip the content and go to footer</a></p>

@@ -37,11 +37,15 @@
       // Check Username
 		$user = filter_var($_POST['Username'], FILTER_SANITIZE_STRING);
 		if(strlen($user) == 0)
-			$messaggioErrore .= '<li>Username mancante</li>';
+			$messaggioErrore .= '<p id="error_user">Missing username, please <a href="#Username">insert your username here </a></p>';
+
+      
       // Check Password
 		$pwd = filter_var($_POST['Password'], FILTER_SANITIZE_STRING);
 		if(strlen($pwd) == 0)
-			$messaggioErrore .= '<li>Password mancante</li>';
+			$messaggioErrore .= '<p id="error_pw">Missing password, please <a href="#Password">insert your password here </a></p>';
+
+      
 	
 		if($messaggioErrore == '') {
 			$DBAccess = new DBAccess();
@@ -53,60 +57,60 @@
 	
 			if($Logged != null) {
 		
-			$user = ''; $pwd = '';
-      
-      if(isset($Logged['Admin']) && $Logged['Admin']==1){
-        $_SESSION['Admin'] = $Logged['Admin'];
-      }
+        $user = ''; $pwd = '';
         
-			$_SESSION['user_ID'] = $Logged['ID'];
-			$_SESSION['user_Status'] = $Logged['Status'];
-			$_SESSION['user_Username'] = $Logged['Username'];
-			$_SESSION['user_Icon'] = $Logged['Icon'];
-        
+        if(isset($Logged['Admin']) && $Logged['Admin']==1){
+          $_SESSION['Admin'] = $Logged['Admin'];
+        }
+          
+        $_SESSION['user_ID'] = $Logged['ID'];
+        $_SESSION['user_Status'] = $Logged['Status'];
+        $_SESSION['user_Username'] = $Logged['Username'];
+        $_SESSION['user_Icon'] = $Logged['Icon'];
+          
 
-			$taglist = $DBAccess->getTags($Logged['ID'],0);
-			$DBAccess->closeDBConnection();
-			unset($_SESSION['TagList']);
-			
-			$_SESSION['TagList']=array();
-			if($taglist)
-			{
-				foreach($taglist as $name=>$value){
-				$_SESSION['TagList'][$name] = $value;
-				}	
-			}
-	
-			if(isset($_SESSION['view'])){
-				$view = $_SESSION['view'];
-				unset($_SESSION['view']);
-				if(isset($_SESSION['code'])){
-				$code = $_SESSION['code'];
-				unset($_SESSION['code']);
-				if($view == "ViewJob" )
-					header('Location:'. $view .'.php?Code_job='.$code);
-				if($view == 'ViewUser')
-					header('Location:'. $view .'.php?Code_User='.$code);
-				}
-	
-			}   
-	
-			if(isset($page)) {
-				$id=filter_var($_GET['section'], FILTER_VALIDATE_INT);
-				if(isset($section))
-				header('Location:UserProfile.php?section='. $section);
-			}
-	
-			if(!isset($view) && !isset($page) )
-				header('Location:Welcome.php');
-        } 
-        else
-          $messaggioErrore =  '<div id="errorList" class="box"><p>Username and/or Password are not correct. Please <a href="#Username">try again</a>.</p></div>';
+        $taglist = $DBAccess->getTags($Logged['ID'],0);
+        $DBAccess->closeDBConnection();
+        unset($_SESSION['TagList']);
+        
+        $_SESSION['TagList']=array();
+        if($taglist)
+        {
+          foreach($taglist as $name=>$value){
+          $_SESSION['TagList'][$name] = $value;
+          }	
+        }
+    
+        // Redirect 
+        if(isset($_SESSION['view'])){
+          $view = $_SESSION['view'];
+          unset($_SESSION['view']);
+          if(isset($_SESSION['code'])){
+            $code = $_SESSION['code'];
+            unset($_SESSION['code']);
+            if($view == "ViewJob" )
+              header('Location:'. $view .'.php?Code_job='.$code);
+            if($view == 'ViewUser')
+              header('Location:'. $view .'.php?Code_User='.$code);
+          }
+        }   
+    
+        if(isset($page)) {
+          $id=filter_var($_GET['section'], FILTER_VALIDATE_INT);
+          if(isset($section))
+            header('Location:UserProfile.php?section='. $section);
+        }
+        if(!isset($view) && !isset($page) )
+          header('Location:Welcome.php');
       } 
+      else
+        $messaggioErrore =  '<div id="errorList" class="box"><p id="error_user"></p><p id="error_pw">The username and password you inserted are not correct. Please <a href="#Username">try inserting your nickname and password again</a>.</p></div>';
+    } 
 		else
-			$messaggioErrore = '<div id="errorMessages"><ul>' . $messaggioErrore . '</ul></div>';
-    }
-	
+			$messaggioErrore = '<div id="errorMessages" class="box"><ul>' . $messaggioErrore . '</ul></div>';
+    }   	
+
+    
     $paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);
     $redirect='';
     if($page)

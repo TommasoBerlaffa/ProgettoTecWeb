@@ -460,7 +460,7 @@
     position:unset;
   }
 
-  div#sidebarWithControl {
+  #sidebarWithControl {
     padding-top: 20%;
   }
 
@@ -469,7 +469,7 @@
     width: 25%;
     top: 0;
     height: 100%;
-    left: -32%;
+    right: 132%;
     /* for sidebar to stay on top */
     z-index: 1;
     transition: left 0.5s ease-in-out;
@@ -499,7 +499,7 @@
   }
 
   #hideSidebar:checked ~ #sidebar {
-    left: 0;
+    right: 0;
   }
   
   #hideSidebar:checked ~ #UserProfile {
@@ -513,6 +513,7 @@
   }
 
   label#labelHideSidebar {
+    float: right;
     width: fit-content;
     padding: 1em;
     padding-bottom: 0.5em;

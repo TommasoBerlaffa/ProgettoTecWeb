@@ -257,7 +257,7 @@ p.error {
 form#login {
   width: 25%;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 2em;
   margin-bottom: 2em;
 } 
 
@@ -839,6 +839,10 @@ main#userProfile {
   vertical-align: top;
 }
 
+section#sidebarWithControl {
+  display: inline-block;
+}
+
 label#labelHideSidebar,
 input#hideSidebar,
 #sidebar label#exitSidebar {
@@ -848,7 +852,7 @@ input#hideSidebar,
 div#sidebar { 
   background-color: #4a6fa5;
   background-color: var(--subcolor);
-  display: inline-block;
+
   width: fit-content;
 }
 
@@ -1332,6 +1336,7 @@ div#errorList {
   padding: 1em;
   width: 50%;
   margin: auto;
+  margin-top: 1em;
 }
 
 div#errorList h1{
@@ -1872,7 +1877,7 @@ input#search {
   /* - 5.1 Login Input Form - */
   form#login {
     width: 30%;
-    margin-top: 15%;
+    margin-top: 3em;
   } 
 
   /* - 6.0 Filter for Page Find Job - */
@@ -1889,10 +1894,6 @@ input#search {
   }
   
   /* - 7.0 Sidebar for User Profile - */
-  div#sidebar { 
-    width: 18%;
-  }
-
   span.sidebarText{
     font-size: 0.875em;   
     display: block;
