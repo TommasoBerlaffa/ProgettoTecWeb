@@ -29,7 +29,7 @@
 
   body {
     font-family:Tahoma,sans-serif;  
-    font-size: 14px;
+    font-size: 0.875em;
     margin:auto;  
     max-width: 100%;
     height: 100%;
@@ -93,7 +93,7 @@
   }
 
   header ul li a {
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   header ul li span {
@@ -102,15 +102,15 @@
 
   header img.icons{
     padding: 0px;
-    width:32px;
-    height:32px;
+    width: 1.5em;
+    height: 1.5em;
     display:block;
     margin: auto; 
   }
 
   header img#profilepic{
-    width: 28px;
-    height: 28px;  
+    width: 1.75em;
+    height: 1.75em;  
     padding: 1px;
     margin: auto;
   }
@@ -136,7 +136,6 @@
   }
 
   form#login {
-    margin-top: 30%;
     width: 60%;
   } 
   
@@ -146,7 +145,6 @@
 
   /* 1.5.2 Sign Up Input Form */ 
   form#SignUp {
-    margin-top: 25%;
     margin-bottom: 25%;
     width: 80%;
   }
@@ -496,8 +494,8 @@
   }
 
   #sidebar img.icons{
-    width: 24px;
-    height: 24px;
+    width: 1.5em;
+    height: 1.5em;
   }
 
   #hideSidebar:checked ~ #sidebar {
@@ -570,8 +568,8 @@
   }
 
   main img#icon {
-    width:48px;
-    height:48px;
+    width: 3em;
+    height: 3em;
   }
 
   /* - 1.7.5 User Profile Setting Page - */

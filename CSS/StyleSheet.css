@@ -85,6 +85,10 @@ a.goTop {
   font-size: 1.2em;
 }
 
+p {
+  line-height: 1.5em;
+}
+
 /* - 2.0 Header - */
 header {
   background-color: #00679e;
@@ -130,15 +134,15 @@ header ul li span {
 }
 
 header img.icons{
-  width:24px;
-  height:24px;
+  width:1.5em;
+  height:1.5em;
   padding-right :0.15em;
   vertical-align: text-bottom;
 }
 
 img#profilepic {
-  width: 18px;
-  height: 18px;
+  width: 1.1em;
+  height: 1.1em;
   padding : 0.2em;
   background-color: white;
   border-color: #000;
@@ -309,8 +313,8 @@ form#SignUp input{
 }
 
 img#newpfp {
-  width: 64px;
-  height: 64px;
+  width: 4em;
+  height: 4em;
 }
   
 /* - 5.3 Change Password Form - */
@@ -352,7 +356,7 @@ form#createJob * {
 form#createJob fieldset input,
 form#createJob fieldset select {
   width: fit-content;
-  max-height: 25px;
+  max-height: 1.5em;
 }
 
 form#createJob fieldset textarea {
@@ -666,7 +670,7 @@ form#formFilter #labelsearchTag {
 
 form#formFilter #searchTag {
   width: 80%;
-  max-height: 25px;
+  max-height: 1.5em;
 
 }
 
@@ -886,8 +890,8 @@ div#sidebar ul li{
 }
 
 #sidebar img.icons{
-  width: 24px;
-  height: 24px;
+  width: 1.5em;
+  height: 1.5em;
   vertical-align: text-bottom;
 }
 
@@ -895,8 +899,8 @@ div#sidebar ul li{
 #sidebarIcon {
   display: block;
   padding : 1em;
-  width: 16px;
-  height: 16px;
+  width: 1em;
+  height: 1em;
 }
 
 a#AdminArea {
@@ -1053,15 +1057,15 @@ h2.reviewTitle {
 }
 
 main img#icon {
-  width:60px;
-  height:60px;
+  width:3.75em;
+  height:3.75em;
   float:left;
   padding-right: 1.5em;
 }
 
 img.icons {
-  width: 24px;
-  height: 24px;
+  width: 1.5em;
+  height: 1.5em;
   display: inline-block;
   padding: 0.2em;
 }
@@ -1185,8 +1189,8 @@ form#settings fieldset input[type=text] {
 }
 
 form#settings img#yourProfilePic {
-  width: 60px;
-  height: 60px;
+  width: 3.75em;
+  height: 3.75em;
 }
 
 form#settings #Surname {
@@ -1890,8 +1894,8 @@ input#search {
 
   /* User Info */
   main img#icon {
-    width:48px;
-    height:48px;
+    width:3em;
+    height:3em;
   }
   
   /* temp userinfo */
