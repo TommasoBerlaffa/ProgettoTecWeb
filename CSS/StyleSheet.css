@@ -231,11 +231,13 @@ label {
   display: block;
   width: 100%;
   text-align: left;
+  padding-bottom: 0.5em;
 }
 
 input {
   border-radius: 5px;
   display: block;
+  margin-bottom: 0.5em;
 }
 
 button[type=submit],
@@ -505,6 +507,7 @@ form#createJob fieldset div#selectedTagsList {
 
 div#tagsList p,
 div#selectedTagsList p{
+  padding-left: 0.5em;
   margin-block-start: 0;
   margin-block-end: 0;
 }
@@ -627,6 +630,10 @@ form#formFilter div#Pay {
   -ms-grid-column: 1;
   grid-column: 1 / span 2;
   -ms-grid-column-span: 2;
+}
+
+form#formFilter #labelPayment {
+  margin-left: 0.5em;
 }
 
 form#formFilter #labelPay {
@@ -992,7 +999,7 @@ div#content th.bidShortTh{
 div#content table, 
 div#content th, 
 div#content td {
-  padding: 0.4em;
+  padding: 0.8em;
   border-collapse: collapse;
   border-color: var(--black);
   border: 1px solid  #000; 
@@ -1674,6 +1681,9 @@ main#Home {
 }
 
 main#Home img{
+  border: 2px solid #000;
+  border-color: var(--black);
+  align-self: center;
   width: 90%;
   padding: 5%;
 }
