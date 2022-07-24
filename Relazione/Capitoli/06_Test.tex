@@ -1,7 +1,35 @@
 \section{Test}
-	Il testing delle pagine è stato effettuato su diversi browsers.
-  Gli strumenti utilizzati per il Testing del sito sono stati:
+
+  Gli strumenti utilizzati per il Testing generale del sito sono stati:
   \begin{itemize}
     \item \textit{WAVE}, ovvero uno strumento utile a rendere il proprio sito più accessibile ad utenti con disabilità. Questo strumento infatti può identificare diversi errori di accessbilità (come quelli presenti nelle Guideline di WCAG). I test di WAVE sono stati fatti tramite estensioni del browser Chrome.
     \item \textit{Silktide}, un'estensione web che permette di testare la propria pagina andando a simulare diverse disabilità, tra cui (per citarne alcune) dislessia e daltonismo. Questo tipo di software ci permette quindi di rendere le nostre pagine più facilmente esplorabili da questa tipologie di utenza.
   \end{itemize}
+  Sono stati inoltre utilizzati strumenti più specifici per altri tipi di testing.
+	
+  \subsection{Testing di Compatibilità}
+    Il testing delle pagine è stato effettuato su diversi browsers, ovvero :
+    \begin{itemize}
+      \item Google Chrome, su cui è stato testato principalmente il sito;
+      \item Mozilla Firefox;
+      \item Internet Explorer e Microsoft Edge;
+      \item Safari.
+    \end{itemize}
+    La ricerca di compatibilità con Internet Explorer ha portato ad alcune scelte, soprattutto a livello di CSS, che in alcuni casi possono risultare forzate, come l'utilizzo di colore statico seguito da colore var oppure l'utilizzo di -ms-grid per le grid su Internet Explorer.
+
+  \subsection{Testing del contrasto dei Colori} 
+    WAVE permette, in maniera molto semplice, di controllare se nel sito sono presenti contrasti a livello cromatico che potrebbero risultare fastidiosi ad alcune categorie di utenti.
+    Inoltre, è stato anche utilizzato il \href{https://webaim.org/resources/contrastchecker/}{Contrast Checker} fornito da WebAim per assicurarci che i colori da noi scelti risultassero non fastidiosi all'utente.
+
+  \subsection{Testing di Grandezza delle Pagine}
+    Una caratteristica molto importante di un buon sito web è la leggerezza, infatti nella creazione di un sito web è buona pratica fare in modo che le pagine non risultino essere troppo pesanti. Questo potrebbe rendere il rendering delle pagine lento e creare una sensazione negativa nell'utente.\\
+    Per questo motivo, viene consigliato di fare in modo che il preso delle pagine sia il minore possibile, generalmente mantenendolo tra i 2 ed 1 Megabyte. 
+
+  \subsection{Testing di Altezza delle Pagine}
+    Vengono disposte pratiche per fare in modo che non vi siano pagine "troppo alte" e, in caso questo succeda comunque, vengono predisposti meccanismi per tornare indietro. \\
+    Esempi di questi meccanismi possono essere :
+    \begin{enumerate}
+      \item Nella pagina \textit{Findjob}, i lavori posso idealmente essere migliaia ma ne verranno solamente visualizzati un massimo di 10 per volta. Questo avviene grazie alla divisione del contenuto in sottopagine;
+      \item Nelle pagine \textit{UserProfile} di \textit{Your Job Offers} e \textit{Your Bids}, le tabelle vengono riempite dinamicamente con i dati presenti nel database. Per questo motivo, non conoscendo la Grandezza
+      delle tabelle, vengono creati dei link di "go back to the top" per far sì che, nel caso la tabella generata risulti essere troppo grande, l'utente abbia comunque la capacità di tornare all'inizio della pagina senza alcuna difficoltà.
+    \end{enumerate}

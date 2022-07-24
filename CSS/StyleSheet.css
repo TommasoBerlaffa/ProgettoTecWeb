@@ -30,8 +30,8 @@
 ******************************/
 :root {
   --background: #ECE5C7;
-  --color: #00679e;
-  --subcolor: #4a6fa5;
+  --color: #00466B;
+  --subcolor: #3A5782;
   --content: #fff;
   --black: #000;
   --darkWhite: #d1d9e6;
@@ -91,7 +91,7 @@ p {
 
 /* - 2.0 Header - */
 header {
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   display: flex;
   align-items: flex-end;
@@ -168,7 +168,7 @@ footer{
   min-height: 5%;
   width: 100%;
   text-align:center;
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   max-width: 1024px;
   margin: auto;
@@ -210,7 +210,7 @@ fieldset{
 }
 
 legend {
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   color: #ECE5C7;
   color: var(--background);
@@ -531,7 +531,7 @@ form#createJob fieldset button#Create{
 h1.title404{
   display:block;
   text-align: center;
-  font-family: Trebuchet MS;
+  font-family: "Trebuchet MS";
   font-size: 4em;
   font-weight: bold;
   margin-top: 0.15em;
@@ -708,7 +708,7 @@ h1.SelectedTags {
   background: #fff;
   background: var(--content);
   border-radius: 5px;
-  border: 2px solid #4a6fa5;
+  border: 2px solid #3A5782;
   border-color: var(--subcolor);
   margin-right: 0.3em;
   margin-top: 0.2em;
@@ -759,7 +759,7 @@ div.job .title {
   -ms-grid-row: 1;
   grid-row: 1;
   -ms-grid-column-span: 2;
-  border: 2px solid #00679e;
+  border: 2px solid #00466B;
   border-color: var(--color);
   border-radius: 5px;
   padding: 0.5em;
@@ -850,7 +850,7 @@ input#hideSidebar,
 }
 
 div#sidebar { 
-  background-color: #4a6fa5;
+  background-color: #3A5782;
   background-color: var(--subcolor);
 
   width: fit-content;
@@ -891,7 +891,7 @@ div#sidebar ul li{
 }
 
 #sidebar .selected {
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   padding: 1em;
 }
@@ -939,7 +939,7 @@ div#introTags {
   width: 80%;
   margin: auto;
   padding-bottom: 0.2em;
-  border-bottom: 2px solid #00679e;
+  border-bottom: 2px solid #00466B;
   border-color:var(--color);
 }
 
@@ -960,7 +960,7 @@ div#content table caption.description{
 }
 
 div#content table thead{
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   color: #ECE5C7;
   color: var(--background);
@@ -1036,7 +1036,7 @@ div#userinfo {
 div.headchapter {
   width: 80%;
   padding-bottom: 2em;
-  border-bottom: 2px solid #00679e;
+  border-bottom: 2px solid #00466B;
   border-color: var(--color);
   margin-right: 20%;
 }
@@ -1044,7 +1044,7 @@ div.headchapter {
 main#viewUser div.headchapter {
   width: 100%;
   padding-bottom: 2em;
-  border-bottom: 2px solid #00679e;
+  border-bottom: 2px solid #00466B;
   border-color:var(--color);
 }
 
@@ -1388,7 +1388,7 @@ div#JobInfo legend {
 }
 
 div#JobInfo h1 {
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   color: #ECE5C7;
   color: var(--background);
@@ -1571,7 +1571,7 @@ div#feedback span {
 }
 
 div#feedback .reviewUser {
-  background-color: #00679e;
+  background-color: #00466B;
   background-color: var(--color);
   color: #ECE5C7;
   color: var(--background);
@@ -1650,7 +1650,7 @@ div#bids p.error{
 
 div.bid {
   margin: 1em;
-  border-color: #4a6fa5;
+  border-color: #3A5782;
   border-bottom: 1px solid var(--subcolor)
 }
 
@@ -1742,7 +1742,7 @@ div#popularJobs {
 }
 
 ul#popularJobsList {
-  background-color: #4a6fa5;
+  background-color: #3A5782;
   background: var(--subcolor);
   padding: 0.2em;
   display: flex;
