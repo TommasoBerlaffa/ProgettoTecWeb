@@ -30,7 +30,8 @@
   body {
     font-family:Tahoma,sans-serif;  
     font-size: 0.875em;
-    margin:auto;  
+    margin:auto; 
+    width: 100%; 
     max-width: 100%;
     height: 100%;
     padding-bottom: 2.5em;
@@ -52,7 +53,7 @@
   
   main { 
     margin-top: 12%;
-    padding-top: 10%;
+    padding-top: 12%;
   }
 
   footer#footer {
@@ -87,7 +88,7 @@
 
   header ul li a,
   header ul li span {
-    font-size: 0.8em; 
+    font-size: 0.95em;
     text-align: center;
     display: block
   }
@@ -287,7 +288,7 @@
     grid-row: 16;
   }
 
-  form#createJob fieldset label#labelsearchTag {
+  form#createJob fieldset div#searchTagField {
     -ms-grid-column: 1;
     -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
@@ -334,6 +335,8 @@
     grid-column: 1 / span 2;
     -ms-grid-row: 23;
     grid-row: 23;
+    width: 40%;
+    margin: auto;
   }
 
   /* 1.6.0 Filter for Page Find Job */
@@ -452,11 +455,10 @@
 
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
-    width: 95%;
+    max-width: 100%;
     margin-top: 0%;
     padding-top: 0%;
     margin-bottom: 12%;
-    position:unset;
   }
 
   #sidebarWithControl {
@@ -464,12 +466,14 @@
   }
 
   div#sidebar {
-    padding-top: 10%;
+    margin-top: 35%;
+    margin-bottom: 25%;
     position: absolute;
+    display: none;
     width: 25%;
     top: 0;
-    height: 100%;
-    right: -30%;
+    border-radius: 10px 0 0 10px;
+    right: -60%;
     /* for sidebar to stay on top */
     z-index: 1;
     transition: right 0.5s ease-in-out;
@@ -499,7 +503,12 @@
   }
 
   #hideSidebar:checked ~ #sidebar {
+    display: inherit;
     right: 0;
+  }
+
+  #hideSidebar:checked ~ #content {
+    width: 80%;
   }
   
   #hideSidebar:checked ~ #UserProfile {
@@ -513,7 +522,8 @@
   }
 
   label#labelHideSidebar {
-    float: right;
+    position: fixed;
+    top: 15%;
     width: fit-content;
     padding: 1em;
     padding-bottom: 0.5em;
@@ -530,6 +540,7 @@
   /* 1.7.1 Content for User Profile */
   div#content {
     margin: auto;
+    margin-top: 50%;
   }
 
   div#content div{

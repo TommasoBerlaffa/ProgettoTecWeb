@@ -1,6 +1,5 @@
 /* generali */
 html {
-  font-family: Georgia, 'Times New Roman', serif;
   width: 100%; 
   margin: 0; 
   float: none;
@@ -37,8 +36,8 @@ form {
 
 /* user icon*/
 main img#icon {
-  width: 64px;
-  height: 64px;
+  width: 4em;
+  height: 4em;
 }
 
 /* tables */
@@ -49,7 +48,7 @@ table {
 /* HomePage */
 img#firstImg,
 img#secondImg {
-  width: 50%;
+  width: 30%;
   margin: auto;
 }
 
