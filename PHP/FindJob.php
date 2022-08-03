@@ -32,7 +32,7 @@
 	// Cambio Pagina
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
 	
-	$HtmlContent='<div id="jobList"><h1>List of job offers<Title_complete/></h1>';
+	$HtmlContent='<div id="jobList"><h1>All job offers<Title_complete/></h1>';
 
 
 	$type= 'Any';
@@ -121,6 +121,10 @@
 	}
 	$NumberPages=ceil($NumberPages / 5);
 	
+	if(isset($_GET['tag']))
+		$HtmlContent.='<p>When you click on a Tag you are redirected to the search by the specific Tag clicked 
+						instead of the selected ones on the filter menu. Click <a href="FindJob.php">HERE</a> to remove it.</p>';
+	
 	if($result){
 		foreach($result as $row)
 		{
@@ -195,13 +199,14 @@
 	
 	
 	
-	$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>',$HtmlContent,$HTML);
+	//$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>',$HtmlContent,$HTML);
+	$HTML = str_replace('<div id="jobList"></div>',$HtmlContent,$HTML);
 	$HTML = str_replace('<paging/>', $pageHTML, $HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('<paytype/>',$HtmlCheckboxPay,$HTML);
-  $HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
+	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
 	$HTML = str_replace('<DateSelect/>',$HtmlDateSelect,$HTML);
-	$HTML = str_replace('<div id="jobList"></div>',$HtmlContent,$HTML);
+	
 	if(isset($_GET['tag'])){
 		$HTML = str_replace('<GETsearch/>','?tag='.$tag,$HTML);
 		$HTML = str_replace('<Title_complete/>',' matching '. $tagName .' tag',$HTML);

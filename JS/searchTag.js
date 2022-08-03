@@ -1,7 +1,7 @@
 var timer;
 function delay(){
    clearTimeout(timer);
-   timer=setTimeout(AjaxTagSearch(tagList),250);
+   timer=setTimeout(() => AjaxTagSearch(tagList),200);
 }
 
 function updateUserTagList(response){
@@ -24,7 +24,7 @@ function updateUserTagList(response){
 		bt.value=list[keys[i]];
 		bt.classList.add("btnTag");
 		bt.setAttribute('type','button');
-		bt.setAttribute('onclick',"AjaxRemoveTag('"+keys[i]+"')");
+		bt.addEventListener('click', AjaxRemoveTag);
 		div.appendChild(bt);
 		if(tmp)
 			tmp.innerHTML += '<li>' + keys[i] + '</li>';
@@ -53,9 +53,9 @@ window.addEventListener('load',function() {
 	AjaxUpdate(updateUserTagList);
 })
 
-function AjaxRemoveTag(name){
+function AjaxRemoveTag(obj){
 	const xhttp = new XMLHttpRequest();
-	var data = {'Sub':true,'Name':name};
+	var data = {'Sub':true,'Name':obj.target.innerHTML};
 	xhttp.open('POST', '../PHP/Modules/Util.php', true);
 	
 	xhttp.onreadystatechange = function() {
@@ -71,9 +71,9 @@ function AjaxRemoveTag(name){
 	return;
 }
 
-function AjaxAddTag(name,val){
+function AjaxAddTag(obj){
 	const xhttp = new XMLHttpRequest();
-	var data = {'Add':true,'Name':name,'Value':val};
+	var data = {'Add':true,'Name':obj.target.innerHTML,'Value':obj.target.value};
 	xhttp.open('POST', '../PHP/Modules/Util.php', true);
 	
 	xhttp.onreadystatechange = function() {
@@ -106,7 +106,7 @@ function tagList(response){
 		bt.value=list[keys[i]];
 		bt.classList.add('btnTag');
 		bt.setAttribute('type','button');
-		bt.setAttribute('onclick',"AjaxAddTag('"+keys[i]+"','"+list[keys[i]]+"')");
+		bt.addEventListener('click', AjaxAddTag);
 		div.appendChild(bt);
 	}
 }
@@ -137,10 +137,7 @@ function AjaxTagSearch(callback){
 }
 
 if(document.getElementById('searchTag')){
-	document.getElementById('searchTag').onkeyup = function (e, callback) {
-		e = e || window.event;
-		delay();
-	}
+	document.getElementById('searchTag').addEventListener('keyup', function(evt){delay();});
 }
 
 

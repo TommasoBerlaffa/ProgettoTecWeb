@@ -1,3 +1,8 @@
+window.onload = function(){
+	document.getElementById("Password").addEventListener('keyup',passwordSecurity)
+	document.getElementById("Repeat-Password").addEventListener('keyup',passwordMatch)
+};
+
 function passwordSecurity() {
 	if(document.getElementById("Password").value==''){
 		document.getElementById('Security').innerHTML = '';

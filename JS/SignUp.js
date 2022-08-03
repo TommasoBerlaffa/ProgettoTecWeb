@@ -4,6 +4,14 @@ window.addEventListener('load',function() {
     document.getElementById("Form_2").style.display='none';
     document.getElementById("Form_3").style.display='none';
     document.getElementById("Form_4").style.display='none';
+	document.getElementById('Password').addEventListener('keyup', passwordSecurity);
+	document.getElementById('Repeat-Password').addEventListener('keyup', passwordMatch);
+	document.getElementById('Next1').addEventListener('click', Form1_forward);
+	document.getElementById('Back1').addEventListener('click', Form1);
+	document.getElementById('Next2').addEventListener('click', Form2_forward);
+	document.getElementById('Back2').addEventListener('click', Form2);
+	document.getElementById('Next3').addEventListener('click', Form3_forward);
+	document.getElementById('Back3').addEventListener('click', Form3);
 })
 
 
@@ -22,7 +30,7 @@ function Ajax_Taken(content,callback) {
 	var st=true;
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200)
-			st=callback(content, xhttp.responseText)
+			st=callback(content, xhttp.responseText);
 		else if (xhttp.readyState === 4 && xhttp.status === 429){
 			document.getElementById(content + 'Taken').innerText='Too many requests, retry in 5 secs.';
 			st= false;
@@ -123,12 +131,18 @@ function Form2() {
 	document.getElementById("Form_3").style.display='none';
 }
 function Form2_forward() {
+	var date=document.getElementById('Birthday').value;
+	console.log(date);
 	if(checkRequiredInputs("Form_2")){
 		document.getElementById('Missing2').innerText='';
 		Form3();
 	}
-  else
-  	document.getElementById('Missing2').innerText='Please fill up all required fields';
+    else{
+		if(! document.getElementById('Birthday').value)
+			document.getElementById('Missing2').innerText='Please fill Birthday field with a nvalid date';
+		else
+			document.getElementById('Missing2').innerText='Please fill up all required fields';
+    }
 }
 
 function Form3() {
@@ -157,11 +171,13 @@ function Form4() {
 	oFReader.readAsDataURL(document.getElementById("Picture").files[0]);
 	oFReader.onload = function (oFREvent) {
 		document.getElementById("newpfp").src = oFREvent.target.result;
+		document.getElementById("newpfp").hidden=false;
+		document.getElementById("Fpfp").hidden=false;
 	};
   }
   else{
-	  document.getElementById("newpfp").remove();
-	  document.getElementById("Fpfp").remove();
+	  document.getElementById("newpfp").hidden=true;
+	  document.getElementById("Fpfp").hidden=true;
   }
   
   document.getElementById('FNickname').innerHTML = 'Username : ' + document.getElementById('Username').value ;  

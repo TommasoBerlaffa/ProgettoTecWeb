@@ -62,7 +62,7 @@
         <p id="intro">Please fill all the fields with a * to create a job : </p>
         <!-- Title -->
         <label for="Title" id="labelTitle">Choose your Title *:</label>
-        <input type="text" id="Title" name="Title" value="<title/>" aria-required="true" required>
+        <input type="text" id="Title" name="Title" maxlength="128" value="<title/>" aria-required="true" required>
         <!-- Tipology -->
         <label for="Tipology" id="labelType">Choose the Typology *:</label>
         <select id="Tipology" name="Type" size="4" aria-required="true" required>
@@ -83,15 +83,15 @@
         </div>
         <!-- Minimum Pay -->
         <label for="MinPay" id="labelMin">Minimum Payment *:</label>
-        <input type="number" id="MinPay" min="0" name="Min" value="<min/>" aria-required="true" required>
+        <input type="number" id="MinPay" min="0" max="99999999" name="Min" value="<min/>" aria-required="true" required>
         <!-- Maximum Pay -->
         <label for="MaxPay" id="labelMax">Maximum Payment *:</label>
-        <input type="number" id="MaxPay" min="0" name="Max" value="<max/>" aria-required="true" required>
-
+        <input type="number" id="MaxPay" min="1" max="99999999" name="Max" value="<max/>" aria-required="true" required>
+		<p id="Payerr" class="Error"></p>
 
         <!-- Job Description -->
         <label for="Desc" id="labelDesc">Describe the Job and what you are looking for *:</label>
-        <textarea id="Desc" name="Description" rows="15" cols="76" aria-required="true" required><desc/></textarea>
+        <textarea id="Desc" name="Description" maxlength="4096" rows="15" cols="76" aria-required="true" required><desc/></textarea>
         <!-- Skills -->
         <!-- Filled with Entries from DB -->
           <p id="TagDescription">Search the tags you want to add by using the <a href="#searchTag">tag search</a>. 
@@ -100,7 +100,7 @@
           </p>
 		  <div id="searchTagField">
 			<label for="searchTag" id="labelsearchTag">Search Tags: </label>
-			<input type="text" id="searchTag" name="searchTag" placeholder="Search Tag Here" autocomplete="off"/>
+			<input type="text" id="searchTag" name="searchTag" maxlength="65" placeholder="Search Tag Here" autocomplete="off"/>
           </div>
 		  <div id="tagsList">
 			<p class="chooseTags">Available Tags :</p>

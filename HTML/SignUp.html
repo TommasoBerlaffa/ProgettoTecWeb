@@ -69,26 +69,26 @@
 
         <!-- Nickname -->
         <label for="Username" class="Enter">Username* : </label>
-        <input type="text" id="Username" name="Username" class="Enter" value="<Username />" required />
-				<p id="UsernameTaken" class="Error"></p>
-				<!-- Mail -->
-				<label for="Email" >Email* : </label>
-        <input type="email" id="Email" name="Email" value="<Email />" required />
-				<p id="EmailTaken" class="Error"></p>
+        <input type="text" id="Username" name="Username" class="Enter" maxlength="48" value="<Username />" required />
+		<p id="UsernameTaken" class="Error"></p>
+		<!-- Mail -->
+		<label for="Email" >Email* : </label>
+        <input type="email" id="Email" name="Email" maxlength="48" value="<Email />" required />
+		<p id="EmailTaken" class="Error"></p>
         <!-- Password -->
         <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
-        <input type="password" id="Password" name="Password" class="Enter" onkeyup='passwordSecurity();' required />
-				<p id="Security" class="Error"></p>
+        <input type="password" id="Password" name="Password" class="Enter" maxlength="48" required />
+		<p id="Security" class="Error"></p>
         <!-- Password ( Check ) -->
         <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
-        <input type="password" id="Repeat-Password" name="Repeat-Password" class="Enter" onkeyup='passwordMatch();' required />
-				<p id="Match" class="Error"></p>
-				<!-- Icon Image -->
+        <input type="password" id="Repeat-Password" name="Repeat-Password" maxlength="48" class="Enter" required />
+		<p id="Match" class="Error"></p>
+		<!-- Icon Image -->
         <label for="Picture" class="Enter">Profile Picture :</label>
         <input type="file" id="Picture" name="Picture" accept="image/jpeg, image/png, image/gif" class="Enter"/>
         <!-- Next Page -->
-				<p id="Missing1" for="Next1" class="Error"></p>
-        <input type="button" id="Next1" value="Next" onclick="Form1_forward()" />
+		<p id="Missing1" for="Next1" class="Error"></p>
+        <input type="button" id="Next1" value="Next"/>
       </fieldset>
 
       <fieldset id="Form_2">
@@ -96,34 +96,34 @@
         <legend> Sign Up - Personal Informations </legend>
         <p> Please fill this form to create a new account  2/3</p>
         <p> Only the field with a * are required</p>
-				<p> You are already half way there</p>
-				<!-- Name -->
+		<p> You are already half way there</p>
+		<!-- Name -->
         <label for="Firstname" class="Enter">Name* :</label>
-        <input type="text" id="Firstname" name="Firstname" class="Enter" value="<Firstname />" required />
+        <input type="text" id="Firstname" name="Firstname" class="Enter" maxlength="64" value="<Firstname />" required />
         <!-- Surname -->
         <label for="Lastname" class="Enter">Surname* :</label>
-        <input type="text" id="Lastname" name="Lastname" class="Enter" value="<Lastname />" required />
+        <input type="text" id="Lastname" name="Lastname" class="Enter" maxlength="64" value="<Lastname />" required />
         <!-- Birthday -->
         <label for="Birthday" >Birthday* : </label>
         <input type="date" id="Birthday" name="Birthday" value="<Birthday />" required>
         <!-- Country e Nationality da rivedere, l'utente può inserire quello che vuole-->
         <!-- Nationality -->
         <label for="Country">Nationality* : </label>
-        <input type="text" id="Country" name="Country" value="<Country />" required />
+        <input type="text" id="Country" name="Country" minlength="4" maxlength="56" value="<Country />" required />
         <!-- City -->
         <label for="City">City* : </label>
-        <input type="text" id="City" name="City" value="<City />" required />
+        <input type="text" id="City" name="City" maxlength="45" value="<City />" required />
         <!-- Address -->
         <label for="Address">Address : </label>
-        <input type="text" id="Address" name="Address" value="<Address />" />
+        <input type="text" id="Address" name="Address" maxlength="75" value="<Address />" />
         <!-- Tel -->
         <!-- Si può fare controllo con un'espressione regolare -->
         <label for="Tel">Telephone Number : </label>
-        <input type="tel" id="Tel" name="Tel" value="<Phone />" />
+        <input type="tel" id="Tel" name="Tel" minlength="7" maxlength="15" value="<Phone />" />
         <!-- Codice JS, probabilmente TO REPLACE with PHP-->
-        <input type="button" value="Go Back" onclick="Form1()" />
+        <input type="button" id = "Back1" value="Go Back" />
 				<p id="Missing2" for="Next2" class="Error"></p>
-        <input type="button" id="Next2" value="Next" class="Next" onclick="Form2_forward()" />
+        <input type="button" id="Next2" value="Next" class="Next"/>
 
       </fieldset>
 
@@ -131,27 +131,27 @@
         <legend> Sign Up - Your Skills </legend>
         <p> Please fill this form to create a new account 3/3</p>
         <p> Only the field with a * are required</p>
-				<p> One last step! </p>
+		<p> One last step! </p>
 
         <!--<tags/>-->
 		    <TagModule/>
 		
         <!-- Curriculum pattern="https://*"  -->
         <label for="Curr">Link To a Curriculum : </label>
-        <input type="url" value="<Curriculum />" id="Curr" name="Curr"/>
+        <input type="url" maxlength="128" value="<Curriculum />" id="Curr" name="Curr"/>
         <!-- Description -->
         <label for="Desc">Describe Yourself *:</label>
-        <textarea id="Desc" name="Desc"><Description /></textarea>
+        <textarea id="Desc" name="Desc" minlength="10" maxlength="4096" ><Description /></textarea>
 
-        <input type="button" value="Go Back" onclick="Form2()"/>
-				<p id="Missing3" for="Next3" class="Error"></p>
-        <input type="button" id = "Next3" value="Next" class="Next" onclick="Form3_forward()"/>
+        <input type="button" id = "Back2" value="Go Back"/>
+		<p id="Missing3" for="Next3" class="Error"></p>
+        <input type="button" id = "Next3" value="Next" class="Next"/>
       </fieldset>
 
       <fieldset id="Form_4">
         <legend> Sign Up - Finish the Sign Up</legend>
         <p> Complete the Sign Up</p>
-				<p> Check all your submitted data</p>
+		<p> Check all your submitted data</p>
         <p id="Fpfp">Profile Picture : </p>
         <img src="" id="newpfp" alt="your new profile picture">
         <p id="FNickname">Username : </p>
@@ -168,7 +168,7 @@
         <ul id="FSkill"></ul>
         <p id="FDesc">Description : </p>
 
-        <input type="button" value="Go Back" onclick="Form3()"/>
+        <input type="button" id = "Back3" value="Go Back"/>
         <button type="submit" name="Sign_Up" id="Sign_Up" value="Sign_Up">Sign Up!</button>
     </fieldset>
     </form>

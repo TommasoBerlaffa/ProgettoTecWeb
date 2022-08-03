@@ -1,3 +1,8 @@
+if(document.getElementById("search"))
+	window.onload = function(){
+		document.getElementById("search").addEventListener('keyup',AdminSearch)
+	};
+
 function AdminSearch() {
 
   var valoreDaCercare, valoreDaCercareFiltered, lista, tr, td, i, txtValue;

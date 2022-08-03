@@ -67,7 +67,7 @@
 
       <!-- Filter by Min Pay-->
       <label for="PayMin" class="title" id="labelPay">  <abbr title="minimum">Min</abbr> Pay : </label>
-      <input type="number" name="PayMin" id="PayMin" min="0" [payval]/>
+      <input type="number" name="PayMin" id="PayMin" min="0" max="99999999" [payval]/>
 
       <!-- Filter By Date -->
       <label for="Date" id="labelDate"> Date : </label>
@@ -82,7 +82,7 @@
       </fieldset>
     </form>
     
-    <div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>
+    <div id="jobList"></div>
 
   </main>
 
