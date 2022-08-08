@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </li>',$HTML);
   
     $urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'ChangePassword.html';
-    $HTMLContent=file_get_contents($urlContent);
+    $HTMLContent='<div id="content">'.file_get_contents($urlContent).'</div>';
     $HTML = str_replace('<div id="content"></div>',$HTMLContent,$HTML);
     
     $HTML = str_replace('<error/>',isset($_SESSION['error'])?$_SESSION['error']:'',$HTML);

@@ -30,6 +30,7 @@
 ******************************/
 :root {
   --background: #ECE5C7;
+  --links: #bfb382;
   --color: #00466B;
   --subcolor: #3A5782;
   --content: #fff;
@@ -123,13 +124,13 @@ header ul li a:link {
 
 header ul li a:visited {
   margin-bottom: 0.2em;
-  color: #ECE5C7;
-  color: var(--background);
+  color: #bfb382;
+  color: var(--links);
 }
 
 header ul li span {
-  color: #ECE5C7;
-  color: var(--background);
+  color: #bfb382;
+  color: var(--links);
   margin-bottom: 0.2em;
 }
 
@@ -188,8 +189,8 @@ footer#footer a:link {
 }
 
 footer#footer a:visited {
-  color: #ECE5C7;  
-  color: var(--background);
+  color: #bfb382;  
+  color: var(--links);
 }
 
 footer#footer img#smallLogo{
@@ -881,8 +882,8 @@ div#sidebar ul li{
 
 #sidebar a:visited,
 #sidebar a:visited span{
-  color: #ECE5C7;
-  color: var(--background);
+  color: #bfb382;
+  color: var(--links);
 }
 
 #sidebar span {
