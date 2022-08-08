@@ -199,16 +199,16 @@ class DBAccess {
   par: int userID, int jobID, int stars rating, string comments;
   desc: crea una recensione verso un utente userID per un lavoro passato compiuto jobID. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function createReview($id, $job, $stars, $comments,$date) {
+  public function createReview($id, $job, $stars, $comments) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job) and isset($stars)){
-      $queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments, Date)
-                VALUES (?,?,?,?,?)';
+      $queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments)
+                VALUES (?,?,?,?)';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       if(!isset($comments))
         $comments='';
-      mysqli_stmt_bind_param($queryCall,'iiiss',$id, $job, $stars, $comments,$date);
+      mysqli_stmt_bind_param($queryCall,'iiis',$id, $job, $stars, $comments);
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $tmp=mysqli_affected_rows($this->connection);

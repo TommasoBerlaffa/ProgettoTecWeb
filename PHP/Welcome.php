@@ -1,6 +1,8 @@
 <?php
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
   // Pagina da aprire quando si entra su UserProfile.php senza aver cliccato buttons //
-  session_start();
   
   if(isset($_SESSION['user_Username'])) {
 
@@ -31,7 +33,9 @@
     
     echo $HTML;
   }
-  else
-    header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php');
-
+  else{
+	header("Location:Login.php");
+	exit();
+}
+exit();
 ?>

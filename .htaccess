@@ -1,3 +1,13 @@
+#Hardening
+
+<IfModule mod_headers.c>
+	Header set X-XSS-Protection '1; mode=block'
+	Header set Content-Security-Policy "default-src 'self'; script-src 'self'; img-src 'self' data:; frame-ancestors 'none';"
+	Header set X-Content-Type-Options nosniff
+	Header always append X-Frame-Options DENY
+	Header always set Referrer-Policy no-referrer
+</ifModule>
+
 
 
 
@@ -6,6 +16,8 @@ ErrorDocument 404 /ProgettoTecWeb/HTML/Error404.html
 ErrorDocument 500 /ProgettoTecWeb/HTML/Error500.html
 
 SetEnv TZ Europe/London
+
+ServerSignature Off
 
 #deny from all
 
@@ -51,14 +63,6 @@ RewriteCond %{HTTP_USER_AGENT} ^web(zip|emaile|enhancer|fetch|go.?is|auto|bandit
 # ANYWHERE IN UA – GREEDY REGEX
 RewriteCond %{HTTP_USER_AGENT} ^.*(craftbot|download|extract|stripper|sucker|ninja|clshttp|webspider|leacher|collector|grabber|webpictures).*$ [NC]
 
-
-
-#<IfModule mod_rewrite.c>
-#	SetEnvIfNoCase ^User-Agent$ .*(bot1|bot2|bot3|bot4|bot5|bot6|) HTTP_SAFE_BADBOT
-#	SetEnvIfNoCase ^User-Agent$ .*(bot1|bot2|bot3|bot4|bot5|bot6|) HTTP_SAFE_BADBOT
-#	Deny from env=HTTP_SAFE_BADBOT
-#</ifModule>
-
 <FilesMatch ".(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
  Order Allow,Deny
  Deny from all
@@ -66,13 +70,6 @@ RewriteCond %{HTTP_USER_AGENT} ^.*(craftbot|download|extract|stripper|sucker|nin
 
 
 
-#Hardening
-Header set X-Content-Type-Options nosniff
-Header always append X-Frame-Options SAMEORIGIN
 
-<IfModule mod_headers.c>
-  Header set X-XSS-Protection "1; mode=block"
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self'; img-src 'self' data:; frame-ancestors 'none';"
-</ifModule>
 #Set-Cookie: COOKIE=VAL; path=/; domain=.domain.com; secure; HttpOnly
 

@@ -1,7 +1,7 @@
 <?php
-
-  // Inizio Sessione
-  session_start();
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 
   // Variabili pagina HTML e Switch
   $url ='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'FAQ.html';

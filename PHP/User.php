@@ -1,8 +1,9 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
   // User contiene dati utente
-  require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
-
-  session_start();
+  require_once 'DBAccess.php';
 
   if(isset($_SESSION['user_Username'])) {
     // Ottengo Valori da Pagina Statica 
@@ -22,7 +23,7 @@
     </div>';
     $adminActions = '';
     if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
-      $adminActions .= '<a id="AdminArea" href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminHistory.php">Go to the secret admin page</a>';  
+      $adminActions .= '<a id="AdminArea" href="AdminHistory.php">Go to the secret admin page</a>';  
     else 
       $adminActions .= '';
 
@@ -32,7 +33,7 @@
     $DBAccess = new DBAccess();
     if(!($DBAccess->openDBConnection())){
 		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-		exit;
+		exit();
 	}
 
 
@@ -62,7 +63,7 @@
       $adminActions = '';
       if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
       {
-        $adminActions .= '<a id="AdminArea" href="..' . DIRECTORY_SEPARATOR . 'PHP'. DIRECTORY_SEPARATOR .'AdminUser.php">Go to the secret admin page</a>';  
+        $adminActions .= '<a id="AdminArea" href="AdminUser.php">Go to the secret admin page</a>';  
       }
       else {
         $adminActions .= '';
@@ -81,7 +82,7 @@
           $User = $DBAccess->getUser(trim($R["JobGiver"]));
           // Replace Review with link to the job info
           $content .= '<div class="review">
-            <h2 class="reviewTitle">Review by <a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
+            <h2 class="reviewTitle">Review by <a href="ViewUser.php?Code_User='.$User["Code_user"].'">'.$User["Nickname"].'</a></h2>
             <p class="star">Rating : '.trim($R["Stars"]) .'/5</p>
             <p class="date">Made on date : '.trim($R["Date"]).' </p> 
             <p class="comment">' .trim($R["Comments"]) .' </p>
@@ -97,17 +98,19 @@
     else 
       $content .= '<div><p>There is no content to be shown. </p></div>';
     $DBAccess->closeDBConnection();
+	
+	// Rimpiazza Valori su file html
+	$HTML = str_replace('<div id="content"></div>',$content,$HTML);
+	
+	$HTML = str_replace('</javascript>','',$HTML);  
+	
+	// Stampo File Modificato
+	echo $HTML;
   }
-  else  
-    header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-
-  // Rimpiazza Valori su file html
-  $HTML = str_replace('<div id="content"></div>',$content,$HTML);
-
-  $HTML = str_replace('</javascript>','',$HTML);  
+  else{  
+    $_SESSION['redirect']=$_SERVER['REQUEST_URI'];
+		header("Location:Login.php");
+  }
   
-  // Stampo File Modificato
-  echo $HTML;
-  
-  
+  exit();
   ?>

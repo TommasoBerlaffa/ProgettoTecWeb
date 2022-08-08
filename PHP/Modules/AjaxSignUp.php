@@ -1,5 +1,7 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 	require_once "..". DIRECTORY_SEPARATOR .'DBAccess.php';
 	
 	if (!function_exists('str_contains')) {
@@ -8,8 +10,6 @@
 			return '' === $needle || false !== strpos($haystack, $needle);
 		}
 	}
-
-    session_start();
 	
 	const cap = 5;
 	
@@ -61,25 +61,23 @@
 		$disposable = file_get_contents('..'. DIRECTORY_SEPARATOR . '..'. DIRECTORY_SEPARATOR .'Utils'. DIRECTORY_SEPARATOR .'disposable-email-domains.txt');
 		$disposable = explode(PHP_EOL,$disposable);
 		$i=0;
-    if(!str_contains($user,'@'))
-    {
-      echo("Your email doesn't contain @.");
-      return;
-    }
-    else
-    {
-      $d=(explode('@',$user));
-      $domain=$d[1];
-      while($i!=count($disposable)){
-        if($disposable[$i]===$domain){
-          echo("Your Domain is in our blacklist. Please choose another Email address.");
-          return;
-        }
-        $i++;
-      }
-    }
-
-		
+		if(!str_contains($user,'@'))
+		{
+			echo("Your email doesn't contain @.");
+			return;
+		}
+		else
+		{
+			$d=(explode('@',$user));
+			$domain=$d[1];
+			while($i!=count($disposable)){
+				if($disposable[$i]===$domain){
+					echo("Your Domain is in our blacklist. Please choose another Email address.");
+					return;
+				}
+			$i++;
+			}
+		}
 		$DBAccess= new DBAccess();
 		if(!($DBAccess->openDBConnection())){
 			header('Location:..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');

@@ -1,52 +1,39 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 require_once "..". DIRECTORY_SEPARATOR .'DBAccess.php';
 
-session_start();
-
 if(isset($_SESSION['user_Username'])) {
+	
+	$Winner='';
+	$job='';
+	if(isset($_POST['winner']))
+		$Winner=filter_var($_POST['winner'],FILTER_SANITIZE_NUMBER_INT);
+	if(isset($_GET['Code_job']))
+		$job=filter_var($_GET['Code_job'],FILTER_SANITIZE_NUMBER_INT);
+	if($Winner==='' OR $job===''){
+		header('Location:..'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$job.'&result=errWin');
+		exit();
+	}
+	
 	$DBAccess = new DBAccess();
 	if(!($DBAccess->openDBConnection())){
 		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-		exit;
+		exit();
 	}
-    // Controllo se nella sessione c'é User ID (dovrebbe esserci per il controllo di User Username ma è meglio fare 2 controlli)
-    $error= '<ul id="errors">';
-    if(isset($_SESSION['user_ID'])) {
-		
-      // Winner, Job, ID
-      $result='';
-      $Winner='';$job='';
-      if(isset($_POST['winner']) ) {
-        $Winner=$_POST['winner'];
-        if($Winner=='')
-          header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errwin');
-      }
-      else
-        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errwin');
-      
-      if(isset($_SESSION['Code_job']))
-      {
-        $job=$_SESSION['Code_job'];
-        if($job =='')
-         header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errcode');
-      }
-      else
-        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=errcode');
-     
-      $result = $DBAccess->setWinner($Winner,$job,$_SESSION['user_ID']);
-			$DBAccess->closeDBConnection();
-      
-      if($result==true)
-			  header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=wsuccess');
-      else
-        header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$_SESSION["Code_job"].'&winner=wfail');
-		}
-    
-    else{
-		$DBAccess->closeDBConnection();
-		header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");
-	}
+    $result = $DBAccess->setWinner($Winner,$job,$_SESSION['user_ID']);
+    $DBAccess->closeDBConnection();
+	header('Location:..'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$job. '&result=' . ($result? 'wsucc' : 'wfail'));
+
 }
-else
-	header("Location:..". DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR ."PHP". DIRECTORY_SEPARATOR ."Login.php");
+else {
+  if(isset($_GET['Code_job'])){
+	$_SESSION['redirect']='ViewJob.php?Code_job='.filter_var($_GET['Code_job'],FILTER_SANITIZE_NUMBER_INT);
+	header("Location:..". DIRECTORY_SEPARATOR ."Login.php");
+  }
+  else
+	header("Location:..". DIRECTORY_SEPARATOR ."Index.php");   
+}
+exit();
 ?>

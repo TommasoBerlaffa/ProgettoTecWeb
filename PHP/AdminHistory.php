@@ -1,7 +1,9 @@
 <?php
-require_once 'DBAccess.php';
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 
-session_start();
+require_once 'DBAccess.php';
 
 if(isset($_SESSION['Admin'])) {
   $DBAccess = new DBAccess();

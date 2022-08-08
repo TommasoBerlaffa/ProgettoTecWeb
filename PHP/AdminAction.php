@@ -1,13 +1,16 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+
 require_once 'DBAccess.php';
 
-session_start();
 
 if(isset($_SESSION['Admin'])) {
   $DBAccess = new DBAccess();
   if(!($DBAccess->openDBConnection())){
 		header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-		exit;
+		exit();
 	}
   
   if(isset($_POST['comment']))
@@ -60,4 +63,5 @@ if(isset($_SESSION['Admin'])) {
 else
 	header("Location:Welcome.php");
 
+exit();
 ?>

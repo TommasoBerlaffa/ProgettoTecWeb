@@ -1,6 +1,8 @@
 <?php
-	// Inizio Sessione 
-	session_start();
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+// Inizio Sessione 
 	require_once 'Modules'. DIRECTORY_SEPARATOR .'Util.php';
 	require_once 'DBAccess.php';
 	

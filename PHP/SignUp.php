@@ -1,16 +1,14 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
   require_once 'DBAccess.php';
 	
-	require_once "Modules". DIRECTORY_SEPARATOR ."Util.php";
+  require_once "Modules". DIRECTORY_SEPARATOR ."Util.php";
 
   $source_img = 'source.jpg';
   $destination_img = 'destination .jpg';
-	
-  if(!isset($_SESSION)) 
-  { 
-    session_start(); 
-  } 
+
   //Controllo se Login è già stato effettuato
 	$page=null;
 	if(isset($_GET['section'])){

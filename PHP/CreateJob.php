@@ -1,15 +1,16 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+	
     require_once "DBAccess.php";
-
-    // Attivo Session
-    if(!isset($_SESSION)) 
-      session_start();
 
     // Controllo se il Login è stato effettuato
     if(!isset($_SESSION['user_Username']))
     {
-      $_SESSION['Url'] = 'CreateJob';
+      $_SESSION['redirect'] = $_SERVER['REQUEST_URI'];
       header("location:Login.php");
+	  exit();
     }
 	
 	if(!isset($_SESSION['TagList']))
@@ -78,6 +79,7 @@
 				header("Location:Welcome.php");
 			else {
 				header("Location:CreateJob.php?error=1");
+			exit();
 			}
 		}
 	}
@@ -121,6 +123,4 @@
 	$HTML = str_replace('<error/>',$errorMsg,$HTML);
 	echo $HTML;
     
-    
-
 ?>

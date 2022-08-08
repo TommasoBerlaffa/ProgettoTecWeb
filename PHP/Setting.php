@@ -1,7 +1,8 @@
 <?php
-  require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
-
-  session_start();
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+  require_once 'DBAccess.php';
 
   if(isset($_SESSION['user_Username'])) {
 
@@ -74,6 +75,9 @@
     // Apre file html
     echo $HTML;
   }
-  else
-    header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 5);
+  else {
+	$_SESSION['redirect']=$_SERVER['REQUEST_URI'];
+	header("Location:Login.php"); 
+}
+exit();
 ?>

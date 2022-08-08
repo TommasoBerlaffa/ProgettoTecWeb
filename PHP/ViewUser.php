@@ -1,8 +1,8 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 require_once 'DBAccess.php';
-
-session_start();
 
 if(isset($_SESSION['user_Username']))
 {
@@ -13,7 +13,7 @@ if(isset($_SESSION['user_Username']))
   $DBAccess = new DBAccess();
   if(!($DBAccess->openDBConnection())){
   	header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
-  	exit;
+  	exit();
   }
 	
   $HTMLContent = '<li><a href="Welcome.php">
@@ -101,7 +101,12 @@ if(isset($_SESSION['user_Username']))
 }
 else
 {
-  $value = filter_var($_GET['Code_User'],FILTER_SANITIZE_NUMBER_INT);
-  header("Location:Login.php?view=ViewUser&code=".$value);  
+  if(isset($_GET['Code_User']) AND filter_var($_GET['Code_User'],FILTER_SANITIZE_NUMBER_INT)){
+	$_SESSION['redirect']='ViewUser.php?Code_User='.filter_var($_GET['Code_User'],FILTER_SANITIZE_NUMBER_INT);
+	header("Location:Login.php");
+  }
+  else
+	header("Location:Index.php");
 }
+exit();
 ?>

@@ -1,8 +1,8 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 	require_once "..". DIRECTORY_SEPARATOR .'DBAccess.php';
-	
-	session_start();
 		
 	const cap = 10;
 		

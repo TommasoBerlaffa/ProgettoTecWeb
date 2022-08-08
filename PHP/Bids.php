@@ -1,9 +1,9 @@
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
   // BidHistory deve contenere tutte le Bids dell'utente ( Passate che hanno avuto successo )
-  require_once '..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'DBAccess.php';
-
-  session_start();
+  require_once 'DBAccess.php';
   
   if(isset($_SESSION['user_Username']))
   {
@@ -90,6 +90,8 @@
     // Stampo File Modificato
     echo $HTML;
   }
-  else
-    header('Location:..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'Login.php?section='. 3);
+  else{
+	$_SESSION['request'] = $_SERVER['REQUEST_URI'];
+    header('Location:Login.php');
+  }
 ?>

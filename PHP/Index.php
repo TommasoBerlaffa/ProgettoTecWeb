@@ -1,7 +1,9 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+	
   require_once 'DBAccess.php';
-  // Inizio Sessione
-  session_start();
 
   // Variabili pagina HTML e Switch
   $url ='..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Index.html';

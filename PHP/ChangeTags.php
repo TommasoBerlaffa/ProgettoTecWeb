@@ -1,11 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 
   require_once "DBAccess.php";
 
   require_once "Modules" . DIRECTORY_SEPARATOR . "Util.php";
-	
-  if(!isset($_SESSION)) 
-    session_start();
 
   if(!isset($_SESSION['TagList']))
 		$_SESSION['TagList']=array();
@@ -30,9 +30,11 @@
   }
   else
   {
+	$_SESSION['redirect']=$_SERVER['REQUEST_URI'];
     header("Location:Login.php");
   }
 
+	exit();
 ?>
 
 
