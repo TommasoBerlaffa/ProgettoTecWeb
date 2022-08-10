@@ -8,7 +8,7 @@ if(isset($_SESSION['user_Username']))
 {
 	if(isset($_GET['Code_job'])){
 		$code = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
-		if($code!==false;){
+		if($code!==false){
 			$DBAccess = new DBAccess();
 			if(!($DBAccess->openDBConnection())){
 				header('Location:..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');

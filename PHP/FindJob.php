@@ -153,13 +153,18 @@ if (session_status() === PHP_SESSION_NONE) {
 				$leftString.=$left->i.' Minutes';
 			
 			$HtmlContent .='<div class="job">
-						<p class="title"><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></p>
-						<p class="date"><span>Time left</span> : '.$leftString.'</p>
-						<p class="type"><span>Tipology</span> : '.trim($row["Tipology"]).'</p>
-						<p class="Pay"><span>Payment Type</span> : '.(trim($row["Payment"])==0? 'All at once' : 'Payment by Hour').'</p>
-						<p class="minPay"><span><abbr title="minimum">Min</abbr> Pay</span> : $'.trim($row["P_min"]).'</p>
-						<p class="bids"><span>Bids</span> : '.$bids.'</p>
-						<p class="description"><span>Description</span> : <br>'.$desc.'</p>';
+				<div>
+					<div>
+						<p class="title"><strong><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</strong></a></p>
+						<p class="description"><span>Description</span> : <br>'.trim(preg_replace('/\s+/', ' ', $desc)).'</p>
+					</div>
+					<div class="info">
+						<p class="date">'.$leftString.' left</p>
+						<p class="type">'.trim($row["Tipology"]).'</p>
+						<p class="minPay">$'.trim($row["P_min"]). (trim($row["Payment"])==0? '' : ' / hr') .'</p>
+						<p class="bids">'.($bids? ($bids>1? ($bids.' Bids') : ($bids.' Bid')) : 'No Bids').'</p>
+					</div>
+				</div>';
 			
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
 			if($jobTags) {

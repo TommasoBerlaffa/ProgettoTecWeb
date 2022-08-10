@@ -224,7 +224,6 @@ if(isset($_SESSION['user_Username']))
 			// Se non sei il creatore del lavoro, puoi aggiungere una bid
 			if($_SESSION['user_ID']!=trim($row["Code_user"]) && $self AND $status=='Active')
 			{
-				$_SESSION['Code_Job'] = filter_var($_SESSION['Code_job'], FILTER_VALIDATE_INT);
 				$HTMLFormBid=file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'AddBid.html');
 				$HTML= str_replace('<addBid/>',$HTMLFormBid,$HTML);
 			}
@@ -239,7 +238,6 @@ if(isset($_SESSION['user_Username']))
 			$feedback = $DBAccess->getJobReview($index);
 			if(!$feedback) {
 				if( isset($_SESSION['user_ID']) && $_SESSION['user_ID'] == $row['Code_user']) {
-					$_SESSION['Code_job'] = $_GET['Code_job'];
 					$urlForm = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormFeedback.html';
 					$HTMLForm = file_get_contents($urlForm);
 					$HTML = str_replace( '<feedback/>', $HTMLForm ,$HTML);
