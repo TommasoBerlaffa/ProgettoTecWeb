@@ -33,8 +33,9 @@ if (session_status() === PHP_SESSION_NONE) {
 	
 	// Cambio Pagina
 	$HTML = str_replace('<subpage/>',$HTMLContent,$HTML);
-	
-	$HtmlContent='<div id="jobList"><h1>All job offers<Title_complete/></h1>';
+
+	$HtmlContent='<ul id="jobList">';
+	$pageHTML='';
 
 
 	$type= 'Any';
@@ -144,70 +145,85 @@ if (session_status() === PHP_SESSION_NONE) {
 			$left=DateTime::createFromFormat('Y-m-d H:i:s', $row["Expiring"])->diff(new DateTime());
 			$leftString='';
 			if($left->m)
-				$leftString.=$left->m.' Months '.$left->d.' Days';
+				$leftString.=$left->m.' Months<br>'.$left->d.' Days';
 			else if($left->d>2)
 				$leftString.=$left->d.' Days';
 			else if($left->d>0 and $left->d<3)
-				$leftString.=$left->d.' Days '.$left->h.' Hours';
+				$leftString.=$left->d.' Days<br>'.$left->h.' Hours';
 			else
 				$leftString.=$left->i.' Minutes';
-			
-			$HtmlContent .='<div class="job">
-				<div>
-					<div>
-						<p class="title"><strong><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</strong></a></p>
-						<p class="description"><span>Description</span> : <br>'.trim(preg_replace('/\s+/', ' ', $desc)).'</p>
-					</div>
-					<div class="info">
-						<p class="date">'.$leftString.' left</p>
-						<p class="type">'.trim($row["Tipology"]).'</p>
-						<p class="minPay">$'.trim($row["P_min"]). (trim($row["Payment"])==0? '' : ' / hr') .'</p>
-						<p class="bids">'.($bids? ($bids>1? ($bids.' Bids') : ($bids.' Bid')) : 'No Bids').'</p>
-					</div>
-				</div>';
+			//						<h2 class="title"><strong>'.$row["Title"].'</strong></h2>
+			$HtmlContent .='
+		<li class="job">
+			<div>
+				<a class="title" href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a>
+				<p class="description"><span>Description</span> : <br>'.trim(preg_replace('/\s+/', ' ', $desc)).'</p>
+			</div>
+			<div class="info">
+				<p class="date">'.$leftString.' left</p>
+				<p class="type">'.trim($row["Tipology"]).'</p>
+				<p class="minPay">$'.trim($row["P_min"]). (trim($row["Payment"])==0? '' : ' / hr') .'</p>
+				<p class="bids">'.($bids? ($bids>1? ($bids.' Bids') : ($bids.' Bid')) : 'No Bids').'</p>
+			</div>';
 			
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
 			if($jobTags) {
-				$HtmlContent .='<ul class="tags">';
+				$HtmlContent .='
+			<ul class="tags">';
 				foreach($jobTags as $name=>$value){
 					$HtmlContent .='
-					<li><a href="?tag='.$value.'">'.$name.'</a></li>';
+				<li><a href="?tag='.$value.'">'.$name.'</a></li>';
 				}
-				$HtmlContent .='</ul>';
+				$HtmlContent .='
+			</ul>';
 			}
-			$HtmlContent .='</div>';
+			$HtmlContent .='
+		</li>';
 		}
-		$HtmlContent .='<paging/></div>';
+		$HtmlContent .='
+	</ul>';
 	}
 	else
 		$HtmlContent.='<p>No Jobs Currently Available. Try to change your filters in the <a href="#formFilter">filtering form</a> to find more Jobs.</p><img id="NoAvailableJob" src="../IMG/Tumbleweed.gif" alt="Animated image of a rolling tumbleweed across the desert" id="NoAvailableJob"></div>';
 	
 	$DBAccess->closeDBConnection();
 	
+	if($result){
+		$pageHTML ='';
+		$urlType=($type)? '&amp;Tipology='.$type : '';
+		$urlMin=($min>0)? '&amp;PayMin='.$min : '';
+		$urlDate=($date!=9999999)? '&amp;Date='.$date : '';
+		$urlTag=(is_string($tag))? '&amp;tag='.$tag : '';
+		$urlPay=($Pay)? '&amp;pay='.$Pay :'';
+		$get=$urlType . $urlMin . $urlDate . $urlTag . $urlPay;
+		
+		if($page>1)
+			$pageHTML ='<li title="first page" ><a href="FindJob.php?Page=1' . $get .'">|&lt;</a></li>
+		<li title="previous page" ><a href="FindJob.php?Page='. ($page - 1) . $get .'">&lt;</a></li>';
+		else
+			$pageHTML ='<li title="first page">|&lt;</li>
+		<li title="previous page">&lt;</li>';
+		
+		if($page-3>0) $pageHTML .='<li title="page '.($page - 3).'"><a href="FindJob.php?Page='. ($page - 3) . $get .'">'. ($page - 3) .'</a></li>';
+		if($page-2>0) $pageHTML .='<li title="page '.($page - 2).'"><a href="FindJob.php?Page='. ($page - 2) . $get .'">'. ($page - 2) .'</a></li>';
+		if($page-1>0) $pageHTML .='<li title="page '.($page - 1).'"><a href="FindJob.php?Page='. ($page - 1) . $get .'">'. ($page - 1) .'</a></li>';
+		$pageHTML .='<li title="current page">'.$page.'</li>';
+		if($NumberPages-$page>0) $pageHTML .='<li title="page '.($page + 1).'"><a href="FindJob.php?Page='. ($page + 1) . $get .'">'. ($page + 1) .'</a></li>';
+		if($NumberPages-$page>1) $pageHTML .='<li title="page '.($page + 2).'"><a href="FindJob.php?Page='. ($page + 2) . $get .'">'. ($page + 2) .'</a></li>';
+		if($NumberPages-$page>2) $pageHTML .='<li title="page '.($page + 3).'"><a href="FindJob.php?Page='. ($page + 3) . $get .'">'. ($page + 3) .'</a></li>';
+		
+		if($page<$NumberPages)
+			$pageHTML .='<li title="next page"><a href="FindJob.php?Page='. ($page + 1) . $get .'">&gt;</a></li>
+		<li title="last page"><a href="FindJob.php?Page=' . $NumberPages .$get .'">&gt;|</a></li>';
+		else
+			$pageHTML .='<li title="next page">&gt;</li>
+		<li title="last page">&gt;|</li>';
 	
-	$urlType=($type)? '&amp;Tipology='.$type : '';
-	$urlMin=($min>0)? '&amp;PayMin='.$min : '';
-	$urlDate=($date!=9999999)? '&amp;Date='.$date : '';
-	$urlTag=(is_string($tag))? '&amp;tag='.$tag : '';
-	$urlPay=($Pay)? '&amp;pay='.$Pay :'';
-
-	$pageHTML = '<div id="pages">';
-    if($page > 1)
-      $pageHTML .= '<a title="first page" href="FindJob.php?Page=1' . $urlType . $urlMin . $urlDate . $urlTag . $urlPay .'"> 1 </a>';
-    if($page > 2)
-      $pageHTML .= '<a title="previous page" href="FindJob.php?Page=' . ($page - 1) . $urlType . $urlMin . $urlDate . $urlTag .  $urlPay . '"> back </a>';
-    $pageHTML .= '<span>' . $page . '</span>';
-    if($page < $NumberPages-1)
-      $pageHTML .= '<a title="next page" href="FindJob.php?Page=' . ($page + 1) . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '"> next </a>';
-    if($page < $NumberPages)
-      $pageHTML .= '<a title="last page" href="FindJob.php?Page=' . $NumberPages . $urlType . $urlMin . $urlDate . $urlTag . $urlPay . '"> ' . $NumberPages . ' </a>';
-    $pageHTML .= '</div>';
-	
-	
+	}
 	
 	
 	//$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>',$HtmlContent,$HTML);
-	$HTML = str_replace('<div id="jobList"></div>',$HtmlContent,$HTML);
+	$HTML = str_replace('<ul id="jobList"></ul>',$HtmlContent,$HTML);
 	$HTML = str_replace('<paging/>', $pageHTML, $HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('<paytype/>',$HtmlCheckboxPay,$HTML);

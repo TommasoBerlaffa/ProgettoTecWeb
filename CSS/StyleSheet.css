@@ -173,6 +173,7 @@ footer{
   background-color: var(--color);
   max-width: 1024px;
   margin: auto;
+  z-index:5;
 }
 
 footer#footer p {
@@ -577,6 +578,11 @@ main#findJob {
   align-items: flex-start;
 }
 
+main#findJob > h1{
+  text-align:center;
+  top:0;
+}
+
 img#NoAvailableJob {
   width: 100%;
 }
@@ -719,32 +725,27 @@ h1.SelectedTags {
   background: var(--darkWhite);
 }
 
+
+
 /* - 6.1 Find Job Content - */
-div#jobList {
-  margin-left: 5%;
-  margin-right: 5%;
+ul#jobList {
+  margin-left: 3%;
+  margin-right: 2%;
   flex-grow: 1;
 }
 
-div#pages {
-  text-align: center;
-}
-
-div#pages span,
-div#pages a {
-  padding: 0.1em;
-}
-
-div.job {
-  border-bottom: 1px solid grey;
-  /*display: -ms-grid;
-  display: grid;*/
-  display: block;
-  flex: 1 0;
-  flex-direction: row;
-  /*grid-template-columns: 2fr  1fr;
-  -ms-grid-columns: 2fr 1fr;*/
-
+li.job {
+  position:relative;
+  /*border-bottom: 1px solid grey;*/
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: 4.5fr  1fr;
+  -ms-grid-columns: 4.5fr 1fr;
+  column-gap: 10px;
+  padding: 10px 10px;
+  box-shadow: 1px 1px 10px;
+  list-style:none;
+  margin: 1em 0;
 }
 
 /*div.job span {
@@ -752,105 +753,102 @@ div.job {
   padding-right: 0.2em;
 }*/
 
-/*div.job a {
-  color: #000;
-  color: var(--black);
-}*/
-
-div.job div > div {
-  /*display: blok;*/
-  position: relative;
-  float: left;
-  width: 70%;
-}
-
-div.job .info{
-  /*display: blok;*/
-  position: relative;
-  float: right;
-  width: 30%;
-}
-
-div.job .title {
-  /*-ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 1;
-  grid-row: 1;
-  -ms-grid-column-span: 2;*/
+li.job .title {
   border: 2px solid #00466B;
   border-color: var(--color);
   border-radius: 5px;
   padding: 0.5em;
   width: fit-content;
+  margin:auto 0;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:1.2em;
+  color: #000;
+  color: var(--black);
+  display:block;
+  z-index: 1;
 }
 
-/*div.job .date {
-  ms-grid-column: 5;
-  grid-column: 5;
-  -ms-grid-row: 1;
-  grid-row: 1;
-  -ms-grid-column-span: 2;
-}*/
+li.job .title:hover{
+  color: #0000EE;
+  text-decoration: underline;
+}
 
-div.job .description {
-  /*-ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 2;
-  grid-row: 2;
-  -ms-grid-column-span: 3;
-  -ms-grid-row-span: 4;*/
+li.job .title::after {
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  content:' ';
+}
+
+li.job > div {
+	margin-top:1em;
+}
+
+li.job .info{
+  text-align:right;
+}
+
+li.job .description {
   white-space: pre-wrap; /* ie */
   white-space: break-spaces;
 }
 
-/*div.job .type {
-  -ms-grid-column: 5;
-  grid-column: 5;
-  -ms-grid-row: 2;
-  grid-row: 2;
-  -ms-grid-column-span: 2;
-}*/
 
-/*div.job .Pay {
-  -ms-grid-column: 5;
-  grid-column: 5;
-  -ms-grid-row: 3;
-  grid-row: 3;
-  -ms-grid-column-span: 2;
-}*/
-
-/*div.job .minPay {
-  -ms-grid-column: 5;
-  grid-column: 5;
-  -ms-grid-row: 4;
-  grid-row: 4;
-  -ms-grid-column-span: 2;
-}*/
-
-/*div.job .bids {
-  -ms-grid-column: 5;
-  grid-column: 5;
-  -ms-grid-row: 5;
-  grid-row: 5;
-  -ms-grid-column-span: 2;
-}*/
-
-div.job .tags {
-  /*-ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 6;
-  grid-row: 6;
-  -ms-grid-column-span: 4;*/
-  /*width: 0px;*/
-  display:inline-flex;
+li.job .tags {
+  grid-column: span 2;
   list-style-type: none;
 }
 
-div.job .tags li {
-  width: 100%;
-  /*display: inline-block;*/
+li.job .tags li {
+  display: inline-block;
   padding-right: 0.2em;
   padding-left: 0.2em;
+  z-index: 2;
+  position:relative;
+}
+
+ul#pages {
+  text-align: center;
+}
+
+ul#pages span,
+ul#pages a {
+  /*padding: 0.1em;*/
+}
+
+ul#pages li {
+  list-style-type:none;
+  text-align:center;
+  display:inline-block;
+  border: 2px solid #707070;
+  border-radius: 3px;
+  font-size:1.3em;
+  color: #707070;
+  background-color: #E6E6E6;
+  padding:3px 3px;
+  z-index:1;
+  height:1.5em;
+  width:1.5em;
+}
+	
+ul#pages li a{
+  border-color: #000;
+  border-color: var(--black);
+  color: #000;
+  color: var(--black);
+  background-color: #FFFFFF;
+  text-decoration:none;
+  position:relative;
+}
+
+ul#pages li a::after{
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
 }
 
 /* - 7.0 Sidebar for User Profile - */
@@ -1898,6 +1896,7 @@ input#search {
   /* - 4.0 Footer - */
   footer#footer {   
     min-height: fit-content;
+	
   }
 
   /* - 5.1 Login Input Form - */
@@ -1906,7 +1905,7 @@ input#search {
     margin-top: 3em;
   } 
 
-  /* - 6.0 Filter for Page Find Job - */
+  /* - 6.0 Filter for Page Find Job - */  
   form#formFilter {
     flex-basis: 45%;
   }
