@@ -578,9 +578,8 @@ main#findJob {
   align-items: flex-start;
 }
 
-main#findJob > h1{
+main#findJob h1{
   text-align:center;
-  top:0;
 }
 
 img#NoAvailableJob {
@@ -728,6 +727,11 @@ h1.SelectedTags {
 
 
 /* - 6.1 Find Job Content - */
+div#jobDiv {
+  flex: 0.8;
+  margin: auto;
+}
+
 ul#jobList {
   margin-left: 3%;
   margin-right: 2%;
@@ -739,8 +743,8 @@ li.job {
   /*border-bottom: 1px solid grey;*/
   display: -ms-grid;
   display: grid;
-  grid-template-columns: 4.5fr  1fr;
-  -ms-grid-columns: 4.5fr 1fr;
+  grid-template-columns: 4fr  1fr;
+  -ms-grid-columns: 4fr 1fr;
   column-gap: 10px;
   padding: 10px 10px;
   box-shadow: 1px 1px 10px;
