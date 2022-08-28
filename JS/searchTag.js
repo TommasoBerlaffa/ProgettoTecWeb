@@ -12,7 +12,7 @@ function updateUserTagList(response){
 	if(list==null)
 		return;
 	var keys = Object.keys(list);
-	div.innerHTML='<p class="SelectedTags">Selected Tags: ('+ keys.length +' / 20)</p>';
+	div.innerHTML='<p class="SelectedTags">Selected Tags: ('+ keys.length +')</p>';
 	if(!keys)
 		div.innerHTML+='<p class="hiddenHelp">Empty</p>';
 	var tmp=document.getElementById('FSkill');

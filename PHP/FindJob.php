@@ -42,9 +42,13 @@ if (session_status() === PHP_SESSION_NONE) {
 	$min=0;
 	$Pay=0;
 	$date=9999999;
-	$tag=array();
+	$tag='';
     $tagName ='';
 	$page=1;
+	
+	if(!isset($_SESSION['TagList'])){
+		$_SESSION['TagList']=array();
+	}
 	
 	if(isset($_GET['Tipology']))
 		$type=filter_var ( $_GET['Tipology'], FILTER_SANITIZE_STRING);
@@ -55,13 +59,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	if(isset($_GET['Page']))
 		$page=filter_var ( $_GET['Page'], FILTER_SANITIZE_NUMBER_INT);
 	if(isset($_GET['tag']))
-		$tag=filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);
-	else{
-		if(!isset($_SESSION['TagList'])){
-			$_SESSION['TagList']=array();
-		}
-		$tag=$_SESSION['TagList'];
-	}
+		$tag=filter_var ( $_GET['tag'], FILTER_SANITIZE_NUMBER_INT);	
 	if(isset($_GET["Pay"]))
     $Pay=filter_var ( $_GET['Pay'], FILTER_SANITIZE_NUMBER_INT);    
 	
@@ -115,18 +113,13 @@ if (session_status() === PHP_SESSION_NONE) {
 	
 	if(isset($_GET['tag'])){
 		$tagName = $DBAccess->searchTagName($tag);
-		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,array($tag),$Pay);
-		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,array($tag),$Pay);
+		addTag($tagName,$tag);
 	}
-	else{
-		$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$tag,$Pay);
-		$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$tag,$Pay);
-	}
-	$NumberPages=ceil($NumberPages / 5);
 	
-	if(isset($_GET['tag']))
-		$HtmlContent.='<p>When you click on a Tag you are redirected to the search by the specific Tag clicked 
-						instead of the selected ones on the filter menu. Click <a href="FindJob.php">HERE</a> to remove it.</p>';
+	$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$Pay);
+	$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$Pay);
+	
+	$NumberPages=ceil($NumberPages / 5);
 	
 	if($result){
 		foreach($result as $row)
@@ -169,7 +162,7 @@ if (session_status() === PHP_SESSION_NONE) {
 			$jobTags=$DBAccess->getTags($row['Code_job'],1);
 			if($jobTags) {
 				$HtmlContent .='
-			<ul class="tags">';
+			<ul aria-label="list of tags" class="tags">';
 				foreach($jobTags as $name=>$value){
 					$HtmlContent .='
 				<li><a href="?tag='.$value.'">'.$name.'</a></li>';
@@ -193,9 +186,8 @@ if (session_status() === PHP_SESSION_NONE) {
 		$urlType=($type)? '&amp;Tipology='.$type : '';
 		$urlMin=($min>0)? '&amp;PayMin='.$min : '';
 		$urlDate=($date!=9999999)? '&amp;Date='.$date : '';
-		$urlTag=(is_string($tag))? '&amp;tag='.$tag : '';
 		$urlPay=($Pay)? '&amp;pay='.$Pay :'';
-		$get=$urlType . $urlMin . $urlDate . $urlTag . $urlPay;
+		$get=$urlType . $urlMin . $urlDate . $urlPay;
 		
 		if($page>1)
 			$pageHTML ='<li title="first page" ><a href="FindJob.php?Page=1' . $get .'">|&lt;</a></li>
@@ -222,23 +214,13 @@ if (session_status() === PHP_SESSION_NONE) {
 	}
 	
 	
-	//$HTML = str_replace('<div id="jobList"><h1>List of job offers<Title_complete/></h1><paging/></div>',$HtmlContent,$HTML);
 	$HTML = str_replace('<ul id="jobList"></ul>',$HtmlContent,$HTML);
 	$HTML = str_replace('<paging/>', $pageHTML, $HTML);
 	$HTML = str_replace('<TipologySelect/>',$HtmlTypologySelect,$HTML);
 	$HTML = str_replace('<paytype/>',$HtmlCheckboxPay,$HTML);
 	$HTML = str_replace('[payval]','value="'.$min.'"',$HTML);
 	$HTML = str_replace('<DateSelect/>',$HtmlDateSelect,$HTML);
-	
-	if(isset($_GET['tag'])){
-		$HTML = str_replace('<GETsearch/>','?tag='.$tag,$HTML);
-		$HTML = str_replace('<Title_complete/>',' matching '. $tagName .' tag',$HTML);
-	}
-	else
-	{
-		$HTML = str_replace('<GETsearch/>','',$HTML);
-			$HTML = str_replace('<Title_complete/>','',$HTML);
-	}
+
  
   // Apertura Pagina
   echo $HTML;

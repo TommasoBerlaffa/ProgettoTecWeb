@@ -484,13 +484,15 @@ class DBAccess {
   par: string type, int min (prezzo minimo), int date (ultimi x secondi)
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$tags=null, $pay=2){
+  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$pay=2){
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 
 	if(!is_numeric($min) OR !is_numeric($date) OR !is_numeric($page))
 		return null;
 	$page--;
+	
+	$tags=$_SESSION['TagList'];
 	
 	//'CREATE TEMPORARY TABLE IF NOT EXISTS ? AS (
 	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs
@@ -500,23 +502,7 @@ class DBAccess {
 	//			WHERE
 	//				tags_current_jobs.Code_tag=?
 	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
+	//				[...]
 	//				OR tags_current_jobs.Code_tag=?
 	//			GROUP BY Code_job
 	//		) res ON res.Code_job=current_jobs.Code_job

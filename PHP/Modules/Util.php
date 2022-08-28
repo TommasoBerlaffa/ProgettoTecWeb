@@ -58,6 +58,14 @@
 		}
 		echo "<b>{$prof_names[$size-1]}</b><br>";
 	}
+
+
+	function addTag($name,$val)
+	{
+		if(isset($_SESSION['TagList'][$name]))
+			return;
+		$_SESSION['TagList'][$name]=$val;
+	}
 	
 	
 	
@@ -76,7 +84,7 @@
 			if(isset($post['Name']) and isset($post['Value'])){
 				$name=filter_var ( $post['Name'], FILTER_SANITIZE_STRING);
 				$val=filter_var ( $post['Value'], FILTER_SANITIZE_NUMBER_INT);
-				if(count($_SESSION['TagList'])==20 or isset($_SESSION['TagList'][$name]))
+				if(isset($_SESSION['TagList'][$name]))
 					return;
 				$_SESSION['TagList'][$name]=$val;
 			}
