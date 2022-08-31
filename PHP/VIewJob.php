@@ -4,6 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	}
 	
 require_once 'DBAccess.php';
+require_once 'Modules'. DIRECTORY_SEPARATOR .'ErrorMessages.php';
 
 if(isset($_SESSION['user_Username']))
 {
@@ -97,68 +98,11 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
     
 	
-		if(isset($_GET['result']))
-		{
-			$tmp='';
-			$getValue=filter_var($_GET["result"],FILTER_SANITIZE_STRING);
-			switch($getValue){
-				/*-----------------------OFFER-CANCEL-TERMINATE----------------------------*/
-				case 'cancelTrue':
-					$tmp='<p class="result"> Job successfully cancelled. </p>';
-					break;
-				case 'cancelFalse':
-					$tmp='<p class="result"> An error occurred while deleting the job, please try again. </p>';
-					break;
-				case 'terminateTrue':
-					$tmp='<p class="result"> Job successfully terminated. </p>';
-					break;
-				case 'terminateFalse':
-					$tmp='<p class="result"> An error occurred while terminating the job, please try again. </p>';
-					break;
-				case 'removeTrue':
-					$tmp='<p class="result"> Bid removed successfully. </p>';
-					break;
-				case 'removeFalse':
-					$tmp='<p class="result"> An error occurred while deleting the bid, please try again. </p>';
-					break;
-				/*-------------------------CHOOSE-WINNER--------------------------*/
-				case 'errWin':
-					$tmp='<p class="result"> Unable to read the selected winner, please try to select the <a href="#winner">winner</a> again.</p>';
-					break;
-				case 'wsucc':
-					$tmp='<p class="result"> The winner has been selected successfully. </p>';
-					break;
-				case 'wfail':
-					$tmp='<p class="result"> An error occurred while selecting of the winner, please try again. </p>';
-					break;
-				/*---------------------------ADD-BIDS-----------------------------*/
-				case 'errPrice':
-					$tmp='<p class="result"> Unable to read the price of the bid, please try to select the <a href="#Price">price</a> again.</p>';
-					break;
-				case 'bsucc':
-					$tmp='<p class="result"> The bid has been created successfully. </p>';
-					break;
-				case 'bfail':
-					$tmp='<p class="result"> An error occurred while submitting the bid. Please retry. </p>';
-					break;
-				/*-------------------------ADD-FEEDBACK----------------------------*/
-				case 'errStar':
-					$tmp='<p class="result"> Unable to read the stars rating, please try to select the <a href="#stars">star rating</a> again.</p>';
-					break;
-				case 'errComm':
-					$tmp='<p class="result"> Unable to read the comment, please try to type the <a href="#comment">comment</a> again.p>';
-					break;
-				case 'fsucc':
-					$tmp='<p class="result"> The feedback has been created successfully. </p>';
-					break;
-				case 'ffail':
-					$tmp='<p class="result"> An error occurred while submitting the feedback. Please retry. </p>';
-			}
-			
-			$HTML = str_replace('<result/>',$tmp,$HTML);
-		}
+		if(isset($_SESSION['error']))
+			$HTML = str_replace('<result/>',ErrorMessage(),$HTML);
 		else
 			$HTML = str_replace('<result/>','',$HTML);
+		unset($_SESSION['error']);
 		
 	
 		// Controllo se Utente è Owner ed è PastJob
@@ -208,7 +152,7 @@ if(isset($_SESSION['user_Username']))
 						//se questa offerta è dell'utente corrente può sceglere di cancellarla
 						if($B["Code"]==$_SESSION['user_ID']){
 							$self=false;
-							$HTMLBids.='<a href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?code='. $index .'">delete your bid</a></div>';          
+							$HTMLBids.='<a href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?Code_job='. $index .'">delete your bid</a></div>';          
 						}
 						else
 							$HTMLBids.='</div>';            

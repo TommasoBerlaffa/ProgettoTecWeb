@@ -81,9 +81,20 @@ a.goTop {
   margin-bottom: 3%;
 }
 
-.result {
+.resultsucc {
   text-align: center;
   font-size: 1.2em;
+  background-color: #35AA35;
+  margin-left:5em;
+  margin-right:5em;
+}
+
+.resultfail {
+  text-align: center;
+  font-size: 1.2em;
+  background-color: #E32A2A;
+  margin-left:5em;
+  margin-right:5em;
 }
 
 p {

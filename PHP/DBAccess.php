@@ -110,7 +110,7 @@ class DBAccess {
   public function setWinner($winner, $job, $id) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($id) and isset($job)){
+    if(isset($id) and isset($job) and isset($winner)){
       $queryInserimento = 'CALL Set_Winner(?,?,?);';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'iii',$winner, $job, $id);
@@ -122,6 +122,27 @@ class DBAccess {
       return false;
     } else
       return false;
+  }
+  
+  /***14.Get User Info***
+  par: int userID;
+  desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
+  ****************************/
+  public function getWinner($job) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($job)) {
+		$queryCall=mysqli_prepare($this->connection, 'SELECT Code_Winner FROM past_jobs WHERE Code_job = ? LIMIT 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else
+			return mysqli_fetch_assoc($queryResult);
+} else
+		return null;
   }
   
   
@@ -675,7 +696,28 @@ class DBAccess {
 } else
 		return null;
   }
-
+  
+  
+  /***14.Get User Info***
+  par: int userID;
+  desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
+  ****************************/
+  public function getMinMaxPrice($job) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($job)) {
+		$queryCall=mysqli_prepare($this->connection, 'SELECT P_min,P_max FROM current_jobs WHERE Code_job = ? LIMIT 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else
+			return mysqli_fetch_assoc($queryResult);
+	} else
+		return null;
+  }  
 
   /***15.Check Username Taken***
   par: int userID;
