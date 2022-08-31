@@ -51,7 +51,7 @@ if(isset($_SESSION['user_Username'])) {
 		exit();
 	}
 	
-	$result = $DBAccess->createReview($winner,$job,$star,$comment);
+	$result = $DBAccess->createReview($work['Code_winner'],$job,$star,$comment);
 	$_SESSION['error']= $result? 'Fsucc' : 'Ffail';
     $DBAccess->closeDBConnection();
 	
