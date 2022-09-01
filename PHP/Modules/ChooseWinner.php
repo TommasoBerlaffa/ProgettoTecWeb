@@ -26,8 +26,8 @@ if(isset($_SESSION['user_Username'])) {
 		$_SESSION['error']='errINVOP';
 		exit();
 	}
-	if(!isset($work['Status'])){
-		$_SESSION['error']='errNotPast';
+	if(isset($work['Status']) OR strtotime((new DateTime())->format("Y-m-d H:i:s")) <= strtotime($row['Expiring'])){
+		$_SESSION['error']='errNotPresent';
 		exit();
 	}
 	if($DBAccess->getWinner($job)){

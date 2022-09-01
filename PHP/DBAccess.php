@@ -75,7 +75,7 @@ class DBAccess {
 		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
 		if(!isset($pmax))
 			$pmax='';
-		mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, date('Y-m-d h:i:sa', strtotime(' + ' .$expiring. ' hours')));
+		mysqli_stmt_bind_param($queryCall,'issssiiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, date('Y-m-d h:i:sa', strtotime(' + ' .$expiring. ' hours')));
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
 		$Code_job=mysqli_insert_id($this->connection);
@@ -1102,7 +1102,7 @@ class DBAccess {
   public function getAdminJobAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions INENR JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions INNER JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
