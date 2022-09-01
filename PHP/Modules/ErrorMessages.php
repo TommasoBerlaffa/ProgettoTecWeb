@@ -16,11 +16,11 @@ function ErrorMessage(){
 			$tmp='<p class="resultfail"> Operation allowed only on active jobs. </p>';
 			break;
 		/*---------------------OFFER-CANCEL-TERMINATE----------------------*/
-		case 'cancelTrue':
+		case 'OCsucc':
 			$tmp='<p class="resultsucc"> Job successfully cancelled. </p>';
 			break;
-		case 'cancelFalse':
-			$tmp='<p class="resultfail"> An error occurred while deleting the job, please try again. </p>';
+		case 'OCfail':
+			$tmp='<p class="resultfail"> An error occurred while cancelling the job, please try again. </p>';
 			break;
 		case 'OTsucc':
 			$tmp='<p class="resultsucc"> Job successfully terminated. </p>';

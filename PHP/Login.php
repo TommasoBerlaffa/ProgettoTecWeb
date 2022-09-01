@@ -4,7 +4,6 @@
 	}
 
 	require_once 'DBAccess.php';
-	
 	if(!isset($_SESSION['user_Username']))
 	{
 		$paginaHTML = file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Login.html');
@@ -22,7 +21,6 @@
 				$messaggioErrore .= '<p id="error_pw">Missing password, please <a href="#Password">insert your password here </a></p>';
 		
 			if($messaggioErrore == '') {
-				//$user = 'admin'; $pwd = 'admin';
 				$DBAccess = new DBAccess();
 				if(!($DBAccess->openDBConnection())){
 					header('Location:..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');
@@ -55,7 +53,6 @@
 						$_SESSION['TagList'][$name] = $value;
 						}	
 					}
-			
 					// Redirect 
 					header('Location:Welcome.php');
 					if(isset($_SESSION['redirect']))
@@ -74,12 +71,13 @@
 		$paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);
 		echo $paginaHTML;
 	}
-	
-	// Redirect 
-	header('Location:Welcome.php');
-	if(isset($_SESSION['redirect']))
-		header('Location:'.$_SESSION['redirect']);
-	unset($_SESSION['redirect']);
+	else{
+		// Redirect 
+		header('Location:Welcome.php');
+		if(isset($_SESSION['redirect']))
+			header('Location:'.$_SESSION['redirect']);
+		unset($_SESSION['redirect']);
+	}
 	
 	exit();
 	

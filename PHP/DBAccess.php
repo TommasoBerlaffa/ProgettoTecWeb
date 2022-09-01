@@ -249,7 +249,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
-        FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_job = ?;';
+        FROM reviews AS R INNER JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_job = ?;';
       $queryCall=null;
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
@@ -277,7 +277,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT users.Code_user AS Code, users.Picture as PFP,users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
-							FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
+							FROM bids INNER JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
@@ -303,7 +303,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT COUNT(DISTINCT bids.Code_user) AS C,current_jobs.Code_job, Title, Tipology, Payment, P_min, P_max, Expiring 
-      FROM current_jobs left join bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
+      FROM current_jobs INNER JOIN bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
@@ -395,9 +395,9 @@ class DBAccess {
     if(isset($id) and isset($table)) {
 		if($table<0||$table>2)
 			return null;
-		$user='SELECT tags_users.Code_tag, Name FROM tags_users LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
-		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
-		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs LEFT JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
+		$user='SELECT tags_users.Code_tag, Name FROM tags_users INNER JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
+		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
+		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs INNER JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
 		
 		$queryCall=null;
 		if(!$table)
@@ -488,7 +488,7 @@ class DBAccess {
   public function getMostPopularJobs() {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $query='SELECT Name,tags.Code_tag, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag= tags_current_jobs.Code_tag GROUP BY tags.Code_tag ORDER BY frequency DESC LIMIT 4;';
+    $query='SELECT Name,tags.Code_tag, COUNT(Code_job) AS frequency FROM tags RIGHT JOIN tags_current_jobs ON tags.Code_tag= tags_current_jobs.Code_tag GROUP BY tags.Code_tag ORDER BY frequency DESC LIMIT 4;';
     $queryResult = mysqli_query($this->connection, $query);
     if(mysqli_num_rows($queryResult) == 0)
       return null;
@@ -517,9 +517,9 @@ class DBAccess {
 	
 	//'CREATE TEMPORARY TABLE IF NOT EXISTS ? AS (
 	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs
-	//	 JOIN(
+	//	 INNER JOIN(
 	//		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
-	//			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
+	//			INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
 	//			WHERE
 	//				tags_current_jobs.Code_tag=?
 	//				OR tags_current_jobs.Code_tag=?
@@ -548,7 +548,7 @@ class DBAccess {
 
 	//tag parts
 	$tagsStart='
-	JOIN(
+	INNER JOIN(
 		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
 			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
 			WHERE
@@ -633,6 +633,7 @@ class DBAccess {
 			$query.=$count;
 		$query.=$end;
 	}
+	//$time=microtime(true);
 	if($bool){
 		$query=$Nresults.$query.') AS subquery;';
 		$queryCall=mysqli_prepare($this->connection,$query);
@@ -662,12 +663,15 @@ class DBAccess {
 	$queryCall->bind_param($type, ...$param);  
 	if(!$queryCall)
 		die('Errore binding parametry query');
-    mysqli_stmt_execute($queryCall);
+	//for($i=0;$i<10000;$i++){
+		mysqli_stmt_execute($queryCall);
+	//}
 	if(!$queryCall)
 		die('Errore esecuzione query');
 	
 	$queryResult = mysqli_stmt_get_result($queryCall);
 	mysqli_stmt_close($queryCall);
+	//echo(microtime(true)-$time);
 	if(mysqli_num_rows($queryResult) == 0)
 		return null;
 	$result=array();
@@ -817,7 +821,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
 
-		$query='SELECT bids.Code_job AS Code , Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
+		$query='SELECT bids.Code_job AS Code , Title, Tipology, Payment, P_min, P_max, Expiring FROM bids INNER JOIN current_jobs
 				ON current_jobs.Code_job = bids.Code_job WHERE bids.Code_user =?;';
 		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;';
 		if(isset($old) and $old == true)
@@ -1080,7 +1084,7 @@ class DBAccess {
   public function getAdminUserAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT users.Nickname AS Nick,users.Code_user AS Code,users.Status AS Stat,Date, Comments FROM users_admin_actions JOIN users ON users_admin_actions.Code_user = users.Code_user;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT users.Nickname AS Nick,users.Code_user AS Code,users.Status AS Stat,Date, Comments FROM users_admin_actions INNER JOIN users ON users_admin_actions.Code_user = users.Code_user;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
@@ -1098,7 +1102,7 @@ class DBAccess {
   public function getAdminJobAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions INENR JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
