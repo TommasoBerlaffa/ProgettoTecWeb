@@ -93,7 +93,10 @@ if(isset($_SESSION['user_Username']))
 		$HTMltags.='</ul>';
 		}
 		else
-			$HTMltags = 'This job has no tags';
+    {
+      $HTML = str_replace('<p><span>Job Tags :</span></p>','<p><span>Job Tags : This Job has no Tags</span></p>',$HTML);
+			$HTMltags = '';
+    }
 
 		$HTML = str_replace('<tags/>',$HTMltags,$HTML);
     

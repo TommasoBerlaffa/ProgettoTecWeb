@@ -148,8 +148,10 @@ if (session_status() === PHP_SESSION_NONE) {
 			//						<h2 class="title"><strong>'.$row["Title"].'</strong></h2>
 			$HtmlContent .='
 		<li class="job">
-			<div>
-				<a class="title" href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a>
+      <div class="jobTitle">
+        <a class="title" href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a>
+			</div>
+      <div class="jobDescription">
 				<p class="description"><span>Description</span> : <br>'.trim(preg_replace('/\s+/', ' ', $desc)).'</p>
 			</div>
 			<div class="info">
