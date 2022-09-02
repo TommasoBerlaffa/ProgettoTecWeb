@@ -758,8 +758,8 @@ li.job {
   margin-bottom:12px;
   display: -ms-grid;
   display: grid;
-  grid-template-columns: 4fr  2fr;
-  -ms-grid-columns: 4fr 2fr;
+  grid-template-columns: 3fr  1fr;
+  -ms-grid-columns: 3fr 1fr;
   column-gap: 10px;
   /*padding: 10px 10px;*/
   box-shadow: 1px 1px 10px;
@@ -806,7 +806,14 @@ li.job > div {
 div.jobDescription {
   grid-column: 1;
   border-right: 2px solid;
+}
 
+div.info {
+  grid-column: 2;
+}
+
+div.info p {
+  line-height: 1em;
 }
 
 /*
@@ -1827,6 +1834,7 @@ h1.index {
   text-align:left;
   padding-left : 2em;
   font-size: 1.375em;
+  padding-top: 1em;
 }
 
 h2.index {

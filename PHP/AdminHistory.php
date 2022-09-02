@@ -17,7 +17,7 @@ if(isset($_SESSION['Admin'])) {
 	$listaAdminUser = $DBAccess->getAdminUserAction();
 	$listaAdminJob = $DBAccess->getAdminJobAction();
 	
-  $pagina = str_replace('<input type="text" id="search" onkeyup="AdminSearch()" placeholder="Search for {{element}}..">','',$pagina);
+  $pagina = str_replace('<input type="text" id="search" placeholder="Search for {{element}}..">','',$pagina);
 
   $urltabella = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableAdminHistoryUser.html';
   
