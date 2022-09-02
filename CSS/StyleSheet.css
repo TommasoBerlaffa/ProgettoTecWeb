@@ -1134,6 +1134,11 @@ div.bidData {
   margin-left: 5%;
 }
 
+div.bidData p{
+  white-space:break-spaces;
+  
+}
+
 .review .star,
 .review .date {
   margin-block-start: 0.4em;
