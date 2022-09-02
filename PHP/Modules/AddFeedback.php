@@ -5,7 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once "..". DIRECTORY_SEPARATOR .'DBAccess.php';
 
 if(isset($_SESSION['user_Username'])) {
-	
 	$DBAccess = new DBAccess();
 	if(!($DBAccess->openDBConnection())){
 		header('Location:..'. DIRECTORY_SEPARATOR ."..". DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Error500.html');

@@ -132,8 +132,8 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($job)) {
-		$queryCall=mysqli_prepare($this->connection, 'SELECT Code_Winner FROM past_jobs WHERE Code_job = ? LIMIT 1;');
-		mysqli_stmt_bind_param($queryCall,'i',$id);
+		$queryCall=mysqli_prepare($this->connection, 'SELECT `Code_winner` FROM `past_jobs` WHERE `Code_job` = ? LIMIT 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$job);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
 		mysqli_stmt_close($queryCall);
