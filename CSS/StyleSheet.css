@@ -30,8 +30,8 @@
 ******************************/
 :root {
   --background: #ECE5C7;
-  --links: #bfb382;
-  --color: #00466B;
+  --links: #F4E3AE;
+  --color: #004C75;
   --subcolor: #3A5782;
   --content: #fff;
   --black: #000;
@@ -773,7 +773,7 @@ li.job {
 }*/
 li.job .jobTitle {
   grid-column: 1/span2;
-  background-color: #ECE5C7;
+  background-color: #F4E3AE;
   padding-bottom: 1em;
   border-bottom: 2px solid;
 }
@@ -1720,16 +1720,15 @@ main#Home {
   margin-bottom: 3%;
   display: grid;
   display: -ms-grid;
+  column-gap: 3em;
   grid-template-columns: 1fr 1fr;
   -ms-grid-columns:1fr 1fr;
 }
 
 main#Home img{
-  border: 2px solid #000;
-  border-color: var(--black);
   align-self: center;
-  width: 90%;
-  padding: 1em;
+  width: 100%;
+  border-radius: 15px;
 }
 
 img#firstImg {
@@ -1738,8 +1737,14 @@ img#firstImg {
   -ms-grid-row-span: 2;
   -ms-grid-column: 2;
   grid-column: 2;
-  justify-self: right;
+  margin-bottom: 1em;
+  justify-self: center;
+}
 
+div#Intro, div#Account, div#Function, div#UserProf {
+  border-color: #000;
+  border-right: 2px dashed;
+  border-left: 2px dashed;
 }
 
 div#Intro {
@@ -1747,6 +1752,8 @@ div#Intro {
   grid-row: 1;
   -ms-grid-column: 1;
   grid-column: 1;
+  border-top: 2px dashed;
+  border-radius: 15px 15px 0 0;
 }
 
 div#Account {
@@ -1754,6 +1761,9 @@ div#Account {
   grid-row: 2;
   -ms-grid-column: 1;
   grid-column: 1;
+  border-bottom: 2px dashed;
+  margin-bottom: 1em;
+  border-radius: 0 0 15px 15px;
 }
 
 div#Function {
@@ -1761,6 +1771,8 @@ div#Function {
   grid-row: 3;
   -ms-grid-column: 2;
   grid-column: 2;
+  border-top: 2px dashed;
+  border-radius: 15px 15px 0 0;
 }
 
 div#UserProf {
@@ -1768,6 +1780,8 @@ div#UserProf {
   grid-row: 4;
   -ms-grid-column: 2;
   grid-column: 2;
+  border-bottom: 2px dashed;
+  border-radius: 0 0 15px 15px;
 }
 
 img#secondImg {
@@ -1776,7 +1790,7 @@ img#secondImg {
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-column: 1;
-  justify-self: left;
+  justify-self: center;
 }
 
 div#popularJobs {
@@ -1794,7 +1808,7 @@ ul#popularJobsList {
   display: flex;
   flex-direction: row;
   border: 4px solid  #ECE5C7;
-  border-color: var(--background);
+  border-color: var(--links);
   border-radius: 10px;
 }
 
@@ -1805,7 +1819,7 @@ ul#popularJobsList li {
   margin: 1em;
   padding: 1em;
   background: #ECE5C7;
-  background-color: var(--background);
+  background-color: var(--links);
   border-radius: 10px;
 }
 
