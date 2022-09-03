@@ -57,7 +57,11 @@ if(isset($_SESSION['user_Username']))
 
     // Carico i risultati da DB
 		$HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
-		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'"><abbr title="informations">Info</abbr> on the Creator</a>',$HTML);
+    $CreatorInfo = $DBAccess->getUser(trim($row["Code_user"]));
+    if($CreatorInfo)
+      $HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'">'.$CreatorInfo["Nickname"].'</a>',$HTML);
+    else
+      $HTML = str_replace('{{ Creator }}','creator not available',$HTML);
 		$HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
 		$pay = trim($row["Payment"]);
 		$HTML = $pay==0 ? str_replace('{{ Payment }}','Total Payment at once',$HTML) : str_replace('{{ Payment }}','Payment per hour',$HTML);
@@ -68,9 +72,18 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
 		$HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
 		$winner='';
-		if(array_key_exists('Code_winner',$row) AND isset($row["Code_winner"]))
-			$winner = '<a href="ViewUser.php?Code_User='.trim($row["Code_winner"]).'">More informations on the Winner</a>';
+    $winnerInfos='';
+		if(array_key_exists('Code_winner',$row) AND isset($row["Code_winner"])) {
+      $wInfos = $DBAccess->getUser(trim($row["Code_winner"]));
+      
+			$winner = '<span>Winner of this offer :</span><a href="ViewUser.php?Code_User='.trim($row["Code_winner"]).'">'.trim($wInfos["Nickname"]).'</a>';
+      $winnerInfos = '<p id="winnerInfos"><img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . trim($wInfos['Picture']) .
+      '" alt="Profile Picture of the Winner of this offer" id="winnerPic">
+      Name & Surname : '. trim($wInfos["Name"]).' '.trim($wInfos["Surname"]).'</p>';
+    }
+
 		$HTML = str_replace('{{ Winner }}',$winner,$HTML);
+    $HTML = str_replace('{{ WinnerInfo }}',$winnerInfos,$HTML);
 		
     // Admin Actions
 		$adminActions = '';
