@@ -35,7 +35,8 @@ if(isset($_SESSION['user_Username']))
   //Se trova risultato
     if($row)
     {   
-
+		$creator = $DBAccess->getUser($row['Code_user']);
+		$review = $DBAccess->getUserReview($row['Code_user'])["AvgStar"];
 		if(array_key_exists('Status',$row))
 			$tags = $DBAccess->getTags($index,2);
 		else
@@ -57,19 +58,14 @@ if(isset($_SESSION['user_Username']))
 
     // Carico i risultati da DB
 		$HTML = str_replace('{{ Title }}',trim($row["Title"]),$HTML);
-    $CreatorInfo = $DBAccess->getUser(trim($row["Code_user"]));
-    if($CreatorInfo)
-      $HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'">'.$CreatorInfo["Nickname"].'</a>',$HTML);
-    else
-      $HTML = str_replace('{{ Creator }}','creator not available',$HTML);
+		$HTML = str_replace('{{ Creator }}','<a href="ViewUser.php?Code_User='.trim($row["Code_user"]).'">'.$creator['Nickname'].'</a>    '.$creator['Nationality'].', '.$creator['City'].'      '.($review==0? '(this user has 0 reviews)': (round($review,1).' points review')),$HTML);
 		$HTML = str_replace('{{ Description }}',trim($row["Description"]),$HTML);
-		$pay = trim($row["Payment"]);
-		$HTML = $pay==0 ? str_replace('{{ Payment }}','Total Payment at once',$HTML) : str_replace('{{ Payment }}','Payment per hour',$HTML);
-		$HTML = str_replace('{{ Min Payment }}',trim($row["P_min"]),$HTML);
-		$HTML = str_replace('{{ Max Payment }}',trim($row["P_max"]),$HTML);
+		
+		$HTML = str_replace('{{ Payment }}','$ '.trim($row["P_min"]).' - '.trim($row["P_max"]).($row["Payment"]==0? '':' /hr'),$HTML);
+		
 		$HTML = str_replace('{{ Status }}',$status,$HTML);
 		$HTML = str_replace('{{ Tipology }}',trim($row["Tipology"]),$HTML);
-		$HTML = str_replace('{{ Date }}',trim($row["Date"]),$HTML);
+		$HTML = str_replace('{{ Date }}',$row["Date"],$HTML);
 		$HTML = str_replace('{{ Expiring }}',trim($row["Expiring"]),$HTML);
 		$winner='';
     $winnerInfos='';
@@ -99,11 +95,11 @@ if(isset($_SESSION['user_Username']))
 	
     // Tags
 		if($tags) {
-			$HTMltags ='<ul>';
+			$HTMltags ='';
 			foreach($tags as $name=>$value) {
-				$HTMltags.='<li><a href="FindJob.php?tag='.$value.'">'.$name.'</a></li>';
+				$HTMltags.='<a href="FindJob.php?tag='.$value.'">'.$name.'</a>,';
 			}
-		$HTMltags.='</ul>';
+			$HTMltags= rtrim($HTMltags,',');
 		}
 		else
     {
