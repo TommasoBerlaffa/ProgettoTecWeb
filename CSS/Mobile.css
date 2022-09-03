@@ -48,7 +48,8 @@
     display: block;
     height: 5vh;
     height: fit-content;
-    min-height: 5vh
+    min-height: 5vh;
+    z-index : 1
   }
   
   main { 
@@ -103,8 +104,8 @@
 
   header img.icons{
     padding: 0px;
-    width: 1.5em;
-    height: 1.5em;
+    width: 1.75em;
+    height: 1.75em;
     display:block;
     margin: auto; 
   }
@@ -112,7 +113,7 @@
   header img#profilepic{
     width: 1.75em;
     height: 1.75em;  
-    padding: 1px;
+    padding: 0px;
     margin: auto;
   }
 
@@ -448,10 +449,15 @@
     width: 100%;   
   }
 
-  div#jobList{
-    width: 90%;
+  ul#jobList{
+    width: 100%;
+    padding: 0;
     margin: auto;
   }  
+
+  ul#pages{
+    padding: 0;
+  }
 
   /* 1.7.0 Sidebar for User Profile */
   main#userProfile {  
@@ -467,7 +473,7 @@
   }
 
   div#sidebar {
-    margin-top: 35%;
+    margin-top: 22%;
     margin-bottom: 25%;
     position: absolute;
     display: none;
@@ -846,12 +852,18 @@
   main#Home * {
     max-width: 100%;
   }
+
+  main#Home img {
+    margin: 1em;
+  }
   
   div#Intro {
     -ms-grid-row: 1;
     grid-row: 1;
     -ms-grid-column: 1;
     grid-column: 1;
+    border-bottom: 2px dashed;
+    border-radius: 15px;
   }
 
   img#firstImg {
@@ -867,6 +879,8 @@
     grid-row: 4;
     -ms-grid-column: 1;
     grid-column: 1;
+    border: 2px dashed;
+    border-radius: 15px;
   }
   
   img#secondImg {
