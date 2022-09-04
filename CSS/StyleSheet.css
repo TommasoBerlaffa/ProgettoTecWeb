@@ -72,7 +72,7 @@ main {
 .box {
   box-shadow:0 0 10px #999;
   box-shadow: 0 0 10px var(--shadow);
-  border: 2px solid #000;
+  border: 3px solid #000;
   border-color: var(--black);
 }
 
@@ -1070,6 +1070,11 @@ div#content td {
 
 div#content p.tableEmpty {
   text-align: center;
+  padding-bottom: 1.5em;
+}
+
+div#content p + table {
+  padding: 1em;
 }
 
 /* - 7.2 User Profile Welcome Page - */
@@ -1437,27 +1442,26 @@ form#changeTags fieldset p{
 div#JobInfo {
   margin:auto;
   margin-top : 1em;
-  width: 70%;
+  width: 80%;
   overflow:hidden;
-  border-radius: 20px 20px 0 0;
+  border-radius: 30px;
   display: -ms-grid;
   display: grid;
   row-gap: 1.2em;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 div#JobInfo p,
 div#JobInfo a{
   padding-left: 1em;
-  padding-right: 1em;
   padding-bottom: 1em;
   margin: 0%;
 }
 
 div#JobInfo legend {
   -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-column: 0 / span 2;
+  -ms-grid-column-span: 4;
+  grid-column: 0 / span 4;
   -ms-grid-row: 1;
   grid-row: 0;
 }
@@ -1466,11 +1470,12 @@ div#JobInfo #JobInfoTitle  {
   background-color: #00466B;
   background-color: var(--color);
   margin-top: 0%;
-  padding: 0.2em;
+  padding-top: 2em;
+  padding-bottom: 1em;
   margin-bottom: 0.5em;
   -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-column: 1 / span2;
+  -ms-grid-column-span: 4;
+  grid-column: 1 / span4;
   -ms-grid-row: 2;
   grid-row: 1;
 }
@@ -1480,13 +1485,11 @@ div#JobInfo #JobInfoTitle  {
   color: var(--background);
   margin-block-start: auto;
   margin-block-end: auto;
-  text-align: center;
   padding: 0.5em;
   font-size: 1.75em;
-}
-
-#jobInfoTitle h2 {
-  font-size: 1.25em;
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
 }
 
 div#JobInfo span {
@@ -1497,50 +1500,48 @@ div#JobInfo span {
 
 div#JobInfo #status {
   color: var(--linksOnBlue);
-  display: inline-block;
-  padding-left: 1em;
-}
-
-div#JobInfo #creator,
-div#JobInfo #offerCreator {
-  color: var(--linksOnBlue);
-  display: inline;
+  padding: 0.1em;
+  margin-right: 1em;
+  border: 1px solid var(--linksOnBlue);
+  border-radius: 5px;
+  font-size: 1.5em;
+  width: min-content;
   float: right;
-  padding-right: 1em;
-}
-
-div#JobInfo #creator a,
-div#JobInfo #offerCreator a{
-  color: var(--linksOnBlue);
-  padding: 0;
-}
-
-div#JobInfo #date {
-  -ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 4;
-  grid-row: 3;
-}
-
-div#JobInfo #expiration {
-  -ms-grid-column: 2;
-  grid-column: 2;
-  -ms-grid-row: 4;
-  grid-row: 3;
-}
-
-div#JobInfo #pay {
-  -ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 5;
-  grid-row: 4;
 }
 
 div#JobInfo #type {
-  -ms-grid-column: 2;
-  grid-column: 2;
-  -ms-grid-row: 5;
-  grid-row: 4;
+  color: var(--linksOnBlue);
+
+  padding: 0.1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  border: 1px solid var(--linksOnBlue);
+  border-radius: 5px;
+  font-size: 1.5em;
+  width: min-content;
+  float: right;
+}
+
+div#JobInfo #date {
+  -ms-grid-column: 4;
+  grid-column: 4;
+  -ms-grid-row: 6;
+  grid-row: 5;
+}
+
+div#JobInfo #expiration {
+  -ms-grid-column: 4;
+  grid-column: 4;
+  -ms-grid-row: 7;
+  grid-row: 6;
+}
+
+div#JobInfo #pay {
+  -ms-grid-column: 4;
+  grid-column: 4;
+  -ms-grid-row: 3;
+  grid-row: 2;
+  font-size: 1.3em;
 }
 
 input#Pay1,
@@ -1551,46 +1552,13 @@ input#Pay2,
   width: fit-content;
 }
 
-div#JobInfo #minPay {
-  -ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 6;
-  grid-row: 5;
-}
-
-div#JobInfo #maxPay {
-  -ms-grid-column: 2;
-  grid-column: 2;
-  -ms-grid-row: 6;
-  grid-row: 5;
-}
-
-div#JobInfo #winner {
-  -ms-grid-column: 1;
-  grid-column: 1;
-  -ms-grid-row: 3;
-  grid-row: 2;
-}
-
-div#JobInfo #winnerInfos {
-  -ms-grid-column: 2;
-  grid-column: 2;
-  -ms-grid-row: 3;
-  grid-row: 2;
-}
-
-#winnerPic {
-  width: 4em;
-  vertical-align: text-top;
-  margin-right: 1em;
-}
-
 div#JobInfo #desc {
   -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-column: 1 / span 2;
-  -ms-grid-row: 7;
-  grid-row: 6;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 3;
+  grid-row: 2 / span 3;
 }
 
 /* winner e creator per oldJob, cancel e terminate per Offer */
@@ -1610,10 +1578,10 @@ div#JobInfo #terminate {
 
 div#JobInfo #tags {
   -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-column: 1 / span 2;
-  -ms-grid-row: 9;
-  grid-row: 8;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  -ms-grid-row: 6;
+  grid-row: 5;
 }
 
 div#JobInfo #tags ul{
@@ -1623,6 +1591,27 @@ div#JobInfo #tags ul{
 div#JobInfo #tags ul li{
   display: inline-block;
 }
+
+div#JobInfo #creator,
+div#JobInfo #offerCreator {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  -ms-grid-row: 7;
+  grid-row: 6;
+}
+
+div#JobInfo #creator a,
+div#JobInfo #offerCreator a{
+  color: var(--links);
+  padding: 0;
+}
+
+div#JobInfo #creator a:visited,
+div#JobInfo #offerCreator a:visited{
+  color: var(--visitedLinks);
+}
+
 
 p#description{
   white-space: pre-wrap; /* ie */
@@ -1637,7 +1626,9 @@ div#JobInfo p#description{
   border-radius: 0 0 5px 0;
   margin-right: 1em;
   margin-left: 1em;
-  text-align: justify;
+  text-align: left;
+  min-height: 10em;
+  background-color: var(--background);
 }
 
 span#description{
@@ -1647,8 +1638,7 @@ span#description{
 
 div#feedback {
   border-radius: 0 0 10px 10px;
-  border-top: 0px;
-  width : 70%;
+  border-top: 3px solid;
   margin : auto;
 }
 
@@ -1682,6 +1672,7 @@ div#feedback .reviewUser {
   color: #ECE5C7;
   color: var(--background);
   padding-right: 1.5em;
+  padding-bottom: 0.2em;
   border-radius: 0 0 10px 0;
 }
 
@@ -1692,11 +1683,7 @@ div#feedback .rating {
 div#feedback .date {
   margin-right: 10%;
 }
-/*
-div#feedback .comment p{
-  
-}
-*/
+
 div#feedback p#feedbackDesc{
   margin: 1em;
 }
@@ -1704,12 +1691,12 @@ div#feedback p#feedbackDesc{
 form#AddFeedback {
   margin: auto;
   margin-top: 1em;
-  width: 70%;
+  width: 100%;
 }
 
 form#AddFeedback fieldset {
-  border-radius: 0 0 10px 10px;
-  border: 2px solid;
+  border: none;
+  border-top: 3px solid;
 }
 
 form#AddFeedback button {
@@ -1736,6 +1723,38 @@ input.stars {
 }
 
 #ChooseWinner input[type=radio] {
+  display: inline-block;
+}
+
+/* Informations on the Winner */
+#winnerwrapper {
+  width: 50%;
+  margin: auto;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-top: 1em;
+}
+
+h2#winner {
+  display: block;
+  text-align: center;
+  padding-bottom: 0.3em;
+  border-bottom: 3px solid #000;
+  font-size: 1.4em;
+  border-color: var(--black);
+  background-color: var(--linksOnBlue);
+  margin-block-start: 0;
+  border-radius: 10px 10px 0 0;
+}
+
+#winnerPic {
+  width: 4em;
+  display: inline-block;
+  margin-right: 1em;
+  margin-left: 2em;
+}
+
+p#winnerInfos {
   display: inline-block;
 }
 
@@ -1807,6 +1826,8 @@ div#Intro, div#Account, div#Function, div#UserProf {
   border-color: #000;
   border-right: 2px dashed;
   border-left: 2px dashed;
+  padding-top: 0.5em;
+  padding-bottom: 0.7em;
 }
 
 div#Intro {
@@ -1887,7 +1908,7 @@ ul#popularJobsList li {
 
 h1.index {
   text-align:left;
-  padding-left : 0.5em;
+  padding-left : 1.25em;
   font-size: 1.375em;
   display: inline;
   vertical-align: middle;
@@ -1903,6 +1924,7 @@ p.subIndex {
   text-align:left;
   padding-left: 1.5em;
   width: 90%;
+  margin: 0%;
 }
 
 .faqIcons {
@@ -2054,6 +2076,11 @@ input#search {
   div#userFeedback {
     width: 30%;
     padding-top: 1em;
+  }
+
+  /* winnerwrapper */
+  #winnerwrapper {
+    width: 70%;
   }
 
 }

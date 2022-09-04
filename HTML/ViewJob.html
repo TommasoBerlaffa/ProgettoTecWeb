@@ -59,34 +59,36 @@
     <div id="JobInfo" class="box">
       <div id="JobInfoTitle">
         <h1>{{ Title }}</h1>
-		<p id="status">{{ Status }} </p>  
-		<p id="type">{{ Tipology }} </p>
-	  </div>
-	  <p id="pay"><span>Pricing : </span>{{ Payment }} </p>
+        <p id="status">{{ Status }} </p>  
+        <p id="type">{{ Tipology }} </p>
+      </div>
+    <p id="pay"><span>Pricing : </span>{{ Payment }} </p>
 	  
 	  <div id="desc" class="desc">
-        <p id="description"> {{ Description }} </p>
-      </div> 
+      <p id="description"> {{ Description }} </p>
+    </div> 
 	  
 	  <div id="tags">
-        <p><span>Skills required for this job:</span><tags/></p>
-      </div>
+      <p><span>Skills required for this job:</span><tags/></p>
+    </div>
 	  
-      <p id="date"><span>Created on:</span> {{ Date }} </p>
+    <p id="date"><span>Created on:</span> {{ Date }} </p>
       
 	  <p id="expiration"><span>Expiration Date : </span>{{ Expiring }} </p>
       
-      <p id="creator"><span>Info of the creator</span>{{ Creator }}</p>
+    <p id="creator"><span>Info of the creator</span>{{ Creator }}</p>
       
-	    {{ owner options }}  
+	  {{ owner options }}  
     </div>
 	
 	<addBid/>
     <bids/>
 	<div id="winnerwrapper">
-		<p id="winner">{{ Winner }}</p>
+		<h2 id="winner">{{ Winner }}</h2>
+    {{ WinnerInfo }}
+    <feedback/>
 	</div>
-	<feedback/>
+	
     <admin/>
   </main>
   <!-- Footer -->

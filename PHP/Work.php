@@ -56,7 +56,7 @@
       $HTMLTable .= $HTMLtableJob;
     }
     else
-      $HTMLTable .= '<p>You currently have no active job. If you want to make a new job offer, feel free to check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'LoadCreatejob.php">create a Job Offer</a></p>';
+      $HTMLTable .= '<p class="tableEmpty">You currently have no active job. If you want to make a new job offer, feel free to check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'LoadCreatejob.php">create a Job Offer</a></p>';
 
     // Ottiene Valori da Query - Past Jobs
     $PastJob = $DBAccess->getPastJobListbyCreator($_SESSION['user_ID']);

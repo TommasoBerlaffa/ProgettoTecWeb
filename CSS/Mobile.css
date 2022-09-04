@@ -815,24 +815,29 @@
 
   /* - 1.08.0 View Old Job Info & Feedback - */
   div#JobInfo {
+    width: 100%;
+  }
+
+  /* winnerwrapper */
+  #winnerwrapper {
     width: 90%;
   }
 
   div#feedback {
-    width : 90%;
+    width : 100%;
     margin-bottom: 5%;
   }
 
   form#AddFeedback {
-    width: 90%;
+    width: 100%;
   }
 
   form#addBid {
-    width: 90%;
+    width: 100%;
   }
 
   form#banUser {
-    width: 90%;
+    width: 100%;
   }
 
   /* - 1.08.1 View Offer - */
@@ -842,7 +847,7 @@
   
   /* - 1.09.0 Index - */
   main#Home {
-    margin-top: 10%;
+    margin-top: 18%;
     padding-top: 4em;
     grid-template-columns: 1fr;
     -ms-grid-columns:1fr;

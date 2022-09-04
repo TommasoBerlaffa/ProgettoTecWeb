@@ -54,9 +54,9 @@ if (session_status() === PHP_SESSION_NONE) {
       $content = str_replace("{{Address}}",($Result["Address"] ? trim($Result["Address"]) : 'Not Available'),$content);
       $content = str_replace("{{Phone}}",($Result["Phone"] ? trim($Result["Phone"]) : 'Not Available'),$content);
       if($Result["Curriculum"])
-		$content = str_replace("{{Curriculum}}",'<a href="'.trim($Result["Curriculum"]).'">'.trim($Result["Curriculum"]).'</a>',$content);
-	  else
-		$content = str_replace("{{Curriculum}}","Not Available",$content);
+        $content = str_replace("{{Curriculum}}",'<a href="'.trim($Result["Curriculum"]).'">'.trim($Result["Curriculum"]).'</a>',$content);
+      else
+        $content = str_replace("{{Curriculum}}","Not Available",$content);
       $content = str_replace("{{Description}}",trim($Result["Description"]),$content);
       $content = str_replace("{{Creation}}",trim($Result["Creation"]),$content);
       
