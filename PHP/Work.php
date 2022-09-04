@@ -30,18 +30,19 @@
     <div id="content">
       <div id="intro">
         <p><em>Your Job Offer</em> is the place where you can check out all the Job Offer you created, both past and current.</p>
-      </div>';
+        </div><a class="goTop" href="#{{value}}">Skip the first table</a>';
     
     // Ottiene Valori da Query - Current Jobs
     $CurrentJob = $DBAccess->getJobListbyCreator($_SESSION['user_ID']);
 
     if($CurrentJob){
-
-      $tableJob = "";
+       $tableJob = "";
       $urltableJob = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJobWBid.html';
       $HTMLtableJob = file_get_contents($urltableJob);
       $HTMLtableJob = str_replace('{{ caption }}','This table shows all your current jobs with the number of bids that are placed on them. 
       You can click on the job title to display more informations.',$HTMLtableJob);
+      
+
       foreach ($CurrentJob as $row) {
         $date1 = date_create();
         $date2 = date_create($row['Expiring']);
@@ -58,6 +59,8 @@
     else
       $HTMLTable .= '<p class="tableEmpty">You currently have no active job. If you want to make a new job offer, feel free to check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'LoadCreatejob.php">create a Job Offer</a></p>';
 
+
+    $HTMLTable .= '<a class="goTop" href="#">Go back to the top</a>';
     // Ottiene Valori da Query - Past Jobs
     $PastJob = $DBAccess->getPastJobListbyCreator($_SESSION['user_ID']);
 	$DBAccess->closeDBConnection();
@@ -66,6 +69,7 @@
       $tablePastJob= "";
       $urltablePastJob= '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
       $HTMLtablePastJob= file_get_contents($urltablePastJob);
+      $HTMLtablePastJob= str_replace('{{id}}','tableJob',$HTMLtablePastJob);
       $HTMLtablePastJob= str_replace('{{ caption }}','This table displays all the job offer you created and are already terminated.
       You can click on the job title to show more informations.',$HTMLtablePastJob);
       foreach ($PastJob as $row) {
@@ -79,10 +83,14 @@
       } 
       $HTMLtablePastJob= str_replace('{{ value }}',$tablePastJob,$HTMLtablePastJob);
       $HTMLTable .= $HTMLtablePastJob;
+      $HTMLTable = str_replace('{{value}}','tableJob',$HTMLTable);
     }
-    else 
+    else {
       $HTMLTable .= '<p class="tableEmpty">You currently have no past job offer that are terminated. If you want to create a job offering history, you should start by creating some jobs offer.
       Feel free to check out <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'LoadCreatejob.php">create a job offer</a></p>';
+      $HTMLTable = str_replace('{{value}}','tableJob',$HTMLTable);
+    }
+
 
     $HTMLTable .= '</div><a class="goTop" href="#">Go back to the top</a>';
     // Rimpiazza Valori su file html

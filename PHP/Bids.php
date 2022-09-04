@@ -29,7 +29,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <div id="content">
       <div id="intro">
         <p><em>Your Bids</em> is the place where you can check out all your bids, both past bids on succesfull jobs and current bids.</p>
-      </div>';
+      </div><a class="goTop" href="#{{value}}">Skip the first table</a>';
     
     $NewBid = $DBAccess->getUserJobs($_SESSION['user_ID'],false);
     
@@ -49,7 +49,7 @@ if (session_status() === PHP_SESSION_NONE) {
         </tr>';
       }
       $HTMLtableNewBid = str_replace('{{ value }}',$tableNewBid,$HTMLtableNewBid);
-
+      $HTMLtableNewBid .= '<a href="#" class="goTop">Go back to the top</a>';
     }
     else
       $HTMLtableNewBid = '<p class="tableEmpty">You currently have no active bids. You can check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'FindJob.php">Find a Job Offer</a> and start bidding now</p>';
@@ -61,6 +61,7 @@ if (session_status() === PHP_SESSION_NONE) {
       $TableOldBid = "";
       $urlTableOldBid = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'TableJob.html';
       $HTMLTableOldBid =file_get_contents($urlTableOldBid);
+      $HTMLTableOldBid= str_replace('{{id}}','tablePastBids',$HTMLTableOldBid);
       $HTMLTableOldBid = str_replace('{{ caption }}','This table displays all your past bids.
       You can click on a job title to display more information!',$HTMLTableOldBid);
       foreach($OldBid as $row ) {
@@ -73,10 +74,13 @@ if (session_status() === PHP_SESSION_NONE) {
         </tr>';
       } 
       $HTMLTableOldBid = str_replace('{{ value }}',$TableOldBid,$HTMLTableOldBid);
+      $HTMLTable = str_replace('{{value}}','tablePastBids',$HTMLTable);
     }
-    else
+    else {
       $HTMLTableOldBid = '<p class="tableEmpty">You currently have no past bids. If you want to start making your bid history, you should check <a href="..'.DIRECTORY_SEPARATOR.'PHP'. DIRECTORY_SEPARATOR.'FindJob.php">Find a Job Offer</a> and try your first bid</p>';
-
+      $HTMLTable = str_replace('{{value}}','tablePastBids',$HTMLTable);
+    }
+      
 	$DBAccess->closeDBConnection();
 	
     $HTMLTable .= $HTMLTableOldBid;

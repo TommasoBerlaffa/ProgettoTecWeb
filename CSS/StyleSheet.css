@@ -78,9 +78,9 @@ main {
 
 a.goTop {
   display: block;
-  float: right;
-  margin-right: 10%;
-  margin-bottom: 3%;
+  width: 100%;
+  text-align: end;
+  padding: 1em;
 }
 
 .resultsucc {
