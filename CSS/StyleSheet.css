@@ -46,7 +46,6 @@
 /* - 1.0 General CSS For every page - */
 html {
   width: 100%;
-  background-color: #ECE5C7;
   background-color: var(--background);
 }
 
@@ -55,7 +54,6 @@ html, body{
 }
 
 body {
-  background-color: #fff;
   background-color: var(--content);
   font-family:Tahoma, sans-serif;
   margin:auto;  
@@ -70,9 +68,7 @@ main {
 }
 
 .box {
-  box-shadow:0 0 10px #999;
   box-shadow: 0 0 10px var(--shadow);
-  border: 3px solid #000;
   border-color: var(--black);
 }
 
@@ -104,18 +100,15 @@ p {
 }
 
 a {
-  color: #0000EE;
   color: var(--links)
 }
 
 a:visited {
-  color: #800080;
   color: var(--visitedLinks)
 }
 
 /* - 2.0 Header - */
 header {
-  background-color: #00466B;
   background-color: var(--color);
   display: flex;
   align-items: flex-end;
@@ -141,18 +134,15 @@ header ul li {
 
 header ul li a:link {
   margin-bottom: 0.2em;
-  color: #fff;
   color: var(--content);
 }
 
 header ul li a:visited {
   margin-bottom: 0.2em;
-  color: #bfb382;
   color: var(--linksOnBlue);
 }
 
 header ul li span {
-  color: #bfb382;
   color: var(--linksOnBlue);
   margin-bottom: 0.2em;
 }
@@ -168,8 +158,7 @@ img#profilepic {
   width: 1.1em;
   height: 1.1em;
   padding : 0.2em;
-  background-color: white;
-  border-color: #000;
+  background-color: var(--darkwhite);
   border : solid 1px var(--black);
   vertical-align: text-bottom;
   margin-right: 0.3em;
@@ -181,8 +170,7 @@ nav.breadcrumb{
   padding: 0.3em;
   background-color:whitesmoke;
   border-width: 0em;
-  border: solid 2px #000;
-  border-color: var(--black);
+  border: solid 2px var(--black);
 }
 
 /* - 4.0 Footer - */
@@ -192,7 +180,6 @@ footer{
   min-height: 5%;
   width: 100%;
   text-align:center;
-  background-color: #00466B;
   background-color: var(--color);
   max-width: 1200px;
   margin: auto;
@@ -202,18 +189,14 @@ footer{
 footer#footer p {
   display: inline-block;
   font-size: 0.875em;
-  
-  color: #ECE5C7;
   color: var(--background);
 }
 
 footer#footer a:link {
-  color: #fff;
   color: var(--content);
 }
 
 footer#footer a:visited {
-  color: #bfb382;  
   color: var(--linksOnBlue);
 }
 
@@ -229,15 +212,12 @@ form {
 }
 
 fieldset{
-  box-shadow:0 0 10px #999;
-  border: 2px solid #000;
-  border-color: var(--black);
+  box-shadow:0 0 10px var(--shadow);
+  border: 2px solid var(--black);
 }
 
 legend {
-  background-color: #00466B;
   background-color: var(--color);
-  color: #ECE5C7;
   color: var(--background);
   padding: 0.3em;
   border-radius: 5px;
@@ -268,7 +248,6 @@ input {
 button[type=submit],
 input[type=submit]
 {
-  border: 2px solid #000;
   border-color: var(--black);
 }
 
@@ -368,11 +347,9 @@ form#createJob {
 }
 
 form#createJob fieldset{
-  display: -ms-grid;
   display: grid;
   row-gap: 1.5em;
   grid-template-columns: 1fr 1fr 1fr;
-
   margin-bottom: 5em;
 }
 
@@ -390,116 +367,75 @@ form#createJob fieldset textarea {
   width: fit-content;
 }
 
-form#createJob fieldset legend {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  grid-column: 0;
-  -ms-grid-row: 1;
-  grid-row: 0;
-}
-
 form#createJob fieldset p#intro {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  -ms-grid-row: 2;
   grid-row: 1;
 }
 
 form#createJob fieldset label#labelTitle {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 3;
   grid-row: 2;
 }
 
 form#createJob fieldset input#Title {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 3;
   grid-row: 2;
 }
 
 form#createJob fieldset label#labelType {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 4;
   grid-row: 3;
 }
 
 form#createJob fieldset select#Tipology {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 4;
   grid-row: 3;
   max-height: fit-content;
 }
 
 form#createJob fieldset label#labelExpiring {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
   grid-column: 1 / span 2;
-  -ms-grid-row: 5;
   grid-row: 4;
 }
 
 form#createJob fieldset select#Expiring {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 5;
   grid-row: 4;
   max-height: fit-content;
 }
 
 form#createJob fieldset div#Pay {
-  -ms-grid-column:1;
-  -ms-grid-column-span: 2;
   grid-column: 1 / span 2;
-  -ms-grid-row: 6;
   grid-row: 5;
 }
 
 form#createJob fieldset label#labelMin {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 7;
   grid-row: 6;
 }
 
 form#createJob fieldset input#MinPay {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 7;
   grid-row: 6;
 }
 
 form#createJob fieldset label#labelMax {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 8;
   grid-row: 7;
 }
 
 form#createJob fieldset input#MaxPay {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 8;
   grid-row: 7;
 }
 
 form#createJob fieldset label#labelDesc {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
   grid-column: 1 / span 2;
-  -ms-grid-row: 9;
   grid-row: 8;
 }
 
 form#createJob fieldset textarea#Desc {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  -ms-grid-row: 10;
   grid-row: 9;
   resize: vertical;
   width: 80%;
@@ -507,26 +443,17 @@ form#createJob fieldset textarea#Desc {
 }
 
 form#createJob fieldset p#TagDescription{
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  -ms-grid-row: 11;
   grid-row: 10;
 }
 
 form#createJob fieldset div#searchTagField {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
   grid-column: 1 / span 2;
-  -ms-grid-row: 12;
   grid-row: 11;
 }
 
 form#createJob fieldset div#selectedTagsList {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 12;
-  -ms-grid-row-span: 2;
   grid-row: 11 / span 2;
 }
 
@@ -538,17 +465,12 @@ div#selectedTagsList p{
 }
 
 form#createJob fieldset div#tagsList {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 12;
-  -ms-grid-row-span: 2;
   grid-row: 11 / span 2;
 }
 
 form#createJob fieldset button#Create{
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 14;
   grid-row: 13;
 }
 
@@ -596,7 +518,6 @@ button.btn404{
 
 /* - 6.0 Filter for Page Find Job - */
 main#findJob {
-  display: -ms-inline-flexbox;
   display: flex;
   align-items: flex-start;
 }
@@ -620,26 +541,19 @@ form#formFilter {
 form#formFilter fieldset{
   min-width: 15em;
   display: grid;
-  display: -ms-grid;
-  -ms-grid-columns:1fr 1fr;
   row-gap: 0.8em;
   gap: 0.8em;
 
 }
 
 form#formFilter legend {
-  -ms-grid-row: 1;
   grid-row: 1;
-  -ms-grid-column: 1;
   grid-column: 1 / span 2;
-  -ms-grid-column-span: 2;
 }
 
 form#formFilter #labelType {
   margin-left: 0.5em;
-  -ms-grid-row: 2;
   grid-row: 2;
-  -ms-grid-column: 1;
   grid-column: 1;
 }
 
@@ -647,18 +561,13 @@ form#formFilter #Tipology {
   width: 60%;
   min-width: fit-content;
   margin: auto;
-  -ms-grid-row: 2;
   grid-row: 2;
-  -ms-grid-column: 2;
   grid-column: 2;
 }
 
 form#formFilter div#Pay {
-  -ms-grid-row: 3;
   grid-row: 3;
-  -ms-grid-column: 1;
   grid-column: 1 / span 2;
-  -ms-grid-column-span: 2;
 }
 
 form#formFilter #labelPayment {
@@ -666,34 +575,26 @@ form#formFilter #labelPayment {
 }
 
 form#formFilter #labelPay {
-  -ms-grid-row: 4;
   grid-row: 4;
-  -ms-grid-column: 1;
   grid-column: 1;
   margin-left: 0.5em;
 }
 
 form#formFilter #PayMin {
-  -ms-grid-row: 4;
   grid-row: 4;
-  -ms-grid-column: 2;
   grid-column: 2;
   width: 60%;
   margin: auto;
 }
 
 form#formFilter #labelDate {
-  -ms-grid-row: 5;
   grid-row: 5;
-  -ms-grid-column: 1;
   grid-column: 1;
   margin-left: 0.5em;
 }
 
 form#formFilter #Date {
-  -ms-grid-row: 5;
   grid-row: 5;
-  -ms-grid-column: 2;
   grid-column: 2;
   width: 60%;
   min-width: fit-content;
@@ -707,26 +608,18 @@ form#formFilter #labelsearchTag {
 form#formFilter #searchTag {
   width: 80%;
   max-height: 1.5em;
-
 }
 
 form#formFilter div#TagModule {
-  -ms-grid-row: 6;
   grid-row: 6 / span 3;
-  -ms-grid-column: 1;
   grid-column: 1 / span 2;
-  -ms-grid-column-span: 2;
-  -ms-grid-row-span: 3;
 }
 
 form#formFilter #submit {
   width: 80%;
   margin: auto;
-  -ms-grid-row: 10;
   grid-row: 10;
-  -ms-grid-column: 1;
   grid-column: 1 / span 2;
-  -ms-grid-column-span: 2;   
 }
 
 h1.SelectedTags {
@@ -734,11 +627,9 @@ h1.SelectedTags {
 }
 
 .btnTag{
-  background: #fff;
   background: var(--content);
   border-radius: 5px;
-  border: 2px solid #3A5782;
-  border-color: var(--subcolor);
+  border: 2px solid var(--subcolor);
   margin-right: 0.3em;
   margin-top: 0.2em;
 }
@@ -760,21 +651,17 @@ li.job p{
 li.job {
   position:relative;
   margin-bottom:12px;
-  display: -ms-grid;
   display: grid;
   grid-template-columns: 3fr  1fr;
-  -ms-grid-columns: 3fr 1fr;
   column-gap: 10px;
   box-shadow: 1px 1px 10px;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   list-style:none;
 }
 
 li.job .jobTitle {
-  grid-column: 1/span2;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  background-color: #F4E3AE;
+  grid-column: 1/ span 2;
+  background-color: var(--linksOnBlue);
   padding-bottom: 1em;
   border-bottom: 2px solid;
 }
@@ -783,17 +670,14 @@ li.job .title {
   padding: 0.5em;
   font-weight:bold;
   font-size:1.2em;
-  color: #000;
   color: var(--black);
 }
 
 li.job .title:hover{
-  color: #0000EE;
   color: var(--links)
 }
 
 li.job .title:hover:visited{
-  color: purple;
   color: var(--visitedLinks)
 }
 
@@ -811,17 +695,13 @@ li.job > div {
 }
 
 div.jobDescription {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 2;
   grid-row: 2;
   border-right: 2px solid;
 }
 
 div.info {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 2;
   grid-row: 2;
 }
 
@@ -835,11 +715,8 @@ li.job .description {
 }
 
 li.job .tags {
-  grid-column: 1/span2;
-  -ms-grid-column: 1;
+  grid-column: 1/ span 2;
   grid-row: 3;
-  -ms-grid-row: 3;
-  -ms-grid-column-span: 2;
   list-style-type: none;
   border-top: 2px solid;
   padding: 0.6em;
@@ -863,11 +740,11 @@ ul#pages li {
   list-style-type:none;
   text-align:center;
   display:inline-block;
-  border: 2px solid #000;
+  border: 2px solid var(--black);
   border-radius: 3px;
   font-size:1.3em;
-  color: #000;
-  background-color: #E6E6E6;
+  color: var(--black);
+  /*background-color: #E6E6E6;*/
   padding: 0.1em 0.1em;
   margin: 0.1em;
   height: 1.5em;
@@ -875,11 +752,9 @@ ul#pages li {
 }
 	
 ul#pages li a{
-  border-color: #000;
   border-color: var(--black);
-  color: #000;
   color: var(--black);
-  background-color: #FFFFFF;
+  background-color: var(--content);
   text-decoration:none;
   position:relative;
 }
@@ -909,14 +784,11 @@ input#hideSidebar,
 }
 
 div#sidebar { 
-  background-color: #3A5782;
   background-color: var(--subcolor);
-
   width: fit-content;
 }
 
 div#sidebar ul {
-  padding: 0px; /* ie */
   padding-bottom: 0.3em;
   padding-top: 0.3em;
   padding-inline-start: 0px;
@@ -940,17 +812,14 @@ div#sidebar ul li{
 
 #sidebar a:visited,
 #sidebar a:visited span{
-  color: #bfb382;
   color: var(--linksOnBlue);
 }
 
 #sidebar span {
-  color:#fff;
   color: var(--content);
 }
 
 #sidebar .selected {
-  background-color: #00466B;
   background-color: var(--color);
   padding: 1em;
 }
@@ -998,8 +867,7 @@ div#introTags {
   width: 80%;
   margin: auto;
   padding-bottom: 0.2em;
-  border-bottom: 2px solid #00466B;
-  border-color:var(--color);
+  border-bottom: 2px solid var(--color);
 }
 
 div#intro p,
@@ -1019,9 +887,7 @@ div#content table caption.description{
 }
 
 div#content table thead{
-  background-color: #00466B;
   background-color: var(--color);
-  color: #ECE5C7;
   color: var(--background);
 }
 
@@ -1060,8 +926,7 @@ div#content th,
 div#content td {
   padding: 0.8em;
   border-collapse: collapse;
-  border-color: var(--black);
-  border: 1px solid  #000; 
+  border: 1px solid var(--black);
 }
 
 div#content p.tableEmpty {
@@ -1101,22 +966,18 @@ div#userinfo {
 div.headchapter {
   width: 80%;
   padding-bottom: 2em;
-  border-bottom: 2px solid #00466B;
-  border-color: var(--color);
+  border-bottom: 2px solid var(--color);
   margin-right: 20%;
 }
 
 main#viewUser div.headchapter {
   width: 100%;
   padding-bottom: 2em;
-  border-bottom: 2px solid #00466B;
-  border-color:var(--color);
+  border-bottom: 2px solid var(--color);
 }
 
 div#userinfo div.chapter{
-  
-  border-right: 2px dashed #00466B;
-  border-color: var(--color);
+  border-right: 2px dashed var(--color);
 }
 
 h1.chapter {
@@ -1162,7 +1023,6 @@ div.bidData {
 
 div.bidData p{
   white-space:break-spaces;
-  
 }
 
 .review .star,
@@ -1187,9 +1047,7 @@ form#changeTags {
 }
 
 form#settings fieldset {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 2fr 1fr 2fr;
   grid-template-columns: 1fr 2fr 1fr 2fr;
   row-gap: 1em;
   width: fit-content;
@@ -1209,63 +1067,44 @@ form#settings fieldset textarea{
 }
 
 form#settings legend {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 1;
   grid-row: 1 / span 4;
   margin: 0%;
 }
 
 form#settings #introduction {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
   grid-column: 1 / span 4 ;
-  -ms-grid-row: 2;
   grid-row: 1;
 
 }
 
 form#settings #labelUsername {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 3;
   grid-row: 3;
 }
 
 form#settings #Username {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 3;
   grid-row: 3;
 }
 
 form#settings #ProfilePic {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 2;
   grid-column: 3 / span 2;
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 2;
   grid-row: 3 / span 2;
 }
 
 form#settings #labelName {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 4;
   grid-row: 4;
 }
 
 form#settings #Name {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 4;
   grid-row: 4;
 }
 
 form#settings #labelSurname {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 5;
   grid-row: 5;
 }
 
@@ -1279,135 +1118,96 @@ form#settings img#yourProfilePic {
 }
 
 form#settings #Surname {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 5;
   grid-row: 5;
 }
 
 form#settings #labelEmail {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 5;
   grid-row: 5;
 }
 
 form#settings #Email {
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 5;
   grid-row: 5;
 }
 
 form#settings #labelBirth {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 6;
   grid-row: 6;
 }
 
 form#settings #Birth {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 6;
   grid-row: 6;
 }
 
 form#settings #labelTel {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 6;
   grid-row: 6;
 }
 
 form#settings #Tel {
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 6;
   grid-row: 6;
 }
 
 form#settings #labelNationality {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 7;
   grid-row: 7;
 }
 
 form#settings #Nationality {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 7;
   grid-row: 7;
 }
 
 form#settings #labelAddress {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 7;
   grid-row: 7;
 }
 
 form#settings #Address {
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 7;
   grid-row: 7;
 }
 
 form#settings #labelCity {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 8;
   grid-row: 8;
 }
 
 form#settings #City{
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 8;
   grid-row: 8;
 }
 
 form#settings #labelCurr {
-  -ms-grid-column: 3;
   grid-column: 3;
-  -ms-grid-row: 8;
   grid-row: 8;
 }
 
 form#settings #Curr{
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 8;
   grid-row: 8;
 }
 
 form#settings #labelDesc {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 9;
   grid-row: 9;
 }
 
 form#settings #Description {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 3;
   grid-column: 2 / span 3;
-  -ms-grid-row: 9;
   grid-row: 9;
 }
 
 form#settings #submit {
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 2;
   grid-column: 2 / span 2;
-  -ms-grid-row: 10;
   grid-row: 10;
   margin:auto;
   width: 50%;
 }
-
 
 div#errorList {
   text-align: center;
@@ -1443,7 +1243,6 @@ div#JobInfo {
   width: 80%;
   overflow:hidden;
   border-radius: 30px;
-  display: -ms-grid;
   display: grid;
   row-gap: 1.2em;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -1456,30 +1255,17 @@ div#JobInfo a{
   margin: 0%;
 }
 
-div#JobInfo legend {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
-  grid-column: 0 / span 4;
-  -ms-grid-row: 1;
-  grid-row: 0;
-}
-
 div#JobInfo #JobInfoTitle  {
-  background-color: #00466B;
   background-color: var(--color);
   margin-top: 0%;
   padding-top: 2em;
   padding-bottom: 1em;
   margin-bottom: 0.5em;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
   grid-column: 1 / span4;
-  -ms-grid-row: 2;
   grid-row: 1;
 }
 
 #JobInfoTitle h1 {
-  color: #ECE5C7;
   color: var(--background);
   margin-block-start: auto;
   margin-block-end: auto;
@@ -1509,7 +1295,6 @@ div#JobInfo #status {
 
 div#JobInfo #type {
   color: var(--linksOnBlue);
-
   padding: 0.1em;
   margin-left: 1em;
   margin-right: 1em;
@@ -1521,23 +1306,17 @@ div#JobInfo #type {
 }
 
 div#JobInfo #date {
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 6;
   grid-row: 5;
 }
 
 div#JobInfo #expiration {
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 7;
   grid-row: 6;
 }
 
 div#JobInfo #pay {
-  -ms-grid-column: 4;
   grid-column: 4;
-  -ms-grid-row: 3;
   grid-row: 2;
   font-size: 1.3em;
 }
@@ -1551,34 +1330,23 @@ input#Pay2,
 }
 
 div#JobInfo #desc {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  -ms-grid-row: 3;
-  -ms-grid-row-span: 3;
   grid-row: 2 / span 3;
 }
 
 /* winner e creator per oldJob, cancel e terminate per Offer */
 div#JobInfo #cancel {
-  -ms-grid-column: 1;
   grid-column: 1;
-  -ms-grid-row: 8;
   grid-row: 7; 
 }
 
 div#JobInfo #terminate {
-  -ms-grid-column: 2;
   grid-column: 2;
-  -ms-grid-row: 8;
   grid-row: 7; 
 }
 
 div#JobInfo #tags {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  -ms-grid-row: 6;
   grid-row: 5;
 }
 
@@ -1592,10 +1360,7 @@ div#JobInfo #tags ul li{
 
 div#JobInfo #creator,
 div#JobInfo #offerCreator {
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  -ms-grid-row: 7;
   grid-row: 6;
 }
 
@@ -1619,7 +1384,6 @@ p#description{
 div#JobInfo p#description{
   padding : 0.5em;
   word-break: break-all;
-  border-color: #000;
   border: 3px solid var(--black);
   border-radius: 0 0 5px 0;
   margin-right: 1em;
@@ -1665,9 +1429,7 @@ div#feedback span {
 }
 
 div#feedback .reviewUser {
-  background-color: #00466B;
   background-color: var(--color);
-  color: #ECE5C7;
   color: var(--background);
   padding-right: 1.5em;
   padding-bottom: 0.2em;
@@ -1728,7 +1490,7 @@ input.stars {
 #winnerwrapper {
   width: 50%;
   margin: auto;
-  border: 3px solid black;
+  border: 3px solid var(--black);
   border-radius: 15px;
   margin-top: 1em;
 }
@@ -1737,9 +1499,8 @@ h2#winner {
   display: block;
   text-align: center;
   padding-bottom: 0.3em;
-  border-bottom: 3px solid #000;
+  border-bottom: 3px solid var(--black);
   font-size: 1.4em;
-  border-color: var(--black);
   background-color: var(--linksOnBlue);
   margin-block-start: 0;
   border-radius: 10px 10px 0 0;
@@ -1762,9 +1523,8 @@ div#bids {
   margin: auto;
   margin-top: 1em;
   border-radius: 15px;
-  border: 2px solid #000;
-  border-color:var(--black);
-  box-shadow: 0 0 10px #999;
+  border: 2px solid var(--black);
+  box-shadow: 0 0 10px var(var(--shadow));
 }
 
 div#bids p.error{
@@ -1773,7 +1533,6 @@ div#bids p.error{
 
 div.bid {
   margin: 1em;
-  border-color: #3A5782;
   border-bottom: 1px solid var(--subcolor);
   padding-bottom: 0.5em;
 }
@@ -1805,10 +1564,8 @@ main#Home {
   width: 90%;
   margin-bottom: 3%;
   display: grid;
-  display: -ms-grid;
   column-gap: 3em;
   grid-template-columns: 1fr 1fr;
-  -ms-grid-columns:1fr 1fr;
 }
 
 main#Home img{
@@ -1818,10 +1575,7 @@ main#Home img{
 }
 
 img#firstImg {
-  -ms-grid-row: 1;
   grid-row: 1 / span 2;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 2;
   grid-column: 2;
   margin-bottom: 1em;
   justify-self: center;
@@ -1836,18 +1590,14 @@ div#Intro, div#Account, div#Function, div#UserProf {
 }
 
 div#Intro {
-  -ms-grid-row: 1;
   grid-row: 1;
-  -ms-grid-column: 1;
   grid-column: 1;
   border-top: 2px dashed;
   border-radius: 15px 15px 0 0;
 }
 
 div#Account {
-  -ms-grid-row: 2;
   grid-row: 2;
-  -ms-grid-column: 1;
   grid-column: 1;
   border-bottom: 2px dashed;
   margin-bottom: 1em;
@@ -1855,48 +1605,36 @@ div#Account {
 }
 
 div#Function {
-  -ms-grid-row: 3;
   grid-row: 3;
-  -ms-grid-column: 2;
   grid-column: 2;
   border-top: 2px dashed;
   border-radius: 15px 15px 0 0;
 }
 
 div#UserProf {
-  -ms-grid-row: 4;
   grid-row: 4;
-  -ms-grid-column: 2;
   grid-column: 2;
   border-bottom: 2px dashed;
   border-radius: 0 0 15px 15px;
 }
 
 img#secondImg {
-  -ms-grid-row: 3;
   grid-row: 3 / span 2;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 1;
   grid-column: 1;
   justify-self: center;
 }
 
 div#popularJobs {
-  -ms-grid-row: 5;
   grid-row: 5;
-  -ms-grid-column-span: 2;
-  -ms-grid-column: 1;
   grid-column: 1 / span 2;
 }
 
 ul#popularJobsList {
-  background-color: #3A5782;
-  background: var(--subcolor);
+  background-color: var(--subcolor);
   padding: 0.2em;
   display: flex;
   flex-direction: row;
-  border: 4px solid  #ECE5C7;
-  border-color: var(--linksOnBlue);
+  border: 4px solid var(--linksOnBlue); 
   border-radius: 10px;
 }
 
@@ -1906,7 +1644,6 @@ ul#popularJobsList li {
   width: 80%;
   margin: 1em;
   padding: 1em;
-  background: #ECE5C7;
   background-color: var(--linksOnBlue);
   border-radius: 10px;
 }
@@ -1993,7 +1730,6 @@ form#AdminForm button{
 
 /* -12.0 Admin - */
 table.AdminTable {
-  border-color: #000;
   border: 1px solid var(--black);
   border-collapse: separate;
   width: 80%;

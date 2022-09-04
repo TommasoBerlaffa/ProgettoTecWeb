@@ -162,179 +162,112 @@
   }
     
   form#createJob fieldset legend {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 1;
     grid-row: 1;
   }
 
   form#createJob fieldset p#intro {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 2;
     grid-row: 2;
   }
 
   form#createJob fieldset label#labelTitle {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 3;
     grid-row: 3;
   }
 
   form#createJob fieldset input#Title {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 4;
     grid-row: 4;
   }
 
   form#createJob fieldset label#labelType {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 5;
     grid-row: 5;
   }
 
   form#createJob fieldset select#Tipology {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 6;
     grid-row: 6;
   }
 
   form#createJob fieldset label#labelExpiring {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 7;
     grid-row: 7;
   }
 
   form#createJob fieldset select#Expiring {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 8;
     grid-row: 8;
   }
 
   form#createJob fieldset div#Pay {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 9;
     grid-row: 9;
   }
 
   form#createJob fieldset label#labelMin {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 10;
     grid-row: 10;
   }
 
   form#createJob fieldset input#MinPay {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 11;
     grid-row: 11;
   }
 
   form#createJob fieldset label#labelMax {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 12;
     grid-row: 12;
   }
 
   form#createJob fieldset input#MaxPay {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 13;
     grid-row: 13;
   }
 
   form#createJob fieldset label#labelDesc {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 14;
     grid-row: 14;
   }
 
   form#createJob fieldset textarea#Desc {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 15;
     grid-row: 15;
   }
 
   form#createJob fieldset p#TagDescription{
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 16;
     grid-row: 16;
   }
 
   form#createJob fieldset div#searchTagField {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 17;
     grid-row: 17;
   }
 
   form#createJob fieldset input#searchTag {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 18;
     grid-row: 18;
   }
 
   form#createJob fieldset label#helpLabelsearchTag {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 19;
     grid-row: 19;
   }
 
   form#createJob fieldset div#tagsList {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 20;
     grid-row: 20;
   }
 
   form#createJob fieldset div#selectedTagsList {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 21;
-    -ms-grid-row-span: 2;
     grid-row: 21 / span 2;
   }
 
   form#createJob fieldset button#Create{
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 2;
     grid-column: 1 / span 2;
-    -ms-grid-row: 23;
     grid-row: 23;
     width: 40%;
     margin: auto;
@@ -344,7 +277,6 @@
   main#findJob {
     padding-top: 6em;
     margin-bottom: 4.5em;
-    display: -ms-flexbox;
     flex-direction: column;
   }
 
@@ -356,7 +288,6 @@
   }
   
   form#formFilter fieldset{
-    display: -ms-grid;
     display: grid;
     row-gap: 0.8em;
     column-gap: 1em;
@@ -374,77 +305,53 @@
   }
 
   form#formFilter legend {
-    -ms-grid-row: 1;
     grid-row: 1;
-    -ms-grid-column: 1;
     grid-column: 1 / span 3;
-    -ms-grid-column-span: 3;
   }
   
   form#formFilter #labelType {
-    -ms-grid-row: 2;
     grid-row: 2;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
   
   form#formFilter #Tipology {
-    -ms-grid-row: 3;
     grid-row: 3;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
   
   form#formFilter div#Pay {
-    -ms-grid-row: 4;
     grid-row: 4;
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3;
     grid-column: 1 / span 3;
   }
   
   form#formFilter #labelPay {
-    -ms-grid-row: 2;
     grid-row: 2;
-    -ms-grid-column: 2;
     grid-column: 2;
     margin-left: 0.5em;
   }
   
   form#formFilter #PayMin {
-    -ms-grid-row: 3;
     grid-row: 3;
-    -ms-grid-column: 2;
     grid-column: 2;
   }
   
   form#formFilter #labelDate {
-    -ms-grid-row: 2;
     grid-row: 2;
-    -ms-grid-column: 3;
     grid-column: 3;
   }
   
   form#formFilter #Date {
-    -ms-grid-row: 3;
     grid-row: 3;
-    -ms-grid-column: 3;
     grid-column: 3;
   }
   
   form#formFilter div#TagModule {
-    -ms-grid-row: 5;
-    -ms-grid-row-span: 3;
     grid-row: 5 / span 3;
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3;
     grid-column: 1 / span 3;
   }
   
   form#formFilter #submit {
-    -ms-grid-row: 8;
     grid-row: 8;
-    -ms-grid-column: 2;
     grid-column: 2;
     width: 100%;   
   }
@@ -495,7 +402,7 @@
 
   #sidebar a {
     display: block;
-    color: white;
+    color: var(--content);
     text-decoration: none;
   }
 
@@ -519,13 +426,12 @@
   }
   
   #hideSidebar:checked ~ #UserProfile {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--black)
   }
   
   label#labelHideSidebar,
   #sidebar label#exitSidebar  {
     display: block;
-
   }
 
   label#labelHideSidebar {
@@ -535,7 +441,6 @@
     padding: 1em;
     padding-bottom: 0.5em;
     border-radius: 0 10px 10px 0;
-    background-color: #00679e;
     background-color: var(--color);
   }
 
@@ -598,9 +503,7 @@
 
   form#settings fieldset{
     width: 90%;
-    display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
     row-gap: 1em;
   }
@@ -608,201 +511,129 @@
   form#settings fieldset div#ProfilePic {
     margin-left: 0%;
   }
-
-  form#settings legend {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3;
-    grid-column: 1;
-    -ms-grid-row: 1;
-    grid-row: 1;
-  }
   
   form#settings #introduction {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 3;
     grid-column: 1 / span 3;
-    -ms-grid-row: 2;
     grid-row: 2;
   }
   
   form#settings #labelUsername {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 3;
     grid-row: 3;
   }
   
   form#settings #Username {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 3;
     grid-row: 3;
   } 
   
   form#settings #labelName {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 4;
     grid-row: 4;
   }
   
   form#settings #Name {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 4;
     grid-row: 4;
   }
   
   form#settings #labelSurname {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 5;
     grid-row: 5;
   }
   
   form#settings #Surname {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 5;
     grid-row: 5;
   }
 
   form#settings #labelBirth {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 6;
     grid-row: 6;
   }
   
   form#settings #Birth {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 6;
     grid-row: 6;
   }
   
   form#settings #labelNationality {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 7;
     grid-row: 7;
   }
   
   form#settings #Nationality {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 7;
     grid-row: 7;
   }
   
   form#settings #labelCity {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 8;
     grid-row: 8;
   }
   
   form#settings #City{
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 8;
     grid-row: 8;
   }
 
   form#settings #ProfilePic {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 3;
     grid-column: 1 / span 3;
-    -ms-grid-row: 9;
-    -ms-grid-row-span: 2;
     grid-row: 9 / span 2;
   }
   
   form#settings #labelEmail {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 11;
     grid-row: 11;
   }
   
   form#settings #Email {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 11;
     grid-row: 11;
   }
   
   form#settings #labelTel {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 12;
     grid-row: 12;
   }
   
   form#settings #Tel {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 12;
     grid-row: 12;
   }
   
   form#settings #labelAddress {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 13;
     grid-row: 13;
   }
   
   form#settings #Address {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 13;
     grid-row: 13;
   }
   
   form#settings #labelCurr {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 14;
     grid-row: 14;
   }
   
   form#settings #Curr{
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
     grid-column: 2 / span 2;
-    -ms-grid-row: 14;
     grid-row: 14;
   }
   
   form#settings #labelDesc {
-    -ms-grid-column: 1;
     grid-column: 1;
-    -ms-grid-row: 15;
     grid-row: 15;
   }
   
   form#settings #Description {
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2 ;
     grid-column: 2 / span 2;
-    -ms-grid-row: 15;
     grid-row: 15;
   }
   
   form#settings #submit {
-    -ms-grid-column: 2;
     grid-column: 2;
-    -ms-grid-row: 16;
     grid-row: 16;
     margin:auto;
     width: 100%;
@@ -850,7 +681,6 @@
     margin-top: 18%;
     padding-top: 4em;
     grid-template-columns: 1fr;
-    -ms-grid-columns:1fr;
     margin-bottom: 5%;
   }
 
@@ -863,58 +693,41 @@
   }
   
   div#Intro {
-    -ms-grid-row: 1;
     grid-row: 1;
-    -ms-grid-column: 1;
     grid-column: 1;
     border-bottom: 2px dashed;
     border-radius: 15px;
   }
 
   img#firstImg {
-    -ms-grid-row: 2;
-    -ms-grid-row-span: 2;
     grid-row: 2 / span 2;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
   
   div#Account {
-    -ms-grid-row: 4;
     grid-row: 4;
-    -ms-grid-column: 1;
     grid-column: 1;
     border: 2px dashed;
     border-radius: 15px;
   }
   
   img#secondImg {
-    -ms-grid-row: 6;
-    -ms-grid-row-span: 2;
     grid-row: 5 / span 2;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
   
   div#Function {
-    -ms-grid-row: 7;
     grid-row: 7;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
   
   div#UserProf {
-    -ms-grid-row: 8;
     grid-row: 8;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
   
   div#popularJobs {
-    -ms-grid-row: 9;
-    -ms-grid-row-span: 2;
     grid-row: 9 / span 2;
-    -ms-grid-column: 1;
     grid-column: 1;
   }
 
@@ -940,9 +753,6 @@
     padding-top: 2em;
     margin-top: 2em;
   }
-
-
-
 }
 
 
