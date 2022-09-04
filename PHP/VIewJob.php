@@ -168,7 +168,7 @@ if(isset($_SESSION['user_Username']))
 						//se questa offerta è dell'utente corrente può sceglere di cancellarla
 						if($B["Code"]==$_SESSION['user_ID']){
 							$self=false;
-							$HTMLBids.='<a href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?Code_job='. $index .'">delete your bid</a></div>';          
+							$HTMLBids.='<a class="deleteBid" href="Modules'. DIRECTORY_SEPARATOR .'RemoveBid.php?Code_job='. $index .'">delete your bid</a></div>';          
 						}
 						else
 							$HTMLBids.='</div>';            
