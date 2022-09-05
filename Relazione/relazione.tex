@@ -1,4 +1,4 @@
-\newcommand{\docNome}{ Relazione Progetto di Tecnologie Web}
+\newcommand{\docNome}{ Relazione del Progetto Didattico di Tecnologie Web 2021/2022}
 \newcommand{\titoloProgetto}{ Job Finder}
 \newcommand{\Tber}{Tommaso Berlaffa } 
 \newcommand{\MatT}{1201234}
@@ -19,6 +19,11 @@
 \usepackage{hyperref}
 \usepackage[document]{ragged2e}
 \usepackage[export]{adjustbox}
+
+\definecolor{Blue}{HTML}{004C75}
+\definecolor{Yellow}{HTML}{F4E3AE}
+\newcolumntype{a}{>{\columncolor{Blue}}c}
+
 \hypersetup{
 	pdfborder = {0 0 0}
 }
@@ -65,13 +70,14 @@
     \vspace{0.5em}
     \\ Credenziali :
     \begin{center}
-      \begin{tabular}{ |c|c|c| } 
+      \begin{tabular}{ |a|c|c| } 
       \hline
-      & Nickname & Password \\
+      \rowcolor{Blue}
+      & \color{Yellow} Nickname & \color{Yellow} Password \\
       \hline
-      User Generico & user & user\\ 
+      \color{Yellow} User Generico & user & user\\ 
       \hline
-      Admin & admin & admin \\ 
+      \color{Yellow} Admin & admin & admin \\ 
       \hline
       \end{tabular}
     \end{center}

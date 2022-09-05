@@ -16,12 +16,12 @@
     \item \textbf{Footer}: contiene informazione su come contattare l'Admin in caso di problemi e il link per le FAQ.
   \end{enumerate}
   
-  Il quinto pannello, overro la \textbf{sidebar}, è utilizzato nella pagina UserProfile. 
+  Il quinto pannello, ovvero la \textbf{sidebar}, è utilizzato nella pagina UserProfile. 
   Questa pagina raccoglie informazioni utili dell'utente $($informazione su utente, sui lavori svolti e proposti$)$, la possibilità di modificare i propri dati utente ed è accessibile solo dallo stesso utente.
 
 
   \subsection{Database}
-  Il database risulta essere una parte cruciale del nostro sito, poiché la funzione stessa del sito è gestita su quest'ultimo.
+  Il database risulta essere una parte cruciale del nostro sito, poiché il contenuto principale di molte pagine viene creato in base ai risultati presenti su quest'ultimo. 
   \begin{figure}[h]
     \includegraphics[scale=0.5]{Images/DB2.png}
     \caption{Schema del database}
@@ -55,6 +55,6 @@
     \item reinserimento automatico degli input inseriti dall'utente quando avviene il reindirizzamento della pagina sulla stessa 
      $($es: il submit della form di createJob richiama createJob.php che, controllato i dati e confermando un possibile errore, rimanda alla pagina createJob ma ricaricando i valori correttamente inseriti $)$;
     \item uso intelligente del \textit{breadcrumb}, poiché il breadcrumb fornisce informazione all'utente su come é arrivato su quella parte del sito, è fondamentale che il breadrcumb risulti completo;
-    \item meccanismi di \textit{hidden help} e \textit{gobacktothetop}, entrambi meccanismi che utilizzano $<$a href="\#"$>$ per condurre l'utente su diversi elementi della pagina. I primi vengono utilizzati da utenti che utilizzano screen reader, i secondi vengono utilizzati quando le pagine risultano verticalmente troppo grandi per tornare all'inizio della pagina;
-    \item aiuti utente e indicazione sulla correzioni di errori nell'inserimento dati. Nel caso in cui avvengano degli errori, quali mancanza di input o altre tipologie di errori, verranno riportati i cambiamenti da attuare ed il motivo dell'errore, in modo da aiutare l'utente a inserire i dati correttamente.
+    \item meccanismi di \textit{hidden help} e \textit{gobacktothetop}, entrambi meccanismi che utilizzano $<$a href="\#"$>$ per condurre l'utente su diversi elementi della pagina. I primi vengono utilizzati da utenti che utilizzano screen reader, i secondi vengono utilizzati quando le pagine risultano verticalmente troppo estese eq quindi faticose nel tornare all'inizio della pagina;
+    \item aiuti utente e indicazione sulle correzioni di errori nell'inserimento dati. Nel caso in cui avvengano degli errori, quali mancanza di input o altre tipologie di errori, verranno riportati i cambiamenti da attuare ed il motivo dell'errore, in modo da aiutare l'utente a inserire i dati correttamente.
   \end{itemize} 
