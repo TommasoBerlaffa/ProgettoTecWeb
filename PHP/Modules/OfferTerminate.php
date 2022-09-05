@@ -31,7 +31,7 @@ if(isset($_SESSION['user_Username'])) {
 		exit();
 	}
 	
-	$result = $DBAccess->terminateJob($_SESSION['user_ID'],$code);
+	$result = $DBAccess->terminateJob($_SESSION['user_ID'],$job);
 	$_SESSION['error']= $result? 'OTsucc' : 'OTfail';
     $DBAccess->closeDBConnection();
 	
