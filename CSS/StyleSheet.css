@@ -747,7 +747,7 @@ ul#pages li {
   border-radius: 3px;
   font-size:1.3em;
   color: var(--black);
-  /*background-color: #E6E6E6;*/
+  background-color: var(--darkWhite);
   padding: 0.1em 0.1em;
   margin: 0.1em;
   height: 1.5em;

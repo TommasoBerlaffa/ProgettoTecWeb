@@ -48,8 +48,8 @@ table {
 /* HomePage */
 img#firstImg,
 img#secondImg {
-  width: 30%;
-  margin: auto;
+  width: 25%;
+  display: block;
 }
 
 h1#index {
@@ -66,10 +66,6 @@ table {
   display: none;
 }
 
-#intro {
-  display: none;
-}
-
 h1 {
   font-size: 1.2em;
 }
@@ -83,7 +79,33 @@ h2 {
   display: none;
 }
 
+ul#pages {
+  display: none;
+}
+
 /* userProfile */
 section#sidebarWithControl {
   display: none;
+}
+
+#login, #SignUp, #createJob, #changePsw, #changeTags, #settings {
+  display: block;
+  width: fit-content;
+  margin: auto;
+}
+
+#createJob input, #createJob select,
+#SignUp input, #SignUp select,
+#login input, #changePsw input,
+#settings input{
+  display: block;
+}
+
+form#settings img#yourProfilePic {
+  display: block;
+  width: 3em;
+}
+
+div.bid img.icons {
+  width: 3em;
 }
