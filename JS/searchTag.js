@@ -113,7 +113,7 @@ function tagList(response){
 
 function AjaxTagSearch(callback){
 	var tag=document.getElementById('searchTag').value;
-	if(tag.length<=2){
+	if(tag.length<2){
 		var div=document.getElementById('tagsList');
 		div.innerHTML='<p class="chooseTags">Available Tags :</p><p class="hiddenHelp">Empty</p>';
 		return;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Lug 05, 2022 alle 03:13
+-- Creato il: Set 05, 2022 alle 23:22
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 7.4.27
 
@@ -87,12 +87,16 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Set_Winner` (IN `winnerID` INT(10) UNSIGNED, IN `jobID` INT(10) UNSIGNED, IN `userID` INT(10) UNSIGNED)  MODIFIES SQL DATA
 BEGIN
 	DECLARE n INT;
+        DECLARE p INT;
+        DECLARE d VARCHAR(1600);
 	IF EXISTS(SELECT 1 FROM `current_jobs` WHERE `Code_job`=`jobID` LIMIT 1)
     THEN
     	SELECT Code_user INTO n FROM `current_jobs` WHERE `Code_job`=`jobID` LIMIT 1;
     	IF (n=userID OR (SELECT 1 FROM admin WHERE Code_user=userID)) THEN
+                SELECT `User_price`,`Bid_selfdescription` INTO p,d FROM `bids` WHERE `Code_job`=`jobID` AND `Code_user`=`winnerID` LIMIT 1;
 	    	CALL Transfer_current_past_jobs(jobID,'Success');
         	UPDATE past_jobs SET Code_Winner = winnerID WHERE Code_job=jobID;
+                INSERT INTO `bid_winner` (`Code_user`, `Code_job`, `User_price`, `Bid_selfdescription`) VALUES (`winnerID`, `jobID`, `p`, `d`);
         END IF;
     END IF;
 END$$
@@ -169,8 +173,45 @@ CREATE TABLE `bids` (
   `Code_user` int(10) UNSIGNED NOT NULL,
   `Code_job` int(10) UNSIGNED NOT NULL,
   `User_price` int(10) UNSIGNED NOT NULL,
-  `Bid_selfdescription` varchar(1200) DEFAULT NULL
+  `Bid_selfdescription` varchar(1600) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `bids`
+--
+
+INSERT INTO `bids` (`Code_user`, `Code_job`, `User_price`, `Bid_selfdescription`) VALUES
+(75, 13, 25, 'Hello Oleg K.,\r\n \r\nWe have 20 years of strong experience in .NET, SQL, C# Programming, Software Architecture, Microsoft SQL Server, as a result, we can successfully complete this project.\r\n \r\nPlease, review our profile here: (click my name)\r\nHere detailed information about our company, our portfolio, and the client&#39;s recent reviews.\r\n \r\nAlso, we wanted to personally discuss questions about your project, which helps us to give you the right estimation.\r\n \r\nBest regards,\r\nTangram Canada Inc.'),
+(83, 13, 20, 'Hello,\r\n\r\nI hope this message finds you well, Thanks for posting such an interesting project. I&#39;m the exact type of contractor you are searching for. Having worked on similar projects for the past 10 years, I can handle tasks demanding the following skills;\r\n.NET\r\nSQL\r\nC# Programming\r\nSoftware Architecture\r\nMicrosoft SQL Server\r\nSEND a MESSAGE/CHAT, so that we discuss the details including budget and deadlines…\r\nIf this project is no longer available please invite me to all your future projects.\r\n\r\nRegards,\r\nEmma A'),
+(235, 7, 8, 'Hello,\n\nMy name is Sergey. I can help you as Woocommerce expert to update plugin and use \"x amount of products from a certain category\" instead of \'x amount of product\'.\nSo, it will be \'Buy X from specific Category Get Y Free\'.\n\nI am an individual, I am not a company in any meaning.\nI can communicate via example.com.\n\n2000+ successfully completed projects, including 180+ Woocommerce projects, speak for me.\nAll 5-star reviews and great feedback from my past JobFinder(dot)com clients available in my profile.\n\n--\nSergey aka Takereal'),
+(286, 13, 15, 'Hey, This is Mohammad Full Stack Developer. Your Project Title is Data warehouse system, SSIS and API integration Right?\r\nSure You have come to the right place And I am ready to work over your project.\r\n\r\nPlease visit my portfolio:\r\n(click my name)\r\n\r\nBefore accepting this offer please message me in my inbox to have a discussion about this job to avoid confusions.\r\n\r\nRegards\r\n4thdimensionpartners Private Limited'),
+(349, 13, 23, 'Hi there, I have been working as full-stack developers for over 7 years. I have read the description and I am ready to do this task for you. I&#39;d be very happy to discuss this further and get started for you as soon as possible.\r\n\r\nThank You,\r\nMuhammad Furqan');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `bid_winner`
+--
+
+CREATE TABLE `bid_winner` (
+  `Code_user` int(10) UNSIGNED NOT NULL,
+  `Code_job` int(10) UNSIGNED NOT NULL,
+  `User_price` int(10) UNSIGNED NOT NULL,
+  `Bid_selfdescription` varchar(1600) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `bid_winner`
+--
+
+INSERT INTO `bid_winner` (`Code_user`, `Code_job`, `User_price`, `Bid_selfdescription`) VALUES
+(35, 1, 500, 'Hello friend. After reading your description I think I am truly qualified for this job. I have 85+ years experience with AMP plugin and have done similar jobs millions of time. I hope we will get in contact soon to define better the details of this job.'),
+(75, 3, 350, 'Listen to me Bro. Ive done it so many times that I can do it blindly while riding a whale'),
+(275, 5, 10, 'Please, Lord and Savior ADMIN. I have family. I need food. Spare this miserable life of mine and grant me the wish to obtain this job. Ill do whatever you want and Ill follow you wherever you go.'),
+(1, 6, 750, 'I am the ADMIN. I have the power. I am superior to all the other miserable humans in the bid list. I am your GOD. Gimmie the job! NOW! Do it!'),
+(95, 10, 30, 'Hello, I have checked the description and I would like to have a detailed discussion through chat before we start.I have already worked on similar projects and I will be here for any kind of assistance that you might need. Looking forward to your response.\r\n\r\n\r\nThank You'),
+(84, 11, 250, 'Hello\r\nI see your project details\r\nI know this project is very important for you\r\nI have 8+year of experience related to your work\r\nIf you want to check my work first\r\nI\'ve previously worked on the exact same project for another employer\r\nexample.com\r\nI am waiting of your positive response\r\nThanks'),
+(78, 12, 200, 'Dear esteemed client,\r\nI am a proficient data science and statistical analysis writer. I am par excellence in descriptive, Inferential, predictive, prescriptive and exploratory data analysis. As a qualitative and quantitative research analyst, I have attained utmost discipline in delivering quality, well-researched accurate and reliable results. I use statistical analysis software’s including EXCEL, SPSS, STATA, [login to view URL], MATLAB and PYTHON. I have 520+ reviews on related projects and the responses are positively overwhelming\r\nI hold MBA (Strategic Management) undergraduate degree (Statistics) & CPA.K (Accounting and statistics.)');
 
 -- --------------------------------------------------------
 
@@ -561,6 +602,15 @@ CREATE TABLE `current_jobs` (
   `Expiring` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `current_jobs`
+--
+
+INSERT INTO `current_jobs` (`Code_job`, `Code_user`, `Date`, `Title`, `Description`, `Tipology`, `Payment`, `P_min`, `P_max`, `Expiring`) VALUES
+(2, 99, '2022-09-01 06:10:48', 'Electrical instrumentation technicians', 'An electrical instrumentation technicians are needed for a company located in City of North Miami Beach, (not Miami) Florida.\r\n\r\n- They must have local Florida license.\r\n\r\n- They must be resident for more than 5 years there.\r\n\r\n- They should be bonded with insurance.\r\n\r\n- Number of technicians will be needed 2-3 persons.\r\n\r\n- They work to install/fix PLC panels\r\n\r\n- They have about 2 years of experience.\r\n\r\n- They can start in 3 months.\r\n\r\n- They can work part time but work during 8AM-5PM for 3 to 8 hours per day or more depending on the daily work duties.\r\n\r\n- All benefits and salary details would be discussed during the online interview', 'Recruiter', 0, 30, 60, '2022-10-02 06:10:48'),
+(7, 15, '2022-09-02 06:52:31', 'Buy X Get Y Free wordpress woocommerce plugin fix', 'Store Pro Wordpress plugin lets you buy a product and get another product for free. So you can set up that if somebody buys x (example given 3 of a certain product), a product that is selected in backoffice is added to the cart.\r\n\r\nThis is the wordpress woocommerce plugin:\r\n\r\nBuy X Get Y Free by StorePro\r\n\r\nSo what do I want or need?\r\n\r\nInstead of x amount of a certain product, I want to set x amount of products from a certain category.\r\n\r\nJust download plugin, fix, tell me what you changed and comment in code. And upload / send me plugin.', 'Onetime', 0, 10, 30, '2022-09-16 06:52:31'),
+(13, 154, '2022-09-05 11:14:47', 'Data warehouse system, SSIS and API integration', 'We are looking for a SSIS expert who can re-do our interface that sends data from our Data Warehouse system (Specific to Real Estate Agent rosters and information) to other systems (In this specific case, Encompass and Resware, no required experience in these 2 but always handy if you do) and synchronize any difference in the data.\r\n\r\nOther similar projects will be agreed upon after this one. Experience with SSIS is required and if there is any experience in Real Estate data that is a huge plus. Please apply if you are experienced in that field.', 'Fulltime', 1, 15, 25, '2022-09-19 11:14:47');
+
 -- --------------------------------------------------------
 
 --
@@ -574,14 +624,6 @@ CREATE TABLE `past_admin_actions` (
   `Date` datetime NOT NULL,
   `Code_admin` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dump dei dati per la tabella `past_admin_actions`
---
-
-INSERT INTO `past_admin_actions` (`Code`, `Code_job`, `Comments`, `Date`, `Code_admin`) VALUES
-(1, 1, 'Learn to do it by yourself.', '2022-06-05 02:29:57', 1),
-(2, 8, 'You\'re dumb.', '2022-06-04 02:29:57', 275);
 
 -- --------------------------------------------------------
 
@@ -609,26 +651,15 @@ CREATE TABLE `past_jobs` (
 --
 
 INSERT INTO `past_jobs` (`Code_job`, `Code_user`, `Code_winner`, `Status`, `Date`, `Title`, `Description`, `Tipology`, `Payment`, `P_min`, `P_max`, `Expiring`) VALUES
-(1, 2, NULL, 'Deleted', '2022-06-03 19:32:25', 'Finnish Prompt Creation', 'For this project, you will need to create Finnish prompts for recording needs, which can be copied from the Internet. There are 13,200 sentences and 600 unique topics that need to be completed.\n\nIdeally, each prompt should be 10-25 words (but this depends on the length of how we read the word) or should take around 5-12 seconds when reading.\n\nPlease check the guideline file for more details.', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(2, 2, NULL, 'Failed', '2022-06-03 19:32:25', 'design 3 different logo designs for a small business\n', 'the designs are for a small business the theme of the business is exploring, camping, fishing, 4WDing and hiking the name is Here2There the logo needs to incorporate this name into it but can also be shortened to H2T or other creative ways of making the logo', 'Fulltime', 0, 12, 25, '2022-06-05 19:32:25'),
-(3, 2, 11, 'Success', '2022-06-03 19:32:25', 'Brand icon patterns', 'Wanting a pattern made up of small illustrations of our products that can be printed on tissue paper for packaging, or as a background and also individually for branding purposes.', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(4, 2, 8, 'Success', '2022-06-03 19:32:25', 'I need someone', 'I need someone to do a job, I need someone to do a job', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(5, 2, 4, 'Success', '2022-06-03 19:32:25', 'RUN BASH SCRIPT', 'Hello,\n\nI wrote a bash script (the script is used to automatically create users on my system) with AWK commands but I can\'t execute it. I have errors.', 'Onetime', 0, 10, 25, '2022-06-05 19:32:25'),
-(6, 3, 2, 'Success', '2022-06-03 19:32:25', 'Marketing - Facebook ads and Google ads creation', 'Looking for a really good marketing person/team that are reasonable in their pricing to assist with marketing our brand with little input. What this means is you can research my website and my competitors and create content that will drive customers for United States only to shop on the website, organizations to sign up and tell their members and students to shop or merchants inquire about signing up and utilizing our services. Need someone with good content creation and graphics if necessary to drive users', 'Fulltime', 1, 100, 250, '2022-06-05 19:32:25'),
-(7, 5, 2, 'Success', '2022-06-03 19:32:25', 'Make me a design', 'Hi custumer Please read this article carefully, do you want to design any kind of billboards and how to customize them to your best satisfaction, please contact a customer I will take care of you', 'Fulltime', 0, 10, 25, '2022-06-05 19:32:25'),
-(8, 4, 2, 'Deleted', '2022-06-03 19:32:25', 'footage of 5 clips', 'am looking for some one who has an account in : [login to view URL]\n\nbecause i need a footage of 5 clips\n\ni have already found the clips in this website ([login to view URL])', 'Urgent', 0, 10, 25, '2022-06-05 19:32:25'),
-(9, 6, 2, 'Success', '2022-06-03 19:32:25', 'Update project', 'Simple quick project update.\n\nCurrent project uses React JS, FastAPI and MongoDB.\n\n1. Need to have the current code updated where each user can CRUD the database but ONLY be able to CRUD their additions. Admin would still be able to CRUD all\n\n2. Need to update the CSS by moving the websites title to the middle and changing navigation section from black to white color\n\n3. Connect the site to my Heroku account\n\n4. Connect the database to my MongoDB account', 'Fulltime', 1, 120, 205, '2022-06-05 19:32:25'),
-(10, 7, 2, 'Failed', '2022-06-03 19:32:25', 'American English Telemarketer (cold caller) - Do not bid if you cannot speak fluent and understandable English.', 'Fluent English is required.\n\nDo not bid if you cannot speak fluent and understandable English.\n\nFreight brokerage: [login to view URL]\n\nis looking for a self-confident and result-oriented Sales Representative with cold calling experience to establish, develop and maintain positive business relationships with clients.\n\nSalary $ 150 weekly + $ 10 for a signed contract with a client:\n\nRequirements:\n\nFluent English\n\n1-year cold calling experience\n\nFast learner\n\n· Remote work\n\nYou will be provided with a list of clients and a VoIP telephone line.\n\nJob type: part-time\n\nSchedule:\n\n9:00 am - 2:00 pm EST, USA', 'Recruiter', 0, 10, 25, '2022-06-05 19:32:25'),
-(11, 53, 253, 'Success', '2022-04-19 00:19:24', 'build an app for my franchise subway restaurant for delivery.', 'i need an app that is very simple for my restuarant, costumers should be able to place order and pay and create an account', 'Onetime', 1, 35, 75, '2022-05-19 00:19:24'),
-(12, 153, 72, 'Success', '2022-02-01 00:19:24', 'I need kajabi expert', 'Transfert site basic plus 1 formation web à kajabi', 'Urgent', 0, 5, 35, '2022-03-03 00:19:24'),
-(13, 42, NULL, 'Failed', '2022-03-01 00:19:24', 'build me a bckend', 'i have a pre disigned front end of my website and want to get backend code for that design', 'Onetime', 0, 12, 25, '2022-04-01 00:19:24'),
-(14, 199, 75, 'Success', '2022-05-01 00:19:24', 'Create a Tradingview Strategy', '1. The following strategy must be written and tested using v5 Pine Script for Tradingview.\r\n\r\n2. It must be capable of backtesting and replaying in Tradingview, i.e, the Heiken Ashi candle data must pull from the Security function.\r\n\r\n3. No repainting is allowed during or after backtesting.\r\n\r\n4. The entry and exit trade prices must come from the actual price action, not the smoothed Heiken Ashi candle data. The trade entries and exits will show on the chart’s standard candle view.\r\n\r\n5. Inputs and Properties for the strategy must include:\r\n\r\na. Adjustable Simple Moving Average (SMA)\r\n\r\nb. Initial Capital selection\r\n\r\nc. Base Currency selection\r\n\r\nd. Order Size selection\r\n\r\ne. Pyramiding selection\r\n\r\nf. Commission selection\r\n\r\ng. Take Profit – adjustable %\r\n\r\nh. Stop Loss – adjustable %\r\n\r\ni. Adjustable entry and exit dates for the strategy\r\n\r\n6. The trade entry/exits will be marked on the chart as follows:\r\n\r\na. Below the candle: an Arrow and “Long” displayed for entering a long entry\r\n\r\nb. Below the candle: an Arrow and “Exit Long” displayed for exiting a long entry\r\n\r\nc. Above the candle: an Arrow and “Short” displayed for entering a short entry\r\n\r\nd. Above the candle: an arrow and “Exit Long” displayed for exiting a short entry\r\n\r\nStrategy Algorithm:\r\n\r\n1. Long Trade:\r\n\r\na. Trade Entry on:\r\n\r\nThe close of the 1st green Heikin Ashi candle\r\n\r\nb. Trade exits:\r\n\r\ni. The close of the 1st red Heiken Ashi candle,\r\n\r\nor\r\n\r\nii. The close of the 3rd consecutive green Heiken Ashi candle - if the price is below the SMA,\r\n\r\nor\r\n\r\niii. The close of the 9th consecutive green Heiken Ashi candle - if the price is above the SMA,\r\n\r\nor\r\n\r\niv. The input defined Take Profit % is reached,\r\n\r\nor\r\n\r\nv. The input defined Stop Loss % is reached.\r\n\r\n2. Short Trade:\r\n\r\na. Trade Entry on:\r\n\r\nThe close of the 1st red Heikin Ashi candle\r\n\r\nb. Trade exits:\r\n\r\ni. The close of the 1st green Heiken Ashi candle,\r\n\r\nor\r\n\r\nii. The close of the 3rd consecutive red Heiken Ashi candle - if the price is above the SMA,\r\n\r\nor\r\n\r\niii. The close of the 9th consecutive red Heiken Ashi candle - if the price is below the SMA,\r\n\r\nor\r\n\r\niv. The input defined Take Profit % is reached,\r\n\r\nor\r\n\r\nv. The input defined Stop Loss % is reached.', 'Onetime', 1, 85, 255, '2022-06-01 00:19:24'),
-(15, 300, NULL, 'Failed', '2022-04-10 00:19:24', 'Need a US based accountant to setup accounts', 'I am looking for a US based accountant who can setup accounts for our new startup business.', 'Onetime', 0, 36, 105, '2022-05-13 00:19:24'),
-(16, 25, 75, 'Success', '2022-04-19 00:19:24', 'Computer Repair Techs Needed | Pune', 'LAPTOP REPAIR TECHNICIANS NEEDED!\r\n\r\nAre you great at repairing PC\'s and laptops?\r\n\r\nWant to work for one of the world\'s biggest technology companies?\r\n\r\nAre you located in or close to (PUT IN LOCAL AREA HERE)?\r\n\r\nIf you thrive on taking a customer centric based approach and have experience with hardware repairs for notebooks/laptops and printers, then we want to hear from you! A tech giant through Freelancer.com - the world\'s largest freelancing marketplace - is looking for Field Hardware Engineer candidates!\r\n\r\nSome responsibilities may include but are not limited to:\r\n\r\nPerform preventative maintenance and repair services on equipment by analysing system problems, troubleshooting, ordering and gathering components and parts, completing installation and performing tests\r\n\r\nReplace/Repair the following on a laptop - motherboard, display, webcam, speaker, fan, bezel, heatsink, touchpad, keyboard and HDD.\r\n\r\nRequired:\r\n\r\nPrevious work experience troubleshooting and performing physical repair of laptops or PC’s and their respective components\r\n\r\nCurrent drivers license and transportation method\r\n\r\nExcellent customer service skills', 'Recruiter', 1, 100, 150, '2022-05-21 00:19:24'),
-(17, 235, 236, 'Success', '2022-06-12 00:19:24', 'Computer Repair Techs Needed | Ahmedabad', 'LAPTOP REPAIR TECHNICIANS NEEDED!\r\n\r\nAre you great at repairing PC\'s and laptops?\r\n\r\nWant to work for one of the world\'s biggest technology companies?\r\n\r\nAre you located in or close to (PUT IN LOCAL AREA HERE)?\r\n\r\nIf you thrive on taking a customer centric based approach and have experience with hardware repairs for notebooks/laptops and printers, then we want to hear from you! A tech giant through Freelancer.com - the world\'s largest freelancing marketplace - is looking for Field Hardware Engineer candidates!\r\n\r\nSome responsibilities may include but are not limited to:\r\n\r\nPerform preventative maintenance and repair services on equipment by analysing system problems, troubleshooting, ordering and gathering components and parts, completing installation and performing tests\r\n\r\nReplace/Repair the following on a laptop - motherboard, display, webcam, speaker, fan, bezel, heatsink, touchpad, keyboard and HDD.\r\n\r\nRequired:\r\n\r\nPrevious work experience troubleshooting and performing physical repair of laptops or PC’s and their respective components\r\n\r\nCurrent drivers license and transportation method\r\n\r\nExcellent customer service skills', 'Recruiter', 1, 100, 150, '2022-06-19 00:19:24'),
-(18, 235, 162, 'Success', '2022-04-19 00:19:24', 'Computer Repair Techs Needed | Kolkata', 'LAPTOP REPAIR TECHNICIANS NEEDED!\r\n\r\nAre you great at repairing PC\'s and laptops?\r\n\r\nWant to work for one of the world\'s biggest technology companies?\r\n\r\nAre you located in or close to (PUT IN LOCAL AREA HERE)?\r\n\r\nIf you thrive on taking a customer centric based approach and have experience with hardware repairs for notebooks/laptops and printers, then we want to hear from you! A tech giant through Freelancer.com - the world\'s largest freelancing marketplace - is looking for Field Hardware Engineer candidates!\r\n\r\nSome responsibilities may include but are not limited to:\r\n\r\nPerform preventative maintenance and repair services on equipment by analysing system problems, troubleshooting, ordering and gathering components and parts, completing installation and performing tests\r\n\r\nReplace/Repair the following on a laptop - motherboard, display, webcam, speaker, fan, bezel, heatsink, touchpad, keyboard and HDD.\r\n\r\nRequired:\r\n\r\nPrevious work experience troubleshooting and performing physical repair of laptops or PC’s and their respective components\r\n\r\nCurrent drivers license and transportation method\r\n\r\nExcellent customer service skills', 'Recruiter', 1, 20, 25, '2022-04-26 00:19:24'),
-(19, 123, NULL, 'Failed', '2022-05-01 00:19:24', 'Write an illustrated children\'s book', 'A children\'s book that would teach them a valuable lesson in life\r\n\r\nA funny and light book', 'Onetime', 0, 5, 35, '2022-05-15 00:19:24'),
-(20, 45, 97, 'Success', '2022-04-13 00:19:24', 'OJS 3x upgrades', 'Small non-profit journal seeks professional experienced with PKP Open Journal Systems ( OJS ) cms to upgrade Version 3.3.0-9 to the most recent version (3.3.0-11) in a Shared Hosting Environment and troubleshoot minor CSS issue. A sandbox/test area is in place using a subdomain.', 'Urgent', 0, 45, 100, '2022-04-20 00:19:24');
+(1, 37, 35, 'Success', '2022-08-01 03:04:15', 'Revisions on website/ use AMP to make mobile version.', 'Revisions on website. Need changes to listings. Website uses thimpress custom theme. Also interstates with learnpress. Has plug in from AMP. Would like to make website faster and use more mobile friendly site on cell phone.', 'Onetime', 0, 150, 750, '2022-08-08 03:04:15'),
+(3, 82, 75, 'Success', '2022-08-18 06:37:32', 'C++ add support for new interface for STO project', 'Add support interface for new data structure for STO project.', 'Urgent', 0, 250, 750, '2022-08-25 06:37:32'),
+(5, 1, 275, 'Success', '2022-08-01 04:09:24', 'Searcing for an administrator/moderator for JobFinder', 'We are looking for more moderators and administrators for FindJob.com to help maintain and manage the website', 'Recruiter', 1, 10, 35, '2022-08-31 04:09:24'),
+(6, 75, 1, 'Success', '2022-08-17 05:47:12', 'Need activate custom button script in unity', 'Hello,\n\nI have two custom buttons in my Unity game. I need activate them by script. I will use playmaker for it. But you need create just one script.\n\nYou can use maybe this - [login to view URL]([login to view URL], new BaseEventData(eventSystem), [login to view URL]);\n\nbut dont use button gameobject, but use yourcustom script. Its working with button, but i need to be working with my [login to view URL] Please check attached file. Its small task. 10usd budget.\n\nRegards.', 'Urgent', 0, 250, 750, '2022-08-31 05:47:12'),
+(8, 83, NULL, 'Failed', '2022-08-21 10:14:43', 'NurseLife', 'Hello,\n\nWe have created an app called NurseLife, (below I leave you the references to download it) dedicated to nurses. This app was programmed in java script through the native React platform and we used NODE in the backend. Within it there is the calendar function, ie the user enters their work shifts monthly. Unfortunately this function does not work properly and we would like it to be redone new.\n\nLet us know if you can take over this work and any costs.\n\nBelow you leave the links to download the app:\n\nPlay store:\nexample.com\nApp store:\n\nexample.com\n\nDario Limardo', 'Fulltime', 0, 12, 50, '2022-08-28 10:18:01'),
+(9, 75, NULL, 'Deleted', '2022-09-05 07:31:14', 'Hiring Virtual Assistant (Monthly Basis), 5 September', 'Looking for someone who is hard worker and dedicated and spend 5-6 hours per day. Job responsibility is to handle all of our social medias. Monthly Budget $50 - $75. Only Place bid if you agree to work with this budget.\n\nNo time waster please. Thank you!', 'Recruiter', 1, 8, 15, '2022-09-05 07:31:09'),
+(10, 123, 95, 'Success', '2022-09-01 08:50:52', 'Google Sheet Email Integration', 'I need someone who can do google sheet Integration', 'Onetime', 0, 10, 30, '2022-09-05 10:18:32'),
+(11, 200, 84, 'Success', '2022-09-05 10:22:16', '3D animator for kids rhyme video. Experience in kids rhyme 3D videos.', 'Seeking for someone extremely talented and self motivated 3D animator for kids rhyme video. Good experience in 3D animation in kids rhymes.', 'Recruiter', 0, 30, 250, '2022-09-12 10:22:00'),
+(12, 198, 78, 'Success', '2022-08-29 10:24:36', 'Excel Automation', 'Looking for someone to help with automation for an excel order management system and PDF editing', 'Urgent', 0, 20, 250, '2022-09-05 10:24:51');
 
 -- --------------------------------------------------------
 
@@ -649,15 +680,8 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`Code_user`, `Code_job`, `Stars`, `Comments`, `Date`) VALUES
-(2, 2, 4, 'Good', '2022-07-05'),
-(2, 4, 5, 'Thanks', '2022-07-05'),
-(2, 5, 2, 'It didn&#39;t run', '2022-07-05'),
-(2, 9, 4, 'Fast and efficient. Still a little expensive for the final result.', '2022-07-05'),
-(11, 3, 5, 'Well Done. You accomplished what we thaught was impossible. Good job. Fast. Unbeatable.', '2022-07-05'),
-(75, 16, 5, '', '2022-07-05'),
-(162, 18, 4, '', '2022-07-05'),
-(236, 17, 4, 'Ok', '2022-07-05'),
-(253, 11, 0, 'Utterly Incompetent. I lost my money. I want a refund', '2022-07-05');
+(1, 6, 5, 'Our team is pleased with the results obtained!', '2022-09-02'),
+(75, 3, 5, 'Excellent work. Very fast with good cooperation with our team and good end result.', '2022-09-02');
 
 -- --------------------------------------------------------
 
@@ -1367,7 +1391,30 @@ INSERT INTO `tags` (`Code_tag`, `Name`, `Category`) VALUES
 (689, 'Spring Data', NULL),
 (690, 'Spring Security', NULL),
 (691, 'Spring JPA', NULL),
-(692, 'Keyshot', NULL);
+(692, 'Keyshot', NULL),
+(693, 'PCB Layout', NULL),
+(694, 'Electronics', NULL),
+(695, 'Electrical Engineering', NULL),
+(696, 'Circuit Design', NULL),
+(697, 'Product Design', NULL),
+(698, 'Article Writing', NULL),
+(699, 'Ghostwriting', NULL),
+(700, 'Content Writing', NULL),
+(701, 'Article Rewriting', NULL),
+(702, 'Blog', NULL),
+(703, 'CSS', NULL),
+(704, 'Website Design', NULL),
+(705, 'Electric Repair', NULL),
+(706, 'Electron JS', NULL),
+(707, 'Administration', NULL),
+(708, 'Moderator', NULL),
+(709, 'Recruitment', NULL),
+(710, 'WooCommerce', NULL),
+(711, 'Virtual Assistant', NULL),
+(712, 'Data Entry', NULL),
+(713, 'Customer Support', NULL),
+(714, 'Customer Service', NULL),
+(715, 'Data Processing', NULL);
 
 -- --------------------------------------------------------
 
@@ -1379,6 +1426,26 @@ CREATE TABLE `tags_current_jobs` (
   `Code_job` int(10) UNSIGNED NOT NULL,
   `Code_tag` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `tags_current_jobs`
+--
+
+INSERT INTO `tags_current_jobs` (`Code_job`, `Code_tag`) VALUES
+(2, 246),
+(2, 694),
+(2, 705),
+(2, 706),
+(7, 1),
+(7, 2),
+(7, 4),
+(7, 6),
+(7, 710),
+(13, 5),
+(13, 10),
+(13, 31),
+(13, 41),
+(13, 49);
 
 -- --------------------------------------------------------
 
@@ -1396,52 +1463,62 @@ CREATE TABLE `tags_past_jobs` (
 --
 
 INSERT INTO `tags_past_jobs` (`Code_job`, `Code_tag`) VALUES
-(1, 99),
-(2, 1),
-(2, 14),
-(2, 152),
-(3, 72),
-(3, 73),
-(3, 93),
-(4, 8),
-(5, 22),
-(5, 23),
-(5, 96),
+(1, 1),
+(1, 2),
+(1, 4),
+(1, 703),
+(1, 704),
+(3, 5),
+(3, 13),
+(3, 16),
+(5, 707),
+(5, 708),
+(5, 709),
 (6, 10),
-(6, 177),
-(7, 4),
-(7, 98),
-(8, 7),
-(8, 250),
-(9, 13),
-(10, 104),
-(10, 517),
+(6, 23),
+(6, 64),
+(6, 96),
+(6, 209),
+(8, 1),
+(8, 5),
+(8, 17),
+(8, 35),
+(8, 42),
+(8, 156),
+(8, 279),
+(8, 325),
+(8, 495),
+(8, 600),
+(9, 711),
+(9, 712),
+(9, 713),
+(9, 714),
+(9, 715),
+(10, 7),
+(10, 16),
+(10, 79),
+(10, 208),
+(10, 712),
 (11, 1),
-(11, 37),
-(11, 250),
-(11, 402),
-(12, 75),
-(13, 13),
-(13, 450),
-(14, 32),
-(14, 45),
-(14, 600),
-(15, 72),
-(15, 95),
-(15, 165),
-(16, 14),
-(16, 35),
-(16, 45),
-(16, 105),
-(16, 602),
-(17, 72),
-(17, 135),
-(17, 555),
-(18, 45),
-(18, 192),
-(19, 325),
-(20, 2),
-(20, 12);
+(11, 5),
+(11, 17),
+(11, 35),
+(11, 42),
+(11, 156),
+(11, 279),
+(11, 325),
+(11, 495),
+(11, 600),
+(12, 1),
+(12, 5),
+(12, 17),
+(12, 35),
+(12, 42),
+(12, 156),
+(12, 279),
+(12, 325),
+(12, 495),
+(12, 600);
 
 -- --------------------------------------------------------
 
@@ -4104,7 +4181,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`Code_user`, `Status`, `Name`, `Surname`, `Nickname`, `Birth`, `Email`, `Nationality`, `City`, `Address`, `Phone`, `Picture`, `Curriculum`, `Description`, `Creation`) VALUES
-(1, 'Active', 'Benedetta', 'De Rosa', 'admin', '1986-02-18', 'Benedetta.DeRosa_1986@gmail.com', 'China', 'Leiyang', '', 2147483647, 'ny754vn845yvt0984yn50984ny5.jpg', 'https://en.wikipedia.org/wiki/Special:Random', 'DW Solution Online is a full-service creative agency, that focuses on delivering high-quality services. We are a small but super dedicated team of Design, Animation,Web , Android & IOS Developers with 8 years of experience in all the following fields:\n✔️ Video Production - Explainer, Promotional and Commercial animation.\n✔️ Graphic Design - Logo, Branding, Web & UI/UX, Business stationery, T-Shirt Designs, Packaging, Brochures & Flyers, Book Designs.\n✔️ Web Development - WordPress, PHP, Laravel, HTML/CSS, JQuery, React.js, Vue.js, Codeigniter, MySQL Our offer Includes:\n✔️ Free Unlimited Rounds of Revisions for Ultimate Satisfaction.\n✔️ Daily Updates and Weekly progress Report.\n✔️ Quick Turnaround Time for Urgent Projects.\n✔️ Free 1 Month Support.\nWe feel proud to tell you that 80% of our clients come back for either more projects or maintenance.\n❗️❗️Message us to get free advice❗️❗️', '2021-12-21'),
+(1, 'Active', 'Benedetta', 'De Rosa', 'admin', '1986-02-18', 'Benedetta.DeRosa_1986@gmail.com', 'China', 'Leiyang', '', 2147483647, 'ny754vn845yvt0984yn50984ny5.jpg', 'https://en.wikipedia.org/wiki/Special:Random', 'DW Solution Online is a full-service creative agency, that focuses on delivering high-quality services. We are a small but super dedicated team of Design, Animation,Web , Android & IOS Developers with 8 years of experience in all the following fields:\r\n✔️ Video Production - Explainer, Promotional and Commercial animation.\r\n✔️ Graphic Design - Logo, Branding, Web & UI/UX, Business stationery, T-Shirt Designs, Packaging, Brochures & Flyers, Book Designs.\r\n✔️ Web Development - WordPress, PHP, Laravel, HTML/CSS, JQuery, React.js, Vue.js, Codeigniter, MySQL Our offer Includes:\r\n✔️ Free Unlimited Rounds of Revisions for Ultimate Satisfaction.\r\n✔️ Daily Updates and Weekly progress Report.\r\n✔️ Quick Turnaround Time for Urgent Projects.\r\n✔️ Free 1 Month Support.\r\nWe feel proud to tell you that 80% of our clients come back for either more projects or maintenance.\r\n❗️❗️Message us to get free advice❗️❗️ ', '2021-12-21'),
 (2, 'Active', 'Rebecca', 'Esposito', 'user', '1986-02-07', 'Rebecca.Esposito_1986@gmail.com', 'India', 'Mysore', '', 1676357485, 'gtv92ygt92gytv92352.jpg', 'https://en.wikipedia.org/wiki/Special:Random', 'I am a Professional Web and Mobile App Developer having 3 years of experience in successfully delivering Web and Mobile Apps.\n\nMy Expertise:\n✓ Mobile App Development\n✓ Website and Web App Development\n✓ Game Development\n✓ Customized ERP Development\n✓ Chat Bot Development\n\nService we serve:\n1. UI/UX Design\n2. Web Design\n3. Web Development\n4. eCommerce Development\n5. Mobile App Development(Native Android, Native iOS, Flutter)\n6. Digital Marketing(SEO, SMM, ASO, PPC)\n\nWhy I am best for any of your project development?\n✓ Finished more than 50 projects\n✓ Having proven experience of 3 years\n✓ Smooth communication\n✓ Flexible engagement models\n✓ You will get good technical suggestions for your projects based on your requirements\n✓ Will provide you with the work update daily\n✓ If required will work on weekends as well\n✓ 15 days of free support after project launch\n✓ You will always get the tested work\n\nTop Business Categories for which I worked\n✓ Custom Application\n✓ Real Estate website and apps\n✓ E-commerce websites and apps\n✓ Finance\n✓ Employee Management\n✓ NGO\n\nLet\'s have a work regarding your requirements and convert your idea into reality.', '2021-12-21'),
 (3, 'Active', 'Cristiano', 'Villa', 'Jesse James', '2001-06-07', 'Cristiano.Villa_2001@gmail.com', 'Zambia', 'Ndola', '', 2147483647, '6y4bub4u45vbubu4u.jpg', '', 'Ready to work in the following Website and Mobile Development:\n\n1. Mobile AppLications in React Native , Ionic Framework, Phonegap, Cordova ,\nHybrid App , PWA.\n\n2. CMS Website Development: WordPress and Opencart , Shopify .\n\n3. Website Development: Angular , Angular8, WP , OPencart , Core Php,\nCodeIgniter , Python ,ReactJs, ETC\n\n4. Google Apps Development: Goggle maps, Analytic, Google API Integration.\n\n5. Payment APIS Development: Paypal, Authorize dot net, 2Checkout, Amazon\nWeb Services and many more.\n\n6. Other Web Developments: We can work with other coding frameworks like Cake\nphp, MVC, smarty, code igniter, PHPbb and many more.\n\n7. SEO - ON Page SEO and Off Page SEO', '2021-12-21'),
 (4, 'Active', 'Cloe', 'Messina', 'Boomslang', '1975-06-25', 'Cloe.Messina_1975@gmail.com', 'Italy', 'Ercolano', '', 2147483647, 'y45v77nv48mny0248myu054y.jpg', '', 'Full Stack Engineer, very hardworking and dedicated to my work. I always deliver what i promise to my clients. i done our work with a lot of proficiency , as well as at the accurate time.\n\nCOMPLETE IT SOLUTIONS!!! WITH ANY TECHNOLOGY...\n\n✓ Mobile App Developer, Android, iOS\n✓ PowerApps\n✓ Blockchain Developer\n✓ PHP Developer, Laravel, Node, React, WordPress, Shopify, Magento\n✓ ASP.Net Developer\n✓ Machine Learning, Artificial Intelligence\n✓ Java Developer\n✓ Game Developer\n✓ Tizen, Webos, tvos, Samsung, LG apps, iptv developer, tvs\n✓ SmartWatch App\n\nClients willing to have long term project relationship are most welcome , we will give you the best result using our excellent skills on your project, you can chat with me and let\'s get started we will ready to Immediately.', '2021-12-21'),
@@ -4477,18 +4554,6 @@ CREATE TABLE `users_admin_actions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `users_admin_actions`
---
-
-INSERT INTO `users_admin_actions` (`Code`, `Code_user`, `Comments`, `Date`, `Code_admin`) VALUES
-(1, 23, 'I don\'t like your face.', '2022-07-05 03:08:19', 1),
-(2, 111, 'Stop annoying people.', '2022-07-05 03:08:19', 35),
-(3, 342, 'Spamming', '2022-07-05 03:08:19', 1),
-(4, 271, 'Vulgar language', '2022-07-05 03:08:19', 275),
-(5, 53, 'Promoting Illeagal actions', '2022-07-05 03:08:19', 72),
-(6, 222, 'Spamming', '2022-07-05 03:08:19', 302);
-
---
 -- Indici per le tabelle scaricate
 --
 
@@ -4505,6 +4570,13 @@ ALTER TABLE `bids`
   ADD PRIMARY KEY (`Code_user`,`Code_job`),
   ADD KEY `FK_Code_user` (`Code_user`) USING BTREE,
   ADD KEY `FK_Code_job` (`Code_job`) USING BTREE;
+
+--
+-- Indici per le tabelle `bid_winner`
+--
+ALTER TABLE `bid_winner`
+  ADD PRIMARY KEY (`Code_job`),
+  ADD UNIQUE KEY `Code_user` (`Code_user`);
 
 --
 -- Indici per le tabelle `credentials`
@@ -4564,8 +4636,7 @@ ALTER TABLE `tags_current_jobs`
 -- Indici per le tabelle `tags_past_jobs`
 --
 ALTER TABLE `tags_past_jobs`
-  ADD PRIMARY KEY (`Code_job`,`Code_tag`),
-  ADD KEY `FK_tag_tags_past_job` (`Code_tag`);
+  ADD PRIMARY KEY (`Code_job`,`Code_tag`);
 
 --
 -- Indici per le tabelle `tags_users`
@@ -4598,19 +4669,19 @@ ALTER TABLE `users_admin_actions`
 -- AUTO_INCREMENT per la tabella `current_jobs`
 --
 ALTER TABLE `current_jobs`
-  MODIFY `Code_job` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Code_job` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT per la tabella `past_admin_actions`
 --
 ALTER TABLE `past_admin_actions`
-  MODIFY `Code` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Code` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `Code_tag` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=693;
+  MODIFY `Code_tag` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=716;
 
 --
 -- AUTO_INCREMENT per la tabella `users`
@@ -4640,6 +4711,13 @@ ALTER TABLE `admin`
 ALTER TABLE `bids`
   ADD CONSTRAINT `FK_bids_job` FOREIGN KEY (`Code_job`) REFERENCES `current_jobs` (`Code_job`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_bids_user` FOREIGN KEY (`Code_user`) REFERENCES `users` (`Code_user`) ON DELETE CASCADE;
+
+--
+-- Limiti per la tabella `bid_winner`
+--
+ALTER TABLE `bid_winner`
+  ADD CONSTRAINT `FK_bid_winner_job` FOREIGN KEY (`Code_job`) REFERENCES `past_jobs` (`Code_job`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_bid_winner_user` FOREIGN KEY (`Code_user`) REFERENCES `users` (`Code_user`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `credentials`
@@ -4707,7 +4785,27 @@ DELIMITER $$
 --
 -- Eventi
 --
-$$
+CREATE DEFINER=`root`@`localhost` EVENT `Check_for_ended_jobs` ON SCHEDULE EVERY 5 MINUTE STARTS '2022-06-27 00:40:33' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+DECLARE n INT;
+DECLARE done BOOLEAN DEFAULT FALSE;
+DECLARE cursor_job CURSOR FOR
+	SELECT current_jobs.Code_job FROM current_jobs
+    LEFT JOIN bids ON bids.Code_job=current_jobs.Code_job
+	WHERE NOW() > Expiring
+    GROUP BY bids.Code_job
+    HAVING COUNT(bids.Code_user)=0;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+OPEN cursor_job;
+loop_rows : LOOP
+	FETCH cursor_job INTO n;
+	IF(done) THEN
+    	LEAVE loop_rows;
+    END IF;
+	CALL Transfer_current_past_jobs(n,'Failed');
+END LOOP;
+CLOSE cursor_job;
+END$$
 
 DELIMITER ;
 COMMIT;

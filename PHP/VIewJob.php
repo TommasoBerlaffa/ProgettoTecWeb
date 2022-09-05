@@ -71,6 +71,7 @@ if(isset($_SESSION['user_Username']))
     $winnerInfos='';
 		if(array_key_exists('Code_winner',$row) AND isset($row["Code_winner"])) {
       $wInfos = $DBAccess->getUser(trim($row["Code_winner"]));
+	  $wbid = $DBAccess->getWinnerBid($index);
       
 			$winner = '<span>Winner of this offer :</span><a href="ViewUser.php?Code_User='.trim($row["Code_winner"]).'">'.trim($wInfos["Nickname"]).'</a>';
       $winnerInfos = '<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . trim($wInfos['Picture']) .
@@ -164,7 +165,7 @@ if(isset($_SESSION['user_Username']))
 								<div class="bidData"><p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
 								<p><span>User Price</span> : '.trim($B["Price"]).'</p>
 								<p><span>Description</span> : '.trim($B["Description"]).'</p>
-								<p><span>Average Review Rating</span> : '.($review? $review['AvgStar'] : 'No review average available').'</p></div>';
+								<p><span>Average Review Rating</span> : '.($review==0? 'No review average available' : round($review['AvgStar'],1) ).'</p></div>';
 						//se questa offerta è dell'utente corrente può sceglere di cancellarla
 						if($B["Code"]==$_SESSION['user_ID']){
 							$self=false;

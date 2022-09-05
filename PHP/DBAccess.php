@@ -283,7 +283,30 @@ class DBAccess {
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      $result=array();
+      while($row=mysqli_fetch_assoc($queryResult))
+        array_push($result, $row);
+      return $result;
+    } else
+      return null;
+  }
+  
+    /***6.Get Bids from a Job***
+  par: int jobID;
+  desc: ritorna array contenente tutti gli utenti e le loro offerte al concorso di un lavoro jobID. altrimenti ritorna null.
+  ****************************/
+  public function getWinnerBid($job) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($job)){
+      $queryInserimento = 'SELECT * FROM bid_winner WHERE Code_job = ? LIMIT 1;';
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'i',$job);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
       if(mysqli_num_rows($queryResult) == 0)
         return null;
       $result=array();
@@ -395,9 +418,9 @@ class DBAccess {
     if(isset($id) and isset($table)) {
 		if($table<0||$table>2)
 			return null;
-		$user='SELECT tags_users.Code_tag, Name FROM tags_users INNER JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
-		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
-		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs INNER JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
+		$user='SELECT tags_users.Code_tag, Name FROM tags_users INNER JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ?;';
+		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ?;';
+		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs INNER JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ?;';
 		
 		$queryCall=null;
 		if(!$table)
