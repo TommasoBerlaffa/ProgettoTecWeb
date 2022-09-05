@@ -69,7 +69,7 @@ main {
 
 .box {
   box-shadow: 0 0 10px var(--shadow);
-  border-color: var(--black);
+  border: 3px solid var(--black);
 }
 
 a.goTop {
@@ -158,7 +158,7 @@ img#profilepic {
   width: 1.1em;
   height: 1.1em;
   padding : 0.2em;
-  background-color: var(--darkwhite);
+  background-color: var(--content);
   border : solid 1px var(--black);
   vertical-align: text-bottom;
   margin-right: 0.3em;
@@ -1787,6 +1787,7 @@ input#search {
   /* - 6.0 Filter for Page Find Job - */  
   form#formFilter {
     width: 30%;
+    margin-right: 4em;
   }
 
   form#formFilter #Tipology,
@@ -1813,7 +1814,26 @@ input#search {
     width:3em;
     height:3em;
   }
-  
+
+  div#userinfo {
+    padding-top: 1em;
+    width: 100%;
+  }
+
+  div#userInfo div.chapter {
+    border-right: none;
+  }   
+
+  div#feedbacks {
+    padding-left: 0;
+    padding-top: 1em;
+    width: 100%;
+  }
+
+  div.review {
+    margin: 0; 
+  }
+
   /* temp userinfo */
   div#userInfo {
     padding-top: 1em;
@@ -1829,4 +1849,32 @@ input#search {
     width: 70%;
   }
 
+  a.goTop {
+    width: 95%;
+  }
+  /* Home */
+  div#Intro, div#Account, div#Function, div#UserProf, div#popularJobs {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  img#firstImg {
+    grid-row: 1 / span 1;
+  }
+  
+  div#Function {
+    grid-row: 2;
+  }
+  
+  div#UserProf {
+    grid-row: 3;
+  }
+  
+  img#secondImg {
+    grid-row: 3 / span 1;
+  }
+  
+  div#popularJobs {
+    grid-row: 4;
+  }
 }

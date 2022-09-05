@@ -462,6 +462,7 @@
   div#content div.chapter {
     width: 80%;
     margin: auto;
+    border-right: none;
   }
 
   /* 1.7.2 User Profile Welcome Page */
