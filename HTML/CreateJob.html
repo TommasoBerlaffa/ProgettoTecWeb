@@ -65,7 +65,7 @@
     <form id="createJob" action="../PHP/CreateJob.php" onsubmit="return checkRequiredInputs()" method="post">
       <fieldset >
         <legend>Create a Job Offer</legend>
-        <p id="intro">Please fill all the fields with a * to create a job : </p>
+        <p id="intro">Please fill all the fields with a * to create a job offer : </p>
         <!-- Title -->
         <label for="Title" id="labelTitle">Choose your Title *:</label>
         <input type="text" id="Title" name="Title" maxlength="128" value="<title/>" aria-required="true" required>
@@ -83,7 +83,7 @@
         <div id="Pay">
           <label id="labelPay">Choose your preferred method of payment *:</label>
           <input type="radio" id="Pay1" name="Pay" value="0" checked>
-          <label for="Pay1" id="labelPay1"> I want to pay all at once</label><br>
+          <label for="Pay1" id="labelPay1"> I want to pay all at once</label>
           <input type="radio" id="Pay2" name="Pay" value="1">
           <label for="Pay2" id="labelPay2"> I want to pay by worked hours</label>
         </div>

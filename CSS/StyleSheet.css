@@ -370,6 +370,7 @@ form#createJob fieldset textarea {
 form#createJob fieldset p#intro {
   grid-column: 1 / span 3;
   grid-row: 1;
+  text-align: center;
 }
 
 form#createJob fieldset label#labelTitle {
@@ -458,7 +459,7 @@ form#createJob fieldset div#selectedTagsList {
 }
 
 div#tagsList p,
-div#selectedTagsList p{
+div#selectedTagsList p {
   padding-left: 0.5em;
   margin-block-start: 0;
   margin-block-end: 0;
@@ -469,9 +470,11 @@ form#createJob fieldset div#tagsList {
   grid-row: 11 / span 2;
 }
 
-form#createJob fieldset button#Create{
+form#createJob fieldset button#Create {
   grid-column: 2;
   grid-row: 13;
+  margin: 1em;
+  padding: 0.5em;
 }
 
 /* - 5.4 Create Job Form - */
@@ -1242,6 +1245,7 @@ div#JobInfo {
   margin-top : 1em;
   width: 80%;
   overflow:hidden;
+  border: 3px solid var(--black);
   border-radius: 30px;
   display: grid;
   row-gap: 1.2em;
@@ -1650,7 +1654,7 @@ ul#popularJobsList li {
 
 h1.index {
   text-align:left;
-  padding-left : 1.25em;
+  padding-left : 0.5em;
   font-size: 1.375em;
   display: inline;
   vertical-align: middle;
@@ -1670,6 +1674,7 @@ p.subIndex {
 }
 
 .faqIcons {
+  padding: 0.3em;
   width: 3em;
   display: inline-block;
   vertical-align: middle;
