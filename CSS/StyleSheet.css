@@ -40,7 +40,9 @@
   --darkWhite: #d1d9e6;
   --shadow: #999;
   --correct: #44c244;
+  --correctBackground: #35AA35;
   --error: #d4110b;
+  --errorBackground: #E32A2A;
 } 
 
 /* - 1.0 General CSS For every page - */
@@ -79,20 +81,20 @@ a.goTop {
   padding: 1em;
 }
 
-.resultsucc {
+.resultsucc, .resultfail{
   text-align: center;
   font-size: 1.2em;
-  background-color: #35AA35;
   margin-left:5em;
   margin-right:5em;
+  border-radius: 15px;
 }
 
-.resultfail {
-  text-align: center;
-  font-size: 1.2em;
-  background-color: #E32A2A;
-  margin-left:5em;
-  margin-right:5em;
+.resultsucc {
+  background-color: var(--correctBackground);
+}
+
+.resultfail{
+  background-color: var(--errorBackground)
 }
 
 p {
@@ -653,10 +655,10 @@ li.job p{
 
 li.job {
   position:relative;
-  margin-bottom:12px;
+  margin-bottom:2em;
   display: grid;
-  grid-template-columns: 3fr  1fr;
-  column-gap: 10px;
+  grid-template-columns: 3fr 1fr;
+  column-gap: 0.5em;
   box-shadow: 1px 1px 10px;
   border: 2px solid var(--black);
   list-style:none;
