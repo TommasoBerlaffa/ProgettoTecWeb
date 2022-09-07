@@ -16,7 +16,7 @@ if(isset($_SESSION['user_Username']))
 	$job='';
 	if(isset($_GET['Code_job']))
 		$job=filter_var($_GET['Code_job'],FILTER_SANITIZE_NUMBER_INT);
-	header('Location:..'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$job);
+	//
 	if($job===''){
 		$_SESSION['error']='errCodeJob';
 		exit();
@@ -42,10 +42,10 @@ if(isset($_SESSION['user_Username']))
 		exit();
 	}
 	
-	$result = $DBAccess->removeBid($code,$_SESSION['user_ID']);  
+	$result = $DBAccess->removeBid($job,$_SESSION['user_ID']);  
 	$_SESSION['error'] = $result ? 'RBsucc' : 'RBfail';
 	$DBAccess->closeDBConnection();
-	
+	header('Location:..'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$job);
 }
 else {
   if(isset($_GET['Code_job'])){
