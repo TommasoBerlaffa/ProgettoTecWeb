@@ -76,9 +76,10 @@ main {
 
 a.goTop {
   display: block;
-  width: 100%;
+  width: 80%;
+  margin: auto;
   text-align: end;
-  padding: 1em;
+  padding-top: 1em;
 }
 
 .resultsucc, .resultfail{
@@ -1738,15 +1739,27 @@ form#AdminForm button{
 /* -12.0 Admin - */
 table.AdminTable {
   border: 1px solid var(--black);
-  border-collapse: separate;
+  border-collapse: collapse;
   width: 80%;
   margin: auto;
-  margin-bottom: 0.2em;
+  margin-bottom: 2em;
+}
+
+table.AdminTable caption{
+  padding-bottom: 1em;
+}
+
+table.AdminTable thead {
+  background-color: var(--color);
+  color: var(--linksOnBlue)
 }
 
 table.AdminTable th,
 table.AdminTable td {
   text-align: start;
+  padding-bottom: 0.3em;
+  padding-top: 0.3em;
+  border: 1px solid;
 }
 
 table.AdminTable .doubleCol {
