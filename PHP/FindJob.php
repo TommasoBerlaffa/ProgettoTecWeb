@@ -99,9 +99,9 @@ if (session_status() === PHP_SESSION_NONE) {
   $HtmlCheckboxPay='
     <label id="labelPayment">Choose which method of payment :</label>
     <input type="checkbox" id="Pay1" name="Pay1" value="Pay1" '. (($Pay==1 OR $Pay==0) ? 'checked' : '').'>
-    <label for="Pay1" id="labelPay1"> All at once</label><br>
+    <label for="Pay1" id="labelPay1"> By worked hours</label><br>
     <input type="checkbox" id="Pay2" name="Pay2" value="Pay2" '. (($Pay==2 OR $Pay==0) ? 'checked' : '').'>
-    <label for="Pay2" id="labelPay2"> By worked hours</label>';
+    <label for="Pay2" id="labelPay2"> All at once</label>';
 	
 	$DBAccess = new DBAccess();
 	if(!($DBAccess->openDBConnection())){
