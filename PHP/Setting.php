@@ -23,7 +23,7 @@ if (session_status() === PHP_SESSION_NONE) {
 		exit;
 	}
 	
-    $HTMLExtra = '<div id="content">'.file_get_contents($urlExtra).'<div id="emptyErrorList"></div>';
+    $HTMLExtra = '<div id="emptyErrorList"></div><div id="content">'.file_get_contents($urlExtra).'';
 
 
     $Result = $DBAccess->getUser($_SESSION['user_ID']);
@@ -64,7 +64,7 @@ if (session_status() === PHP_SESSION_NONE) {
       else if($_GET['err'] == 'err')
         $err = '<div id="errorList">There was an error with the insertion of the tags in the database, please try again later.</div>';   
       else if($_GET['err'] == 'succ')
-        $err = '<div id="errorList">The operation was succesaful.</div>';   
+        $err = '<div id="errorList">The operation was successful.</div>';   
   
       $HTML = str_replace('<div id="emptyErrorList"></div>',$err,$HTML);  
     }

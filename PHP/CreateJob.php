@@ -112,7 +112,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	$HTML = preg_replace('/(?<=<div id="Pay">)((\n|.)*?)(?=<\/div>)/',$radio, $HTML, 1);
 	
 	if($errorMsg)
-		$errorMsg='<ul id="error">'.$errorMsg."</ul>";
+		$errorMsg='<ul id="error" class="resultfail">'.$errorMsg."</ul>";
 	
 	$HTML = str_replace('<TipologySelect/>',$select, $HTML);
 	$HTML = str_replace('<DateSelect/>',$select2, $HTML);

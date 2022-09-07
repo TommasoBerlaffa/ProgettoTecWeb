@@ -42,7 +42,7 @@
   --correct: #44c244;
   --correctBackground: #35AA35;
   --error: #d4110b;
-  --errorBackground: #E32A2A;
+  --errorBackground: #FD6868;
 } 
 
 /* - 1.0 General CSS For every page - */
@@ -95,6 +95,11 @@ a.goTop {
 
 .resultfail{
   background-color: var(--errorBackground)
+}
+
+.resultsucc a, .resultsucc a:visited,
+.resultfail a, .resultfail a:visited {
+  color: var(--black);
 }
 
 p {
@@ -257,11 +262,11 @@ div#Desc {
   width: 80%;
 }
 
-p.correct {
+.correct {
   color: var(--correct);
 }
 
-p.error {
+.error {
   color: var(--error);
 }
 
@@ -303,10 +308,6 @@ div#error {
   text-align: center;
 }
 
-p.error {
-  text-align: center;
-}
-
 /* - 5.2 Sign Up Input Form - */ 
 form#SignUp {
   position: inherit;
@@ -343,7 +344,7 @@ form#changePsw fieldset {
 
 /* - 5.4 Create Job Form - */
 form#createJob {
-  width: 60%;
+  width: 70%;
   margin: auto;
   margin-top: 1em;
 }
@@ -1216,10 +1217,9 @@ form#settings #submit {
 
 div#errorList {
   text-align: center;
-  padding: 1em;
-  width: 50%;
+  width: fit-content;
+  max-width: 80%;
   margin: auto;
-  margin-top: 1em;
 }
 
 div#errorList h1{
@@ -1786,9 +1786,13 @@ input#search {
     margin-top: 3em;
   } 
 
+  form#createJob {
+    width: 80%;
+  }
+  
+
   /* - 6.0 Filter for Page Find Job - */  
   form#formFilter {
-    width: 30%;
     margin-right: 4em;
   }
 
@@ -1822,8 +1826,8 @@ input#search {
     width: 100%;
   }
 
-  div#userInfo div.chapter {
-    border-right: none;
+  div#userinfo div.chapter {
+    border-right: 0px;
   }   
 
   div#feedbacks {

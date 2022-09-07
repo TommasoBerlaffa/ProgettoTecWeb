@@ -62,10 +62,10 @@
 					exit();
 				} 
 				else
-					$messaggioErrore =  '<div id="errorList" class="box"><p id="error_user"></p><p id="error_pw">The username and password you inserted are not correct. Please <a href="#Username">try inserting your nickname and password again</a>.</p></div>';
+					$messaggioErrore =  '<div id="errorList"<p class="resultfail">The username and password you inserted are not correct. Please <a href="#Username">try inserting your nickname and password again</a>.</p></div>';
 			} 
 			else
-				$messaggioErrore = '<div id="errorMessages" class="box"><ul>' . $messaggioErrore . '</ul></div>';
+				$messaggioErrore = '<div id="errorMessages"><ul class="resultfail">' . $messaggioErrore . '</ul></div>';
 		} 
 
 		$paginaHTML =  str_replace('<messaggiForm />', $messaggioErrore, $paginaHTML);

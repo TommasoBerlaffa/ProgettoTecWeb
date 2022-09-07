@@ -75,24 +75,24 @@
         <!-- Nickname -->
         <label for="Username" class="Enter">Username* : </label>
         <input type="text" id="Username" name="Username" class="Enter" maxlength="48" value="<Username />" required />
-		<p id="UsernameTaken" class="Error"></p>
+		<p id="UsernameTaken" class="error"></p>
 		<!-- Mail -->
 		<label for="Email" >Email* : </label>
         <input type="email" id="Email" name="Email" maxlength="48" value="<Email />" required />
-		<p id="EmailTaken" class="Error"></p>
+		<p id="EmailTaken" class="error"></p>
         <!-- Password -->
         <label for="Password" class="Enter">Password*:<br />-must be at least 8 characters long,<br />-have one lower case letter,<br />-have one upper case letter,<br />-have one digit</label>
         <input type="password" id="Password" name="Password" class="Enter" maxlength="48" required />
-		<p id="Security" class="Error"></p>
+		<p id="Security" class="error"></p>
         <!-- Password ( Check ) -->
         <label for="Repeat-Password" class="Enter">Repeat Password* :</label>
         <input type="password" id="Repeat-Password" name="Repeat-Password" maxlength="48" class="Enter" required />
-		<p id="Match" class="Error"></p>
+		<p id="Match" class="error"></p>
 		<!-- Icon Image -->
         <label for="Picture" class="Enter">Profile Picture :</label>
         <input type="file" id="Picture" name="Picture" accept="image/jpeg, image/png, image/gif" class="Enter"/>
         <!-- Next Page -->
-		<p id="Missing1" for="Next1" class="Error"></p>
+		<label id="Missing1" for="Next1" class="error"></label>
         <input type="button" id="Next1" value="Next"/>
       </fieldset>
 
@@ -127,7 +127,7 @@
         <input type="tel" id="Tel" name="Tel" minlength="7" maxlength="15" value="<Phone />" />
         <!-- Codice JS, probabilmente TO REPLACE with PHP-->
         <input type="button" id = "Back1" value="Go Back" />
-				<p id="Missing2" for="Next2" class="Error"></p>
+				<label id="Missing2" for="Next2" class="error"></label>
         <input type="button" id="Next2" value="Next" class="Next"/>
 
       </fieldset>
@@ -149,7 +149,7 @@
         <textarea id="Desc" name="Desc" minlength="10" maxlength="4096" ><Description /></textarea>
 
         <input type="button" id = "Back2" value="Go Back"/>
-		<p id="Missing3" for="Next3" class="Error"></p>
+		<label id="Missing3" for="Next3" class="error"></label>
         <input type="button" id = "Next3" value="Next" class="Next"/>
       </fieldset>
 

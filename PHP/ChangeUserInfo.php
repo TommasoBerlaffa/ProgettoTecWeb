@@ -26,7 +26,7 @@ if (session_status() === PHP_SESSION_NONE) {
       if($postNick!= $Result["Nickname"])
         if($DbAccess->usernameTaken($postNick))
         {
-          $errorReport.='<p>This Username is already taken. Please try again with a <a href="#Username">different username<a></p>';
+          $errorReport.='<p class="resultfail">This Username is already taken. Please try again with a <a href="#Username">different username<a></p>';
           $Username=$Result["Nickname"];
         }
         else 
@@ -47,7 +47,7 @@ if (session_status() === PHP_SESSION_NONE) {
 			// Controllo se Nuova Data corrisponda ad un utente Minorenne
       if($age<18)
       {
-        $errorReport .= '<p>Your age is less than what required by laws (18). If your age is above 18, please try inserting your <a href="#Birth">birthday date</a> again</p>';
+        $errorReport .= '<p class="resultfail">Your age is less than what required by laws (18). If your age is above 18, please try inserting your <a href="#Birth">birthday date</a> again</p>';
         $Birth = $Result["Birth"];
       }
 			else
@@ -77,7 +77,7 @@ if (session_status() === PHP_SESSION_NONE) {
       }
 			else {
         if ($_FILES["pfp"]["size"] > 16777216) {
-          $errorReport .= '<p>Picture size exceed limit 16Mb. Please try again with a <a href=\"#pfp\">smaller image<a></p>';
+          $errorReport .= '<p class="resultfail">Picture size exceed limit 16Mb. Please try again with a <a href=\"#pfp\">smaller image<a></p>';
           $Picture = $Result["Picture"];
         }
         else {
@@ -86,14 +86,14 @@ if (session_status() === PHP_SESSION_NONE) {
           $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
           //check file extension
           if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-            $errorReport.= "<p>Only JPG, JPEG, PNG & GIF files are allowed for Picture. Please try again with a <a href=\"#pfp\">image with the correct format<a></p>";
+            $errorReport.= '<p class="resultfail">Only JPG, JPEG, PNG & GIF files are allowed for Picture. Please try again with a <a href=\"#pfp\">image with the correct format<a></p>';
             $Picture = $Result["Picture"];
           }
           else {
             //check it is a real image and not a fake file
             $check = getimagesize($_FILES['pfp']['tmp_name']);
             if($check==false) {
-              $errorReport.= "<p>File not recognized as a picture. Please try again with a <a href=\"#pfp\">different image<a></p>";
+              $errorReport.= '<p class="resultfail">File not recognized as a picture. Please try again with a <a href=\"#pfp\">different image<a></p>';
               $Picture = $Result["Picture"];
             }
             else {
@@ -107,7 +107,7 @@ if (session_status() === PHP_SESSION_NONE) {
               }
               else {
                 $Picture = $Result["Picture"];
-                $errorReport.= "<p>Failed to process uploaded image. Please try again with a <a href=\"#pfp\">different image<a><p>";
+                $errorReport.= '<p class="resultfail">Failed to process uploaded image. Please try again with a <a href=\"#pfp\">different image<a><p>';
               }
             }
           }
@@ -119,8 +119,7 @@ if (session_status() === PHP_SESSION_NONE) {
     if($errorReport != '<h1>You made some mistakes :</h1>')
       $_SESSION['error'] = $errorReport;
     else
-      $_SESSION['error'] = '<p> The operation was successful. You can check your updated info in 
-        <a href="User.php"> User Info</a></p>'
+      $_SESSION['error'] = '<p class="resultsucc"> The operation was successful and your informations were updated.</a></p>'
         ;
 
     $DbAccess->changeUserInfo($_SESSION['user_ID'],$Name,$Surname,$Username,$Birth,$Email,$Nationality,$City,$Address,$Phone,$Picture,$Curriculum,$Description);
