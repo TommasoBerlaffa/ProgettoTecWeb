@@ -550,7 +550,10 @@ class DBAccess {
 	//				OR tags_current_jobs.Code_tag=?
 	//			GROUP BY Code_job
 	//		) res ON res.Code_job=current_jobs.Code_job
+	//	INNER JOIN users
+	//		ON users.Code_user=current_jobs.Code_user
 	//	WHERE
+	//		users.Status='Active'
 	//	 	TIMESTAMPDIFF(HOUR,Date,CURDATE())<? AND
 	//	 	P_min > ? AND
 	//	 	Tipology = ?
@@ -573,7 +576,7 @@ class DBAccess {
 	$tagsStart='
 	INNER JOIN(
 		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
-			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
+			INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
 			WHERE
 				tags_current_jobs.Code_tag=?
 				';
@@ -585,12 +588,15 @@ class DBAccess {
 	
 	//query parts
 	$begin='
-	SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs';
-	$middle='
+	SELECT current_jobs.Code_job, Date, Title, current_jobs.Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs';
+	$middle="
+	    INNER JOIN users
+			ON users.Code_user=current_jobs.Code_user
 		WHERE
+		    users.Status='Active' AND
 		 	TIMESTAMPDIFF(HOUR,Date,CURDATE()) < ? AND
 			P_min > ?
-			';
+			";
 	$tip='	AND
 			Tipology = ?
 	';
@@ -638,7 +644,7 @@ class DBAccess {
 		$query.=$tagsEnd;
 	}
 	$query.=$middle;
-  $query.=$payString;
+    $query.=$payString;
 	$type.='ii';
 	$param[$i]=$date;
 	$i++;
@@ -656,7 +662,6 @@ class DBAccess {
 			$query.=$count;
 		$query.=$end;
 	}
-	//$time=microtime(true);
 	if($bool){
 		$query=$Nresults.$query.') AS subquery;';
 		$queryCall=mysqli_prepare($this->connection,$query);

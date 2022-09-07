@@ -231,7 +231,7 @@ if(isset($_SESSION['user_Username']))
 		
 		// Admin Actions
 		$adminActions = '';
-		if ( $status != 'Deleted'){
+		if ( $status != 'Deleted' AND $status != 'Terminated'){
 			if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) {
 				$urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
 				$adminActions .= file_get_contents($urlContent);  
