@@ -20,7 +20,6 @@ if(isset($_SESSION['user_Username']))
 	$self=true;
 	$PJob = false;
 	$row ='';
-	$BAN=false;
 	
 	$DBAccess = new DBAccess();
 	if(!($DBAccess->openDBConnection())){
@@ -87,7 +86,7 @@ if(isset($_SESSION['user_Username']))
 			$HTML = ($winnerInfos !='' ) ? str_replace('{{ WinnerInfo }}',$winnerInfos,$HTML) : preg_replace('/<div id="winnerwrapper">((\n|.)*)<\/div>/',$winnerInfos,$HTML);
 			
 			// Tags
-			if($tags AND !$BAN) {
+			if($tags) {
 				$HTMltags ='';
 				foreach($tags as $name=>$value) {
 					$HTMltags.='<a href="FindJob.php?tag='.$value.'">'.$name.'</a>,';
@@ -232,12 +231,14 @@ if(isset($_SESSION['user_Username']))
 		
 		// Admin Actions
 		$adminActions = '';
-		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) {
-			$urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
-			$adminActions .= file_get_contents($urlContent);  
-			$adminActions = str_replace('<code/>',$index, $adminActions);
-			$adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'job'), $adminActions);
-			$adminActions = str_replace('{{job}}',($PJob ? 'job' : 'offer'),$adminActions);
+		if ( $status != 'Deleted'){
+			if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) {
+				$urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
+				$adminActions .= file_get_contents($urlContent);  
+				$adminActions = str_replace('<code/>',$index, $adminActions);
+				$adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'offer'), $adminActions);
+				$adminActions = str_replace('{{job}}',($PJob ? 'job' : 'offer'),$adminActions);
+			}
 		}
 		$HTML = str_replace('<admin/>',$adminActions,$HTML);
 	} //Se non trova un risultato
