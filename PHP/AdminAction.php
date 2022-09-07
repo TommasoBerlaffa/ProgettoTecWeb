@@ -14,47 +14,62 @@ if(isset($_SESSION['Admin'])) {
 	}
   
   if(isset($_POST['comment']))
-    $comment = $_POST['comment'];
+    $comment = filter_var($_POST['comment'], FILTER_SANITIZE_STRING);
   else
     $comment = '';
     
 
   if(isset($_GET['Code_user']))
   {
-    $result = $DBAccess->BanUserAdmin($_GET['Code_user'],$_SESSION['user_ID'],'Ban reason : '.$comment);
-    if($result)
+	$user = filter_var($_GET['Code_user'], FILTER_VALIDATE_INT);
+    $result = $DBAccess->BanUserAdmin($user,$_SESSION['user_ID'],'Ban reason : '.$comment);
+    if($result){
+		$works=$DBAccess->getJobListbyCreator($user);
+		if($works){
+			foreach($works as $w){
+				echo($w['Code_job']);
+				$DBAccess->DeleteJobAdmin($w['Code_job'],$_SESSION['user_ID'],'The creator of this job got banned.');
+			}
+		}
       header("Location:AdminHistory.php");
+	}
     else
-      header("Location:ViewUser.php?Code_user=".$_GET['Code_user']);
+      header("Location:ViewUser.php?Code_user=".$user);
+	exit();
 
   }
 
   if(isset($_GET['unban_Code_user']))
   {
-    $result = $DBAccess->UnBanUserAdmin($_GET['unban_Code_user'],$_SESSION['user_ID'],'Unban reason : '.$comment);
+	$user = filter_var($_GET['unban_Code_user'], FILTER_VALIDATE_INT);
+    $result = $DBAccess->UnBanUserAdmin($user,$_SESSION['user_ID'],'Unban reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
-      header("Location:ViewUser.php?Code_user=".$_GET['Code_user']);
-
+      header("Location:ViewUser.php?Code_user=".$user);
+	exit();
   }
 
-  if(isset($_GET['Code_offer']))
+  if(isset($_GET['Code_job']))
   {
-    $result = $DBAccess->DeleteJobAdmin($_GET['Code_offer'],$_SESSION['user_ID'],'Offer delete reason : '.$comment);
+	$job = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
+    $result = $DBAccess->DeleteJobAdmin($job,$_SESSION['user_ID'],'Offer delete reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
-      header("Location:ViewJob.php?Code_job=".$_GET['Code_job']);
+      header("Location:ViewJob.php?Code_job=".$job);
+    exit();
   }
 
   if(isset($_GET['Code_pastjob']))
   {
-    $result = $DBAccess->DeletePastJobAdmin($_GET['Code_pastjob'],$_SESSION['user_ID'],'Job delete reason : '.$comment);
+	$job = filter_var($_GET['Code_pastjob'], FILTER_VALIDATE_INT);
+    $result = $DBAccess->DeletePastJobAdmin($job,$_SESSION['user_ID'],'Job delete reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
-      header("Location:ViewJob.php?Code_job=".$_GET['Code_pastjob']);
+      header("Location:ViewJob.php?Code_job=".$job);
+    exit();
   }
   
   
