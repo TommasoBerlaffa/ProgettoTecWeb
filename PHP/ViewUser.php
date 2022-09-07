@@ -26,7 +26,7 @@ if(isset($_SESSION['user_Username']))
     //Se trova risultato
     if($row) {        
 	
-		if($row['Status']!=='Banned' OR (isset($_SESSION['Admin']) && $_SESSION['Admin']==1)){
+		if($row['Status']!=='Banned' OR (isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $index==$_SESSION['user_ID']){
 			$HTML = str_replace("{{ Nickname }}",trim($row["Nickname"]),$HTML);
 			$HTML = str_replace("{{ Name }}",trim($row["Name"]),$HTML); 
 			$HTML = str_replace("{{ Surname }}",trim($row["Surname"]),$HTML);
@@ -65,7 +65,12 @@ if(isset($_SESSION['user_Username']))
 			else {
 				$content = '<div id="viewUserFeedBack" class="box">This user has no reviews.</div>';
 				$HTML = str_replace('<div id="viewUserFeedBack" class="box"></div>',$content,$HTML);
-			} 
+			}
+
+			if($row['Status']==='Banned' AND ((isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $index==$_SESSION['user_ID'])){
+				$res=$DBAccess->getUserBan($index);
+				$HTML = str_replace('<banreason/>','<p class="resultfail"> You are banned by: '.$res['Nickname'].' on: '.$res['Date'].'   '.$res['Comments'].'</p>',$HTML);
+			}
 		
 		}
 		else{
@@ -77,22 +82,20 @@ if(isset($_SESSION['user_Username']))
 		}
 	
 		$adminActions = '';
-		if(isset($_SESSION['Admin']) && $_SESSION['Admin']==1) 
+		if((isset($_SESSION['Admin']) && $_SESSION['Admin']==1) AND $_SESSION['user_ID']!=$index) 
 		{
 			$urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminUser.html';
 			$adminActions .= file_get_contents($urlContent);  
 			$adminActions = str_replace('<code/>',$index, $adminActions);
 			$adminActions = str_replace('{{Ban}}',trim($row["Status"])=='Banned'? 'Unban':'Ban',$adminActions);
 			$adminActions = str_replace('<ban/>',trim($row["Status"])=='Banned'? 'unban_':'',$adminActions);
-			
 		}
 		else {
 			$adminActions .= '';
 		}
-		
 		$HTML = str_replace('<admin/>',$adminActions,$HTML);
 		
-		
+		$HTML = str_replace('<banreason/>','',$HTML);
 		
     }
     else

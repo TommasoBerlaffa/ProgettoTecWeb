@@ -32,37 +32,42 @@
 					
 					$user = ''; $pwd = '';
 					
-					if(isset($Logged['Admin']) && $Logged['Admin']==1){
-						$_SESSION['Admin'] = $Logged['Admin'];
-					}
+					if($Logged['Status']!='Banned'){
 					
-					$_SESSION['user_ID'] = $Logged['ID'];
-					$_SESSION['user_Status'] = $Logged['Status'];
-					$_SESSION['user_Username'] = $Logged['Username'];
-					$_SESSION['user_Icon'] = $Logged['Icon'];
+						if(isset($Logged['Admin']) && $Logged['Admin']==1){
+							$_SESSION['Admin'] = $Logged['Admin'];
+						}
+						
+						$_SESSION['user_ID'] = $Logged['ID'];
+						$_SESSION['user_Status'] = $Logged['Status'];
+						$_SESSION['user_Username'] = $Logged['Username'];
+						$_SESSION['user_Icon'] = $Logged['Icon'];
+					
 				
-			
-					$taglist = $DBAccess->getTags($Logged['ID'],0);
-					$DBAccess->closeDBConnection();
-					unset($_SESSION['TagList']);
-					
-					$_SESSION['TagList']=array();
-					if($taglist)
-					{
-						foreach($taglist as $name=>$value){
-						$_SESSION['TagList'][$name] = $value;
-						}	
-					}
-					// Redirect 
-					header('Location:Welcome.php');
-					if(isset($_SESSION['redirect']))
-						header('Location:'.$_SESSION['redirect']);
-					unset($_SESSION['redirect']);
-					
-					exit();
+						$taglist = $DBAccess->getTags($Logged['ID'],0);
+						$DBAccess->closeDBConnection();
+						unset($_SESSION['TagList']);
+						
+						$_SESSION['TagList']=array();
+						if($taglist)
+						{
+							foreach($taglist as $name=>$value){
+							$_SESSION['TagList'][$name] = $value;
+							}	
+						}
+						// Redirect 
+						header('Location:Welcome.php');
+						if(isset($_SESSION['redirect']))
+							header('Location:'.$_SESSION['redirect']);
+						unset($_SESSION['redirect']);
+						
+						exit();
+					} 
+					else
+						$messaggioErrore =  '<div id="errorList"<p class="resultfail">This iser is Banned.</p></div>';
 				} 
 				else
-					$messaggioErrore =  '<div id="errorList"<p class="resultfail">The username and password you inserted are not correct. Please <a href="#Username">try inserting your nickname and password again</a>.</p></div>';
+					$messaggioErrore =  '<div id="errorList"<p class="resultfail">The username and password inserted are not correct. Please <a href="#Username">try inserting your username and password again</a>.</p></div>';
 			} 
 			else
 				$messaggioErrore = '<div id="errorMessages"><ul class="resultfail">' . $messaggioErrore . '</ul></div>';

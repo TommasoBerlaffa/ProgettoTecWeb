@@ -39,7 +39,7 @@ if(isset($_SESSION['Admin'])) {
 
   }
 
-  if(isset($_GET['unban_Code_user']))
+  else if(isset($_GET['unban_Code_user']))
   {
 	$user = filter_var($_GET['unban_Code_user'], FILTER_VALIDATE_INT);
     $result = $DBAccess->UnBanUserAdmin($user,$_SESSION['user_ID'],'Unban reason : '.$comment);
@@ -50,7 +50,7 @@ if(isset($_SESSION['Admin'])) {
 	exit();
   }
 
-  if(isset($_GET['Code_job']))
+  else if(isset($_GET['Code_job']))
   {
 	$job = filter_var($_GET['Code_job'], FILTER_VALIDATE_INT);
     $result = $DBAccess->DeleteJobAdmin($job,$_SESSION['user_ID'],'Offer delete reason : '.$comment);
@@ -61,7 +61,7 @@ if(isset($_SESSION['Admin'])) {
     exit();
   }
 
-  if(isset($_GET['Code_pastjob']))
+  else if(isset($_GET['Code_pastjob']))
   {
 	$job = filter_var($_GET['Code_pastjob'], FILTER_VALIDATE_INT);
     $result = $DBAccess->DeletePastJobAdmin($job,$_SESSION['user_ID'],'Job delete reason : '.$comment);

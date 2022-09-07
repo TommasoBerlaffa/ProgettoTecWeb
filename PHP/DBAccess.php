@@ -1327,6 +1327,29 @@ class DBAccess {
       return false;
   }
   
+  
+  /* Get Ban reason user 
+  par: none;
+  desc: return the list of users for the admin page;
+  */
+  public function getUserBan($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $query = mysqli_prepare($this->connection,
+		'SELECT Comments, users_admin_actions.Date, users.Nickname FROM users_admin_actions 
+			INNER JOIN users ON users_admin_actions.Code_admin=users.Code_user 
+		  WHERE users_admin_actions.Code_user=? 
+		  ORDER BY users_admin_actions.Date LIMIT 1;');
+	  mysqli_stmt_bind_param($query,'i',$id);
+	  mysqli_stmt_execute($query);
+	  $tmp=mysqli_stmt_get_result($query);
+      mysqli_stmt_close($query);
+	  //var_dump ($this->connection);
+      if(mysqli_num_rows($tmp) == 0)
+        return null;
+      return mysqli_fetch_assoc($tmp);
+  }
+  
 }
 
 ?>

@@ -36,7 +36,7 @@ if(isset($_SESSION['user_Username']))
     if($row)
     {   
 		$creator = $DBAccess->getUser($row['Code_user']);
-		if($creator['Status']=='Active' OR (isset($_SESSION['Admin']) && $_SESSION['Admin']==1)){
+		if($creator['Status']=='Active' OR (isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $creator['Code_user']=$_SESSION['user_ID']){
 			$review = $DBAccess->getUserReview($row['Code_user'])["AvgStar"];
 			if(array_key_exists('Status',$row))
 				$tags = $DBAccess->getTags($index,2);
