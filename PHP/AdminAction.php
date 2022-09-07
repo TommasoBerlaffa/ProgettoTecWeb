@@ -39,9 +39,9 @@ if(isset($_SESSION['Admin'])) {
 
   }
 
-  if(isset($_GET['Code_job']))
+  if(isset($_GET['Code_offer']))
   {
-    $result = $DBAccess->DeleteJobAdmin($_GET['Code_job'],$_SESSION['user_ID'],'Offer delete reason : '.$comment);
+    $result = $DBAccess->DeleteJobAdmin($_GET['Code_offer'],$_SESSION['user_ID'],'Offer delete reason : '.$comment);
     if($result)
       header("Location:AdminHistory.php");
     else
