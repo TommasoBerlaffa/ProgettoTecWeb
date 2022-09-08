@@ -383,7 +383,7 @@
     margin-top: 22%;
     margin-bottom: 25%;
     position: absolute;
-    display: none;
+    display: inherit;
     width: 25%;
     top: 0;
     border-radius: 10px 0 0 10px;
@@ -416,7 +416,6 @@
   }
 
   #hideSidebar:checked ~ #sidebar {
-    display: inherit;
     right: 0;
   }
 

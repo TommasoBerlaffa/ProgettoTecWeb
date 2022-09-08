@@ -761,7 +761,6 @@ ul#pages li {
 ul#pages li a{
   border-color: var(--black);
   color: var(--black);
-  background-color: var(--content);
   text-decoration:none;
   position:relative;
 }
