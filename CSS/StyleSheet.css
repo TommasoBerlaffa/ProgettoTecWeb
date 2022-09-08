@@ -946,6 +946,11 @@ div#content p + table {
 }
 
 /* - 7.2 User Profile Welcome Page - */
+#greetings {
+  font-size: 2em;
+  font-weight: bold;
+}
+
 .welcome {
   text-align: center;
 }
@@ -1220,6 +1225,8 @@ div#errorList {
   text-align: center;
   width: fit-content;
   max-width: 80%;
+  padding-left: 1em;
+  padding-right: 1em;
   margin: auto;
 }
 
@@ -1531,7 +1538,7 @@ div#bids {
   margin-top: 1em;
   border-radius: 15px;
   border: 2px solid var(--black);
-  box-shadow: 0 0 10px var(var(--shadow));
+  box-shadow: 0 0 10px var(--shadow);
 }
 
 div#bids p.error{

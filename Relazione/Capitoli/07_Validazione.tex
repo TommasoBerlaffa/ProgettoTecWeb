@@ -7,5 +7,9 @@ Per validare il sito sono stati utilizzati i seguenti strumenti:
 	\item \textbf{W3C CSS Validator}: è un tool online che, dato in input un file .css o del codice CSS, effettua la validazione del codice CSS, permettendo così di assicurare la validità del codice sottoposto.
 \end{itemize}
 
-La Validazione dei file CSS ci ha restituito una corretta validazione, ma con un numero molto alto di avvisi. \\
-Questi avvisi sono dati nella quasi totalità da -ms-grid che viene considerata una \textit{vendor extension}. Qeste, come spiegato in precedenza, vengono utilizzate per compatibilità con Internet Explorer.
+La validazione dei file CSS è stata un successo per tutti e tre i file forniti. \\
+La validazione dei file HTML ha riscontrato principalmente 2 problemi :
+\begin{itemize}
+  \item Bad value ... for attribute src on element img: Backslash $("\backslash")$ used as path segment delimiter., \\ questo è dovuto ai Path Delimiter utilizzati in PHP al fine di avere dei delimitatori di path che funzionino sia su Windows che su Linux;
+  \item su signUp.html, è presente un'immagine nel quarto fieldset che verrà caricata tramite javascript, fatto per cui non avrà un src al momento del loading della pagina.
+\end{itemize}

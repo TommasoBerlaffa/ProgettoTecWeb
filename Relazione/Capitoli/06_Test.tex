@@ -13,20 +13,27 @@
       \item Google Chrome, su cui è stato testato principalmente il sito;
       \item Mozilla Firefox;
       \item  Microsoft Edge;
-      \item Safari.
+      \item Safari, principalmente su dispositivi mobile.
     \end{itemize}
     Abbiamo deciso di tralasciare Internet Explorer poiché quest'ultimo risulta non essere più supportato.
 
   \subsection{Testing del contrasto dei Colori} 
-    WAVE permette, in maniera molto semplice, di controllare se nel sito sono presenti contrasti a livello cromatico che potrebbero risultare fastidiosi ad alcune categorie di utenti.
-    Inoltre, è stato anche utilizzato il \href{https://webaim.org/resources/contrastchecker/}{Contrast Checker} fornito da WebAim per assicurarci che i colori da noi scelti risultassero non fastidiosi all'utente.
+    WAVE permette, in maniera molto semplice, di controllare se nel sito sono presenti contrasti a livello cromatico che potrebbero risultare fastidiosi ad alcune categorie di utenti. \\
+    Inoltre, è stato anche utilizzato il \href{https://webaim.org/resources/contrastchecker/}{Contrast Checker} fornito da WebAim per assicurarci che i colori da noi scelti risultassero non fastidiosi all'utente. \\
+    Tramite questi tool, è stato deciso di rispettare alcune regole per i colori dei link in base al colore di background sui quali questi si trovavano :
+    \begin{itemize}
+      \item nel caso in cui il testo fosse su sfondo bianco, vengono utilizzati i colori standard per i link (blu per link non visitato, viola per link non visitato);
+      \item nel caso in cui il testo fosse su sfondo blu (come per i link sull'header), sono stati scelti i colori bianco per link non visitato e giallo per link visitato \color{Yellow} (\#F4E3AE);\color{black}
+      \item nel caso in cui il testo fosse su sfondo rosso o verde (principalmente messaggi di errore o di successo), è stato scelto il colore nero sia per visitato che per non visitato, questi link infatti servono a reindirizzare su elementi di form e vengono generalmente "persi" quando si cambia pagina;
+    \end{itemize}
+    L'unica eccezione a queste regole è stata fatta con i link nella pagina findJob per i singoli lavori, in questa pagina i link saranno in nero e nel caso in cui un utente scorra con il mouse sopra a questi lavori, diventeranno blu o viola in base ai casi.
 
   \subsection{Testing di Grandezza delle Pagine}
     Una caratteristica molto importante di un buon sito web è la leggerezza, infatti nella creazione di un sito web è buona pratica fare in modo che le pagine non risultino essere troppo pesanti. Questo potrebbe rendere il rendering delle pagine lento e creare una sensazione negativa nell'utente.\\
     Per questo motivo, viene consigliato di fare in modo che il preso delle pagine sia il minore possibile, generalmente mantenendolo tra i 2 ed 1 Megabyte. 
 
   \subsection{Testing di Altezza delle Pagine}
-    Vengono disposte pratiche per fare in modo che non vi siano pagine "troppo alte" e, in caso questo succeda comunque, vengono predisposti meccanismi per tornare indietro. \\
+    Vengono disposte pratiche per fare in modo che non vi siano pagine "troppo alte" e, in caso questo succeda comunque, vengono predisposti meccanismi per far sì che l'utente sia in grado di navigare facilmente nella pagina. \\
     Esempi di questi meccanismi possono essere :
     \begin{enumerate}
       \item Nella pagina \textit{Findjob}, i lavori posso idealmente essere migliaia ma ne verranno solamente visualizzati un massimo di 10 per volta. Questo avviene grazie alla divisione del contenuto in sottopagine;
