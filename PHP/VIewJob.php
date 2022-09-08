@@ -76,7 +76,7 @@ if(isset($_SESSION['user_Username']))
 		
 				$winner = '<span>Winner of this offer :</span><a href="ViewUser.php?Code_User='.trim($row["Code_winner"]).'">'.trim($wInfos["Nickname"]).'</a>';
 				$winnerInfos = '<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . trim($wInfos['Picture']) .
-				'" alt="Profile Picture of the Winner of this offer" id="winnerPic"><p id="winnerInfos">
+				'" alt="Profile Picture of '. trim($wInfos["Nickname"]).'" id="winnerPic"><p id="winnerInfos">
 				Name & Surname : '. trim($wInfos["Name"]).' '.trim($wInfos["Surname"]).'<br>
 				Email : '. trim($wInfos["Email"]).'<br>
 				Phone Number : '.trim($wInfos["Phone"]).'</p>';
