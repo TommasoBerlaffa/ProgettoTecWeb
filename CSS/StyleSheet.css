@@ -475,6 +475,10 @@ form#createJob fieldset div#selectedTagsList {
   grid-row: 11 / span 2;
 }
 
+div#selectedTagsList {
+  padding-bottom: 0.5em;
+}
+
 div#tagsList p,
 div#selectedTagsList p {
   padding-left: 0.5em;
@@ -1777,16 +1781,17 @@ table.AdminTable thead {
   color: var(--linksOnBlue)
 }
 
-table.AdminTable th,
-table.AdminTable td {
+table.AdminTable tbody th,
+table.AdminTable tbody td {
   text-align: start;
   padding-bottom: 0.3em;
   padding-top: 0.3em;
+  padding-left: 0.4em;
   border: 1px solid;
 }
 
 table.AdminTable .doubleCol {
-  width: 50%;
+  width: fit-content;
 }
 
 input#search {
