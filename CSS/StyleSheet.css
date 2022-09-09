@@ -499,7 +499,7 @@ form#createJob fieldset button#Create {
 }
 
 /* - 5.4 Create Job Form - */
-h1.title404{
+h1#title404, h1#error500{
   display:block;
   text-align: center;
   font-family: "Trebuchet MS";
@@ -521,7 +521,7 @@ div#choose{
   text-align: center;
 }
 
-div#choose p{
+div#choose p, h1#error500 + p{
   text-align: center;
   font-size: 1.15em;
   border: 0px;
@@ -538,6 +538,14 @@ button.btn404{
   width: 22.5%;
   font-size: 1em;
   vertical-align: bottom;
+}
+
+
+#imgError500 {
+  padding: 2em;
+  display: block;
+  width: 50%;
+  margin: auto;
 }
 
 /* - 6.0 Filter for Page Find Job - */
