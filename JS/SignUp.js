@@ -139,7 +139,7 @@ function Form2_forward() {
 	}
     else{
 		if(! document.getElementById('Birthday').value)
-			document.getElementById('Missing2').innerText='Please fill Birthday field with a nvalid date';
+			document.getElementById('Missing2').innerText='Please fill Birthday field with a valid date';
 		else
 			document.getElementById('Missing2').innerText='Please fill up all required fields';
     }

@@ -601,7 +601,11 @@ class DBAccess {
 			Tipology = ?
 	';
   $payString='';
-  if($pay==1)
+  if($pay==-1)
+    $payString='	AND
+      Payment = -1
+      ';
+  else if($pay==1)
     $payString='	AND
       Payment != 0
       ';

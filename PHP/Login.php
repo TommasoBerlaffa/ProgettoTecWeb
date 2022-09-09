@@ -64,10 +64,10 @@
 						exit();
 					} 
 					else
-						$messaggioErrore =  '<div id="errorList"<p class="resultfail">This user is Banned.</p></div>';
+						$messaggioErrore =  '<div id="errorList"><p class="resultfail">This user is Banned.</p></div>';
 				} 
 				else
-					$messaggioErrore =  '<div id="errorList"<p class="resultfail">The username and password inserted are not correct. Please <a href="#Username">try inserting your username and password again</a>.</p></div>';
+					$messaggioErrore =  '<div id="errorList"><p class="resultfail">The username and password inserted are not correct. Please <a href="#Username">try inserting your username and password again</a>.</p></div>';
 			} 
 			else
 				$messaggioErrore = '<div id="errorMessages"><ul class="resultfail">' . $messaggioErrore . '</ul></div>';

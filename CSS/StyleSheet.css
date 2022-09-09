@@ -103,6 +103,11 @@ a.goTop {
   color: var(--black);
 }
 
+.resulfail li, .resultsucc li{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
 p {
   line-height: 1.5em;
 }
@@ -237,7 +242,8 @@ legend {
 textarea {
   border-radius: 5px;
   resize:vertical;
-  width:70%;  
+  width:70%;
+  min-height: 4em;  
 }
 
 label {
@@ -307,6 +313,9 @@ div#errorMessages {
 
 div#error {
   text-align: center;
+  width: fit-content;
+  margin: auto;
+  padding-top: 1em;
 }
 
 /* - 5.2 Sign Up Input Form - */ 
@@ -325,6 +334,10 @@ form#SignUp input{
 img#newpfp {
   width: 4em;
   height: 4em;
+}
+
+#labelCurr {
+  margin-top: 1em;
 }
   
 /* - 5.3 Change Password Form - */

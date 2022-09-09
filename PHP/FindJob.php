@@ -71,6 +71,8 @@ if (session_status() === PHP_SESSION_NONE) {
       $Pay=1;
     else if( !isset($_POST["Pay1"]) && isset($_POST["Pay2"]))
       $Pay=2;
+    else if ( !isset($_POST["Pay1"]) && !isset($_POST["Pay2"]))
+      $Pay=-1;
     else 
       $Pay=0;
     if(isset($_POST["PayMin"]))

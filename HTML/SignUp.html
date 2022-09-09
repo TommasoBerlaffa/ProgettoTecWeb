@@ -137,12 +137,13 @@
         <p> Please fill this form to create a new account 3/3</p>
         <p> Only the field with a * are required</p>
 		<p> One last step! </p>
-
+    <p>Here you can select your tags. Select up to 20 tags by searching them in the <a href="#searchTag">searching box</a> and add the tags that represents your skills or the skills you are looking for when searching for a worker!</p>
+    <p>All the available tags will be shown after you search for them in the <a href="#tagsList">Available Tags Area</a>!</p>
         <!--<tags/>-->
 		    <TagModule/>
-		
+        <p class="hiddenHelp"><a href="#searchTag">add more tags to your search</a></p>
         <!-- Curriculum pattern="https://*"  -->
-        <label for="Curr">Link To a Curriculum : </label>
+        <label id="labelCurr" for="Curr">Link To a Curriculum : </label>
         <input type="url" maxlength="128" value="<Curriculum />" id="Curr" name="Curr"/>
         <!-- Description -->
         <label for="Desc">Describe Yourself *:</label>

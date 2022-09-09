@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	}
 require_once "..". DIRECTORY_SEPARATOR ."DBAccess.php";
 
-if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/', $password)) {
+if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$.:,;-_%]{8,50}$/', $password)) {
     echo 'the password does not meet the requirements!';
 }
 	
@@ -12,14 +12,14 @@ if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/', $password)) {
 	{
 		if(isset($_POST['ChangePsw']))
 		{
-			$errorList ='';
+			$errorList ='<ul class="resultfail">';
 			$password = filter_var($_POST["OldPsw"], FILTER_SANITIZE_STRING);
 			$Newpassword = filter_var($_POST["Password"], FILTER_SANITIZE_STRING);
-			if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/', $Newpassword))
+			if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$.:,;-_%]{8,50}$/', $Newpassword))
 				$errorList.= '<li id="pw_not_valid">The password does not meet the requirements!</li>';
 			$NewpasswordCheck = filter_var($_POST["Repeat-Password"], FILTER_SANITIZE_STRING);
 			
-			if($errorList !== ''){
+			if($errorList == '<ul class="resultfail">'){
 				if($password !== $Newpassword) 
 				{  
 					if($Newpassword === $NewpasswordCheck)
@@ -32,7 +32,7 @@ if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/', $password)) {
 						}
 						if($DBAccess->login($_SESSION['user_Username'], $password)){
 							if($DBAccess->changePassword($_SESSION['user_ID'],$Newpassword))
-								$errorList.='<p class="result">Succesfully changed password</p>';
+								$errorList ='<ul class="resultsucc"><li>Succesfully changed password</li>';
 						}
 						else //Errore password vecchia sbagliata
 							$errorList.='<li id="old_pw">Incorrect old password. Please try to <a href="#OldPsw">enter your old password again</a>.</li>';
@@ -45,8 +45,8 @@ if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/', $password)) {
 					$errorList.='<li id="old_new_pw">Your old and new password can\'t be the same. Please try to <a href="#OldPsw">enter your old password</a>.</li>';
 			}
 			
-			if($errorList!='')
-				$_SESSION['error'] = $errorList;
+			if($errorList!='<ul class="resultfail">')
+				$_SESSION['error'] = $errorList . '</ul>';
 		}
 		  header("Location:..". DIRECTORY_SEPARATOR ."Password.php");
 	}
