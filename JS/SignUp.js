@@ -132,16 +132,49 @@ function Form2() {
 }
 function Form2_forward() {
 	var date=document.getElementById('Birthday').value;
-	console.log(date);
-	if(checkRequiredInputs("Form_2")){
+  var Firstname=document.getElementById('Firstname').value;
+  var Lastname=document.getElementById('Lastname').value;
+  var Country=document.getElementById('Country').value;
+  var City=document.getElementById('City').value;
+  var Address=document.getElementById('Address').value;
+  var Tel=document.getElementById('Tel').value;
+  
+	console.log(date);	if(checkRequiredInputs("Form_2")){
 		document.getElementById('Missing2').innerText='';
 		Form3();
 	}
     else{
-		if(! document.getElementById('Birthday').value)
-			document.getElementById('Missing2').innerText='Please fill Birthday field with a valid date';
-		else
-			document.getElementById('Missing2').innerText='Please fill up all required fields';
+      
+      if(Firstname!='' && Firstname.length >=64)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Firstname">name</a> shorter than 64 characters';
+      else if (Firstname == '')
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Firstname">name</a>';
+      else if(Lastname!='' && Lastname.length >=64)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Lastname">surname</a> shorter than 64 characters';
+      else if (Lastname == '')
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Lastname">surname</a>';
+      else if(document.getElementById('Birthday').value =='')
+        document.getElementById('Missing2').innerHTML='Please fill Birthday field with a valid date';
+      else if(Country.length >=56)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Country">country</a> shorter than 56 characters';
+      else if(Country=='')
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Country">country</a>';
+      else if(Country.length <4)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Country">country</a> longer than 3 characters';
+
+      else if(City!='' && City.length >=45)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#City">city</a> shorter than 45 characters';
+      else if (City == '')
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#City">city</a>';
+      else if(Address.length > 75)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Address">address</a> shorter than 75 characters';
+      else if(Tel.length >=15)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Tel">phone number</a> shorter than 15 characters';
+      else if(Tel.length <7)
+        document.getElementById('Missing2').innerHTML='Please insert a <a href="#Tel">phone number</a> longer than 7 characters';
+      else 
+          document.getElementById('Missing2').innerHTML='Please fill up all required fields';
+      
     }
 }
 
@@ -152,9 +185,20 @@ function Form3() {
 	
 }
 function Form3_forward() {
+  var desc=document.getElementById('Desc').value;
 	if(checkRequiredInputs("Form_3")){
-		document.getElementById('Missing3').innerText='';
-		Form4();
+
+    if(desc != '' && desc.length <4096 && desc.length >10){
+      document.getElementById('Missing3').innerText='';
+      Form4();
+    }
+    else
+      if(desc == '')
+        document.getElementById('Missing3').innerHTML='Please insert a <a href="#Desc">description</a>';
+      else if(desc.length>4096)
+        document.getElementById('Missing3').innerHTML='Please insert a <a href="#Desc">description</a> shorter than 4096 characters';
+      else if(desc.length<10)
+        document.getElementById('Missing3').innerHTML='Please insert a <a href="#Desc">description</a> longer than 10 characters ';
 	}
   else
 	  document.getElementById('Missing3').innerText='Please fill up all required fields';

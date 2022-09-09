@@ -256,13 +256,13 @@ if (session_status() === PHP_SESSION_NONE) {
 		if($messaggioErrore==''){
             $Success=$DBAccess->register_new_user($Password, $Firstname, $Lastname, $Username, $Birthday, $Email, $Country, $City, $Address, $Phone, $Picture, $Curriculum, $Description, $_SESSION['TagList']);
 			if(!$Success)
-				$messaggioErrore .= '<div id="errorMessages"><ul>Something went wrong while creating your new account.</ul></div>';
+				$messaggioErrore .= '<ul class="resultfail">Something went wrong while creating your new account.</ul>';
 			else
 				header('Location:Login.php');
 			
 		}
 		else
-			$messaggioErrore = '<div id="errorMessages"><ul>' . $messaggioErrore . '</ul></div>';
+			$messaggioErrore = '<ul class="resultfail">' . $messaggioErrore . '</ul>';
 		$DBAccess->closeDBConnection();
 		
 	}

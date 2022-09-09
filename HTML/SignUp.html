@@ -62,9 +62,10 @@
   <!-- Main Content -->
   <main id="main">
     <p class="hiddenHelp"><a href="#footer">Skip the content and go to footer</a></p>
+    <messaggiForm />
     <form id="SignUp" action="../PHP/SignUp.php" onsubmit="checkRequiredInputs('SignUp')" method="post" enctype="multipart/form-data">
 
-			<messaggiForm />
+
       <!-- attributo for serve per indicare l'input quando clicco sulla label -->
       <fieldset id="Form_1">
 
@@ -147,7 +148,7 @@
         <input type="url" maxlength="128" value="<Curriculum />" id="Curr" name="Curr"/>
         <!-- Description -->
         <label for="Desc">Describe Yourself *:</label>
-        <textarea id="Desc" name="Desc" minlength="10" maxlength="4096" ><Description /></textarea>
+        <textarea id="Desc" name="Desc" minlength="10" maxlength="4096" required><Description /></textarea>
 
         <input type="button" id = "Back2" value="Go Back"/>
 		<label id="Missing3" for="Next3" class="error"></label>
