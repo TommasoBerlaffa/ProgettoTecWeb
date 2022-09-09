@@ -1354,6 +1354,27 @@ class DBAccess {
       return mysqli_fetch_assoc($tmp);
   }
   
+  
+  /* Get delete reason job 
+  par: none;
+  desc: return the list of users for the admin page;
+  */
+  public function getJobDelete($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $query = mysqli_prepare($this->connection,
+		'SELECT Comments, past_admin_actions.Date, users.Nickname FROM past_admin_actions 
+			INNER JOIN users ON past_admin_actions.Code_admin=users.Code_user 
+		  WHERE past_admin_actions.Code_job=? LIMIT 1;');
+	  mysqli_stmt_bind_param($query,'i',$id);
+	  mysqli_stmt_execute($query);
+	  $tmp=mysqli_stmt_get_result($query);
+      mysqli_stmt_close($query);
+      if(mysqli_num_rows($tmp) == 0)
+        return null;
+      return mysqli_fetch_assoc($tmp);
+  }
+  
 }
 
 ?>

@@ -218,6 +218,13 @@ if(isset($_SESSION['user_Username']))
 				$HTML = str_replace('<feedback/>','',$HTML);
 			}
 			$HTML = str_replace('<codejob/>',$index,$HTML);
+			
+			
+			if(($status=='Terminated' AND $row['Status']==='Deleted') AND ((isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $creator['Code_user']==$_SESSION['user_ID'])){
+				$res=$DBAccess->getJobDelete($index);
+				if($res)
+					$HTML = str_replace('<deletereason/>','<p class="resultfail"> This job has been deleted by: '.$res['Nickname'].' on: '.$res['Date'].'   '.$res['Comments'].'</p>',$HTML);
+			}
 		
 		}
 		else{

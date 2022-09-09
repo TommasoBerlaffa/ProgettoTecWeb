@@ -69,7 +69,7 @@ if(isset($_SESSION['user_Username']))
 
 			if($row['Status']==='Banned' AND ((isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $index==$_SESSION['user_ID'])){
 				$res=$DBAccess->getUserBan($index);
-				$HTML = str_replace('<banreason/>','<p class="resultfail"> You are banned by: '.$res['Nickname'].' on: '.$res['Date'].'   '.$res['Comments'].'</p>',$HTML);
+				$HTML = str_replace('<banreason/>','<p class="resultfail"> This user is banned by: '.$res['Nickname'].' on: '.$res['Date'].'   '.$res['Comments'].'</p>',$HTML);
 			}
 		
 		}
