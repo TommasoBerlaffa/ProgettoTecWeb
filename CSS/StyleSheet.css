@@ -1552,6 +1552,10 @@ input.stars {
   margin-top: 1em;
 }
 
+#winnerwrapper span {
+  font-weight: bold;
+}
+
 h2#winner {
   display: block;
   text-align: center;
@@ -1572,6 +1576,11 @@ h2#winner {
 
 p#winnerInfos {
   display: inline-block;
+}
+
+p#winnerBid {
+  padding-left: 0.8em;
+  padding-right: 0.8em;
 }
 
 /* - 8.1 View Offer - */
@@ -1595,7 +1604,7 @@ div.bid {
 }
 
 div.bid span {
-  font-style: italic;
+  font-weight: bold;
   padding-right: 0.3em;
 }
 

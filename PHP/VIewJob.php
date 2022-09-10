@@ -77,10 +77,10 @@ if(isset($_SESSION['user_Username']))
 				$winner = '<span>Winner of this offer :</span><a href="ViewUser.php?Code_User='.trim($row["Code_winner"]).'">'.trim($wInfos["Nickname"]).'</a>';
 				$winnerInfos = '<img src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR . trim($wInfos['Picture']) .
 				'" alt="Profile Picture of '. trim($wInfos["Nickname"]).'" id="winnerPic"><p id="winnerInfos">
-				Name & Surname : '. trim($wInfos["Name"]).' '.trim($wInfos["Surname"]).'<br>
-				Email : '. trim($wInfos["Email"]).'<br>
-				Phone Number : '.trim($wInfos["Phone"]).'</p>
-				<p>User price: $'.trim($wbid["User_price"]).'<br>Bid description: '.trim($wbid["Bid_selfdescription"]).'</p>';
+				<span>Name & Surname :</span> '. trim($wInfos["Name"]).' '.trim($wInfos["Surname"]).'<br>
+				<span>Email :</span> '. trim($wInfos["Email"]).'<br>
+				<span>Phone Number :</span> '.trim($wInfos["Phone"]).'</p>
+				<p id="winnerBid"><span>User price:</span> $'.trim($wbid["User_price"]).'<br><span>Bid description: </span>'.trim($wbid["Bid_selfdescription"]).'</p>';
 			}
 	
 			$HTML = str_replace('{{ Winner }}',$winner,$HTML);
@@ -134,8 +134,8 @@ if(isset($_SESSION['user_Username']))
 							<label><input type="radio" name="winner" value="'.$B["Code"] .'" required>
 							<img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
 							<a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></label>
-							<p><span>User Price</span> : '.trim($B["Price"]).'</p>
-							<p><span>Description</span> : '.trim($B["Description"]).'</p></div>';
+							<p><span>User Price : </span> '.trim($B["Price"]).'</p>
+							<p><span>Description : </span> '.trim($B["Description"]).'</p></div>';
 						}
 						$HTMLChooseWinner = str_replace('<offerers/>',$offerers,$HTMLChooseWinner);
 						
@@ -151,9 +151,9 @@ if(isset($_SESSION['user_Username']))
 							$HTMLBids.= '<div class="bid">
 							<img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
 									<div class="bidData"><p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
-									<p><span>User Price</span> : '.trim($B["Price"]).'</p>
-									<p><span>Description</span> : '.trim($B["Description"]).'</p>
-									<p><span>Average Review Rating</span> : '.($review==0? 'No review average available' : round($review['AvgStar'],1) ).'</p></div>';
+									<p><span>User Price : </span> '.trim($B["Price"]).'</p>
+									<p><span>Description : </span> '.trim($B["Description"]).'</p>
+									<p><span>Average Review Rating : </span>'.($review==0? 'No review average available' : round($review['AvgStar'],1) ).'</p></div>';
 							//se questa offerta è dell'utente corrente può sceglere di cancellarla
 							if($B["Code"]==$_SESSION['user_ID']){
 								$self=false;
