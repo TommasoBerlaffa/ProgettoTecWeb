@@ -60,11 +60,11 @@ if (session_status() === PHP_SESSION_NONE) {
     if(isset($_GET['err'])) {
       $err='';
       if($_GET['err'] == 'tags')
-        $err = '<div id="errorList">Please, insert some <a href="#searchTag">new tags</a> or remove old tags to change your tag list.</div>';   
+        $err = '<div id="errorList" class="resultfail">Please, insert some <a href="#searchTag">new tags</a> or remove old tags to change your tag list.</div>';   
       else if($_GET['err'] == 'err')
-        $err = '<div id="errorList">There was an error with the insertion of the tags in the database, please try again later.</div>';   
+        $err = '<div id="errorList" class="resultfail">There was an error with the insertion of the tags in the database, please try again later.</div>';   
       else if($_GET['err'] == 'succ')
-        $err = '<div id="errorList">The operation was successful.</div>';   
+        $err = '<div id="errorList" class="resultsucc">The operation was successful and your tags have been changed.</div>';   
   
       $HTML = str_replace('<div id="emptyErrorList"></div>',$err,$HTML);  
     }
