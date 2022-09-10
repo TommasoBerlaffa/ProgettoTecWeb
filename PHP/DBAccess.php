@@ -309,10 +309,7 @@ class DBAccess {
       mysqli_stmt_close($queryCall);
       if(mysqli_num_rows($queryResult) == 0)
         return null;
-      $result=array();
-      while($row=mysqli_fetch_assoc($queryResult))
-        array_push($result, $row);
-      return $result;
+      return mysqli_fetch_assoc($queryResult);
     } else
       return null;
   }

@@ -79,7 +79,8 @@ if(isset($_SESSION['user_Username']))
 				'" alt="Profile Picture of '. trim($wInfos["Nickname"]).'" id="winnerPic"><p id="winnerInfos">
 				Name & Surname : '. trim($wInfos["Name"]).' '.trim($wInfos["Surname"]).'<br>
 				Email : '. trim($wInfos["Email"]).'<br>
-				Phone Number : '.trim($wInfos["Phone"]).'</p>';
+				Phone Number : '.trim($wInfos["Phone"]).'</p>
+				<p>User price: $'.trim($wbid["User_price"]).'<br>Bid description: '.trim($wbid["Bid_selfdescription"]).'</p>';
 			}
 	
 			$HTML = str_replace('{{ Winner }}',$winner,$HTML);
@@ -220,7 +221,7 @@ if(isset($_SESSION['user_Username']))
 			$HTML = str_replace('<codejob/>',$index,$HTML);
 			
 			
-			if(($status=='Terminated' AND $row['Status']==='Deleted') AND ((isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $creator['Code_user']==$_SESSION['user_ID'])){
+			if(($status=='Terminated' AND (isset($row['Status']) && $row['Status']==='Deleted')) AND ((isset($_SESSION['Admin']) && $_SESSION['Admin']==1) OR $creator['Code_user']==$_SESSION['user_ID'])){
 				$res=$DBAccess->getJobDelete($index);
 				if($res)
 					$HTML = str_replace('<deletereason/>','<p class="resultfail"> This job has been deleted by: '.$res['Nickname'].' on: '.$res['Date'].'   '.$res['Comments'].'</p>',$HTML);
