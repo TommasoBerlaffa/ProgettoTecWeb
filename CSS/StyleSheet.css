@@ -94,6 +94,11 @@ a.goTop {
   background-color: var(--correctBackground);
 }
 
+p.resultsucc, p.resultfail {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
 .resultfail{
   background-color: var(--errorBackground)
 }
@@ -103,7 +108,7 @@ a.goTop {
   color: var(--black);
 }
 
-.resulfail li, .resultsucc li{
+.resultfail li, .resultsucc li{
   padding-left: 1em;
   padding-right: 1em;
 }
