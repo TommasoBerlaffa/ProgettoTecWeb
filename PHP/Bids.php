@@ -65,7 +65,7 @@ if (session_status() === PHP_SESSION_NONE) {
       $HTMLTableOldBid = str_replace('{{ caption }}','This table displays all your past bids.
       You can click on a job title to display more information!',$HTMLTableOldBid);
       foreach($OldBid as $row ) {
-        trim($row["Payment"]) > 0 ? $res = 'Salary' : $res = 'Hourly';
+        trim($row["Payment"]) > 0 ? $res = 'Once' : $res = 'Hourly';
         $TableOldBid .= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'.trim($row["Status"]).'</td>

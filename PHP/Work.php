@@ -73,7 +73,7 @@
       $HTMLtablePastJob= str_replace('{{ caption }}','This table displays all the job offer you created and are already terminated.
       You can click on the job title to show more informations.',$HTMLtablePastJob);
       foreach ($PastJob as $row) {
-        trim($row["Payment"]) == 0 ? $res = 'Salary' : $res = 'Hourly';
+        trim($row["Payment"]) == 0 ? $res = 'Once' : $res = 'Hourly';
         $tablePastJob.= '<tr>
         <td><a href="..'. DIRECTORY_SEPARATOR .'PHP'. DIRECTORY_SEPARATOR .'ViewJob.php?Code_job='.$row["Code_job"].'">'.$row["Title"].'</a></td>
         <td>'.trim($row["Status"]).'</td>
