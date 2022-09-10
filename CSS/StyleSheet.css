@@ -797,6 +797,16 @@ ul#pages li a::after{
   right:0;
 }
 
+ul#pages li.currentPage,
+ul#pages li.notClickable{
+  background-color: var(--content);
+}
+
+ul#pages li.succPage,
+ul#pages li.prevPage{
+  background-color: var(--linksOnBlue);
+}
+
 /* - 7.0 Sidebar for User Profile - */
 main#userProfile {  
   width: 75%;

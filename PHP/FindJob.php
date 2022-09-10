@@ -194,26 +194,26 @@ if (session_status() === PHP_SESSION_NONE) {
 		$get=$urlType . $urlMin . $urlDate . $urlPay;
 		
 		if($page>1)
-			$pageHTML ='<li title="first page" ><a href="FindJob.php?Page=1' . $get .'">|&lt;</a></li>
-		<li title="previous page" ><a href="FindJob.php?Page='. ($page - 1) . $get .'">&lt;</a></li>';
+			$pageHTML ='<li class="prevPage" title="first page" ><a href="FindJob.php?Page=1' . $get .'">|&lt;</a></li>
+		<li  class="prevPage" title="previous page" ><a href="FindJob.php?Page='. ($page - 1) . $get .'">&lt;</a></li>';
 		else
-			$pageHTML ='<li title="first page">|&lt;</li>
-		<li title="previous page">&lt;</li>';
+			$pageHTML ='<li class="notClickable" title="first page">|&lt;</li>
+		<li class="notClickable" title="previous page">&lt;</li>';
 		
-		if($page-3>0) $pageHTML .='<li title="page '.($page - 3).'"><a href="FindJob.php?Page='. ($page - 3) . $get .'">'. ($page - 3) .'</a></li>';
-		if($page-2>0) $pageHTML .='<li title="page '.($page - 2).'"><a href="FindJob.php?Page='. ($page - 2) . $get .'">'. ($page - 2) .'</a></li>';
-		if($page-1>0) $pageHTML .='<li title="page '.($page - 1).'"><a href="FindJob.php?Page='. ($page - 1) . $get .'">'. ($page - 1) .'</a></li>';
-		$pageHTML .='<li title="current page">'.$page.'</li>';
-		if($NumberPages-$page>0) $pageHTML .='<li title="page '.($page + 1).'"><a href="FindJob.php?Page='. ($page + 1) . $get .'">'. ($page + 1) .'</a></li>';
-		if($NumberPages-$page>1) $pageHTML .='<li title="page '.($page + 2).'"><a href="FindJob.php?Page='. ($page + 2) . $get .'">'. ($page + 2) .'</a></li>';
-		if($NumberPages-$page>2) $pageHTML .='<li title="page '.($page + 3).'"><a href="FindJob.php?Page='. ($page + 3) . $get .'">'. ($page + 3) .'</a></li>';
+		if($page-3>0) $pageHTML .='<li class="prevPage" title="page '.($page - 3).'"><a href="FindJob.php?Page='. ($page - 3) . $get .'">'. ($page - 3) .'</a></li>';
+		if($page-2>0) $pageHTML .='<li class="prevPage" title="page '.($page - 2).'"><a href="FindJob.php?Page='. ($page - 2) . $get .'">'. ($page - 2) .'</a></li>';
+		if($page-1>0) $pageHTML .='<li class="prevPage" title="page '.($page - 1).'"><a href="FindJob.php?Page='. ($page - 1) . $get .'">'. ($page - 1) .'</a></li>';
+		$pageHTML .='<li class="currentPage" title="current page">'.$page.'</li>';
+		if($NumberPages-$page>0) $pageHTML .='<li class="succPage" title="page '.($page + 1).'"><a href="FindJob.php?Page='. ($page + 1) . $get .'">'. ($page + 1) .'</a></li>';
+		if($NumberPages-$page>1) $pageHTML .='<li class="succPage" title="page '.($page + 2).'"><a href="FindJob.php?Page='. ($page + 2) . $get .'">'. ($page + 2) .'</a></li>';
+		if($NumberPages-$page>2) $pageHTML .='<li class="succPage" title="page '.($page + 3).'"><a href="FindJob.php?Page='. ($page + 3) . $get .'">'. ($page + 3) .'</a></li>';
 		
 		if($page<$NumberPages)
-			$pageHTML .='<li title="next page"><a href="FindJob.php?Page='. ($page + 1) . $get .'">&gt;</a></li>
-		<li title="last page"><a href="FindJob.php?Page=' . $NumberPages .$get .'">&gt;|</a></li>';
+			$pageHTML .='<li  class="succPage" title="next page"><a href="FindJob.php?Page='. ($page + 1) . $get .'">&gt;</a></li>
+		<li class="succPage" title="last page"><a href="FindJob.php?Page=' . $NumberPages .$get .'">&gt;|</a></li>';
 		else
-			$pageHTML .='<li title="next page">&gt;</li>
-		<li title="last page">&gt;|</li>';
+			$pageHTML .='<li class="notClickable" title="next page">&gt;</li>
+		<li class="notClickable" title="last page">&gt;|</li>';
 	
 	}
 	
