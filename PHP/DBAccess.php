@@ -682,8 +682,8 @@ class DBAccess {
 	}
 	$query.=$limit;
 	$type.='ii';
-	$param[$i]=$page*5;
-	$param[$i+1]=5;
+	$param[$i]=$page*10;
+	$param[$i+1]=10;
 	$queryCall=mysqli_prepare($this->connection,$query);
 	if(!$queryCall)
 		die('prepare() failed: ' . htmlspecialchars($this->connection->error));

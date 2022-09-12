@@ -80,7 +80,8 @@ if(isset($_SESSION['user_Username']))
 				<span>Name & Surname :</span> '. trim($wInfos["Name"]).' '.trim($wInfos["Surname"]).'<br>
 				<span>Email :</span> '. trim($wInfos["Email"]).'<br>
 				<span>Phone Number :</span> '.trim($wInfos["Phone"]).'</p>
-				<p id="winnerBid"><span>User price:</span> $'.trim($wbid["User_price"]).'<br><span>Bid description: </span>'.trim($wbid["Bid_selfdescription"]).'</p>';
+				<p id="winnerBid"><span>User price:</span> $'.(($wbid!=null)? trim($wbid["User_price"]):' - ').'<br><span>Bid description: </span>'.(($wbid!=null)? trim($wbid["Bid_selfdescription"]):' - ').'</p>';
+				
 			}
 	
 			$HTML = str_replace('{{ Winner }}',$winner,$HTML);
@@ -134,7 +135,7 @@ if(isset($_SESSION['user_Username']))
 							<label><input type="radio" name="winner" value="'.$B["Code"] .'" required>
 							<img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
 							<a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></label>
-							<p><span>User Price : </span> '.trim($B["Price"]).'</p>
+							<p><span>User Price : </span> $ '.trim($B["Price"]).'</p>
 							<p><span>Description : </span> '.trim($B["Description"]).'</p></div>';
 						}
 						$HTMLChooseWinner = str_replace('<offerers/>',$offerers,$HTMLChooseWinner);
@@ -151,7 +152,7 @@ if(isset($_SESSION['user_Username']))
 							$HTMLBids.= '<div class="bid">
 							<img class="icons" src="..'. DIRECTORY_SEPARATOR .'IMG'. DIRECTORY_SEPARATOR .'UsrPrfl'. DIRECTORY_SEPARATOR .$B["PFP"].'" alt="profile picture of user '.$B["Nickname"].'">
 									<div class="bidData"><p><a href="ViewUser.php?Code_User='.$B["Code"].'">'.$B["Nickname"].'</a></p>
-									<p><span>User Price : </span> '.trim($B["Price"]).'</p>
+									<p><span>User Price : </span> $ '.trim($B["Price"]).'</p>
 									<p><span>Description : </span> '.trim($B["Description"]).'</p>
 									<p><span>Average Review Rating : </span>'.($review==0? 'No review average available' : round($review['AvgStar'],1) ).'</p></div>';
 							//se questa offerta è dell'utente corrente può sceglere di cancellarla
@@ -175,6 +176,17 @@ if(isset($_SESSION['user_Username']))
 				{
 					$HTMLFormBid=file_get_contents('..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'AddBid.html');
 					$HTML= str_replace('<addBid/>',$HTMLFormBid,$HTML);
+					$left=DateTime::createFromFormat('Y-m-d H:i:s', $row["Expiring"])->diff(new DateTime());
+					$leftString='';
+					if($left->m)
+						$leftString.=$left->m.' Months<br>'.$left->d.' Days';
+					else if($left->d>2)
+						$leftString.=$left->d.' Days';
+					else if($left->d>0 and $left->d<3)
+						$leftString.=$left->d.' Days<br>'.$left->h.' Hours';
+					else
+						$leftString.=$left->i.' Minutes';
+					$HTML= str_replace('<time/>',$leftString,$HTML);
 				}
 				else
 					$HTML= str_replace('<addBid/>','',$HTML);
@@ -244,7 +256,7 @@ if(isset($_SESSION['user_Username']))
 				$urlContent = '..'. DIRECTORY_SEPARATOR .'HTML'. DIRECTORY_SEPARATOR .'Elements'. DIRECTORY_SEPARATOR .'FormAdminJob.html';
 				$adminActions .= file_get_contents($urlContent);  
 				$adminActions = str_replace('<code/>',$index, $adminActions);
-				$adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'offer'), $adminActions);
+				$adminActions = str_replace('<job/>',($PJob ? 'pastjob' : 'job'), $adminActions);
 				$adminActions = str_replace('{{job}}',($PJob ? 'job' : 'offer'),$adminActions);
 			}
 		}

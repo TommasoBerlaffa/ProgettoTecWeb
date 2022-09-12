@@ -121,7 +121,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	$NumberPages = $DBAccess->searchJob(true,$type,$min,$date,$page,$Pay);
 	$result = $DBAccess->searchJob(false,$type,$min,$date,$page,$Pay);
 	
-	$NumberPages=ceil($NumberPages / 5);
+	$NumberPages=ceil($NumberPages / 10);
 	
 	if($result){
 		foreach($result as $row)
