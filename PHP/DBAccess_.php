@@ -39,9 +39,9 @@ class DBAccess {
 	//completare
 	//private const HOST_DB='localhost';
 	private const HOST_DB='127.0.0.1';
-	private const USERNAME='root';
-	private const PASSWORD='';
-	private const DBNAME='job_finder';
+	private const USERNAME='mspadott';
+	private const PASSWORD='si1ieTiyexeekoo3';
+	private const DBNAME='mspadott';
 
 	private $connection;
 
@@ -66,22 +66,39 @@ class DBAccess {
   par: int userID, string titolo, string descrizione, eunum tipo di lavoro, bool tipo di pagamento, int pagamento minimo, int pagamento massimo, int tempo di scadenza;
   desc: crea una nuova inserzione di lavoro. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring) {
+  public function createJob($id, $title, $description, $tipology, $payment, $pmin, $pmax, $expiring, $tags) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
         die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring)){
-      $queryInserimento = 'INSERT INTO current_jobs(Code_user, Date ,Title, Description, Tipology, Payment, P_min, P_max, Expiring)
-                VALUES (?,?,?,?,?,?,?,?,?)';
-      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      if(!isset($pmax))
-        $pmax='';
-      mysqli_stmt_bind_param($queryCall,'issssbiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, $expiring);
-      mysqli_stmt_execute($queryCall);
-      mysqli_stmt_close($queryCall);
-      $tmp=mysqli_affected_rows($this->connection);
-      if($tmp)
-        return true;
-      return false;
+    if(isset($id) and isset($title) and isset($description) and isset($tipology) and isset($payment) and isset($pmin) and isset($expiring) and isset($tags)){
+		$queryInserimento = 'INSERT INTO current_jobs(Code_user, Date ,Title, Description, Tipology, Payment, P_min, P_max, Expiring)
+					VALUES (?,?,?,?,?,?,?,?,?)';
+		$queryCall=mysqli_prepare($this->connection, $queryInserimento);
+		if(!isset($pmax))
+			$pmax='';
+		mysqli_stmt_bind_param($queryCall,'issssiiis',$id, date("Y-m-d h:i:sa"), $title, $description, $tipology, $payment, $pmin, $pmax, date('Y-m-d h:i:sa', strtotime(' + ' .$expiring. ' hours')));
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		$Code_job=mysqli_insert_id($this->connection);
+		if(mysqli_affected_rows($this->connection)){
+			$queryTags= 'INSERT INTO tags_current_jobs(Code_job,Code_tag) VALUES ';
+			$a='';
+			$b=array();
+			foreach($tags as $tag){
+				$queryTags .= '(?,?),';
+				$a.='ii';
+				array_push($b,$Code_job,$tag );
+			}
+			$queryTags=rtrim($queryTags, ",");
+			$queryCall=mysqli_prepare($this->connection, $queryTags);
+			$queryCall->bind_param($a, ...$b);
+			mysqli_stmt_execute($queryCall);
+			$tmp=mysqli_affected_rows($this->connection);
+			mysqli_stmt_close($queryCall);
+			if($tmp)
+				return true;
+		}
+		else
+			return false;
     } else
       return false;
   }
@@ -93,18 +110,39 @@ class DBAccess {
   public function setWinner($winner, $job, $id) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($id) and isset($job)){
+    if(isset($id) and isset($job) and isset($winner)){
       $queryInserimento = 'CALL Set_Winner(?,?,?);';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'iii',$winner, $job, $id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      if(mysqli_fetch_assoc($queryResult))
+      if(mysqli_affected_rows($this->connection))
         return true;
       return false;
     } else
       return false;
+  }
+  
+  /***14.Get User Info***
+  par: int userID;
+  desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
+  ****************************/
+  public function getWinner($job) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($job)) {
+		$queryCall=mysqli_prepare($this->connection, 'SELECT `Code_winner` FROM `past_jobs` WHERE `Code_job` = ? LIMIT 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$job);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else
+			return mysqli_fetch_assoc($queryResult);
+} else
+		return null;
   }
   
   
@@ -128,6 +166,27 @@ class DBAccess {
     } else
       return false;
   }
+
+  /***2.1.Terminate a Job ***
+  par: int userID, int jobID;
+  desc: termina il tempo disponibile per un lavoro
+  ****************************/
+  public function terminateJob($id, $job) {
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+        die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      if(isset($id) and isset($job)){
+        $queryInserimento = 'UPDATE current_jobs SET Expiring = ? WHERE Code_job = ? AND Code_user = ?;';
+        $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+        mysqli_stmt_bind_param($queryCall,'sii',date("Y-m-d h:i:sa",strtotime("-1 minutes")),$job, $id);
+        mysqli_stmt_execute($queryCall);
+        mysqli_stmt_close($queryCall);
+        $result = mysqli_affected_rows($this->connection);
+        if($result)
+          return true;
+        return false;
+      } else
+        return false;
+    }
   
 
   /***3.Get Job Info***
@@ -161,16 +220,16 @@ class DBAccess {
   par: int userID, int jobID, int stars rating, string comments;
   desc: crea una recensione verso un utente userID per un lavoro passato compiuto jobID. ritorna se la transazione ha avuto successo oppure no.
   ****************************/
-  public function createReview($id, $job, $stars, $comments,$date) {
+  public function createReview($id, $job, $stars, $comments) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id) and isset($job) and isset($stars)){
-      $queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments, Date)
-                VALUES (?,?,?,?,?)';
+      $queryInserimento = 'INSERT INTO reviews(Code_user, Code_job, Stars, Comments)
+                VALUES (?,?,?,?)';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       if(!isset($comments))
         $comments='';
-      mysqli_stmt_bind_param($queryCall,'iiiss',$id, $job, $stars, $comments,$date);
+      mysqli_stmt_bind_param($queryCall,'iiis',$id, $job, $stars, $comments);
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
       $tmp=mysqli_affected_rows($this->connection);
@@ -190,7 +249,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT P.Code_user AS C_Rew, R.Code_user AS C_User, R.Stars , R.Comments, R.Date 
-        FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_job = ?;';
+        FROM reviews AS R INNER JOIN past_jobs AS P WHERE R.Code_job =P.Code_job AND R.Code_job = ?;';
       $queryCall=null;
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
@@ -217,20 +276,40 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
-      $queryInserimento = 'SELECT users.Code_user AS Code, users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
-							FROM bids LEFT JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
+      $queryInserimento = 'SELECT users.Code_user AS Code, users.Picture as PFP,users.Nickname, bids.User_price AS Price, bids.Bid_selfdescription AS Description
+							FROM bids INNER JOIN users ON bids.Code_user=users.Code_user WHERE Code_job = ? ;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
       $queryResult = mysqli_stmt_get_result($queryCall);
       mysqli_stmt_close($queryCall);
-      $this->closeDBConnection();
       if(mysqli_num_rows($queryResult) == 0)
         return null;
       $result=array();
       while($row=mysqli_fetch_assoc($queryResult))
         array_push($result, $row);
       return $result;
+    } else
+      return null;
+  }
+  
+    /***6.Get Bids from a Job***
+  par: int jobID;
+  desc: ritorna array contenente tutti gli utenti e le loro offerte al concorso di un lavoro jobID. altrimenti ritorna null.
+  ****************************/
+  public function getWinnerBid($job) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($job)){
+      $queryInserimento = 'SELECT * FROM bid_winner WHERE Code_job = ? LIMIT 1;';
+      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
+      mysqli_stmt_bind_param($queryCall,'i',$job);
+      mysqli_stmt_execute($queryCall);
+      $queryResult = mysqli_stmt_get_result($queryCall);
+      mysqli_stmt_close($queryCall);
+      if(mysqli_num_rows($queryResult) == 0)
+        return null;
+      return mysqli_fetch_assoc($queryResult);
     } else
       return null;
   }
@@ -244,7 +323,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)){
       $queryInserimento = 'SELECT COUNT(DISTINCT bids.Code_user) AS C,current_jobs.Code_job, Title, Tipology, Payment, P_min, P_max, Expiring 
-      FROM current_jobs left join bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
+      FROM current_jobs LEFT JOIN bids on current_jobs.Code_job = bids.Code_job WHERE current_jobs.Code_user = ? GROUP BY current_jobs.Code_job;';
       $queryCall=mysqli_prepare($this->connection, $queryInserimento);
       mysqli_stmt_bind_param($queryCall,'i',$id);
       mysqli_stmt_execute($queryCall);
@@ -336,9 +415,9 @@ class DBAccess {
     if(isset($id) and isset($table)) {
 		if($table<0||$table>2)
 			return null;
-		$user='SELECT tags_users.Code_tag, Name FROM tags_users LEFT JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ? LIMIT 20;';
-		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
-		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs LEFT JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ? LIMIT 5;';
+		$user='SELECT tags_users.Code_tag, Name FROM tags_users INNER JOIN tags ON tags_users.Code_tag=tags.Code_tag WHERE Code_user = ?;';
+		$current='SELECT tags_current_jobs.Code_tag, Name FROM tags_current_jobs INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag WHERE Code_job = ?;';
+		$past='SELECT tags_past_jobs.Code_tag, Name FROM tags_past_jobs INNER JOIN tags ON tags_past_jobs.Code_tag=tags.Code_tag WHERE Code_job = ?;';
 		
 		$queryCall=null;
 		if(!$table)
@@ -429,7 +508,7 @@ class DBAccess {
   public function getMostPopularJobs() {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $query='SELECT Name,tags.Code_tag, COUNT(Code_job) AS frequency FROM tags LEFT JOIN tags_current_jobs ON tags.Code_tag= tags_current_jobs.Code_tag GROUP BY tags.Code_tag ORDER BY frequency DESC LIMIT 4;';
+    $query='SELECT Name,tags.Code_tag, COUNT(Code_job) AS frequency FROM tags RIGHT JOIN tags_current_jobs ON tags.Code_tag= tags_current_jobs.Code_tag GROUP BY tags.Code_tag ORDER BY frequency DESC LIMIT 4;';
     $queryResult = mysqli_query($this->connection, $query);
     if(mysqli_num_rows($queryResult) == 0)
       return null;
@@ -446,7 +525,7 @@ class DBAccess {
   par: string type, int min (prezzo minimo), int date (ultimi x secondi)
   desc: restituisce i lavori di un determinato Type, con price > di min e nell'ultima quantità x di secondi
   ****************************/ 
-  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$tags=null, $pay=2){
+  public function searchJob($bool=false, $tipology='Any',$min=0,$date=9999999,$page=0,$pay=2){
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
 		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
 
@@ -454,35 +533,24 @@ class DBAccess {
 		return null;
 	$page--;
 	
+	$tags=$_SESSION['TagList'];
+	
 	//'CREATE TEMPORARY TABLE IF NOT EXISTS ? AS (
-	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs
-	//	 JOIN(
+	//SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs
+	//	 INNER JOIN(
 	//		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
-	//			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
+	//			INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
 	//			WHERE
 	//				tags_current_jobs.Code_tag=?
 	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
-	//				OR tags_current_jobs.Code_tag=?
+	//				[...]
 	//				OR tags_current_jobs.Code_tag=?
 	//			GROUP BY Code_job
 	//		) res ON res.Code_job=current_jobs.Code_job
+	//	INNER JOIN users
+	//		ON users.Code_user=current_jobs.Code_user
 	//	WHERE
+	//		users.Status='Active'
 	//	 	TIMESTAMPDIFF(HOUR,Date,CURDATE())<? AND
 	//	 	P_min > ? AND
 	//	 	Tipology = ?
@@ -503,9 +571,9 @@ class DBAccess {
 
 	//tag parts
 	$tagsStart='
-	JOIN(
+	INNER JOIN(
 		SELECT Code_job, COUNT(tags_current_jobs.Code_tag) AS counted FROM tags_current_jobs 
-			LEFT JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
+			INNER JOIN tags ON tags_current_jobs.Code_tag=tags.Code_tag
 			WHERE
 				tags_current_jobs.Code_tag=?
 				';
@@ -517,17 +585,24 @@ class DBAccess {
 	
 	//query parts
 	$begin='
-	SELECT current_jobs.Code_job, Date, Title, Description, Tipology, Payment, P_min, P_max FROM current_jobs';
-	$middle='
+	SELECT current_jobs.Code_job, Date, Title, current_jobs.Description, Tipology, Payment, P_min, P_max, Expiring FROM current_jobs';
+	$middle="
+	    INNER JOIN users
+			ON users.Code_user=current_jobs.Code_user
 		WHERE
+		    users.Status='Active' AND
 		 	TIMESTAMPDIFF(HOUR,Date,CURDATE()) < ? AND
 			P_min > ?
-			';
+			";
 	$tip='	AND
 			Tipology = ?
 	';
   $payString='';
-  if($pay==1)
+  if($pay==-1)
+    $payString='	AND
+      Payment = -1
+      ';
+  else if($pay==1)
     $payString='	AND
       Payment != 0
       ';
@@ -570,7 +645,7 @@ class DBAccess {
 		$query.=$tagsEnd;
 	}
 	$query.=$middle;
-  $query.=$payString;
+    $query.=$payString;
 	$type.='ii';
 	$param[$i]=$date;
 	$i++;
@@ -607,8 +682,8 @@ class DBAccess {
 	}
 	$query.=$limit;
 	$type.='ii';
-	$param[$i]=$page*5;
-	$param[$i+1]=5;
+	$param[$i]=$page*10;
+	$param[$i+1]=10;
 	$queryCall=mysqli_prepare($this->connection,$query);
 	if(!$queryCall)
 		die('prepare() failed: ' . htmlspecialchars($this->connection->error));
@@ -617,12 +692,15 @@ class DBAccess {
 	$queryCall->bind_param($type, ...$param);  
 	if(!$queryCall)
 		die('Errore binding parametry query');
-    mysqli_stmt_execute($queryCall);
+	//for($i=0;$i<10000;$i++){
+		mysqli_stmt_execute($queryCall);
+	//}
 	if(!$queryCall)
 		die('Errore esecuzione query');
 	
 	$queryResult = mysqli_stmt_get_result($queryCall);
 	mysqli_stmt_close($queryCall);
+	//echo(microtime(true)-$time);
 	if(mysqli_num_rows($queryResult) == 0)
 		return null;
 	$result=array();
@@ -651,7 +729,28 @@ class DBAccess {
 } else
 		return null;
   }
-
+  
+  
+  /***14.Get User Info***
+  par: int userID;
+  desc: restituisce informazioni di un utente userID. altrimenti ritorna null.
+  ****************************/
+  public function getMinMaxPrice($job) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($job)) {
+		$queryCall=mysqli_prepare($this->connection, 'SELECT P_min,P_max FROM current_jobs WHERE Code_job = ? LIMIT 1;');
+		mysqli_stmt_bind_param($queryCall,'i',$id);
+		mysqli_stmt_execute($queryCall);
+		$queryResult = mysqli_stmt_get_result($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_num_rows($queryResult) == 0)
+			return null;
+		else
+			return mysqli_fetch_assoc($queryResult);
+	} else
+		return null;
+  }  
 
   /***15.Check Username Taken***
   par: int userID;
@@ -706,7 +805,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
     // $queryCall=mysqli_prepare($this->connection, 'SELECT User_Review(?);');
-		$queryCall=mysqli_prepare($this->connection, 'SELECT AVG(Stars) AS AvgStar FROM reviews JOIN past_jobs ON reviews.Code_Job = past_jobs.Code_job WHERE Code_Winner =?;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT AVG(Stars) AS AvgStar FROM reviews WHERE Code_user =?;');
 		mysqli_stmt_bind_param($queryCall,'i',$id);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -724,8 +823,8 @@ class DBAccess {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
-		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_winner AS Winner, R.Code_user AS JobGiver, R.Stars , R.Comments, R.Date 
-						FROM reviews AS R JOIN past_jobs AS P WHERE R.Code_job = P.Code_job AND P.Code_winner = ?  ORDER BY R.Date DESC LIMIT ?;');
+		$queryCall=mysqli_prepare($this->connection, 'SELECT P.Code_user AS JobGiver, R.Stars , R.Comments, R.Date 
+			FROM reviews AS R LEFT JOIN past_jobs AS P ON R.Code_job = P.Code_job WHERE R.Code_user = ?  ORDER BY R.Date DESC LIMIT ?;');
 		mysqli_stmt_bind_param($queryCall,'ii',$id,$number);
 		mysqli_stmt_execute($queryCall);
 		$queryResult = mysqli_stmt_get_result($queryCall);
@@ -751,7 +850,7 @@ class DBAccess {
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     if(isset($id)) {
 
-		$query='SELECT bids.Code_job AS Code , Title, Tipology, Payment, P_min, P_max, Expiring FROM bids LEFT JOIN current_jobs
+		$query='SELECT bids.Code_job AS Code , Title, Tipology, Payment, P_min, P_max, Expiring FROM bids INNER JOIN current_jobs
 				ON current_jobs.Code_job = bids.Code_job WHERE bids.Code_user =?;';
 		$queryold='SELECT Code_job, Status, Title, Tipology, Payment, P_min, P_max FROM past_jobs WHERE Code_winner=?;';
 		if(isset($old) and $old == true)
@@ -778,10 +877,10 @@ class DBAccess {
   par: string password, string name, string surname, string nickname, date birth, string nationality, string city, string address, int phone, string picture, string curriculum, string description;
   desc: inserisce un nuovo utente con i dati ricevuti come paramentro, ritorna true se inserimento va a buon fine, altrimenti false
   ****************************/
-  public function register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
+  public function register_new_user($password, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description, $tags) {
 	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description)){
+	if(isset($password) and isset($name) and isset($surname) and isset($nickname) and isset($birth) and isset($email) and isset($city) and isset($picture) and isset($description) and isset($tags)){
 		//create new entry on table users and then create with the relative index the credentials for the login.
 		$queryInserimento = 'INSERT INTO users(Name, Surname, Nickname, Birth, Email, Nationality, City, Address, Phone, Picture, Curriculum, Description)
 							VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
@@ -798,15 +897,33 @@ class DBAccess {
 		mysqli_stmt_bind_param($queryCall2,'ss', $nickname, $password);
 		mysqli_stmt_execute($queryCall);
 		mysqli_stmt_close($queryCall);
+		$Code_user=mysqli_insert_id($this->connection);
 		$tmp=mysqli_affected_rows($this->connection);
 		if($tmp){
 			mysqli_stmt_execute($queryCall2);
 			$tmp=mysqli_affected_rows($this->connection);
 		}
 		mysqli_stmt_close($queryCall2);
-		if($tmp)
-			return true;
-		return false;
+		if($tmp){
+			$queryTags= 'INSERT INTO tags_users(Code_user,Code_tag) VALUES ';
+			$a='';
+			$b=array();
+			foreach($tags as $tag){
+				$queryTags .= '(?,?),';
+				$a.='ii';
+				array_push($b,$Code_user,$tag );
+			}
+			$queryTags=rtrim($queryTags, ",");
+			$queryCall=mysqli_prepare($this->connection, $queryTags);
+			$queryCall->bind_param($a, ...$b);
+			mysqli_stmt_execute($queryCall);
+			$tmp=mysqli_affected_rows($this->connection);
+			mysqli_stmt_close($queryCall);
+			if($tmp)
+				return true;
+		}
+		else
+			return false;
     } else
 		return false;
   }
@@ -891,18 +1008,16 @@ class DBAccess {
   par: string oldPsw, string newPsw, 
   desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
   ****************************/
-  public function changePassword($oldPsw,$newPsw) {
+  public function changePassword($id,$Psw) {
 	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
       die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    if(isset($oldPsw) && isset($newPsw)){
-      $queryCheck = '';
-      $queryInserimento = 'SET @p=""; CALL ChangeJobStatus(?,?,@p); SELECT @p;';
-      $queryCall=mysqli_prepare($this->connection, $queryInserimento);
-      mysqli_stmt_bind_param($queryCall,'is',$id,$status);
+    if(isset($id) && isset($Psw)){
+      $query = 'CALL Change_password(?,?);';
+      $queryCall=mysqli_prepare($this->connection, $query);
+      mysqli_stmt_bind_param($queryCall,'is',$id,$Psw);
       mysqli_stmt_execute($queryCall);
       mysqli_stmt_close($queryCall);
-      $result = mysqli_affected_rows($this->connection);
-      if($result)
+      if(mysqli_affected_rows($this->connection))
         return true;
       return false;
     } else
@@ -914,7 +1029,8 @@ class DBAccess {
   desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
   ****************************/
   public function changeUserInfo($id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description) {
-    
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
     //create new entry on table users and then create with the relative index the credentials for the login.
     $queryInserimento = 'UPDATE users 
       SET Name=?,Surname=?,Nickname=?,Birth=?,Email=?,Nationality=?,City=?,Address=?,Phone=?,Picture=?,Curriculum=?,Description=? 
@@ -928,6 +1044,45 @@ class DBAccess {
       return true;
     else
       return false;
+  }
+  
+  /***24.changeUserTags***
+  par:  $id, $name, $surname, $nickname, $birth, $email, $nationality, $city, $address, $phone, $picture, $curriculum, $description
+  desc: confronta la password con quella precedente ed in caso sia corretta, la cambia
+  ****************************/
+  public function changeUserTags($id, $tags) {
+    if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+      die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+    if(isset($id) && isset($tags)){
+		$queryTags = 'DELETE FROM tags_users WHERE Code_user=?';
+		$a='i';
+		$queryCall=mysqli_prepare($this->connection, $queryTags);
+		mysqli_stmt_bind_param($queryCall,$a,$id);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		$queryCall=mysqli_prepare($this->connection, $queryTags);
+		$queryTags ='INSERT INTO tags_users (Code_user,Code_tag) VALUES ';
+		$a='';
+		$b=array();
+		foreach($tags as $tag){
+			$queryTags .= '(?,?),';
+			$a.='ii';
+			array_push($b,$id,$tag );
+		}
+		$queryTags=rtrim($queryTags, ",");
+		echo($queryTags);
+		$queryCall=mysqli_prepare($this->connection, $queryTags);
+		echo($a);
+		print_r($b);
+		$queryCall->bind_param($a, ...$b);
+		mysqli_stmt_execute($queryCall);
+		mysqli_stmt_close($queryCall);
+		if(mysqli_affected_rows($this->connection))
+			return true;
+		return false;
+	}
+	else
+		return false;
   }
 
   /***25.removeBid***
@@ -958,7 +1113,7 @@ class DBAccess {
   public function getAdminUserAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT users.Nickname AS Nick,users.Code_user AS Code,users.Status AS Stat,Date, Comments FROM users_admin_actions JOIN users ON users_admin_actions.Code_user = users.Code_user;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT users.Nickname AS Nick,users.Code_user AS Code,users.Status AS Stat,Date, Comments FROM users_admin_actions INNER JOIN users ON users_admin_actions.Code_user = users.Code_user;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
@@ -976,7 +1131,7 @@ class DBAccess {
   public function getAdminJobAction() {
     if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
     die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
+    $queryResult  = mysqli_query($this->connection, 'SELECT past_jobs.Title AS Title, past_jobs.Code_job AS Code,past_admin_actions.Date AS Date, Comments FROM past_admin_actions INNER JOIN past_jobs ON past_admin_actions.Code_job=past_jobs.Code_job;');
     if(mysqli_num_rows($queryResult) == 0)
       return null;
     else {
@@ -1146,9 +1301,9 @@ class DBAccess {
   desc:given a Job Id, an admin ID and a comment from the admin, changes the user status and adds an instance with the comment in past_admin_actions
   */
   public function UnBanUserAdmin($id, $idAdmin,$comment) {
-		if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
-			die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
-		// chiama procedura per ban
+	if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+	// chiama procedura per ban
     $sqlBan = 'UPDATE users SET Status = 1 WHERE Code_user = ? ;';
     $queryCall=mysqli_prepare($this->connection, $sqlBan);
     mysqli_stmt_bind_param($queryCall,'i',$id);
@@ -1171,6 +1326,50 @@ class DBAccess {
     }
     else
       return false;
+  }
+  
+  
+  /* Get Ban reason user 
+  par: none;
+  desc: return the list of users for the admin page;
+  */
+  public function getUserBan($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $query = mysqli_prepare($this->connection,
+		'SELECT Comments, users_admin_actions.Date, users.Nickname FROM users_admin_actions 
+			INNER JOIN users ON users_admin_actions.Code_admin=users.Code_user 
+		  WHERE users_admin_actions.Code_user=? 
+		  ORDER BY users_admin_actions.Date LIMIT 1;');
+	  mysqli_stmt_bind_param($query,'i',$id);
+	  mysqli_stmt_execute($query);
+	  $tmp=mysqli_stmt_get_result($query);
+      mysqli_stmt_close($query);
+	  //var_dump ($this->connection);
+      if(mysqli_num_rows($tmp) == 0)
+        return null;
+      return mysqli_fetch_assoc($tmp);
+  }
+  
+  
+  /* Get delete reason job 
+  par: none;
+  desc: return the list of users for the admin page;
+  */
+  public function getJobDelete($id) {
+	  if(is_resource($this->connection) && get_resource_type($this->connection)==='mysql link')
+		die('<br>You must call openDBConnection() before calling a DBAccess function.<br>Remember to always close it when you are done!');
+      $query = mysqli_prepare($this->connection,
+		'SELECT Comments, past_admin_actions.Date, users.Nickname FROM past_admin_actions 
+			INNER JOIN users ON past_admin_actions.Code_admin=users.Code_user 
+		  WHERE past_admin_actions.Code_job=? LIMIT 1;');
+	  mysqli_stmt_bind_param($query,'i',$id);
+	  mysqli_stmt_execute($query);
+	  $tmp=mysqli_stmt_get_result($query);
+      mysqli_stmt_close($query);
+      if(mysqli_num_rows($tmp) == 0)
+        return null;
+      return mysqli_fetch_assoc($tmp);
   }
   
 }

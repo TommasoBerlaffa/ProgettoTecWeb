@@ -267,6 +267,7 @@ if(isset($_SESSION['user_Username']))
 		$HTML = str_replace( '<result/>', '' ,$HTML);
 		$HTML = preg_replace('/<div id="JobInfo" class="box">((\n|.)*)<\/div>/','<div id="NoJob"><p> It seems like this job doesn\'t exists. If you want to find more jobs, you can search in <a href="findjob.php">find job</a>.</p></div>',$HTML);
 	}
+	$HTML = str_replace('<deletereason/>','',$HTML);
 	$DBAccess->closeDBConnection();
 	echo $HTML;    
 }
